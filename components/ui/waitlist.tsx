@@ -10,7 +10,6 @@ interface WaitlistProps {
 
 // Local avatar photos uploaded to /public for social proof row
 const AVATARS = ['/1claude.JPG', '/3claude.JPG', '/w8.jpg'];
-const SIGNUP_COUNT = 247;
 
 export default function Waitlist({ className = '' }: WaitlistProps) {
   const [email, setEmail] = useState('');
@@ -131,7 +130,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                 ))}
               </div>
               <p className="text-sm font-poppins text-wrrapd-navy/60">
-                <span className="font-semibold text-wrrapd-navy">{SIGNUP_COUNT}</span> joined already
+                don&apos;t have FOMO / join now
               </p>
             </div>
           </motion.div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import AnimatedSocialLinks, { type Social } from '@/components/ui/social-links';
+import { LogoSocialLinks, type Social } from '@/components/ui/social-links';
 import Waitlist from '@/components/ui/waitlist';
 
 export default function Page() {
@@ -34,10 +34,10 @@ export default function Page() {
   }, []);
 
   const socials: Social[] = [
-    { name: 'X', image: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/X_icon_2.svg', href: 'https://x.com/_17Tm', iconSize: 'size-22', tilt: 2 },
-    { name: 'LinkedIn', image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png', href: 'https://www.linkedin.com/in/ubaydulla-noorullah-526994276/' },
-    { name: 'Instagram', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png', href: 'https://www.instagram.com/ubay.xx/' },
-    { name: 'TikTok', image: '/tiktok.png', href: 'https://www.tiktok.com/@ubaydasimp', iconSize: 'size-26', tilt: 12 },
+    { name: 'Twitter', image: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/X_icon_2.svg', href: 'https://x.com/_17Tm', iconSize: 'size-11', tilt: 2 },
+    { name: 'LinkedIn', image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png', href: 'https://www.linkedin.com/in/ubaydulla-noorullah-526994276/', iconSize: 'size-11' },
+    { name: 'Instagram', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png', href: 'https://www.instagram.com/ubay.xx/', iconSize: 'size-11' },
+    { name: 'TikTok', image: '/tiktok.png', href: 'https://www.tiktok.com/@ubaydasimp', iconSize: 'size-16', tilt: 12 },
   ];
 
   return (
@@ -47,7 +47,7 @@ export default function Page() {
       {/* Mask on the header (full-width, left:0) so viewport-relative --mouse-x/y coords align correctly */}
       <header className="always-visible logo-white-layer fixed top-0 left-0 w-full flex justify-center pt-6">
         <div
-          className="font-dmsans font-semibold text-white tracking-tight text-[3.25rem] cursor-default"
+          className="font-dmsans font-semibold text-white tracking-tight text-[4rem] cursor-default"
           data-purpose="logo"
         >
           wrrapd.
@@ -55,31 +55,52 @@ export default function Page() {
       </header>
 
       <div className="logo-in-cutout">
-        <div className="font-dmsans font-semibold text-black tracking-tight text-[3.25rem]">
+        <div className="font-dmsans font-semibold text-black tracking-tight text-[4rem]">
           wrrapd.
         </div>
       </div>
 
-      <main className="flex flex-col items-center min-h-screen px-6 pt-28 pb-24 z-10 relative select-none">
+      {/* group on main so ghost "lock in" text reacts to page hover */}
+      <main className="group flex flex-col items-center min-h-screen px-6 pt-28 pb-24 z-10 relative select-none">
         <h1
           className="font-playfair font-light text-wrrapd-navy leading-[0.88] tracking-tight text-center mb-14"
           style={{ fontSize: "clamp(3.75rem, 8vw, 6.5rem)" }}
         >
           To be launched
           <br />
-          on <span className="italic">March 23</span>
+          {/* Half-highlight: light navy wash covers bottom ~45% of the text like a marker */}
+          on <span
+            className="italic"
+            style={{ background: 'linear-gradient(to top, rgba(10,31,71,0.18) 45%, transparent 45%)', paddingBottom: '0.05em' }}
+          >
+            March 23
+          </span>
         </h1>
 
-        <AnimatedSocialLinks socials={socials} className="mb-4 text-wrrapd-navy" />
+        {/* Subtle prompt above the social icons */}
+        <p className="text-wrrapd-navy/50 text-sm font-poppins mb-3 tracking-wide">(follow me ;)</p>
 
-        {/* Replaced inline form with Waitlist component — includes loading/success states and social proof count */}
+        {/* New logo-only socials — old AnimatedSocialLinks commented out in social-links.tsx */}
+        <LogoSocialLinks socials={socials} className="mb-6" />
+
+        {/* Waitlist form with social proof */}
         <Waitlist className="mb-12" />
 
         <div className="flex-1 min-h-[2rem]" />
+
+        {/* Ghost "lock in" — bottom left, small, desktop only */}
+        <div
+          className="hidden md:block fixed bottom-16 left-6 font-dmsans font-bold text-wrrapd-navy pointer-events-none select-none opacity-0 group-hover:opacity-[0.22] transition-opacity duration-700 z-[60]"
+          style={{ fontSize: '2.5rem', letterSpacing: '-0.03em' }}
+          aria-hidden
+        >
+          lock in
+        </div>
       </main>
 
       <footer className="fixed bottom-0 left-0 right-0 py-4 px-6 flex justify-between items-center bg-wrrapd-gray text-wrrapd-navy text-sm font-poppins font-semibold border-t-2 border-wrrapd-navy/40 z-[50]">
         <span>Under Construction</span>
+        <span className="text-xs font-normal opacity-60">built by a student for students</span>
         <span>© 2026</span>
       </footer>
 
