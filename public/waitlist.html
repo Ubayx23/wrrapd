@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>wrrapd | Coming Soon</title>
+<!-- Google Fonts: Space Grotesk, Playfair Display, Poppins -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Poppins:wght@300;400;600;700&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'wrrapd-navy': '#0F1C2E',
+            'wrrapd-gray': '#F0F0F0',
+          },
+          fontFamily: {
+            'space': ['"Space Grotesk"', 'sans-serif'],
+            'playfair': ['"Playfair Display"', 'serif'],
+            'poppins': ['"Poppins"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="layout-and-mask">
+    :root {
+      --mouse-x: 50%;
+      --mouse-y: 50%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #F0F0F0; /* Base background (visible through cutout) */
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* 
+       The overlay uses a radial gradient mask. 
+       The transparent part of the mask (the 'hole') follows the mouse.
+    */
+    .flashlight-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: #0F1C2E;
+      pointer-events: none; /* Let clicks pass through to form elements */
+      z-index: 20;
+      mask-image: radial-gradient(
+        circle 300px at var(--mouse-x) var(--mouse-y),
+        transparent 99%,
+        black 100%
+      );
+      -webkit-mask-image: radial-gradient(
+        circle 300px at var(--mouse-x) var(--mouse-y),
+        transparent 99%,
+        black 100%
+      );
+    }
+
+    /* Ensure UI elements that stay white are always above the mask */
+    .always-visible {
+      position: relative;
+      z-index: 30;
+    }
+
+    /* The hidden hero text is placed below the mask layer in the stacking context */
+    .hero-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="font-poppins">
+<!-- BEGIN: Flashlight Mask Layer -->
+<div class="flashlight-overlay" id="flashlight"></div>
+<!-- END: Flashlight Mask Layer -->
+<!-- BEGIN: Top Navigation / Logo -->
+<header class="always-visible fixed top-0 left-0 w-full flex justify-center pt-6">
+<div class="font-space font-bold text-white tracking-tight text-[3rem]" data-purpose="logo">
+      wrrapd
+    </div>
+</header>
+<!-- END: Top Navigation / Logo -->
+<!-- BEGIN: Hero Text -->
+<!-- This text is #0F1C2E, making it invisible against the navy overlay but visible when revealed by the gray background -->
+<main class="hero-container select-none">
+<div class="flex flex-col items-center">
+<h1 class="font-playfair leading-[1.1] text-wrrapd-navy" style="font-size: clamp(5rem, 10vw, 9rem);">To be launched<br/>on March 23</h1>
+</div>
+</main>
+<!-- END: Hero Text -->
+<!-- BEGIN: Bottom Interface -->
+<section class="fixed bottom-0 left-0 w-full flex flex-col items-center pb-20 px-6 z-10">
+<!-- Social Icons -->
+<div class="flex gap-[1.5rem] items-center mb-10" data-purpose="social-links">
+<!-- X (Twitter) -->
+<a class="hover:opacity-70 transition-opacity text-wrrapd-navy" href="#">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+</a>
+<!-- LinkedIn -->
+<a class="hover:opacity-70 transition-opacity text-wrrapd-navy" href="#">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+</a>
+<!-- TikTok -->
+<a class="hover:opacity-70 transition-opacity text-wrrapd-navy" href="#">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12.525.02c1.31 0 2.591.214 3.75.606V5.32c-1.027-.308-2.127-.466-3.25-.466-.547 0-1.062.057-1.557.165v12.005c0 2.154-1.746 3.9-3.9 3.9s-3.9-1.746-3.9-3.9 1.746-3.9 3.9-3.9c.462 0 .902.081 1.311.23V8.71c-1.426-.401-2.936-.613-4.5-.613-3.235 0-6 2.765-6 6s2.765 6 6 6 6-2.765 6-6V0h2.164c.504 1.63 1.832 2.895 3.511 3.483V0h-3.75z"></path></svg>
+</a>
+<!-- Instagram -->
+<a class="hover:opacity-70 transition-opacity text-wrrapd-navy" href="#">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+</div>
+<!-- Waitlist Form -->
+<div class="w-full max-w-[400px]" data-purpose="waitlist-container">
+<form class="flex gap-2 w-full">
+<input class="flex-1 bg-transparent border-[0.5px] font-poppins px-4 py-2 focus:ring-0 placeholder:font-light border-wrrapd-navy text-wrrapd-navy placeholder:text-wrrapd-navy/40 focus:border-wrrapd-navy" placeholder="your@email.com" required="" type="email"/>
+<button class="font-poppins font-bold px-6 py-2 transition-transform hover:scale-[1.02] active:scale-95 bg-wrrapd-navy text-wrrapd-gray" type="submit">
+          Join
+        </button>
+</form>
+</div>
+</section>
+<!-- END: Bottom Interface -->
+<script data-purpose="flashlight-logic">
+    // Track mouse position and update CSS variables for the mask
+    const overlay = document.getElementById('flashlight');
+    
+    // Initial position center
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    function updateFlashlight(e) {
+      // Use clientX/Y for mouse events, touches[0] for touch events
+      const x = e.clientX || (e.touches && e.touches[0].clientX);
+      const y = e.clientY || (e.touches && e.touches[0].clientY);
+
+      if (x !== undefined && y !== undefined) {
+        document.documentElement.style.setProperty('--mouse-x', `${x}px`);
+        document.documentElement.style.setProperty('--mouse-y', `${y}px`);
+      }
+    }
+
+    // Event listeners for interactivity
+    window.addEventListener('mousemove', updateFlashlight);
+    window.addEventListener('touchmove', updateFlashlight);
+
+    // Initial positioning to ensure it's centered on load
+    document.documentElement.style.setProperty('--mouse-x', `${mouseX}px`);
+    document.documentElement.style.setProperty('--mouse-y', `${mouseY}px`);
+  </script>
+</body></html>
