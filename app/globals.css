@@ -1,19 +1,6 @@
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
-@custom-variant dark (&:is(.dark *));
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@theme {
-  --color-wrrapd-navy: #0F1C2E;
-  --color-wrrapd-gray: #F0F0F0;
-  --font-space: '"Space Grotesk", sans-serif';
-  --font-playfair: '"Playfair Display", serif';
-  --font-poppins: '"Poppins", sans-serif';
-}
 
 :root {
   --mouse-x: 50%;
@@ -24,26 +11,29 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #F0F0F0;
+  background-color: #d8dfe9;
   height: 100vh;
   width: 100vw;
-  font-family: 'Poppins', sans-serif;
 }
 
 .flashlight-overlay {
   position: fixed;
   inset: 0;
-  background-color: #0F1C2E;
+  background-color: #0a1f47;
   pointer-events: none;
   z-index: 20;
   mask-image: radial-gradient(
-    circle 300px at var(--mouse-x) var(--mouse-y),
-    transparent 99%,
+    circle 250px at var(--mouse-x) var(--mouse-y),
+    transparent 0%,
+    transparent 94%,
+    rgba(0, 0, 0, 0.6) 98%,
     black 100%
   );
   -webkit-mask-image: radial-gradient(
-    circle 300px at var(--mouse-x) var(--mouse-y),
-    transparent 99%,
+    circle 250px at var(--mouse-x) var(--mouse-y),
+    transparent 0%,
+    transparent 94%,
+    rgba(0, 0, 0, 0.6) 98%,
     black 100%
   );
 }
@@ -61,4 +51,48 @@ body {
   justify-content: center;
   z-index: 10;
   text-align: center;
+}
+
+.logo-in-cutout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+  pointer-events: none;
+  z-index: 25;
+  mask-image: radial-gradient(
+    circle 250px at var(--mouse-x) var(--mouse-y),
+    black 0%,
+    black 94%,
+    rgba(0, 0, 0, 0.6) 98%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle 250px at var(--mouse-x) var(--mouse-y),
+    black 0%,
+    black 94%,
+    rgba(0, 0, 0, 0.6) 98%,
+    transparent 100%
+  );
+}
+
+@media (max-width: 768px) {
+  [data-purpose="social-links"] a,
+  [data-purpose="waitlist-container"] input,
+  [data-purpose="waitlist-container"] button {
+    color: white !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+  }
+
+  [data-purpose="waitlist-container"] input::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  [data-purpose="waitlist-container"] button {
+    background-color: white !important;
+    color: #0a1f47 !important;
+  }
 }
