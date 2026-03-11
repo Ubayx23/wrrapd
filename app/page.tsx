@@ -44,9 +44,10 @@ export default function Page() {
     <>
       <div className="flashlight-overlay" id="flashlight" />
 
-      <header className="always-visible fixed top-0 left-0 w-full flex justify-center pt-6">
+      {/* Mask on the header (full-width, left:0) so viewport-relative --mouse-x/y coords align correctly */}
+      <header className="always-visible logo-white-layer fixed top-0 left-0 w-full flex justify-center pt-6">
         <div
-          className="font-dmsans font-semibold text-white tracking-tight text-[3.25rem]"
+          className="font-dmsans font-semibold text-white tracking-tight text-[3.25rem] cursor-default"
           data-purpose="logo"
         >
           wrrapd.
@@ -54,7 +55,7 @@ export default function Page() {
       </header>
 
       <div className="logo-in-cutout">
-        <div className="font-dmsans font-semibold text-wrrapd-navy tracking-tight text-[3.25rem]">
+        <div className="font-dmsans font-semibold text-black tracking-tight text-[3.25rem]">
           wrrapd.
         </div>
       </div>
