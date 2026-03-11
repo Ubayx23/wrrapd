@@ -28,7 +28,8 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-poppins">{children}</body>
+      {/* suppressHydrationWarning prevents browser extensions from causing hydration errors */}
+      <body className="font-poppins" suppressHydrationWarning>{children}</body>
     </html>
   );
 }

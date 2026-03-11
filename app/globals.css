@@ -79,20 +79,4 @@ body {
   );
 }
 
-@media (max-width: 768px) {
-  [data-purpose="social-links"] a,
-  [data-purpose="waitlist-container"] input,
-  [data-purpose="waitlist-container"] button {
-    color: white !important;
-    border-color: rgba(255, 255, 255, 0.4) !important;
-  }
-
-  [data-purpose="waitlist-container"] input::placeholder {
-    color: rgba(255, 255, 255, 0.5) !important;
-  }
-
-  [data-purpose="waitlist-container"] button {
-    background-color: white !important;
-    color: #0a1f47 !important;
-  }
-}
+/* Removed mobile color overrides — form uses bg-white/70 so text must stay dark (wrrapd-navy), not white */
