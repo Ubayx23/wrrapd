@@ -44,27 +44,28 @@ export default function Page() {
     <>
       <div className="flashlight-overlay" id="flashlight" />
 
-      {/* Mask on the header (full-width, left:0) so viewport-relative --mouse-x/y coords align correctly */}
-      <header className="always-visible logo-white-layer fixed top-0 left-0 w-full flex justify-center pt-6">
+      {/* Mask on header (full-width, left:0) so viewport-relative --mouse-x/y coords align correctly */}
+      <header className="always-visible logo-white-layer fixed top-0 left-0 w-full flex justify-center pt-4 md:pt-6">
         <div
-          className="font-dmsans font-semibold text-white tracking-tight text-[4rem] cursor-default"
+          className="font-dmsans font-semibold text-white tracking-tight text-[3rem] md:text-[4rem] cursor-default"
           data-purpose="logo"
         >
           wrrapd.
         </div>
       </header>
 
+      {/* Dark cutout logo — visible inside the flashlight circle */}
       <div className="logo-in-cutout">
-        <div className="font-dmsans font-semibold text-black tracking-tight text-[4rem]">
+        <div className="font-dmsans font-semibold text-black tracking-tight text-[3rem] md:text-[4rem]">
           wrrapd.
         </div>
       </div>
 
       {/* group on main so ghost "lock in" text reacts to page hover */}
-      <main className="group flex flex-col items-center min-h-screen px-6 pt-28 pb-24 z-10 relative select-none">
+      <main className="group flex flex-col items-center min-h-dvh px-6 pt-20 md:pt-28 pb-28 md:pb-24 z-10 relative">
         <h1
-          className="font-playfair font-light text-wrrapd-navy leading-[0.88] tracking-tight text-center mb-14"
-          style={{ fontSize: "clamp(3.75rem, 8vw, 6.5rem)" }}
+          className="font-playfair font-light text-wrrapd-navy leading-[0.88] tracking-tight text-center mb-10 md:mb-14"
+          style={{ fontSize: "clamp(2.75rem, 8vw, 6.5rem)" }}
         >
           To be launched
           <br />
@@ -98,18 +99,13 @@ export default function Page() {
         </div>
       </main>
 
-      <footer className="fixed bottom-0 left-0 right-0 py-4 px-6 flex justify-between items-center bg-wrrapd-gray text-wrrapd-navy text-sm font-poppins font-semibold border-t-2 border-wrrapd-navy/40 z-[50]">
+      {/* Sticky on mobile so it sits below content; fixed on desktop */}
+      <footer className="sticky md:fixed bottom-0 left-0 right-0 py-4 px-6 flex justify-between items-center bg-wrrapd-gray text-wrrapd-navy text-sm font-poppins font-semibold border-t-2 border-wrrapd-navy/40 z-[50]">
         <span>Under Construction</span>
         <span className="text-xs font-normal opacity-60">built by a student for students</span>
         <span>© 2026</span>
       </footer>
 
-      <span
-        className="fixed bottom-14 right-4 z-30 text-[12px] text-wrrapd-navy font-poppins select-none pointer-events-none"
-        aria-hidden
-      >
-        unc status
-      </span>
     </>
   );
 }

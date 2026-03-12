@@ -85,7 +85,8 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                 onChange={(e) => { setEmail(e.target.value); setError(''); }}
                 placeholder="Your Email Address"
                 disabled={isLoading}
-                className="w-full sm:w-auto flex-grow bg-transparent sm:pl-12 px-4 py-3 font-poppins text-wrrapd-navy placeholder:text-wrrapd-navy/70 outline-none text-center sm:text-left disabled:opacity-50"
+                /* font-size 16px min prevents iOS from auto-zooming the page on input focus */
+                className="w-full sm:w-auto flex-grow bg-transparent sm:pl-12 px-4 py-3 font-poppins text-wrrapd-navy placeholder:text-wrrapd-navy/70 outline-none text-center sm:text-left disabled:opacity-50 text-base"
                 required
               />
               <motion.button
