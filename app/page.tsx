@@ -18,6 +18,7 @@ export default function Page() {
     setPos(window.innerWidth / 2, window.innerHeight / 2);
 
     const onMove = (e: MouseEvent | TouchEvent) => {
+      if (window.innerWidth <= 743) return;
       const ev = e as MouseEvent;
       const touch = (e as TouchEvent).touches?.[0];
       const x = ev.clientX ?? touch?.clientX;
@@ -27,6 +28,7 @@ export default function Page() {
 
     window.addEventListener('mousemove', onMove, { passive: true });
     window.addEventListener('touchmove', onMove, { passive: true });
+
     return () => {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('touchmove', onMove);
@@ -46,23 +48,21 @@ export default function Page() {
 
       {/* Mask on header (full-width, left:0) so viewport-relative --mouse-x/y coords align correctly */}
       <header className="always-visible logo-white-layer fixed top-0 left-0 w-full flex justify-center pt-4 md:pt-6">
-        <div
-          className="font-dmsans font-semibold text-white tracking-tight text-[3rem] md:text-[4rem] cursor-default"
-          data-purpose="logo"
-        >
-          wrrapd.
+        {/* White version — dark backgrounds (desktop overlay + mobile dark bg) */}
+        <div className="flex items-center cursor-default" data-purpose="logo">
+          <span className="font-dmsans font-semibold text-white tracking-tight text-[3rem] md:text-[4rem]">wrrapd.</span>
         </div>
       </header>
 
-      {/* Dark cutout logo — visible inside the flashlight circle */}
+      {/* Dark cutout logo — visible inside the flashlight circle (light background) */}
       <div className="logo-in-cutout">
-        <div className="font-dmsans font-semibold text-black tracking-tight text-[3rem] md:text-[4rem]">
-          wrrapd.
+        <div className="flex items-center">
+          <span className="font-dmsans font-semibold text-black tracking-tight text-[3rem] md:text-[4rem]">wrrapd.</span>
         </div>
       </div>
 
       {/* group on main so ghost "lock in" text reacts to page hover */}
-      <main className="group flex flex-col items-center min-h-dvh px-6 pt-20 md:pt-28 pb-28 md:pb-24 z-10 relative">
+      <main className="group flex flex-col items-center justify-center min-h-dvh px-6 pt-16 pb-32 z-10 relative">
         <h1
           className="font-playfair font-light text-wrrapd-navy leading-[0.88] tracking-tight text-center mb-10 md:mb-14"
           style={{ fontSize: "clamp(2.75rem, 8vw, 6.5rem)" }}
@@ -85,9 +85,7 @@ export default function Page() {
         <LogoSocialLinks socials={socials} className="mb-6" />
 
         {/* Waitlist form with social proof */}
-        <Waitlist className="mb-12" />
-
-        <div className="flex-1 min-h-[2rem]" />
+        <Waitlist className="mb-0" />
 
         {/* Ghost "lock in" — bottom left, small, desktop only */}
         <div

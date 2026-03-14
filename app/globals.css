@@ -18,7 +18,7 @@ body {
 }
 
 /* Desktop: lock scroll since everything fits in one screen */
-@media (min-width: 768px) {
+@media (min-width: 744px) {
   body {
     overflow: hidden;
     height: 100vh;
@@ -88,7 +88,107 @@ body {
   );
 }
 
-/* Removed mobile color overrides — form uses bg-white/70 so text must stay dark (wrrapd-navy), not white */
+/* Mobile — below 744px: clean static layout, no overlay */
+@media (max-width: 743px) {
+  html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    background-color: #d8dfe9 !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 100dvh !important;
+    padding: 80px 24px 80px !important;
+  }
+
+  .flashlight-overlay {
+    display: none !important;
+  }
+
+  .logo-in-cutout {
+    display: none !important;
+  }
+
+  .logo-white-layer {
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+  }
+
+  header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    text-align: center !important;
+    padding: 20px 0 0 0 !important;
+    z-index: 30 !important;
+    background: transparent !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+  }
+
+  header span {
+    color: #0a1f47 !important;
+    font-size: clamp(2rem, 7vw, 3rem) !important;
+  }
+
+  main.group {
+    position: relative !important;
+    inset: auto !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    max-width: 600px !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 16px !important;
+  }
+
+  main h1 {
+    font-size: clamp(2.4rem, 8vw, 4rem) !important;
+    line-height: 1.15 !important;
+    color: #0a1f47 !important;
+    margin-bottom: 0 !important;
+    text-align: center !important;
+  }
+
+  main h1 span {
+    color: #0a1f47 !important;
+    font-size: inherit !important;
+  }
+
+  main p {
+    color: #0a1f47 !important;
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+  }
+
+  main a {
+    color: #0a1f47 !important;
+  }
+
+  footer {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    background-color: #0a1f47 !important;
+    border-top: 0.5px solid rgba(255,255,255,0.1) !important;
+    z-index: 50 !important;
+  }
+
+  footer * {
+    color: rgba(255,255,255,0.8) !important;
+  }
+}
 
 /* Same mask as flashlight-overlay — hides the white logo inside the circle so the dark cutout shows through */
 .logo-white-layer {
