@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, CheckCircle, Loader2 } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 interface WaitlistProps {
   className?: string;
@@ -27,11 +28,22 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
     setIsLoading(true);
     setError('');
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsSubmitted(true);
-    }, 1500);
+    const { error: dbError } = await supabase
+      .from('waitlist')
+      .insert({ email });
+
+    setIsLoading(false);
+
+    if (dbError) {
+      if (dbError.code === '23505') {
+        setError('you are already on the list');
+      } else {
+        setError('something went wrong, please try again');
+      }
+      return;
+    }
+
+    setIsSubmitted(true);
   };
 
   return (
