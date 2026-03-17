@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (max-width: 640px) {
+  .nav-link-hide-mobile {
+    display: none !important;
+  }
+}
+
 :root {
   --mouse-x: 50%;
   --mouse-y: 50%;

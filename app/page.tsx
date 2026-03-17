@@ -67,7 +67,7 @@ export default function Page() {
           className="font-playfair font-light text-wrrapd-navy leading-[0.88] tracking-tight text-center mb-10 md:mb-14"
           style={{ fontSize: "clamp(2.75rem, 8vw, 6.5rem)" }}
         >
-          To be launched
+          to be launched
           <br />
           {/* Half-highlight: light navy wash covers bottom ~45% of the text like a marker */}
           on <span
