@@ -33,32 +33,9 @@ export default function Problem() {
 
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         {/* Two column layout */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: 'clamp(48px, 8vw, 96px)',
-          alignItems: 'center',
-        }}>
+        <div className="problem-grid">
           {/* LEFT — confession lines */}
           <div>
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 11,
-                fontWeight: 600,
-                color: 'rgba(76,61,143,0.8)',
-                letterSpacing: '2px',
-                textTransform: 'uppercase',
-                marginBottom: 32,
-              }}
-            >
-              sound familiar?
-            </motion.p>
-
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 3vw, 28px)', marginBottom: 64 }}>
               {lines.map((line, i) => (
                 <motion.div
@@ -128,6 +105,9 @@ export default function Problem() {
               justifyContent: 'center',
               alignItems: 'center',
               position: 'relative',
+              maxWidth: '280px',
+              margin: '0 auto',
+              width: '100%',
             }}
           >
             <Globe />

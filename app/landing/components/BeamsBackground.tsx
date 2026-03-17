@@ -44,10 +44,11 @@ export function BeamsBackground({ children }: { children?: React.ReactNode }) {
 
     const updateCanvasSize = () => {
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
+      const parent = canvas.parentElement;
+      canvas.width = (parent?.offsetWidth || window.innerWidth) * dpr;
+      canvas.height = (parent?.offsetHeight || window.innerHeight) * dpr;
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
       ctx.scale(dpr, dpr);
       beamsRef.current = Array.from({ length: 20 }, () =>
         createBeam(canvas.width, canvas.height)
@@ -57,7 +58,7 @@ export function BeamsBackground({ children }: { children?: React.ReactNode }) {
     updateCanvasSize();
     window.addEventListener('resize', updateCanvasSize);
 
-    function resetBeam(beam: Beam, index: number, total: number) {
+    function resetBeam(beam: Beam, index: number) {
       if (!canvas) return beam;
       const column = index % 3;
       const spacing = canvas.width / 3;
@@ -91,11 +92,10 @@ export function BeamsBackground({ children }: { children?: React.ReactNode }) {
       if (!canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.filter = 'blur(35px)';
-      const total = beamsRef.current.length;
       beamsRef.current.forEach((beam, index) => {
         beam.y -= beam.speed;
         beam.pulse += beam.pulseSpeed;
-        if (beam.y + beam.length < -100) resetBeam(beam, index, total);
+        if (beam.y + beam.length < -100) resetBeam(beam, index);
         drawBeam(ctx, beam);
       });
       animationFrameRef.current = requestAnimationFrame(animate);
@@ -110,8 +110,8 @@ export function BeamsBackground({ children }: { children?: React.ReactNode }) {
   }, []);
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', background: '#07070F' }}>
-      <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, filter: 'blur(15px)' }} />
+    <div style={{ position: 'relative', width: '100%', minHeight: '100%', background: '#07070F' }}>
+      <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', filter: 'blur(15px)', pointerEvents: 'none' }} />
       <motion.div
         style={{ position: 'absolute', inset: 0, backdropFilter: 'blur(50px)' }}
         animate={{ opacity: [0.05, 0.15, 0.05] }}

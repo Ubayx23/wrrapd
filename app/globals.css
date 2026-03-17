@@ -6,6 +6,22 @@
   .nav-link-hide-mobile {
     display: none !important;
   }
+  .nav-divider-hide-mobile {
+    display: none !important;
+  }
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .problem-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
 }
 
 :root {
@@ -23,9 +39,9 @@ body {
   min-height: 100dvh;
 }
 
-/* Desktop: lock scroll since everything fits in one screen */
+/* Desktop: lock scroll since everything fits in one screen — not on landing page */
 @media (min-width: 744px) {
-  body {
+  body:not(:has(.landing-page)) {
     overflow: hidden;
     height: 100vh;
   }
@@ -96,13 +112,13 @@ body {
 
 /* Mobile — below 744px: clean static layout, no overlay */
 @media (max-width: 743px) {
-  html, body {
+  html:not(:has(.landing-page)), body:not(:has(.landing-page)) {
     height: 100%;
     width: 100%;
     overflow: hidden;
   }
 
-  body {
+  body:not(:has(.landing-page)) {
     background-color: #d8dfe9 !important;
     position: relative !important;
     display: flex !important;
@@ -157,7 +173,7 @@ body {
     gap: 16px !important;
   }
 
-  main h1 {
+  main:not(.landing-page) h1 {
     font-size: clamp(2.4rem, 8vw, 4rem) !important;
     line-height: 1.15 !important;
     color: #0a1f47 !important;
@@ -165,18 +181,18 @@ body {
     text-align: center !important;
   }
 
-  main h1 span {
+  main:not(.landing-page) h1 span {
     color: #0a1f47 !important;
     font-size: inherit !important;
   }
 
-  main p {
+  main:not(.landing-page) p {
     color: #0a1f47 !important;
     font-size: 0.9rem !important;
     line-height: 1.5 !important;
   }
 
-  main a {
+  main:not(.landing-page) a {
     color: #0a1f47 !important;
   }
 

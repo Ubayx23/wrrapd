@@ -1,10 +1,23 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BeamsBackground } from './BeamsBackground';
 
 export default function Hero() {
   const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    const prev = {
+      htmlStyle: document.documentElement.getAttribute('style') || '',
+      bodyStyle: document.body.getAttribute('style') || '',
+    };
+    document.documentElement.style.cssText += ';height:auto!important;overflow:auto!important';
+    document.body.style.cssText += ';overflow:auto!important;height:auto!important;min-height:100dvh!important;display:block!important;position:static!important';
+    return () => {
+      document.documentElement.setAttribute('style', prev.htmlStyle);
+      document.body.setAttribute('style', prev.bodyStyle);
+    };
+  }, []);
 
   return (
     <>
@@ -50,8 +63,8 @@ export default function Hero() {
             wrrapd<span style={{ color: '#4C3D8F' }}>.</span>
           </span>
 
-          {/* Divider */}
-          <div style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.1)', marginRight: 4, flexShrink: 0 }} />
+          {/* Divider — hidden on mobile */}
+          <div className="nav-divider-hide-mobile" style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.1)', marginRight: 4, flexShrink: 0 }} />
 
           {/* Nav links — hidden on mobile */}
           {[['how it works', '#how-it-works'], ['pricing', '#pricing']].map(([label, href]) => (
@@ -109,8 +122,8 @@ export default function Hero() {
       {/* ── HERO SECTION ── */}
       <section style={{
         position: 'relative',
-        minHeight: '100vh',
-        overflow: 'hidden',
+        width: '100%',
+        overflowX: 'hidden',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -120,7 +133,7 @@ export default function Hero() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            paddingTop: 'clamp(80px, 15vw, 140px)',
+            paddingTop: 'clamp(60px, 12vw, 140px)',
             width: '100%',
           }}>
 
@@ -136,7 +149,7 @@ export default function Hero() {
                 fontSize: 'clamp(44px, 10vw, 96px)',
                 fontWeight: 800,
                 color: '#FFFFFF',
-                letterSpacing: '-3px',
+                letterSpacing: 'clamp(-1px, -0.5vw, -3px)',
                 lineHeight: 1.05,
                 margin: '0 0 20px',
               }}>
@@ -188,14 +201,14 @@ export default function Hero() {
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 6, ease: 'easeInOut', repeat: Infinity }}
                 style={{
-                  width: 'clamp(260px, 72vw, 360px)',
-                  height: 'clamp(520px, 144vw, 720px)',
+                  width: 'clamp(260px, 86vw, 360px)',
+                  height: 'clamp(520px, 172vw, 720px)',
                   background: '#0f0f0f',
                   border: '7px solid #1e1e1e',
                   borderRadius: '48px',
                   position: 'relative',
                   overflow: 'hidden',
-                  marginBottom: '-240px',
+                  marginBottom: '-180px',
                   boxShadow: '0 0 0 1px rgba(76,61,143,0.25), 0 40px 80px rgba(0,0,0,0.8), 0 0 100px rgba(76,61,143,0.2)',
                   zIndex: 1,
                   flexShrink: 0,
@@ -209,7 +222,7 @@ export default function Hero() {
                   transform: 'translateX(-50%)',
                   width: 110,
                   height: 30,
-                  background: '#000',
+                  background: '#000000',
                   borderRadius: 20,
                   zIndex: 10,
                 }} />
@@ -232,13 +245,13 @@ export default function Hero() {
                     alignItems: 'center',
                     flexShrink: 0,
                   }}>
-                    <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, fontWeight: 600, color: '#000' }}>9:41</span>
+                    <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, fontWeight: 600, color: '#000000' }}>9:41</span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                       {[4, 6, 9, 12].map((h, i) => (
-                        <div key={i} style={{ width: 3, height: h, background: '#000', borderRadius: 1 }} />
+                        <div key={i} style={{ width: 3, height: h, background: '#000000', borderRadius: 1 }} />
                       ))}
-                      <div style={{ width: 20, height: 10, border: '1.5px solid #000', borderRadius: 3, padding: '1px 2px', marginLeft: 3 }}>
-                        <div style={{ width: '70%', height: '100%', background: '#000', borderRadius: 1 }} />
+                      <div style={{ width: 20, height: 10, border: '1.5px solid #000000', borderRadius: 3, padding: '1px 2px', marginLeft: 3 }}>
+                        <div style={{ width: '70%', height: '100%', background: '#000000', borderRadius: 1 }} />
                       </div>
                     </div>
                   </div>
@@ -254,10 +267,10 @@ export default function Hero() {
                   }}>
                     <span style={{ fontSize: 18, color: '#007AFF' }}>‹</span>
                     <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#4C3D8F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 11, fontWeight: 700, color: '#fff' }}>w.</span>
+                      <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 11, fontWeight: 700, color: '#ffffff' }}>w.</span>
                     </div>
                     <div>
-                      <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 13, fontWeight: 600, color: '#000' }}>wrrapd</div>
+                      <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 13, fontWeight: 600, color: '#000000' }}>wrrapd</div>
                       <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 10, color: 'rgba(0,0,0,0.35)' }}>daily check-in</div>
                     </div>
                   </div>
@@ -271,7 +284,7 @@ export default function Hero() {
                       style={{ maxWidth: '82%' }}
                     >
                       <div style={{ background: '#E9E9EB', borderRadius: '4px 18px 18px 18px', padding: '10px 14px' }}>
-                        <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, color: '#000', lineHeight: 1.5, margin: 0 }}>
+                        <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, color: '#000000', lineHeight: 1.5, margin: 0 }}>
                           are you becoming who you said you want to become?
                         </p>
                       </div>
@@ -308,11 +321,11 @@ export default function Hero() {
                       gap: 6,
                       background: '#F2F2F7',
                     }}>
-                      <div style={{ flex: 1, background: '#fff', borderRadius: 18, padding: '7px 14px', border: '0.5px solid rgba(0,0,0,0.12)' }}>
+                      <div style={{ flex: 1, background: '#ffffff', borderRadius: 18, padding: '7px 14px', border: '0.5px solid rgba(0,0,0,0.12)' }}>
                         <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, color: 'rgba(0,0,0,0.25)' }}>iMessage</span>
                       </div>
                       <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#4C3D8F', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <span style={{ color: '#fff', fontSize: 12 }}>↑</span>
+                        <span style={{ color: '#ffffff', fontSize: 12 }}>↑</span>
                       </div>
                     </div>
 
@@ -341,7 +354,7 @@ export default function Hero() {
                             fontSize: key === 'return' || key === '123' ? 8 : 11,
                             fontFamily: 'Poppins, sans-serif',
                             fontWeight: 500,
-                            color: '#000',
+                            color: '#000000',
                             boxShadow: '0 1px 0 rgba(0,0,0,0.25)',
                             minWidth: 0,
                           }}>
@@ -355,69 +368,15 @@ export default function Hero() {
               </motion.div>
             </motion.div>
 
-            {/* EMAIL CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              style={{
-                position: 'relative',
-                zIndex: 3,
-                textAlign: 'center',
-                padding: 'clamp(260px, 55vw, 300px) 24px 80px',
-                background: 'linear-gradient(to bottom, transparent 0%, #0a0a0f 30%, #FAFAFA 65%)',
-                width: '100%',
-              }}
-            >
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                maxWidth: 380,
-                margin: '0 auto 10px',
-                background: '#fff',
-                border: '1px solid rgba(0,0,0,0.1)',
-                borderRadius: 10,
-                padding: '5px 5px 5px 16px',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-              }}>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  style={{
-                    flex: 1,
-                    background: 'transparent',
-                    border: 'none',
-                    outline: 'none',
-                    fontFamily: 'Poppins, sans-serif',
-                    fontSize: 14,
-                    color: '#000',
-                    minWidth: 0,
-                  }}
-                />
-                <button
-                  onClick={e => { e.preventDefault(); console.log('signup:', email); }}
-                  style={{
-                    background: '#4C3D8F',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: 8,
-                    padding: '9px 18px',
-                    fontFamily: 'Poppins, sans-serif',
-                    fontSize: 12,
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  get started →
-                </button>
-              </div>
-              <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 11, color: 'rgba(0,0,0,0.3)' }}>
-                7 day free trial — no credit card required
-              </p>
-            </motion.div>
+            <div style={{
+              position: 'relative',
+              zIndex: 3,
+              width: '100%',
+              height: 'clamp(200px, 40vw, 280px)',
+              background: 'linear-gradient(to bottom, transparent 0%, #07070F 60%)',
+              pointerEvents: 'none',
+              flexShrink: 0,
+            }} />
           </div>
         </BeamsBackground>
       </section>
