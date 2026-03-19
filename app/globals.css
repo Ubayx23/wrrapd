@@ -24,6 +24,15 @@
   }
 }
 
+@media (max-width: 767px) {
+  .how-it-works-row {
+    grid-template-columns: 1fr !important;
+  }
+  .how-it-works-row > div {
+    order: unset !important;
+  }
+}
+
 :root {
   --mouse-x: 50%;
   --mouse-y: 50%;

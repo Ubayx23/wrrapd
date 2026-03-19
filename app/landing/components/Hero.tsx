@@ -197,172 +197,158 @@ export default function Hero() {
                 zIndex: 0,
               }} />
 
+              {/* DaisyUI mockup-phone shell */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 6, ease: 'easeInOut', repeat: Infinity }}
-                style={{
-                  width: 'clamp(260px, 86vw, 360px)',
-                  height: 'clamp(520px, 172vw, 720px)',
-                  background: '#0f0f0f',
-                  border: '7px solid #1e1e1e',
-                  borderRadius: '48px',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  marginBottom: '-180px',
-                  boxShadow: '0 0 0 1px rgba(76,61,143,0.25), 0 40px 80px rgba(0,0,0,0.8), 0 0 100px rgba(76,61,143,0.2)',
-                  zIndex: 1,
-                  flexShrink: 0,
-                }}
+                style={{ marginBottom: '-180px', zIndex: 1, flexShrink: 0 }}
               >
-                {/* Dynamic island */}
-                <div style={{
-                  position: 'absolute',
-                  top: 12,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: 110,
-                  height: 30,
-                  background: '#000000',
-                  borderRadius: 20,
-                  zIndex: 10,
-                }} />
+                <div
+                  className="mockup-phone"
+                  style={{
+                    maxWidth: 'clamp(260px, 86vw, 340px)',
+                    width: '100%',
+                    borderColor: '#2a2a2a',
+                    boxShadow: '0 0 0 1px rgba(76,61,143,0.25), 0 40px 80px rgba(0,0,0,0.9), 0 0 100px rgba(76,61,143,0.25)',
+                  }}
+                >
+                  {/* Camera notch (DaisyUI dynamic island) */}
+                  <div className="mockup-phone-camera" />
 
-                {/* Screen content */}
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: '#FFFFFF',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  overflow: 'hidden',
-                }}>
-                  {/* Status bar */}
-                  <div style={{
-                    height: 50,
-                    padding: '14px 18px 0',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    flexShrink: 0,
-                  }}>
-                    <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, fontWeight: 600, color: '#000000' }}>9:41</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                      {[4, 6, 9, 12].map((h, i) => (
-                        <div key={i} style={{ width: 3, height: h, background: '#000000', borderRadius: 1 }} />
-                      ))}
-                      <div style={{ width: 20, height: 10, border: '1.5px solid #000000', borderRadius: 3, padding: '1px 2px', marginLeft: 3 }}>
-                        <div style={{ width: '70%', height: '100%', background: '#000000', borderRadius: 1 }} />
-                      </div>
-                    </div>
-                  </div>
+                  {/* Screen */}
+                  <div className="mockup-phone-display">
+                    <div style={{ height: '100%', background: '#FFFFFF', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
-                  {/* Contact header */}
-                  <div style={{
-                    padding: '4px 14px 8px',
-                    borderBottom: '0.5px solid rgba(0,0,0,0.08)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 10,
-                    flexShrink: 0,
-                  }}>
-                    <span style={{ fontSize: 18, color: '#007AFF' }}>‹</span>
-                    <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#4C3D8F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 11, fontWeight: 700, color: '#ffffff' }}>w.</span>
-                    </div>
-                    <div>
-                      <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 13, fontWeight: 600, color: '#000000' }}>wrrapd</div>
-                      <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 10, color: 'rgba(0,0,0,0.35)' }}>daily check-in</div>
-                    </div>
-                  </div>
-
-                  {/* Messages */}
-                  <div style={{ flex: 1, padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: 8, overflow: 'hidden' }}>
-                    <motion.div
-                      initial={{ opacity: 0, x: -14 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.9 }}
-                      style={{ maxWidth: '82%' }}
-                    >
-                      <div style={{ background: '#E9E9EB', borderRadius: '4px 18px 18px 18px', padding: '10px 14px' }}>
-                        <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, color: '#000000', lineHeight: 1.5, margin: 0 }}>
-                          are you becoming who you said you want to become?
-                        </p>
-                      </div>
-                      <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 10, color: 'rgba(0,0,0,0.28)', marginTop: 3, paddingLeft: 2 }}>8:00 AM</p>
-                    </motion.div>
-
-                    {/* Typing dots */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 1.5 }}
-                    >
-                      <div style={{ background: '#E9E9EB', borderRadius: '4px 18px 18px 18px', padding: '10px 14px', width: 58, display: 'flex', gap: 4, alignItems: 'center', justifyContent: 'center' }}>
-                        {[0, 1, 2].map(i => (
-                          <motion.div
-                            key={i}
-                            animate={{ y: [0, -4, 0] }}
-                            transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.18, ease: 'easeInOut' }}
-                            style={{ width: 7, height: 7, borderRadius: '50%', background: 'rgba(0,0,0,0.3)' }}
-                          />
-                        ))}
-                      </div>
-                    </motion.div>
-                  </div>
-
-                  {/* Keyboard simulation */}
-                  <div style={{ flexShrink: 0, background: '#D1D5DB' }}>
-                    {/* iMessage input bar */}
-                    <div style={{
-                      padding: '8px 10px',
-                      borderTop: '0.5px solid rgba(0,0,0,0.1)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 6,
-                      background: '#F2F2F7',
-                    }}>
-                      <div style={{ flex: 1, background: '#ffffff', borderRadius: 18, padding: '7px 14px', border: '0.5px solid rgba(0,0,0,0.12)' }}>
-                        <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, color: 'rgba(0,0,0,0.25)' }}>iMessage</span>
-                      </div>
-                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#4C3D8F', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <span style={{ color: '#ffffff', fontSize: 12 }}>↑</span>
-                      </div>
-                    </div>
-
-                    {/* Keyboard rows */}
-                    {[
-                      ['Q','W','E','R','T','Y','U','I','O','P'],
-                      ['A','S','D','F','G','H','J','K','L'],
-                      ['⇧','Z','X','C','V','B','N','M','⌫'],
-                      ['123',' ','return'],
-                    ].map((row, ri) => (
-                      <div key={ri} style={{
+                      {/* Status bar — padded top to clear camera notch */}
+                      <div style={{
+                        paddingTop: '7%',
+                        padding: '7% 18px 4px',
                         display: 'flex',
-                        justifyContent: 'center',
-                        gap: ri === 3 ? 4 : 3,
-                        padding: ri === 3 ? '4px 3px 6px' : '3px 3px 0',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        flexShrink: 0,
                       }}>
-                        {row.map((key, ki) => (
-                          <div key={ki} style={{
-                            flex: key === ' ' ? 3 : key === '123' || key === 'return' ? 1.2 : 1,
-                            height: ri === 3 ? 36 : 30,
-                            background: ['⇧','⌫','123','return'].includes(key) ? '#ADB5BD' : '#ffffff',
-                            borderRadius: 5,
+                        <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, fontWeight: 600, color: '#000000' }}>9:41</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                          {[4, 6, 9, 12].map((h, i) => (
+                            <div key={i} style={{ width: 3, height: h, background: '#000000', borderRadius: 1 }} />
+                          ))}
+                          <div style={{ width: 20, height: 10, border: '1.5px solid #000000', borderRadius: 3, padding: '1px 2px', marginLeft: 3 }}>
+                            <div style={{ width: '70%', height: '100%', background: '#000000', borderRadius: 1 }} />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Contact header */}
+                      <div style={{
+                        padding: '4px 14px 8px',
+                        borderBottom: '0.5px solid rgba(0,0,0,0.08)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 10,
+                        flexShrink: 0,
+                      }}>
+                        <span style={{ fontSize: 18, color: '#007AFF' }}>‹</span>
+                        <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#4C3D8F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 11, fontWeight: 700, color: '#ffffff' }}>w.</span>
+                        </div>
+                        <div>
+                          <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 13, fontWeight: 600, color: '#000000' }}>wrrapd</div>
+                          <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 10, color: 'rgba(0,0,0,0.35)' }}>daily check-in</div>
+                        </div>
+                      </div>
+
+                      {/* Messages */}
+                      <div style={{ flex: 1, padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: 8, overflow: 'hidden' }}>
+                        <motion.div
+                          initial={{ opacity: 0, x: -14 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.5, delay: 0.9 }}
+                          style={{ maxWidth: '82%' }}
+                        >
+                          <div style={{ background: '#E9E9EB', borderRadius: '4px 18px 18px 18px', padding: '10px 14px' }}>
+                            <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, color: '#000000', lineHeight: 1.5, margin: 0 }}>
+                              are you becoming who you said you want to become?
+                            </p>
+                          </div>
+                          <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 10, color: 'rgba(0,0,0,0.28)', marginTop: 3, paddingLeft: 2 }}>8:00 AM</p>
+                        </motion.div>
+
+                        {/* Typing dots */}
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 1.5 }}
+                        >
+                          <div style={{ background: '#E9E9EB', borderRadius: '4px 18px 18px 18px', padding: '10px 14px', width: 58, display: 'flex', gap: 4, alignItems: 'center', justifyContent: 'center' }}>
+                            {[0, 1, 2].map(i => (
+                              <motion.div
+                                key={i}
+                                animate={{ y: [0, -4, 0] }}
+                                transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.18, ease: 'easeInOut' }}
+                                style={{ width: 7, height: 7, borderRadius: '50%', background: 'rgba(0,0,0,0.3)' }}
+                              />
+                            ))}
+                          </div>
+                        </motion.div>
+                      </div>
+
+                      {/* Keyboard + input */}
+                      <div style={{ flexShrink: 0, background: '#D1D5DB' }}>
+                        {/* iMessage input bar */}
+                        <div style={{
+                          padding: '8px 10px',
+                          borderTop: '0.5px solid rgba(0,0,0,0.1)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          background: '#F2F2F7',
+                        }}>
+                          <div style={{ flex: 1, background: '#ffffff', borderRadius: 18, padding: '7px 14px', border: '0.5px solid rgba(0,0,0,0.12)' }}>
+                            <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, color: 'rgba(0,0,0,0.25)' }}>iMessage</span>
+                          </div>
+                          <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#4C3D8F', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <span style={{ color: '#ffffff', fontSize: 12 }}>↑</span>
+                          </div>
+                        </div>
+
+                        {/* Keyboard rows */}
+                        {[
+                          ['Q','W','E','R','T','Y','U','I','O','P'],
+                          ['A','S','D','F','G','H','J','K','L'],
+                          ['⇧','Z','X','C','V','B','N','M','⌫'],
+                          ['123',' ','return'],
+                        ].map((row, ri) => (
+                          <div key={ri} style={{
                             display: 'flex',
-                            alignItems: 'center',
                             justifyContent: 'center',
-                            fontSize: key === 'return' || key === '123' ? 8 : 11,
-                            fontFamily: 'Poppins, sans-serif',
-                            fontWeight: 500,
-                            color: '#000000',
-                            boxShadow: '0 1px 0 rgba(0,0,0,0.25)',
-                            minWidth: 0,
+                            gap: ri === 3 ? 4 : 3,
+                            padding: ri === 3 ? '4px 3px 6px' : '3px 3px 0',
                           }}>
-                            {key}
+                            {row.map((key, ki) => (
+                              <div key={ki} style={{
+                                flex: key === ' ' ? 3 : key === '123' || key === 'return' ? 1.2 : 1,
+                                height: ri === 3 ? 36 : 30,
+                                background: ['⇧','⌫','123','return'].includes(key) ? '#ADB5BD' : '#ffffff',
+                                borderRadius: 5,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: key === 'return' || key === '123' ? 8 : 11,
+                                fontFamily: 'Poppins, sans-serif',
+                                fontWeight: 500,
+                                color: '#000000',
+                                boxShadow: '0 1px 0 rgba(0,0,0,0.25)',
+                                minWidth: 0,
+                              }}>
+                                {key}
+                              </div>
+                            ))}
                           </div>
                         ))}
                       </div>
-                    ))}
+
+                    </div>
                   </div>
                 </div>
               </motion.div>

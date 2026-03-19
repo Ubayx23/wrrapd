@@ -2,6 +2,7 @@
 import Hero from './components/Hero';
 import FounderTweet from './components/FounderTweet';
 import Problem from './components/Problem';
+import HowItWorks from './components/HowItWorks';
 
 export default function LandingPage() {
   return (
@@ -9,6 +10,7 @@ export default function LandingPage() {
       <Hero />
       <FounderTweet />
       <Problem />
+      <HowItWorks />
     </main>
   );
 }

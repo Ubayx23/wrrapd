@@ -5,12 +5,14 @@ import { GlowEffect } from '@/components/ui/glow-effect';
 export default function FounderTweet() {
   return (
     <section style={{
-      background: '#07070F',
+      background: 'linear-gradient(to bottom, #07070F 0%, #ffffff 15%, #ffffff 85%, #07070F 100%)',
       display: 'flex',
       justifyContent: 'center',
-      padding: '0 24px 80px',
+      alignItems: 'center',
+      padding: 'clamp(60px, 12vw, 100px) 24px',
       position: 'relative',
       zIndex: 1,
+      width: '100%',
     }}>
       <div style={{
         position: 'relative',

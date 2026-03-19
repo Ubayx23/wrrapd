@@ -22,7 +22,7 @@ export function GlowEffect({
   scale = 1,
   duration = 5,
 }: GlowEffectProps) {
-  const BASE_TRANSITION = { repeat: Infinity, duration, ease: 'linear' };
+  const BASE_TRANSITION = { repeat: Infinity, duration, ease: 'linear' as const };
   const animations = {
     rotate: {
       background: [

@@ -87,7 +87,7 @@ export default function Globe() {
       position: 'relative',
       width: '100%',
       aspectRatio: '1/1',
-      maxWidth: 500,
+      maxWidth: 680,
     }}>
       <canvas
         ref={canvasRef}
