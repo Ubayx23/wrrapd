@@ -35,6 +35,7 @@ export function BeamsBackground({ children }: { children?: React.ReactNode }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const beamsRef = useRef<Beam[]>([]);
   const animationFrameRef = useRef<number>(0);
+  const visibleRef = useRef<boolean>(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -50,13 +51,19 @@ export function BeamsBackground({ children }: { children?: React.ReactNode }) {
       canvas.style.width = '100%';
       canvas.style.height = '100%';
       ctx.scale(dpr, dpr);
-      beamsRef.current = Array.from({ length: 20 }, () =>
+      beamsRef.current = Array.from({ length: 12 }, () =>
         createBeam(canvas.width, canvas.height)
       );
     };
 
     updateCanvasSize();
     window.addEventListener('resize', updateCanvasSize);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => { visibleRef.current = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
 
     function resetBeam(beam: Beam, index: number) {
       if (!canvas) return beam;
@@ -89,7 +96,8 @@ export function BeamsBackground({ children }: { children?: React.ReactNode }) {
     }
 
     function animate() {
-      if (!canvas || !ctx) return;
+      animationFrameRef.current = requestAnimationFrame(animate);
+      if (!visibleRef.current || !canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.filter = 'blur(35px)';
       beamsRef.current.forEach((beam, index) => {
@@ -98,13 +106,13 @@ export function BeamsBackground({ children }: { children?: React.ReactNode }) {
         if (beam.y + beam.length < -100) resetBeam(beam, index);
         drawBeam(ctx, beam);
       });
-      animationFrameRef.current = requestAnimationFrame(animate);
     }
 
     animate();
 
     return () => {
       window.removeEventListener('resize', updateCanvasSize);
+      observer.disconnect();
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     };
   }, []);

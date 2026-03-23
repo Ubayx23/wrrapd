@@ -1,13 +1,15 @@
 'use client';
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
 
-const Globe = dynamic(() => import('./Globe'), { ssr: false });
+const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
-const lines = [
-  { text: 'i start strong then disappear.', color: 'rgba(255,255,255,0.25)', borderColor: 'rgba(76,61,143,0.25)', delay: 0 },
-  { text: 'i have too many goals and finish none.', color: 'rgba(255,255,255,0.55)', borderColor: 'rgba(76,61,143,0.55)', delay: 0.15 },
-  { text: "i know what i want. i just can't stay consistent.", color: 'rgba(255,255,255,0.92)', borderColor: '#4C3D8F', delay: 0.3 },
+const CHIPS = [
+  { label: 'skipped leg day again', delay: 0.05 },
+  { label: 'said "tomorrow"', delay: 0.1 },
+  { label: 'missed the deadline', delay: 0.15 },
+  { label: 'hit snooze 4 times', delay: 0.08 },
+  { label: 'forgot to study', delay: 0.12 },
+  { label: 'broke the streak', delay: 0.18 },
 ];
 
 export default function Problem() {
@@ -15,104 +17,111 @@ export default function Problem() {
     <section style={{
       background: '#07070F',
       position: 'relative',
-      overflow: 'hidden',
-      padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 80px)',
+      padding: 'clamp(80px, 10vw, 120px) clamp(24px, 6vw, 80px)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
     }}>
-      {/* Ambient glow */}
-      <div style={{
-        position: 'absolute',
-        top: '20%',
-        right: '10%',
-        width: 400,
-        height: 400,
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(76,61,143,0.1) 0%, transparent 70%)',
-        filter: 'blur(60px)',
-        pointerEvents: 'none',
-      }} />
+      <div style={{ maxWidth: 700, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(32px, 4vw, 48px)' }}>
 
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        {/* Two column layout */}
-        <div className="problem-grid">
-          {/* LEFT — confession lines */}
-          <div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 3vw, 28px)', marginBottom: 64 }}>
-              {lines.map((line, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -32 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: '-60px' }}
-                  transition={{ duration: 0.6, delay: line.delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                  style={{ borderLeft: `2px solid ${line.borderColor}`, paddingLeft: 20 }}
-                >
-                  <p style={{
-                    fontFamily: 'DM Sans, sans-serif',
-                    fontSize: 'clamp(20px, 3.5vw, 36px)',
-                    fontWeight: 700,
-                    fontStyle: 'italic',
-                    color: line.color,
-                    letterSpacing: '-0.5px',
-                    lineHeight: 1.2,
-                    margin: 0,
-                  }}>
-                    &ldquo;{line.text}&rdquo;
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+        {/* Label */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease }}
+          style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: 11,
+            fontWeight: 600,
+            color: 'rgba(123,104,238,0.7)',
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
+            margin: 0,
+          }}
+        >
+          the real problem
+        </motion.p>
 
-            {/* Closing statement */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+        {/* Headline */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.65, delay: 0.05, ease }}
+          style={{
+            fontFamily: 'DM Sans, sans-serif',
+            fontSize: 'clamp(36px, 6vw, 64px)',
+            fontWeight: 800,
+            color: '#F8F8FF',
+            letterSpacing: '-2.5px',
+            lineHeight: 1.05,
+            margin: 0,
+          }}
+        >
+          it's not you.<br />
+          nobody's holding<br />
+          you accountable<span style={{ color: '#4C3D8F' }}>.</span>
+        </motion.h2>
+
+        {/* Chips */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.15, ease }}
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 8,
+            justifyContent: 'center',
+            maxWidth: 560,
+          }}
+        >
+          {CHIPS.map(({ label, delay }) => (
+            <motion.span
+              key={label}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay, ease }}
+              style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 12,
+                fontWeight: 500,
+                color: 'rgba(255,255,255,0.35)',
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 100,
+                padding: '7px 16px',
+                letterSpacing: '0.1px',
+              }}
             >
-              <p style={{
-                fontFamily: 'DM Sans, sans-serif',
-                fontSize: 'clamp(20px, 3vw, 32px)',
-                fontWeight: 700,
-                color: 'rgba(255,255,255,0.88)',
-                letterSpacing: '-1px',
-                lineHeight: 1.25,
-                margin: '0 0 6px',
-              }}>
-                that&apos;s not a motivation problem.
-              </p>
-              <p style={{
-                fontFamily: 'DM Sans, sans-serif',
-                fontSize: 'clamp(20px, 3vw, 32px)',
-                fontWeight: 700,
-                color: '#4C3D8F',
-                letterSpacing: '-1px',
-                lineHeight: 1.25,
-                margin: 0,
-              }}>
-                that&apos;s an accountability problem.
-              </p>
-            </motion.div>
-          </div>
+              {label}
+            </motion.span>
+          ))}
+        </motion.div>
 
-          {/* RIGHT — Globe */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'relative',
-              maxWidth: '280px',
-              margin: '0 auto',
-              width: '100%',
-            }}
-          >
-            <Globe />
-          </motion.div>
-        </div>
+        {/* Body */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2, ease }}
+          style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: 'clamp(14px, 1.8vw, 16px)',
+            fontWeight: 400,
+            color: 'rgba(255,255,255,0.38)',
+            lineHeight: 1.75,
+            margin: 0,
+            maxWidth: 440,
+          }}
+        >
+          willpower alone doesn't work. humans need external pressure. a real consequence for slipping. a real reason to show up. wrrapd is that reason.
+        </motion.p>
+
       </div>
     </section>
   );

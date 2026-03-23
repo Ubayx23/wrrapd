@@ -33,6 +33,45 @@
   }
 }
 
+/* ── Features section ── */
+.features-bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.features-bento-bottom {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.features-card1-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.features-card1-visual {
+  display: none;
+}
+@media (min-width: 768px) {
+  .features-bento-bottom {
+    grid-template-columns: 1fr 1fr;
+  }
+  .features-card1-inner {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .features-card1-visual {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-shrink: 0;
+    width: 46%;
+    position: relative;
+    overflow: hidden;
+  }
+}
+
 :root {
   --mouse-x: 50%;
   --mouse-y: 50%;

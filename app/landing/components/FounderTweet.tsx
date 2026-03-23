@@ -5,7 +5,7 @@ import { GlowEffect } from '@/components/ui/glow-effect';
 export default function FounderTweet() {
   return (
     <section style={{
-      background: 'linear-gradient(to bottom, #07070F 0%, #ffffff 15%, #ffffff 85%, #07070F 100%)',
+      background: '#07070F',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',

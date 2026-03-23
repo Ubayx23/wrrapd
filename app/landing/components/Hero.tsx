@@ -363,6 +363,7 @@ export default function Hero() {
               pointerEvents: 'none',
               flexShrink: 0,
             }} />
+
           </div>
         </BeamsBackground>
       </section>
