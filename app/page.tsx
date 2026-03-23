@@ -67,14 +67,14 @@ export default function Page() {
           className="font-playfair font-light text-wrrapd-navy leading-[0.88] tracking-tight text-center mb-10 md:mb-14"
           style={{ fontSize: "clamp(2.75rem, 8vw, 6.5rem)" }}
         >
-          To be launched
+          to be launched
           <br />
           {/* Half-highlight: light navy wash covers bottom ~45% of the text like a marker */}
           on <span
             className="italic"
             style={{ background: 'linear-gradient(to top, rgba(10,31,71,0.18) 45%, transparent 45%)', paddingBottom: '0.05em' }}
           >
-            March 23
+            March 30
           </span>
         </h1>
 
