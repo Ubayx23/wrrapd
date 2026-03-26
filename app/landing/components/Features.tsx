@@ -40,12 +40,12 @@ export default function Features() {
       background: '#07070F',
       position: 'relative',
       overflow: 'hidden',
-      padding: 'clamp(80px, 10vw, 120px) clamp(24px, 6vw, 80px)',
+      padding: 'clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px)',
     }}>
       <div style={{ maxWidth: 1000, margin: '0 auto' }}>
 
         {/* ── Section header ── */}
-        <div style={{ textAlign: 'center', marginBottom: 64, position: 'relative' }}>
+        <div style={{ textAlign: 'center', marginBottom: 48, position: 'relative' }}>
 
           {/* Radial glow behind headline */}
           <div style={{
@@ -62,65 +62,80 @@ export default function Features() {
             zIndex: 0,
           }} />
 
-          {/* Part 1 — Headline */}
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease }}
-            style={{
-              fontFamily: 'DM Sans, sans-serif',
-              fontSize: 'clamp(40px, 7vw, 80px)',
-              fontWeight: 800,
-              color: '#FFFFFF',
-              letterSpacing: '-1px',
-              lineHeight: 1.12,
-              margin: '0 0 40px',
-              position: 'relative',
-              zIndex: 1,
-            }}
-          >
-            it's not you.<br />
-            nobody's holding you accountable.
-          </motion.h2>
+          {/* Part 1 — Two-tier headline */}
+          <div style={{ marginBottom: 24, position: 'relative', zIndex: 1 }}>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease }}
+              style={{
+                fontFamily: 'DM Sans, sans-serif',
+                fontSize: 'clamp(15px, 2vw, 22px)',
+                fontWeight: 400,
+                fontStyle: 'italic',
+                color: 'rgba(255,255,255,0.32)',
+                letterSpacing: '0.2px',
+                margin: '0 0 6px',
+              }}
+            >
+              it's not you.
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease }}
+              style={{
+                fontFamily: 'DM Sans, sans-serif',
+                fontSize: 'clamp(36px, 6.5vw, 72px)',
+                fontWeight: 800,
+                color: '#FFFFFF',
+                letterSpacing: '-2px',
+                lineHeight: 1.05,
+                margin: 0,
+              }}
+            >
+              nobody's holding you{' '}
+              <span style={{
+                color: '#7B68EE',
+                textShadow: '0 0 40px rgba(123,104,238,0.7), 0 0 80px rgba(123,104,238,0.3)',
+              }}>
+                accountable.
+              </span>
+            </motion.h2>
+          </div>
 
-          {/* Part 2 — Tags */}
+          {/* Part 2 — Tags with varying visual weight */}
           <div style={{
             display: 'flex',
             flexWrap: 'wrap',
-            gap: 8,
+            gap: 6,
             justifyContent: 'center',
-            marginBottom: 40,
+            marginBottom: 24,
             position: 'relative',
             zIndex: 1,
           }}>
             {[
               { label: 'skipped leg day again', delay: 0.4 },
-              { label: 'said tomorrow', delay: 0.6 },
-              { label: 'missed the deadline', delay: 0.8 },
-              { label: 'hit snooze 4 times', delay: 1.0 },
-              { label: 'forgot to study', delay: 1.2 },
+              { label: 'said tomorrow',          delay: 0.6 },
+              { label: 'missed the deadline',    delay: 0.8 },
+              { label: 'hit snooze 4 times',     delay: 1.0 },
+              { label: 'forgot to study',        delay: 1.2 },
             ].map(({ label, delay }) => (
               <motion.span
                 key={label}
+                className="feature-tag"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                whileHover={{
-                  scale: 1.08,
-                  background: 'rgba(123,104,238,0.18)',
-                  borderColor: 'rgba(123,104,238,0.5)',
-                  boxShadow: '0 0 16px rgba(123,104,238,0.35)',
-                  color: '#ffffff',
-                }}
                 transition={{ type: 'spring', stiffness: 280, damping: 22, delay }}
                 style={{
                   fontFamily: 'Poppins, sans-serif',
-                  fontSize: 13,
+                  fontSize: 11,
                   fontWeight: 500,
-                  color: '#ffffff',
-                  background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  color: 'rgba(255,255,255,0.6)',
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.09)',
                   borderRadius: 100,
-                  padding: '8px 18px',
+                  padding: '4px 10px',
                   display: 'inline-block',
                   cursor: 'default',
                 }}
@@ -130,34 +145,35 @@ export default function Features() {
             ))}
           </div>
 
-          {/* Part 3 — Closing copy */}
-          <div style={{ maxWidth: 520, margin: '0 auto', position: 'relative', zIndex: 1 }}>
+          {/* Part 3 — Closing copy, trimmed */}
+          <div style={{ maxWidth: 420, margin: '0 auto', position: 'relative', zIndex: 1 }}>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
               style={{
                 fontFamily: 'Poppins, sans-serif',
-                fontSize: 16,
+                fontSize: 15,
                 fontWeight: 400,
-                color: 'rgba(255,255,255,0.45)',
-                lineHeight: 1.8,
-                margin: '0 0 12px',
+                color: 'rgba(255,255,255,0.38)',
+                lineHeight: 1.75,
+                margin: '0 0 10px',
               }}
             >
-              willpower alone doesn't work. humans need external pressure. a real consequence for slipping. a real reason to show up.
+              humans need external pressure. a real reason to show up.
             </motion.p>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.6 }}
+              transition={{ duration: 0.6, delay: 1.65 }}
               style={{
                 fontFamily: 'DM Sans, sans-serif',
-                fontSize: 20,
+                fontSize: 22,
                 fontWeight: 700,
                 color: '#7B68EE',
+                textShadow: '0 0 30px rgba(123,104,238,0.55)',
                 margin: 0,
-                lineHeight: 1.4,
+                lineHeight: 1.3,
               }}
             >
               wrrapd is that reason.
