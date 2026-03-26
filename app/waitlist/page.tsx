@@ -76,7 +76,7 @@ export default function Page() {
       }} />
 
       {/* ── Logo ── */}
-      <header className="always-visible logo-white-layer fixed top-0 left-0 w-full flex justify-center pt-4 md:pt-6" style={{ zIndex: 30 }}>
+      <header className="always-visible fixed top-0 left-0 w-full flex justify-center pt-4 md:pt-6" style={{ zIndex: 30 }}>
         <div className="flex items-center cursor-default" data-purpose="logo">
           <span className="font-dmsans font-semibold text-white tracking-tight text-[3rem] md:text-[4rem]">wrrapd.</span>
         </div>
