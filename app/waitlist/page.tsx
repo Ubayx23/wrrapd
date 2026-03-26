@@ -104,6 +104,7 @@ export default function Page() {
             letterSpacing: '-3px',
             lineHeight: 1,
             cursor: 'default',
+            textShadow: '0 0 40px rgba(123,104,238,0.8), 0 0 80px rgba(76,61,143,0.5), 0 2px 12px rgba(0,0,0,0.6)',
           }}
         >
           wrrapd.
