@@ -32,7 +32,7 @@ export default function FAQ() {
     <section
       style={{
         background: '#07070F',
-        padding: `clamp(56px, 7vw, 84px) clamp(24px, 6vw, 80px)`,
+        padding: `clamp(40px, 4.9vw, 59px) clamp(24px, 6vw, 80px)`,
       }}
     >
       <div style={{ textAlign: 'center' }}>
