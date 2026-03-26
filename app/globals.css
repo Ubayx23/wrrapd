@@ -113,12 +113,7 @@ body {
 .flashlight-overlay {
   position: fixed;
   inset: 0;
-  background: radial-gradient(
-    circle 360px at var(--mouse-x) var(--mouse-y),
-    rgba(123, 104, 238, 0.18) 0%,
-    rgba(123, 104, 238, 0.06) 50%,
-    transparent 75%
-  );
+  background: radial-gradient(circle 280px at var(--mouse-x) var(--mouse-y), transparent 0%, rgba(7,7,15,0.97) 100%);
   pointer-events: none;
   z-index: 20;
 }
