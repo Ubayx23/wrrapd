@@ -114,26 +114,13 @@ body {
   position: fixed;
   inset: 0;
   background: radial-gradient(
-    circle 320px at var(--mouse-x) var(--mouse-y),
-    rgba(123, 104, 238, 0.15) 0%,
-    transparent 70%
-  ), #07070F;
+    circle 360px at var(--mouse-x) var(--mouse-y),
+    rgba(123, 104, 238, 0.18) 0%,
+    rgba(123, 104, 238, 0.06) 50%,
+    transparent 75%
+  );
   pointer-events: none;
   z-index: 20;
-  mask-image: radial-gradient(
-    circle 250px at var(--mouse-x) var(--mouse-y),
-    transparent 0%,
-    transparent 94%,
-    rgba(0, 0, 0, 0.6) 98%,
-    black 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    circle 250px at var(--mouse-x) var(--mouse-y),
-    transparent 0%,
-    transparent 94%,
-    rgba(0, 0, 0, 0.6) 98%,
-    black 100%
-  );
 }
 
 .always-visible {
@@ -256,8 +243,8 @@ body {
     text-align: center !important;
   }
 
-  main:not(.landing-page) h1 span {
-    color: #FFFFFF !important;
+  main:not(.landing-page) h1 span.march-30 {
+    color: #7B68EE !important;
     font-size: inherit !important;
   }
 
@@ -287,20 +274,8 @@ body {
   }
 }
 
-/* Same mask as flashlight-overlay — hides the white logo inside the circle so the dark cutout shows through */
+/* Dark theme: white logo always visible — no masking needed */
 .logo-white-layer {
-  mask-image: radial-gradient(
-    circle 250px at var(--mouse-x) var(--mouse-y),
-    transparent 0%,
-    transparent 94%,
-    rgba(0, 0, 0, 0.6) 98%,
-    black 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    circle 250px at var(--mouse-x) var(--mouse-y),
-    transparent 0%,
-    transparent 94%,
-    rgba(0, 0, 0, 0.6) 98%,
-    black 100%
-  );
+  mask-image: none;
+  -webkit-mask-image: none;
 }

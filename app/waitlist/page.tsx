@@ -75,15 +75,15 @@ export default function Page() {
           <br />
           {/* Half-highlight: purple wash covers bottom ~45% of the text like a marker */}
           on <span
-            className="italic"
-            style={{ background: 'linear-gradient(to top, rgba(76,61,143,0.35) 45%, transparent 45%)', paddingBottom: '0.05em' }}
+            className="italic march-30"
+            style={{ color: '#7B68EE', paddingBottom: '0.05em' }}
           >
             March 30
           </span>
         </h1>
 
         {/* Subtle prompt above the social icons */}
-        <p className="text-sm font-poppins mb-3 tracking-wide" style={{ color: 'rgba(255,255,255,0.45)' }}>(follow me ;)</p>
+        <p className="text-sm font-poppins mb-3 tracking-wide" style={{ color: 'rgba(255,255,255,0.6)' }}>(follow me ;)</p>
 
         {/* New logo-only socials — old AnimatedSocialLinks commented out in social-links.tsx */}
         <LogoSocialLinks socials={socials} className="mb-6" />
