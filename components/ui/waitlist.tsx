@@ -61,18 +61,18 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.1, type: 'spring', stiffness: 300, damping: 25 }}
-              className="w-10 h-10 rounded-full bg-wrrapd-navy/10 flex items-center justify-center"
+              className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
             >
-              <CheckCircle className="w-5 h-5 text-wrrapd-navy" />
+              <CheckCircle className="w-5 h-5 text-white" />
             </motion.div>
-            <p className="text-sm font-poppins text-wrrapd-navy text-center">
-              you&apos;re locked in — we&apos;ll text you first.
+            <p className="text-sm font-poppins text-white text-center">
+              you&apos;re on the list — we&apos;ll email you first.
             </p>
             <button
               onClick={() => { setIsSubmitted(false); setEmail(''); }}
-              className="text-xs font-poppins text-wrrapd-navy/50 hover:text-wrrapd-navy transition-colors"
+              className="text-xs font-poppins text-white/50 hover:text-white transition-colors"
             >
-              add another number
+              add another email
             </button>
           </motion.div>
         ) : (
@@ -87,7 +87,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
 
               {/* Email */}
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-poppins font-semibold text-wrrapd-navy/60 tracking-wide uppercase px-1">
+                <label className="text-xs font-poppins font-semibold text-white/60 tracking-wide uppercase px-1">
                   your email for updates.
                 </label>
                 <input
@@ -98,7 +98,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                   onChange={(e) => { setEmail(e.target.value); setError(''); }}
                   placeholder="you@email.com"
                   disabled={isLoading}
-                  className="w-full bg-white/80 backdrop-blur-sm border border-wrrapd-navy/20 rounded-2xl px-5 py-4 font-poppins text-wrrapd-navy placeholder:text-wrrapd-navy/30 outline-none focus:ring-2 focus:ring-wrrapd-navy focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 text-xl font-semibold tracking-wide shadow-sm"
+                  className="w-full bg-white border border-white/20 rounded-2xl px-5 py-4 font-poppins text-gray-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 disabled:opacity-50 text-xl font-semibold tracking-wide shadow-sm"
                 />
               </div>
 
@@ -140,7 +140,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                   />
                 ))}
               </div>
-              <p className="text-sm font-poppins text-wrrapd-navy/60">
+              <p className="text-sm font-poppins text-white/60">
                 don&apos;t have FOMO / join now
               </p>
             </div>
