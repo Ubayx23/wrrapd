@@ -1,12 +1,27 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { MeshGradient } from '@paper-design/shaders-react';
 import { LogoSocialLinks, type Social } from '@/components/ui/social-links';
 import Waitlist from '@/components/ui/waitlist';
 
 export default function Page() {
-  const [socialHovered, setSocialHovered] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+    // Unlock scroll — globals.css locks it for non-landing pages
+    document.documentElement.style.overflow = 'auto';
+    document.documentElement.style.height = 'auto';
+    document.body.style.overflow = 'auto';
+    document.body.style.height = 'auto';
+
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.height = '';
+      document.body.style.overflow = '';
+      document.body.style.height = '';
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined' || typeof document === 'undefined') return;
@@ -158,7 +173,7 @@ export default function Page() {
             lineHeight: 1.6,
           }}
         >
-          text your goals daily. get your wrapped at the end of the month.
+          check in once a day. stay on track. get your month wrapped.
         </p>
 
         {/* Follow label */}
@@ -174,17 +189,8 @@ export default function Page() {
           (follow me ;)
         </p>
 
-        {/* Social icons — grayscale at rest, full color on hover */}
-        <div
-          style={{
-            filter: socialHovered ? 'grayscale(0) brightness(1)' : 'grayscale(1) brightness(0.45)',
-            transition: 'filter 0.3s ease',
-          }}
-          onMouseEnter={() => setSocialHovered(true)}
-          onMouseLeave={() => setSocialHovered(false)}
-        >
-          <LogoSocialLinks socials={socials} />
-        </div>
+        {/* Social icons */}
+        <LogoSocialLinks socials={socials} />
 
         {/* Frosted glass card wrapping waitlist */}
         <div
