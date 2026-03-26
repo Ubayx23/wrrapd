@@ -201,13 +201,19 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 6, ease: 'easeInOut', repeat: Infinity }}
-                style={{ marginBottom: '-180px', zIndex: 1, flexShrink: 0 }}
+                style={{
+                  marginBottom: '-300px',
+                  zIndex: 1,
+                  flexShrink: 0,
+                  width: 'clamp(320px, 88vw, 420px)',
+                  height: 'clamp(600px, 180vw, 780px)',
+                }}
               >
                 <div
                   className="mockup-phone"
                   style={{
-                    maxWidth: 'clamp(260px, 86vw, 340px)',
                     width: '100%',
+                    height: '100%',
                     borderColor: '#2a2a2a',
                     boxShadow: '0 0 0 1px rgba(76,61,143,0.25), 0 40px 80px rgba(0,0,0,0.9), 0 0 100px rgba(76,61,143,0.25)',
                   }}
@@ -286,7 +292,7 @@ export default function Hero() {
                       </div>
 
                       {/* Part 3 — Message area */}
-                      <div style={{ flex: 1, padding: 14, display: 'flex', flexDirection: 'column', gap: 6, overflow: 'hidden', background: '#FFFFFF' }}>
+                      <div style={{ flex: 1, padding: 14, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: 6, overflow: 'hidden', background: '#FFFFFF' }}>
                         {/* Incoming bubble */}
                         <motion.div
                           initial={{ opacity: 0, x: -14 }}
