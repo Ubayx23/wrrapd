@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { MeshGradient } from '@paper-design/shaders-react';
 import { LogoSocialLinks, type Social } from '@/components/ui/social-links';
 import Waitlist from '@/components/ui/waitlist';
 
 export default function Page() {
+  const [socialHovered, setSocialHovered] = useState(false);
+
   useEffect(() => {
     if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
@@ -48,17 +50,33 @@ export default function Page() {
 
       {/* ── MeshGradient background ── */}
       <MeshGradient
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+        style={{ position: 'absolute' as const, inset: 0, width: '100%', height: '100%' }}
         colors={['#07070F', '#0D0820', '#1A0F3C', '#4C3D8F']}
         speed={0.4}
       />
 
-      {/* ── Logo ── */}
-      <header className="always-visible fixed top-0 left-0 w-full flex justify-center pt-4 md:pt-6" style={{ zIndex: 30 }}>
-        <div className="flex items-center cursor-default" data-purpose="logo">
-          <span className="font-dmsans font-semibold text-white tracking-tight text-[3rem] md:text-[4rem]">wrrapd.</span>
-        </div>
-      </header>
+      {/* ── Decorative repeating text strip above footer ── */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 72,
+          left: 0,
+          right: 0,
+          fontFamily: 'DM Sans, sans-serif',
+          fontWeight: 900,
+          fontSize: 'clamp(0.7rem, 1.5vw, 1rem)',
+          letterSpacing: '0.2em',
+          textAlign: 'center',
+          color: 'rgba(255,255,255,0.06)',
+          pointerEvents: 'none',
+          userSelect: 'none',
+          zIndex: 5,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+        }}
+      >
+        {'wrrapd · lock in · '.repeat(30)}
+      </div>
 
       {/* ── Main content ── */}
       <main
@@ -71,43 +89,113 @@ export default function Page() {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '100dvh',
-          padding: 'clamp(100px, 14vw, 140px) clamp(20px, 5vw, 60px) 120px',
+          padding: 'clamp(60px, 10vw, 100px) clamp(20px, 5vw, 60px) clamp(100px, 12vw, 140px)',
+          gap: 'clamp(20px, 3.5vw, 36px)',
         }}
       >
+
+        {/* Logo */}
+        <div
+          style={{
+            fontFamily: 'DM Sans, sans-serif',
+            fontSize: 'clamp(2.8rem, 5vw, 4.5rem)',
+            fontWeight: 700,
+            color: '#FFFFFF',
+            letterSpacing: '-2px',
+            lineHeight: 1,
+            cursor: 'default',
+          }}
+        >
+          wrrapd.
+        </div>
+
+        {/* Launch badge */}
+        <div
+          style={{
+            background: 'rgba(123,104,238,0.12)',
+            border: '1px solid rgba(123,104,238,0.35)',
+            borderRadius: 999,
+            padding: '6px 18px',
+            color: '#7B68EE',
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: 13,
+            fontWeight: 500,
+            letterSpacing: '0.05em',
+          }}
+        >
+          launching march 30 →
+        </div>
+
         {/* Headline */}
-        <h1 style={{
-          fontFamily: 'DM Sans, sans-serif',
-          fontSize: 'clamp(3rem, 9vw, 7rem)',
-          fontWeight: 800,
-          color: '#FFFFFF',
-          letterSpacing: 'clamp(-2px, -0.4vw, -3px)',
-          lineHeight: 1.05,
-          textAlign: 'center',
-          margin: '0 0 clamp(24px, 4vw, 40px)',
-        }}>
+        <h1
+          style={{
+            fontFamily: 'DM Sans, sans-serif',
+            fontSize: 'clamp(3.5rem, 10vw, 9rem)',
+            fontWeight: 800,
+            color: '#FFFFFF',
+            letterSpacing: 'clamp(-2px, -0.4vw, -3px)',
+            lineHeight: 1.05,
+            textAlign: 'center',
+            margin: 0,
+          }}
+        >
           to be launched<br />
           on <em style={{ color: '#7B68EE', fontStyle: 'italic' }}>March 30</em>
         </h1>
 
-        {/* Follow me */}
-        <p className="text-sm font-poppins mb-3 tracking-wide" style={{ color: 'rgba(255,255,255,0.5)' }}>
+        {/* Tagline */}
+        <p
+          style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: 'clamp(0.85rem, 1.8vw, 1.1rem)',
+            color: 'rgba(255,255,255,0.45)',
+            textAlign: 'center',
+            maxWidth: 420,
+            margin: 0,
+            lineHeight: 1.6,
+          }}
+        >
+          daily sms check-ins. monthly wrapped. built for students.
+        </p>
+
+        {/* Follow label */}
+        <p
+          style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: '0.875rem',
+            color: 'rgba(255,255,255,0.5)',
+            margin: 0,
+            letterSpacing: '0.03em',
+          }}
+        >
           (follow me ;)
         </p>
 
-        {/* Social icons */}
-        <LogoSocialLinks socials={socials} className="mb-8" />
+        {/* Social icons — grayscale at rest, full color on hover */}
+        <div
+          style={{
+            filter: socialHovered ? 'grayscale(0) brightness(1)' : 'grayscale(1) brightness(0.45)',
+            transition: 'filter 0.3s ease',
+          }}
+          onMouseEnter={() => setSocialHovered(true)}
+          onMouseLeave={() => setSocialHovered(false)}
+        >
+          <LogoSocialLinks socials={socials} />
+        </div>
 
         {/* Frosted glass card wrapping waitlist */}
-        <div style={{
-          background: 'rgba(255,255,255,0.05)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          borderRadius: 20,
-          padding: 32,
-          width: '100%',
-          maxWidth: 480,
-        }}>
+        <div
+          style={{
+            background: 'rgba(255,255,255,0.05)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: 20,
+            padding: 32,
+            width: '100%',
+            maxWidth: 520,
+          }}
+        >
           <Waitlist className="mb-0" />
         </div>
 
