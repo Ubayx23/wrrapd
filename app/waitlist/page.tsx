@@ -133,35 +133,7 @@ export default function Page() {
           <Waitlist className="mb-0" />
         </div>
 
-        {/* Ghost "lock in" */}
-        <div
-          className="hidden md:block fixed bottom-16 left-6 font-dmsans font-bold pointer-events-none select-none opacity-0 group-hover:opacity-[0.18] transition-opacity duration-700 z-[60]"
-          style={{ fontSize: '2.5rem', letterSpacing: '-0.03em', color: '#FFFFFF' }}
-          aria-hidden
-        >
-          lock in
-        </div>
       </main>
-
-      {/* ── Decorative large background text ── */}
-      <div style={{
-        position: 'absolute',
-        bottom: 60,
-        left: 0,
-        right: 0,
-        textAlign: 'center',
-        fontFamily: 'DM Sans, sans-serif',
-        fontWeight: 900,
-        fontSize: 'clamp(6rem, 20vw, 16rem)',
-        color: 'rgba(255,255,255,0.03)',
-        letterSpacing: '-4px',
-        pointerEvents: 'none',
-        userSelect: 'none',
-        zIndex: 0,
-        lineHeight: 1,
-      }}>
-        wrrapd.
-      </div>
 
       {/* ── Footer — unchanged ── */}
       <footer className="sticky md:fixed bottom-0 left-0 right-0 py-4 px-6 flex justify-between items-center bg-wrrapd-gray text-wrrapd-navy text-sm font-poppins font-semibold border-t-2 border-wrrapd-navy/40 z-[50]">
