@@ -89,7 +89,7 @@
 
 /* Waitlist dark-theme input placeholders */
 [data-purpose="waitlist-container"] input::placeholder {
-  color: rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.45);
 }
 
 body {
@@ -113,7 +113,7 @@ body {
 .flashlight-overlay {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle 280px at var(--mouse-x) var(--mouse-y), transparent 0%, rgba(7,7,15,0.97) 100%);
+  background: radial-gradient(circle 380px at var(--mouse-x) var(--mouse-y), rgba(123,104,238,0.08) 0%, rgba(7,7,15,0.82) 60%, rgba(7,7,15,0.97) 100%);
   pointer-events: none;
   z-index: 20;
 }
