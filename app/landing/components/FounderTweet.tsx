@@ -46,7 +46,7 @@ export default function FounderTweet() {
           display: 'block',
           marginBottom: 8,
         }}>
-          built by a student who got tired of lying to himself.
+          built by a student for students.
         </span>
         <span style={{
           fontFamily: 'DM Sans, sans-serif',

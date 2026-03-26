@@ -36,7 +36,7 @@ export default function Page() {
   }, []);
 
   const socials: Social[] = [
-    { name: 'Twitter', image: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/X_icon_2.svg', href: 'https://x.com/_17Tm', iconSize: 'size-11', tilt: 2 },
+    { name: 'Twitter', image: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/X_icon_2.svg', href: 'https://x.com/ubaydev', iconSize: 'size-11', tilt: 2 },
     { name: 'LinkedIn', image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png', href: 'https://www.linkedin.com/in/ubaydulla-noorullah-526994276/', iconSize: 'size-11' },
     { name: 'Instagram', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png', href: 'https://www.instagram.com/ubay.xx/', iconSize: 'size-11' },
     { name: 'TikTok', image: '/tiktok.png', href: 'https://www.tiktok.com/@ubaydasimp', iconSize: 'size-16', tilt: 12 },
@@ -74,7 +74,7 @@ export default function Page() {
             className="italic"
             style={{ background: 'linear-gradient(to top, rgba(10,31,71,0.18) 45%, transparent 45%)', paddingBottom: '0.05em' }}
           >
-            March 23
+            March 30
           </span>
         </h1>
 

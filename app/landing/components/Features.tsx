@@ -36,7 +36,7 @@ function CardLabel({ text }: { text: string }) {
 
 export default function Features() {
   return (
-    <section style={{
+    <section id="how-it-works" style={{
       background: '#07070F',
       position: 'relative',
       overflow: 'hidden',

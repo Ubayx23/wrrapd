@@ -79,4 +79,40 @@ Animations: should feel alive not decorative — every animation has a purpose
 - **react-tweet** — tweet embed
 - **DaisyUI** — themes: false, base: false. Only used for mockup-phone
 - **Supabase** — lib/supabase.ts, needs NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local
-- **@/lib/utils** — cn() helper for className merging
+- **@/lib/utils** — cn() helper for className merging## Product Build (wrrapd v1)
+
+We are now building the actual product. The landing page is largely done on the `landing` branch.
+
+### Current focus
+- Update waitlist page at `/` to collect phone numbers alongside emails
+- Build `/onboarding` multi-step flow
+- Build `/dashboard` for streak tracking
+- Integrate Twilio for SMS sending and yes/no reply handling
+
+### User flow
+1. User lands on `/` — enters phone number + email
+2. Twilio sends verification code
+3. User verifies → picks goal → picks daily time → done
+4. Every day at chosen time Twilio sends one question
+5. User replies yes or no
+6. Streak updates in Supabase
+7. End of month → wrapped card generated
+
+### Database tables needed (Supabase)
+- users: id, phone, email, created_at
+- goals: id, user_id, goal_text, created_at
+- checkins: id, user_id, date, response (yes/no), created_at
+- streaks: id, user_id, current_streak, best_streak, updated_at
+
+### Stack
+- Supabase for auth and database (MCP connected)
+- Twilio for SMS (need to install and configure)
+- Next.js API routes for Twilio webhook
+- Context7 for looking up docs before implementing anything
+
+### Rules
+- Use context7 to look up Twilio and Supabase docs before writing any SMS or auth code
+- Use supabase MCP to create tables directly instead of writing SQL manually
+- Never expose API keys in frontend — .env.local only
+- Test each feature before moving to next
+- Commit after each working feature

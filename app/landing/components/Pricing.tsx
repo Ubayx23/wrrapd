@@ -7,6 +7,7 @@ export default function Pricing() {
 
   return (
     <section
+      id="pricing"
       style={{
         background: '#07070F',
         padding: `clamp(40px, 4.9vw, 59px) clamp(24px, 6vw, 80px)`,
