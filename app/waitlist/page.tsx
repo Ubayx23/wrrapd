@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { MeshGradient } from '@paper-design/shaders-react';
 import { LogoSocialLinks, type Social } from '@/components/ui/social-links';
 import Waitlist from '@/components/ui/waitlist';
 
@@ -45,35 +46,12 @@ export default function Page() {
   return (
     <div style={{ minHeight: '100dvh', background: '#07070F', position: 'relative', overflow: 'hidden' }}>
 
-      {/* ── Animated blob background ── */}
-      <div style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 600,
-        height: 600,
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(76,61,143,0.7) 0%, transparent 70%)',
-        filter: 'blur(80px)',
-        animation: 'blob-drift 8s ease-in-out infinite',
-        pointerEvents: 'none',
-        zIndex: 0,
-      }} />
-      <div style={{
-        position: 'absolute',
-        top: '35%',
-        left: '60%',
-        transform: 'translate(-50%, -50%)',
-        width: 500,
-        height: 500,
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(123,104,238,0.35) 0%, transparent 70%)',
-        filter: 'blur(80px)',
-        animation: 'blob-drift 11s ease-in-out infinite reverse',
-        pointerEvents: 'none',
-        zIndex: 0,
-      }} />
+      {/* ── MeshGradient background ── */}
+      <MeshGradient
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+        colors={['#07070F', '#0D0820', '#1A0F3C', '#4C3D8F']}
+        speed={0.4}
+      />
 
       {/* ── Logo ── */}
       <header className="always-visible fixed top-0 left-0 w-full flex justify-center pt-4 md:pt-6" style={{ zIndex: 30 }}>
@@ -116,7 +94,7 @@ export default function Page() {
           (follow me ;)
         </p>
 
-        {/* Social icons — all hrefs unchanged */}
+        {/* Social icons */}
         <LogoSocialLinks socials={socials} className="mb-8" />
 
         {/* Frosted glass card wrapping waitlist */}
@@ -135,7 +113,7 @@ export default function Page() {
 
       </main>
 
-      {/* ── Footer — unchanged ── */}
+      {/* ── Footer ── */}
       <footer className="sticky md:fixed bottom-0 left-0 right-0 py-4 px-6 flex justify-between items-center bg-wrrapd-gray text-wrrapd-navy text-sm font-poppins font-semibold border-t-2 border-wrrapd-navy/40 z-[50]">
         <span>Under Construction</span>
         <span className="text-xs font-normal opacity-60">built by a student for students</span>
