@@ -5,19 +5,19 @@ import { AnimatePresence, motion } from 'framer-motion';
 const FAQS = [
   {
     q: 'how does the daily text work?',
-    a: "you pick a time, we send you one SMS every day. answer or ignore — but it's there, waiting.",
+    a: 'you pick a time, we text you one question. that\'s it.',
   },
   {
     q: 'what is the wrapped card?',
-    a: 'every month you get a summary of your streak, your wins, and your honest stats. like spotify wrapped but for your goals.',
+    a: 'once a month you get a recap of your streak and your wins. like spotify wrapped but for your goals.',
   },
   {
     q: 'can I change my goal?',
-    a: 'yes, once per month. goals need weight to matter.',
+    a: 'yes, once a month. goals need weight to matter.',
   },
   {
     q: 'how do I cancel?',
-    a: 'text STOP or cancel from your account settings. no dark patterns, no guilt trip.',
+    a: 'text STOP or cancel in settings. no guilt trip.',
   },
 ];
 
@@ -35,20 +35,35 @@ export default function FAQ() {
         padding: `clamp(80px, 10vw, 120px) clamp(24px, 6vw, 80px)`,
       }}
     >
-      <h2
-        style={{
-          fontFamily: 'DM Sans, sans-serif',
-          fontWeight: 800,
-          fontSize: 'clamp(36px, 6vw, 56px)',
-          color: '#FFFFFF',
-          letterSpacing: '-2px',
-          textAlign: 'center',
-          marginBottom: 'clamp(40px, 6vw, 64px)',
-          margin: `0 auto clamp(40px, 6vw, 64px) auto`,
-        }}
-      >
-        questions.
-      </h2>
+      <div style={{ textAlign: 'center' }}>
+        <span
+          style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: 600,
+            fontSize: '11px',
+            color: 'rgba(123,104,238,0.7)',
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
+            display: 'block',
+            marginBottom: '12px',
+          }}
+        >
+          faq
+        </span>
+        <h2
+          style={{
+            fontFamily: 'DM Sans, sans-serif',
+            fontWeight: 800,
+            fontSize: 'clamp(36px, 6vw, 56px)',
+            color: '#FFFFFF',
+            letterSpacing: '-2px',
+            textAlign: 'center',
+            margin: `0 0 clamp(40px, 6vw, 64px)`,
+          }}
+        >
+          questions.
+        </h2>
+      </div>
 
       <div
         style={{

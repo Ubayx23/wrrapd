@@ -16,6 +16,41 @@ export default function Pricing() {
       }}
     >
       <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+        style={{ textAlign: 'center', width: '100%', maxWidth: '440px', margin: '0 auto clamp(40px, 6vw, 64px)' }}
+      >
+        <span
+          style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: 600,
+            fontSize: '11px',
+            color: 'rgba(123,104,238,0.7)',
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
+            display: 'block',
+            marginBottom: '12px',
+          }}
+        >
+          pricing
+        </span>
+        <h2
+          style={{
+            fontFamily: 'DM Sans, sans-serif',
+            fontWeight: 800,
+            fontSize: 'clamp(36px, 6vw, 56px)',
+            color: '#FFFFFF',
+            letterSpacing: '-2px',
+            margin: 0,
+          }}
+        >
+          simple pricing.
+        </h2>
+      </motion.div>
+
+      <motion.div
         initial={{ opacity: 0, y: 32 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}

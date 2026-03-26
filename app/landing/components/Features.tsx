@@ -216,7 +216,7 @@ export default function Features() {
             <div className="features-card1-inner" style={{ height: '100%', position: 'relative', zIndex: 1 }}>
               {/* Left — copy */}
               <div style={{ padding: 36, flex: 1 }}>
-                <CardLabel text="01 — set your goal" />
+                <CardLabel text="01 / set your goal" />
                 <h3 style={{
                   fontFamily: 'DM Sans, sans-serif',
                   fontSize: 'clamp(22px, 3vw, 32px)',
@@ -330,7 +330,7 @@ export default function Features() {
               }}
             >
               <div>
-                <CardLabel text="02 — daily check-in" />
+                <CardLabel text="02 / daily check-in" />
                 <h3 style={{
                   fontFamily: 'DM Sans, sans-serif',
                   fontSize: 'clamp(20px, 2.5vw, 26px)',
@@ -448,7 +448,7 @@ export default function Features() {
               }} />
 
               <div style={{ marginBottom: 20, position: 'relative', zIndex: 1 }}>
-                <CardLabel text="03 — you are not alone" />
+                <CardLabel text="03 / you are not alone" />
                 <h3 style={{
                   fontFamily: 'DM Sans, sans-serif',
                   fontSize: 'clamp(20px, 2.5vw, 26px)',
