@@ -219,133 +219,175 @@ export default function Hero() {
                   <div className="mockup-phone-display">
                     <div style={{ height: '100%', background: '#FFFFFF', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
-                      {/* Status bar — padded top to clear camera notch */}
+                      {/* Part 1 — Status bar */}
                       <div style={{
-                        paddingTop: '7%',
-                        padding: '7% 18px 4px',
+                        height: 44,
+                        background: '#FFFFFF',
+                        padding: '0 16px',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         flexShrink: 0,
                       }}>
-                        <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, fontWeight: 600, color: '#000000' }}>9:41</span>
+                        <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 'clamp(10px, 3vw, 12px)', fontWeight: 600, color: '#000000' }}>9:41</span>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                          {[4, 6, 9, 12].map((h, i) => (
-                            <div key={i} style={{ width: 3, height: h, background: '#000000', borderRadius: 1 }} />
-                          ))}
-                          <div style={{ width: 20, height: 10, border: '1.5px solid #000000', borderRadius: 3, padding: '1px 2px', marginLeft: 3 }}>
-                            <div style={{ width: '70%', height: '100%', background: '#000000', borderRadius: 1 }} />
-                          </div>
+                          {/* Signal bars */}
+                          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="8" width="3" height="4" rx="0.5" fill="#000000"/>
+                            <rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5" fill="#000000"/>
+                            <rect x="9" y="3" width="3" height="9" rx="0.5" fill="#000000"/>
+                            <rect x="13.5" y="0" width="2.5" height="12" rx="0.5" fill="#000000"/>
+                          </svg>
+                          {/* WiFi icon */}
+                          <svg width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.5 8.5C8.05228 8.5 8.5 8.94772 8.5 9.5C8.5 10.0523 8.05228 10.5 7.5 10.5C6.94772 10.5 6.5 10.0523 6.5 9.5C6.5 8.94772 6.94772 8.5 7.5 8.5Z" fill="#000000"/>
+                            <path d="M4.5 6.5C5.5 5.5 6.43 5 7.5 5C8.57 5 9.5 5.5 10.5 6.5" stroke="#000000" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
+                            <path d="M2 4C3.5 2.5 5.4 1.5 7.5 1.5C9.6 1.5 11.5 2.5 13 4" stroke="#000000" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
+                          </svg>
+                          {/* Battery icon */}
+                          <svg width="22" height="11" viewBox="0 0 22 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="18" height="10" rx="2.5" stroke="#000000" strokeWidth="1"/>
+                            <rect x="19" y="3.5" width="2" height="4" rx="1" fill="#000000"/>
+                            <rect x="2" y="2" width="13" height="7" rx="1.5" fill="#000000"/>
+                          </svg>
                         </div>
                       </div>
 
-                      {/* Contact header */}
+                      {/* Part 2 — Contact header */}
                       <div style={{
-                        padding: '4px 14px 8px',
-                        borderBottom: '0.5px solid rgba(0,0,0,0.08)',
+                        background: '#FFFFFF',
+                        padding: '8px 12px',
+                        borderBottom: '0.5px solid rgba(0,0,0,0.1)',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 10,
                         flexShrink: 0,
                       }}>
-                        <span style={{ fontSize: 18, color: '#007AFF' }}>‹</span>
-                        <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#4C3D8F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 11, fontWeight: 700, color: '#ffffff' }}>w.</span>
+                        {/* Left: chevron + avatar + name */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flex: 1 }}>
+                          <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 22, fontWeight: 300, color: '#007AFF', lineHeight: 1, marginTop: -2 }}>‹</span>
+                          <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#4C3D8F', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 9, fontWeight: 700, color: '#ffffff' }}>w.</span>
+                          </div>
+                          <div>
+                            <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 13, fontWeight: 700, color: '#000000', lineHeight: 1.2 }}>wrrapd</div>
+                            <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 10, color: '#8E8E93', lineHeight: 1.2 }}>daily check-in</div>
+                          </div>
                         </div>
-                        <div>
-                          <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 13, fontWeight: 600, color: '#000000' }}>wrrapd</div>
-                          <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 10, color: 'rgba(0,0,0,0.35)' }}>daily check-in</div>
+                        {/* Right: video + phone icons */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                          <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="13" height="15" rx="2.5" stroke="#007AFF" strokeWidth="1.2"/>
+                            <path d="M14 5.5L21 2V14L14 10.5V5.5Z" stroke="#007AFF" strokeWidth="1.2" strokeLinejoin="round" fill="none"/>
+                          </svg>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 1C3 1 1 3 1 6C1 10.97 5.03 15 10 15C13 15 15 13 15 13L12.5 10.5C12.5 10.5 11.5 11 10.5 11C8.5 11 5 7.5 5 5.5C5 4.5 5.5 3.5 5.5 3.5L3 1Z" stroke="#007AFF" strokeWidth="1.2" strokeLinejoin="round" fill="none"/>
+                          </svg>
                         </div>
                       </div>
 
-                      {/* Messages */}
-                      <div style={{ flex: 1, padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: 8, overflow: 'hidden' }}>
+                      {/* Part 3 — Message area */}
+                      <div style={{ flex: 1, padding: 14, display: 'flex', flexDirection: 'column', gap: 6, overflow: 'hidden', background: '#FFFFFF' }}>
+                        {/* Incoming bubble */}
                         <motion.div
                           initial={{ opacity: 0, x: -14 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.5, delay: 0.9 }}
-                          style={{ maxWidth: '82%' }}
+                          transition={{ duration: 0.5, delay: 0.9, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
                         >
-                          <div style={{ background: '#E9E9EB', borderRadius: '4px 18px 18px 18px', padding: '10px 14px' }}>
-                            <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, color: '#000000', lineHeight: 1.5, margin: 0 }}>
+                          <div style={{ background: '#E9E9EB', borderRadius: '4px 18px 18px 18px', padding: '10px 14px', maxWidth: '75%', display: 'inline-block' }}>
+                            <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 'clamp(10px, 3vw, 13px)', color: '#000000', lineHeight: 1.5, margin: 0 }}>
                               are you becoming who you said you want to become?
                             </p>
                           </div>
-                          <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 10, color: 'rgba(0,0,0,0.28)', marginTop: 3, paddingLeft: 2 }}>8:00 AM</p>
+                          <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 10, color: '#8E8E93', marginTop: 3, paddingLeft: 2 }}>8:00 AM</p>
                         </motion.div>
 
-                        {/* Typing dots */}
+                        {/* Outgoing typing indicator — purple, right-aligned */}
                         <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 1.5 }}
+                          initial={{ opacity: 0, x: 14 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 1.5, duration: 0.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+                          style={{ display: 'flex', justifyContent: 'flex-end', marginLeft: 'auto', width: '100%' }}
                         >
-                          <div style={{ background: '#E9E9EB', borderRadius: '4px 18px 18px 18px', padding: '10px 14px', width: 58, display: 'flex', gap: 4, alignItems: 'center', justifyContent: 'center' }}>
+                          <div style={{ background: '#4C3D8F', borderRadius: '18px 4px 18px 18px', padding: '10px 14px', display: 'flex', gap: 5, alignItems: 'center', justifyContent: 'center' }}>
                             {[0, 1, 2].map(i => (
                               <motion.div
                                 key={i}
                                 animate={{ y: [0, -4, 0] }}
-                                transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.18, ease: 'easeInOut' }}
-                                style={{ width: 7, height: 7, borderRadius: '50%', background: 'rgba(0,0,0,0.3)' }}
+                                transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+                                style={{ width: 5, height: 5, borderRadius: '50%', background: '#FFFFFF', flexShrink: 0 }}
                               />
                             ))}
                           </div>
                         </motion.div>
                       </div>
 
-                      {/* Keyboard + input */}
-                      <div style={{ flexShrink: 0, background: '#D1D5DB' }}>
+                      {/* Part 4 — Input bar + keyboard */}
+                      <div style={{ flexShrink: 0 }}>
                         {/* iMessage input bar */}
                         <div style={{
-                          padding: '8px 10px',
+                          background: '#F2F2F7',
                           borderTop: '0.5px solid rgba(0,0,0,0.1)',
+                          padding: '8px 12px',
                           display: 'flex',
                           alignItems: 'center',
-                          gap: 6,
-                          background: '#F2F2F7',
+                          gap: 8,
                         }}>
-                          <div style={{ flex: 1, background: '#ffffff', borderRadius: 18, padding: '7px 14px', border: '0.5px solid rgba(0,0,0,0.12)' }}>
-                            <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 12, color: 'rgba(0,0,0,0.25)' }}>iMessage</span>
+                          {/* Camera icon */}
+                          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+                            <rect x="1" y="4" width="16" height="12" rx="2.5" stroke="#8E8E93" strokeWidth="1.2"/>
+                            <circle cx="9" cy="10" r="3" stroke="#8E8E93" strokeWidth="1.2"/>
+                            <path d="M6.5 4L7.5 2H10.5L11.5 4" stroke="#8E8E93" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          {/* Input field */}
+                          <div style={{ flex: 1, background: '#FFFFFF', borderRadius: 20, padding: '6px 12px', border: '0.5px solid rgba(0,0,0,0.12)' }}>
+                            <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 'clamp(9px, 2.5vw, 12px)', color: 'rgba(0,0,0,0.25)' }}>iMessage</span>
                           </div>
-                          <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#4C3D8F', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                            <span style={{ color: '#ffffff', fontSize: 12 }}>↑</span>
-                          </div>
+                          {/* Mic icon */}
+                          <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+                            <rect x="4" y="1" width="6" height="10" rx="3" stroke="#8E8E93" strokeWidth="1.2"/>
+                            <path d="M1 9C1 12.31 3.69 15 7 15C10.31 15 13 12.31 13 9" stroke="#8E8E93" strokeWidth="1.2" strokeLinecap="round"/>
+                            <line x1="7" y1="15" x2="7" y2="17" stroke="#8E8E93" strokeWidth="1.2" strokeLinecap="round"/>
+                          </svg>
                         </div>
 
                         {/* Keyboard rows */}
-                        {[
-                          ['Q','W','E','R','T','Y','U','I','O','P'],
-                          ['A','S','D','F','G','H','J','K','L'],
-                          ['⇧','Z','X','C','V','B','N','M','⌫'],
-                          ['123',' ','return'],
-                        ].map((row, ri) => (
-                          <div key={ri} style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            gap: ri === 3 ? 4 : 3,
-                            padding: ri === 3 ? '4px 3px 6px' : '3px 3px 0',
-                          }}>
-                            {row.map((key, ki) => (
-                              <div key={ki} style={{
-                                flex: key === ' ' ? 3 : key === '123' || key === 'return' ? 1.2 : 1,
-                                height: ri === 3 ? 36 : 30,
-                                background: ['⇧','⌫','123','return'].includes(key) ? '#ADB5BD' : '#ffffff',
-                                borderRadius: 5,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: key === 'return' || key === '123' ? 8 : 11,
-                                fontFamily: 'Poppins, sans-serif',
-                                fontWeight: 500,
-                                color: '#000000',
-                                boxShadow: '0 1px 0 rgba(0,0,0,0.25)',
-                                minWidth: 0,
-                              }}>
-                                {key}
-                              </div>
-                            ))}
-                          </div>
-                        ))}
+                        <div style={{ background: '#D1D5DB', padding: '6px 4px' }}>
+                          {[
+                            ['Q','W','E','R','T','Y','U','I','O','P'],
+                            ['A','S','D','F','G','H','J','K','L'],
+                            ['⇧','Z','X','C','V','B','N','M','⌫'],
+                            ['123','space','return'],
+                          ].map((row, ri) => (
+                            <div key={ri} style={{
+                              display: 'flex',
+                              justifyContent: 'center',
+                              gap: 4,
+                              marginBottom: ri < 3 ? 4 : 0,
+                              paddingBottom: ri === 3 ? 4 : 0,
+                            }}>
+                              {row.map((key, ki) => (
+                                <div key={ki} style={{
+                                  flex: key === 'space' ? 4 : key === '123' || key === 'return' ? 1.4 : 1,
+                                  height: ri === 3 ? 38 : 30,
+                                  background: ['⇧','⌫','123','return'].includes(key) ? '#ADB5BD' : '#FFFFFF',
+                                  borderRadius: 5,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: key === 'return' || key === '123' ? 'clamp(6px, 1.5vw, 8px)' : 'clamp(8px, 2vw, 11px)',
+                                  fontFamily: 'Poppins, sans-serif',
+                                  fontWeight: 500,
+                                  color: '#000000',
+                                  boxShadow: '0 1px 0 rgba(0,0,0,0.3)',
+                                  minWidth: 0,
+                                  userSelect: 'none',
+                                }}>
+                                  {key === 'space' ? '' : key}
+                                </div>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
                       </div>
 
                     </div>
