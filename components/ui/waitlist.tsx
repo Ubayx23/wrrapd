@@ -11,39 +11,17 @@ interface WaitlistProps {
 
 const AVATARS = ['/1claude.JPG', '/3claude.JPG', '/w8.jpg'];
 
-// Format as (123) 456-7890 while typing
-function formatPhone(raw: string): string {
-  const digits = raw.replace(/\D/g, '').slice(0, 10);
-  if (digits.length <= 3) return digits;
-  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-}
-
-function isValidPhone(phone: string): boolean {
-  return phone.replace(/\D/g, '').length === 10;
-}
-
 export default function Waitlist({ className = '' }: WaitlistProps) {
-  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhone(formatPhone(e.target.value));
-    setError('');
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!phone) {
-      setError('drop your number first');
-      return;
-    }
-    if (!isValidPhone(phone)) {
-      setError('needs to be a valid 10-digit number');
+    if (!email) {
+      setError('drop your email first');
       return;
     }
 
@@ -52,7 +30,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
 
     const { error: dbError } = await supabase
       .from('waitlist')
-      .insert({ phone: phone.replace(/\D/g, ''), email: email || null });
+      .insert({ email });
 
     setIsLoading(false);
 
@@ -89,14 +67,14 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
               <CheckCircle className="w-5 h-5" style={{ color: '#7B68EE' }} />
             </motion.div>
             <p className="text-sm font-poppins text-center" style={{ color: '#FFFFFF' }}>
-              you&apos;re locked in — we&apos;ll text you first.
+              you&apos;re on the list — we&apos;ll be in touch.
             </p>
             <button
-              onClick={() => { setIsSubmitted(false); setPhone(''); setEmail(''); }}
+              onClick={() => { setIsSubmitted(false); setEmail(''); }}
               className="text-xs font-poppins transition-colors"
               style={{ color: 'rgba(255,255,255,0.45)' }}
             >
-              add another number
+              add another email
             </button>
           </motion.div>
         ) : (
@@ -109,29 +87,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
           >
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
 
-              {/* Phone — primary */}
-              <div className="flex flex-col gap-1">
-                <label className="text-xs font-poppins font-semibold tracking-wide uppercase px-1" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                  what&apos;s your number?
-                </label>
-                <input
-                  type="tel"
-                  inputMode="tel"
-                  autoComplete="tel"
-                  value={phone}
-                  onChange={handlePhoneChange}
-                  placeholder="(555) 867-5309"
-                  disabled={isLoading}
-                  className="w-full rounded-2xl px-5 py-4 font-poppins outline-none transition-all duration-200 disabled:opacity-50 text-xl font-semibold tracking-wide focus:ring-2 focus:ring-[#7B68EE] focus:ring-offset-0"
-                  style={{
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    color: '#FFFFFF',
-                  }}
-                />
-              </div>
-
-              {/* Email — secondary */}
+              {/* Email */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-poppins font-semibold tracking-wide uppercase px-1" style={{ color: 'rgba(255,255,255,0.45)' }}>
                   and your email for updates.
