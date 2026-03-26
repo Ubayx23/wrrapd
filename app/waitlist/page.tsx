@@ -89,8 +89,8 @@ export default function Page() {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '100dvh',
-          padding: 'clamp(60px, 10vw, 100px) clamp(20px, 5vw, 60px) clamp(100px, 12vw, 140px)',
-          gap: 'clamp(20px, 3.5vw, 36px)',
+          padding: 'clamp(36px, 6vw, 64px) clamp(20px, 5vw, 60px) clamp(100px, 12vw, 140px)',
+          gap: 'clamp(16px, 2.8vw, 28px)',
         }}
       >
 
@@ -98,10 +98,10 @@ export default function Page() {
         <div
           style={{
             fontFamily: 'DM Sans, sans-serif',
-            fontSize: 'clamp(2.8rem, 5vw, 4.5rem)',
-            fontWeight: 700,
+            fontSize: 'clamp(3.5rem, 7vw, 6rem)',
+            fontWeight: 800,
             color: '#FFFFFF',
-            letterSpacing: '-2px',
+            letterSpacing: '-3px',
             lineHeight: 1,
             cursor: 'default',
           }}
@@ -112,18 +112,20 @@ export default function Page() {
         {/* Launch badge */}
         <div
           style={{
-            background: 'rgba(123,104,238,0.12)',
-            border: '1px solid rgba(123,104,238,0.35)',
+            background: 'linear-gradient(135deg, rgba(76,61,143,0.9) 0%, rgba(123,104,238,0.7) 100%)',
+            border: '1px solid rgba(123,104,238,0.6)',
             borderRadius: 999,
-            padding: '6px 18px',
-            color: '#7B68EE',
+            padding: '8px 22px',
+            color: '#FFFFFF',
             fontFamily: 'Poppins, sans-serif',
             fontSize: 13,
-            fontWeight: 500,
-            letterSpacing: '0.05em',
+            fontWeight: 600,
+            letterSpacing: '0.08em',
+            boxShadow: '0 0 24px rgba(123,104,238,0.45), 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15)',
+            textTransform: 'uppercase' as const,
           }}
         >
-          launching march 30 →
+          🚀 &nbsp;march 30 drop
         </div>
 
         {/* Headline */}
@@ -155,7 +157,7 @@ export default function Page() {
             lineHeight: 1.6,
           }}
         >
-          daily sms check-ins. monthly wrapped. built for students.
+          text your goals daily. get your wrapped at the end of the month.
         </p>
 
         {/* Follow label */}
