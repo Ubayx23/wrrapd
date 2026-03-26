@@ -5,8 +5,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "wrrapd-navy": "#0a1f47",
-        "wrrapd-gray": "#d8dfe9",
+        "wrrapd-navy": "#FFFFFF",
+        "wrrapd-gray": "#07070F",
+        "wrrapd-purple": "#4C3D8F",
+        "wrrapd-accent": "#7B68EE",
       },
       fontFamily: {
         space: ['"Space Grotesk"', "sans-serif"],
