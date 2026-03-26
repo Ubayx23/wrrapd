@@ -9,7 +9,7 @@ export default function Pricing() {
     <section
       style={{
         background: '#07070F',
-        padding: `clamp(80px, 10vw, 120px) clamp(24px, 6vw, 80px)`,
+        padding: `clamp(56px, 7vw, 84px) clamp(24px, 6vw, 80px)`,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -50,23 +50,38 @@ export default function Pricing() {
         </h2>
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 32 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-        style={{
-          background: '#0D0F14',
-          border: '1px solid rgba(123, 104, 238, 0.35)',
-          boxShadow: '0 0 40px rgba(76,61,143,0.2)',
-          borderRadius: '20px',
-          padding: `clamp(40px, 6vw, 64px) clamp(32px, 5vw, 56px)`,
-          maxWidth: '440px',
-          width: '100%',
-          margin: '0 auto',
-          boxSizing: 'border-box',
-        }}
-      >
+      <div style={{ position: 'relative', maxWidth: '440px', width: '100%', margin: '0 auto' }}>
+        {/* Purple glow behind card */}
+        <div style={{
+          position: 'absolute',
+          width: 340,
+          height: 340,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(76,61,143,0.25) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }} />
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          style={{
+            background: '#0D0F14',
+            border: '1px solid rgba(123, 104, 238, 0.35)',
+            boxShadow: '0 0 40px rgba(76,61,143,0.2)',
+            borderRadius: '20px',
+            padding: `clamp(40px, 6vw, 64px) clamp(32px, 5vw, 56px)`,
+            width: '100%',
+            boxSizing: 'border-box',
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
         {/* Plan name */}
         <div
           style={{
@@ -193,7 +208,8 @@ export default function Pricing() {
         >
           get started
         </button>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

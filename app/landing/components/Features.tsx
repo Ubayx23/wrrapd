@@ -40,7 +40,7 @@ export default function Features() {
       background: '#07070F',
       position: 'relative',
       overflow: 'hidden',
-      padding: 'clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px)',
+      padding: 'clamp(42px, 5.6vw, 70px) clamp(24px, 6vw, 80px)',
     }}>
       <div style={{ maxWidth: 1000, margin: '0 auto' }}>
 
