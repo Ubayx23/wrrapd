@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { LogoSocialLinks, type Social } from '@/components/ui/social-links';
 import Waitlist from '@/components/ui/waitlist';
-import { EtherealShadow } from '@/components/ui/etheral-shadow';
+import { BeamsBackground } from '@/app/landing/components/BeamsBackground';
 
 export default function Page() {
   useEffect(() => {
@@ -44,16 +44,7 @@ export default function Page() {
   ];
 
   return (
-    <>
-      {/* Ethereal animated background */}
-      <div style={{ position: 'fixed', inset: 0, zIndex: 0 }}>
-        <EtherealShadow
-          color="rgba(76,61,143,0.9)"
-          animation={{ scale: 80, speed: 70 }}
-          noise={{ opacity: 0.3, scale: 1.2 }}
-        />
-      </div>
-
+    <BeamsBackground>
       <header className="always-visible logo-white-layer fixed top-0 left-0 w-full flex justify-center pt-4 md:pt-6" style={{ position: 'fixed', zIndex: 30 }}>
         {/* White version — visible on dark background */}
         <div className="flex items-center cursor-default" data-purpose="logo">
@@ -117,6 +108,6 @@ export default function Page() {
         <span>© 2026</span>
       </footer>
 
-    </>
+    </BeamsBackground>
   );
 }
