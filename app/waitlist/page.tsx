@@ -43,67 +43,133 @@ export default function Page() {
   ];
 
   return (
-    <>
-      <div className="flashlight-overlay" id="flashlight" />
+    <div style={{ minHeight: '100dvh', background: '#07070F', position: 'relative', overflow: 'hidden' }}>
 
-      {/* Mask on header (full-width, left:0) so viewport-relative --mouse-x/y coords align correctly */}
-      <header className="always-visible logo-white-layer fixed top-0 left-0 w-full flex justify-center pt-4 md:pt-6">
-        {/* White version — dark backgrounds (desktop overlay + mobile dark bg) */}
+      {/* ── Animated blob background ── */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 600,
+        height: 600,
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(76,61,143,0.7) 0%, transparent 70%)',
+        filter: 'blur(80px)',
+        animation: 'blob-drift 8s ease-in-out infinite',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }} />
+      <div style={{
+        position: 'absolute',
+        top: '35%',
+        left: '60%',
+        transform: 'translate(-50%, -50%)',
+        width: 500,
+        height: 500,
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(123,104,238,0.35) 0%, transparent 70%)',
+        filter: 'blur(80px)',
+        animation: 'blob-drift 11s ease-in-out infinite reverse',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }} />
+
+      {/* ── Logo ── */}
+      <header className="always-visible logo-white-layer fixed top-0 left-0 w-full flex justify-center pt-4 md:pt-6" style={{ zIndex: 30 }}>
         <div className="flex items-center cursor-default" data-purpose="logo">
           <span className="font-dmsans font-semibold text-white tracking-tight text-[3rem] md:text-[4rem]">wrrapd.</span>
         </div>
       </header>
 
-      {/* Dark cutout logo — visible inside the flashlight circle (light background) */}
-      <div className="logo-in-cutout">
-        <div className="flex items-center">
-          <span className="font-dmsans font-semibold text-black tracking-tight text-[3rem] md:text-[4rem]">wrrapd.</span>
-        </div>
-      </div>
-
-      {/* group on main so ghost "lock in" text reacts to page hover */}
-      <main className="group flex flex-col items-center justify-center min-h-dvh px-6 pt-16 pb-32 z-10 relative">
-        <h1
-          className="font-playfair font-light text-wrrapd-navy leading-[0.88] tracking-tight text-center mb-10 md:mb-14"
-          style={{ fontSize: "clamp(2.75rem, 8vw, 6.5rem)" }}
-        >
-          to be launched
-          <br />
-          {/* Half-highlight: light navy wash covers bottom ~45% of the text like a marker */}
-          on <span
-            className="italic"
-            style={{ background: 'linear-gradient(to top, rgba(10,31,71,0.18) 45%, transparent 45%)', paddingBottom: '0.05em' }}
-          >
-            March 30
-          </span>
+      {/* ── Main content ── */}
+      <main
+        className="waitlist-page group"
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100dvh',
+          padding: 'clamp(100px, 14vw, 140px) clamp(20px, 5vw, 60px) 120px',
+        }}
+      >
+        {/* Headline */}
+        <h1 style={{
+          fontFamily: 'DM Sans, sans-serif',
+          fontSize: 'clamp(3rem, 9vw, 7rem)',
+          fontWeight: 800,
+          color: '#FFFFFF',
+          letterSpacing: 'clamp(-2px, -0.4vw, -3px)',
+          lineHeight: 1.05,
+          textAlign: 'center',
+          margin: '0 0 clamp(24px, 4vw, 40px)',
+        }}>
+          to be launched<br />
+          on <em style={{ color: '#7B68EE', fontStyle: 'italic' }}>March 30</em>
         </h1>
 
-        {/* Subtle prompt above the social icons */}
-        <p className="text-wrrapd-navy/50 text-sm font-poppins mb-3 tracking-wide">(follow me ;)</p>
+        {/* Follow me */}
+        <p className="text-sm font-poppins mb-3 tracking-wide" style={{ color: 'rgba(255,255,255,0.5)' }}>
+          (follow me ;)
+        </p>
 
-        {/* New logo-only socials — old AnimatedSocialLinks commented out in social-links.tsx */}
-        <LogoSocialLinks socials={socials} className="mb-6" />
+        {/* Social icons — all hrefs unchanged */}
+        <LogoSocialLinks socials={socials} className="mb-8" />
 
-        {/* Waitlist form with social proof */}
-        <Waitlist className="mb-0" />
+        {/* Frosted glass card wrapping waitlist */}
+        <div style={{
+          background: 'rgba(255,255,255,0.05)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          borderRadius: 20,
+          padding: 32,
+          width: '100%',
+          maxWidth: 480,
+        }}>
+          <Waitlist className="mb-0" />
+        </div>
 
-        {/* Ghost "lock in" — bottom left, small, desktop only */}
+        {/* Ghost "lock in" */}
         <div
-          className="hidden md:block fixed bottom-16 left-6 font-dmsans font-bold text-wrrapd-navy pointer-events-none select-none opacity-0 group-hover:opacity-[0.22] transition-opacity duration-700 z-[60]"
-          style={{ fontSize: '2.5rem', letterSpacing: '-0.03em' }}
+          className="hidden md:block fixed bottom-16 left-6 font-dmsans font-bold pointer-events-none select-none opacity-0 group-hover:opacity-[0.18] transition-opacity duration-700 z-[60]"
+          style={{ fontSize: '2.5rem', letterSpacing: '-0.03em', color: '#FFFFFF' }}
           aria-hidden
         >
           lock in
         </div>
       </main>
 
-      {/* Sticky on mobile so it sits below content; fixed on desktop */}
+      {/* ── Decorative large background text ── */}
+      <div style={{
+        position: 'absolute',
+        bottom: 60,
+        left: 0,
+        right: 0,
+        textAlign: 'center',
+        fontFamily: 'DM Sans, sans-serif',
+        fontWeight: 900,
+        fontSize: 'clamp(6rem, 20vw, 16rem)',
+        color: 'rgba(255,255,255,0.03)',
+        letterSpacing: '-4px',
+        pointerEvents: 'none',
+        userSelect: 'none',
+        zIndex: 0,
+        lineHeight: 1,
+      }}>
+        wrrapd.
+      </div>
+
+      {/* ── Footer — unchanged ── */}
       <footer className="sticky md:fixed bottom-0 left-0 right-0 py-4 px-6 flex justify-between items-center bg-wrrapd-gray text-wrrapd-navy text-sm font-poppins font-semibold border-t-2 border-wrrapd-navy/40 z-[50]">
         <span>Under Construction</span>
         <span className="text-xs font-normal opacity-60">built by a student for students</span>
         <span>© 2026</span>
       </footer>
 
-    </>
+    </div>
   );
 }
