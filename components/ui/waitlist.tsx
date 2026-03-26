@@ -2,26 +2,48 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, CheckCircle, Loader2 } from 'lucide-react';
+import { CheckCircle, Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface WaitlistProps {
   className?: string;
 }
 
-// Local avatar photos uploaded to /public for social proof row
 const AVATARS = ['/1claude.JPG', '/3claude.JPG', '/w8.jpg'];
 
+// Format as (123) 456-7890 while typing
+function formatPhone(raw: string): string {
+  const digits = raw.replace(/\D/g, '').slice(0, 10);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
+function isValidPhone(phone: string): boolean {
+  return phone.replace(/\D/g, '').length === 10;
+}
+
 export default function Waitlist({ className = '' }: WaitlistProps) {
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(formatPhone(e.target.value));
+    setError('');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) {
-      setError('Please enter your email address');
+
+    if (!phone) {
+      setError('drop your number first');
+      return;
+    }
+    if (!isValidPhone(phone)) {
+      setError('needs to be a valid 10-digit number');
       return;
     }
 
@@ -30,7 +52,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
 
     const { error: dbError } = await supabase
       .from('waitlist')
-      .insert({ email });
+      .insert({ phone: phone.replace(/\D/g, ''), email: email || null });
 
     setIsLoading(false);
 
@@ -38,7 +60,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
       if (dbError.code === '23505') {
         setError('you are already on the list');
       } else {
-        setError('something went wrong, please try again');
+        setError('something went wrong, try again');
       }
       return;
     }
@@ -47,10 +69,9 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
   };
 
   return (
-    <div className={`w-full max-w-lg ${className}`} data-purpose="waitlist-container">
+    <div className={`w-full max-w-sm ${className}`} data-purpose="waitlist-container">
       <AnimatePresence mode="wait">
         {isSubmitted ? (
-          // Success state — replaces the form
           <motion.div
             key="success"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -67,56 +88,72 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
               <CheckCircle className="w-5 h-5 text-wrrapd-navy" />
             </motion.div>
             <p className="text-sm font-poppins text-wrrapd-navy text-center">
-              You&apos;re on the list — we&apos;ll be in touch!
+              you&apos;re locked in — we&apos;ll text you first.
             </p>
             <button
-              onClick={() => { setIsSubmitted(false); setEmail(''); }}
+              onClick={() => { setIsSubmitted(false); setPhone(''); setEmail(''); }}
               className="text-xs font-poppins text-wrrapd-navy/50 hover:text-wrrapd-navy transition-colors"
             >
-              Join with another email
+              add another number
             </button>
           </motion.div>
         ) : (
-          // Pill form + social proof
           <motion.div
             key="form"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col items-center gap-4"
+            className="flex flex-col items-center gap-4 w-full"
           >
-            {/* Pill-shaped form with Mail icon on the left */}
-            <form
-              onSubmit={handleSubmit}
-              className="relative flex flex-col sm:flex-row items-center w-full bg-white/70 backdrop-blur-sm p-2 rounded-2xl sm:rounded-full shadow-lg border border-wrrapd-navy/20 group focus-within:ring-2 focus-within:ring-wrrapd-navy focus-within:ring-offset-2 transition-all duration-300"
-            >
-              <Mail className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-wrrapd-navy/50 hidden sm:block" />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => { setEmail(e.target.value); setError(''); }}
-                placeholder="Your Email Address"
-                disabled={isLoading}
-                /* font-size 16px min prevents iOS from auto-zooming the page on input focus */
-                className="w-full sm:w-auto flex-grow bg-transparent sm:pl-12 px-4 py-3 font-poppins text-wrrapd-navy placeholder:text-wrrapd-navy/70 outline-none text-center sm:text-left disabled:opacity-50 text-base"
-                required
-              />
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
+
+              {/* Phone — primary */}
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-poppins font-semibold text-wrrapd-navy/60 tracking-wide uppercase px-1">
+                  what&apos;s your number?
+                </label>
+                <input
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  value={phone}
+                  onChange={handlePhoneChange}
+                  placeholder="(555) 867-5309"
+                  disabled={isLoading}
+                  className="w-full bg-white/80 backdrop-blur-sm border border-wrrapd-navy/20 rounded-2xl px-5 py-4 font-poppins text-wrrapd-navy placeholder:text-wrrapd-navy/30 outline-none focus:ring-2 focus:ring-wrrapd-navy focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 text-xl font-semibold tracking-wide shadow-sm"
+                />
+              </div>
+
+              {/* Email — secondary */}
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-poppins font-semibold text-wrrapd-navy/40 tracking-wide uppercase px-1">
+                  and your email for updates.
+                </label>
+                <input
+                  type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); setError(''); }}
+                  placeholder="you@email.com"
+                  disabled={isLoading}
+                  className="w-full bg-white/50 backdrop-blur-sm border border-wrrapd-navy/12 rounded-xl px-4 py-3 font-poppins text-wrrapd-navy placeholder:text-wrrapd-navy/25 outline-none focus:ring-2 focus:ring-wrrapd-navy/50 focus:ring-offset-1 transition-all duration-200 disabled:opacity-50 text-base"
+                />
+              </div>
+
+              {/* Submit */}
               <motion.button
                 type="submit"
                 disabled={isLoading}
-                whileHover={{ scale: isLoading ? 1 : 1.05 }}
+                whileHover={{ scale: isLoading ? 1 : 1.02 }}
                 whileTap={{ scale: isLoading ? 1 : 0.97 }}
-                className="w-full sm:w-auto mt-2 sm:mt-0 px-6 py-3 bg-wrrapd-navy text-wrrapd-gray font-poppins font-semibold rounded-full flex items-center justify-center gap-2 disabled:opacity-70 transition-colors duration-300 shadow-md"
+                className="w-full mt-1 px-6 py-4 bg-wrrapd-navy text-wrrapd-gray font-poppins font-semibold rounded-2xl flex items-center justify-center gap-2 disabled:opacity-70 transition-colors duration-300 shadow-md text-base"
               >
-                {isLoading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  'Get Notified'
-                )}
+                {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "i'm in"}
               </motion.button>
             </form>
 
-            {/* Inline error message */}
+            {/* Error */}
             <AnimatePresence>
               {error && (
                 <motion.p
@@ -130,7 +167,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
               )}
             </AnimatePresence>
 
-            {/* Social proof — real avatar photos + count */}
+            {/* Social proof */}
             <div className="flex items-center gap-3">
               <div className="flex -space-x-2">
                 {AVATARS.map((src, i) => (
