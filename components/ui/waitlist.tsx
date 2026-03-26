@@ -11,17 +11,39 @@ interface WaitlistProps {
 
 const AVATARS = ['/1claude.JPG', '/3claude.JPG', '/w8.jpg'];
 
+// Format as (123) 456-7890 while typing
+function formatPhone(raw: string): string {
+  const digits = raw.replace(/\D/g, '').slice(0, 10);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
+function isValidPhone(phone: string): boolean {
+  return phone.replace(/\D/g, '').length === 10;
+}
+
 export default function Waitlist({ className = '' }: WaitlistProps) {
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(formatPhone(e.target.value));
+    setError('');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email) {
-      setError('drop your email first');
+    if (!phone) {
+      setError('drop your number first');
+      return;
+    }
+    if (!isValidPhone(phone)) {
+      setError('needs to be a valid 10-digit number');
       return;
     }
 
@@ -30,7 +52,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
 
     const { error: dbError } = await supabase
       .from('waitlist')
-      .insert({ email });
+      .insert({ phone: phone.replace(/\D/g, ''), email: email || null });
 
     setIsLoading(false);
 
@@ -61,20 +83,18 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.1, type: 'spring', stiffness: 300, damping: 25 }}
-              className="w-10 h-10 rounded-full flex items-center justify-center"
-              style={{ background: 'rgba(123,104,238,0.15)' }}
+              className="w-10 h-10 rounded-full bg-wrrapd-navy/10 flex items-center justify-center"
             >
-              <CheckCircle className="w-5 h-5" style={{ color: '#7B68EE' }} />
+              <CheckCircle className="w-5 h-5 text-wrrapd-navy" />
             </motion.div>
-            <p className="text-sm font-poppins text-center" style={{ color: '#FFFFFF' }}>
-              you&apos;re on the list — we&apos;ll be in touch.
+            <p className="text-sm font-poppins text-wrrapd-navy text-center">
+              you&apos;re locked in — we&apos;ll text you first.
             </p>
             <button
-              onClick={() => { setIsSubmitted(false); setEmail(''); }}
-              className="text-xs font-poppins transition-colors"
-              style={{ color: 'rgba(255,255,255,0.45)' }}
+              onClick={() => { setIsSubmitted(false); setPhone(''); setEmail(''); }}
+              className="text-xs font-poppins text-wrrapd-navy/50 hover:text-wrrapd-navy transition-colors"
             >
-              add another email
+              add another number
             </button>
           </motion.div>
         ) : (
@@ -87,9 +107,26 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
           >
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
 
-              {/* Email */}
+              {/* Phone — primary */}
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-poppins font-semibold tracking-wide uppercase px-1" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                <label className="text-xs font-poppins font-semibold text-wrrapd-navy/60 tracking-wide uppercase px-1">
+                  what&apos;s your number?
+                </label>
+                <input
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  value={phone}
+                  onChange={handlePhoneChange}
+                  placeholder="(555) 867-5309"
+                  disabled={isLoading}
+                  className="w-full bg-white/80 backdrop-blur-sm border border-wrrapd-navy/20 rounded-2xl px-5 py-4 font-poppins text-wrrapd-navy placeholder:text-wrrapd-navy/30 outline-none focus:ring-2 focus:ring-wrrapd-navy focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 text-xl font-semibold tracking-wide shadow-sm"
+                />
+              </div>
+
+              {/* Email — secondary */}
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-poppins font-semibold text-wrrapd-navy/40 tracking-wide uppercase px-1">
                   and your email for updates.
                 </label>
                 <input
@@ -100,12 +137,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                   onChange={(e) => { setEmail(e.target.value); setError(''); }}
                   placeholder="you@email.com"
                   disabled={isLoading}
-                  className="w-full rounded-xl px-4 py-3 font-poppins outline-none transition-all duration-200 disabled:opacity-50 text-base focus:ring-2 focus:ring-[#7B68EE] focus:ring-offset-0"
-                  style={{
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    color: '#FFFFFF',
-                  }}
+                  className="w-full bg-white/50 backdrop-blur-sm border border-wrrapd-navy/12 rounded-xl px-4 py-3 font-poppins text-wrrapd-navy placeholder:text-wrrapd-navy/25 outline-none focus:ring-2 focus:ring-wrrapd-navy/50 focus:ring-offset-1 transition-all duration-200 disabled:opacity-50 text-base"
                 />
               </div>
 
@@ -115,8 +147,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                 disabled={isLoading}
                 whileHover={{ scale: isLoading ? 1 : 1.02 }}
                 whileTap={{ scale: isLoading ? 1 : 0.97 }}
-                className="w-full mt-1 px-6 py-4 font-poppins font-semibold rounded-2xl flex items-center justify-center gap-2 disabled:opacity-70 transition-colors duration-300 shadow-md text-base"
-                style={{ background: '#4C3D8F', color: '#FFFFFF' }}
+                className="w-full mt-1 px-6 py-4 bg-wrrapd-navy text-wrrapd-gray font-poppins font-semibold rounded-2xl flex items-center justify-center gap-2 disabled:opacity-70 transition-colors duration-300 shadow-md text-base"
               >
                 {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "i'm in"}
               </motion.button>
@@ -129,8 +160,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                   initial={{ opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
-                  className="text-xs font-poppins"
-                  style={{ color: '#ff6b6b' }}
+                  className="text-xs font-poppins text-red-500"
                 >
                   {error}
                 </motion.p>
@@ -145,12 +175,11 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                     key={i}
                     src={src}
                     alt={`User ${i + 1}`}
-                    className="h-8 w-8 rounded-full object-cover"
-                    style={{ outline: '2px solid #07070F' }}
+                    className="h-8 w-8 rounded-full ring-2 ring-wrrapd-gray object-cover"
                   />
                 ))}
               </div>
-              <p className="text-sm font-poppins" style={{ color: 'rgba(255,255,255,0.45)' }}>
+              <p className="text-sm font-poppins text-wrrapd-navy/60">
                 don&apos;t have FOMO / join now
               </p>
             </div>

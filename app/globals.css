@@ -87,24 +87,19 @@
   --mouse-y: 50%;
 }
 
-/* Waitlist dark-theme input placeholders */
-[data-purpose="waitlist-container"] input::placeholder {
-  color: rgba(255, 255, 255, 0.28);
-}
-
 body {
   margin: 0;
   padding: 0;
   /* Allow vertical scroll on mobile; hide horizontal overflow always */
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #07070F;
+  background-color: #d8dfe9;
   min-height: 100dvh;
 }
 
-/* Desktop: lock scroll since everything fits in one screen — not on landing or waitlist page */
+/* Desktop: lock scroll since everything fits in one screen — not on landing page */
 @media (min-width: 744px) {
-  body:not(:has(.landing-page)):not(:has(.waitlist-page)) {
+  body:not(:has(.landing-page)) {
     overflow: hidden;
     height: 100vh;
   }
@@ -113,11 +108,7 @@ body {
 .flashlight-overlay {
   position: fixed;
   inset: 0;
-  background: radial-gradient(
-    circle 320px at var(--mouse-x) var(--mouse-y),
-    rgba(123, 104, 238, 0.15) 0%,
-    transparent 70%
-  ), #07070F;
+  background-color: #0a1f47;
   pointer-events: none;
   z-index: 20;
   mask-image: radial-gradient(
@@ -179,15 +170,14 @@ body {
 
 /* Mobile — below 744px: clean static layout, no overlay */
 @media (max-width: 743px) {
-  html:not(:has(.landing-page)):not(:has(.waitlist-page)),
-  body:not(:has(.landing-page)):not(:has(.waitlist-page)) {
+  html:not(:has(.landing-page)), body:not(:has(.landing-page)) {
     height: 100%;
     width: 100%;
     overflow: hidden;
   }
 
-  body:not(:has(.landing-page)):not(:has(.waitlist-page)) {
-    background-color: #07070F !important;
+  body:not(:has(.landing-page)) {
+    background-color: #d8dfe9 !important;
     position: relative !important;
     display: flex !important;
     flex-direction: column !important;
@@ -195,13 +185,6 @@ body {
     justify-content: center !important;
     min-height: 100dvh !important;
     padding: 80px 24px 80px !important;
-  }
-
-  body:has(.waitlist-page) {
-    background-color: #07070F !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    min-height: 100dvh !important;
   }
 
   .flashlight-overlay {
@@ -231,11 +214,11 @@ body {
   }
 
   header span {
-    color: #FFFFFF !important;
+    color: #0a1f47 !important;
     font-size: clamp(2rem, 7vw, 3rem) !important;
   }
 
-  main.group:not(.waitlist-page) {
+  main.group {
     position: relative !important;
     inset: auto !important;
     min-height: 0 !important;
@@ -251,24 +234,24 @@ body {
   main:not(.landing-page) h1 {
     font-size: clamp(2.4rem, 8vw, 4rem) !important;
     line-height: 1.15 !important;
-    color: #FFFFFF !important;
+    color: #0a1f47 !important;
     margin-bottom: 0 !important;
     text-align: center !important;
   }
 
   main:not(.landing-page) h1 span {
-    color: #FFFFFF !important;
+    color: #0a1f47 !important;
     font-size: inherit !important;
   }
 
   main:not(.landing-page) p {
-    color: rgba(255,255,255,0.45) !important;
+    color: #0a1f47 !important;
     font-size: 0.9rem !important;
     line-height: 1.5 !important;
   }
 
   main:not(.landing-page) a {
-    color: rgba(255,255,255,0.45) !important;
+    color: #0a1f47 !important;
   }
 
   footer {
@@ -277,13 +260,13 @@ body {
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
-    background-color: #07070F !important;
-    border-top: 1px solid rgba(255,255,255,0.08) !important;
+    background-color: #0a1f47 !important;
+    border-top: 0.5px solid rgba(255,255,255,0.1) !important;
     z-index: 50 !important;
   }
 
   footer * {
-    color: rgba(255,255,255,0.45) !important;
+    color: rgba(255,255,255,0.8) !important;
   }
 }
 
