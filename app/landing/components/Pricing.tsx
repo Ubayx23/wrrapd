@@ -188,10 +188,12 @@ export default function Pricing() {
         ))}
 
         {/* CTA button */}
-        <button
+        <a
+          href="/waitlist"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           style={{
+            display: 'block',
             width: '100%',
             background: '#4C3D8F',
             color: '#FFFFFF',
@@ -205,10 +207,13 @@ export default function Pricing() {
             cursor: 'pointer',
             opacity: hovered ? 0.85 : 1,
             transition: 'opacity 0.15s ease',
+            textDecoration: 'none',
+            textAlign: 'center',
+            boxSizing: 'border-box',
           }}
         >
           get started
-        </button>
+        </a>
         </motion.div>
       </div>
     </section>

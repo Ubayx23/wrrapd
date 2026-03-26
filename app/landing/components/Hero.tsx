@@ -98,7 +98,7 @@ export default function Hero() {
 
           {/* CTA */}
           <a
-            href="#"
+            href="/waitlist"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
