@@ -80,8 +80,9 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
         ) : (
           <motion.div
             key="form"
-            initial={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col items-center gap-4 w-full"
           >
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
@@ -101,8 +102,8 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                   disabled={isLoading}
                   className="w-full rounded-xl px-4 py-3 font-poppins outline-none transition-all duration-200 disabled:opacity-50 text-base focus:ring-2 focus:ring-[#7B68EE] focus:ring-offset-0"
                   style={{
-                    background: 'rgba(255,255,255,0.10)',
-                    border: '1px solid rgba(255,255,255,0.25)',
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.1)',
                     color: '#FFFFFF',
                   }}
                 />

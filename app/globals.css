@@ -89,7 +89,7 @@
 
 /* Waitlist dark-theme input placeholders */
 [data-purpose="waitlist-container"] input::placeholder {
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.28);
 }
 
 body {
@@ -113,9 +113,27 @@ body {
 .flashlight-overlay {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle 380px at var(--mouse-x) var(--mouse-y), rgba(123,104,238,0.08) 0%, rgba(7,7,15,0.82) 60%, rgba(7,7,15,0.97) 100%);
+  background: radial-gradient(
+    circle 320px at var(--mouse-x) var(--mouse-y),
+    rgba(123, 104, 238, 0.15) 0%,
+    transparent 70%
+  ), #07070F;
   pointer-events: none;
   z-index: 20;
+  mask-image: radial-gradient(
+    circle 250px at var(--mouse-x) var(--mouse-y),
+    transparent 0%,
+    transparent 94%,
+    rgba(0, 0, 0, 0.6) 98%,
+    black 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle 250px at var(--mouse-x) var(--mouse-y),
+    transparent 0%,
+    transparent 94%,
+    rgba(0, 0, 0, 0.6) 98%,
+    black 100%
+  );
 }
 
 .always-visible {
@@ -238,8 +256,8 @@ body {
     text-align: center !important;
   }
 
-  main:not(.landing-page) h1 span.march-30 {
-    color: #7B68EE !important;
+  main:not(.landing-page) h1 span {
+    color: #FFFFFF !important;
     font-size: inherit !important;
   }
 
@@ -269,8 +287,20 @@ body {
   }
 }
 
-/* Dark theme: white logo always visible — no masking needed */
+/* Same mask as flashlight-overlay — hides the white logo inside the circle so the dark cutout shows through */
 .logo-white-layer {
-  mask-image: none;
-  -webkit-mask-image: none;
+  mask-image: radial-gradient(
+    circle 250px at var(--mouse-x) var(--mouse-y),
+    transparent 0%,
+    transparent 94%,
+    rgba(0, 0, 0, 0.6) 98%,
+    black 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle 250px at var(--mouse-x) var(--mouse-y),
+    transparent 0%,
+    transparent 94%,
+    rgba(0, 0, 0, 0.6) 98%,
+    black 100%
+  );
 }
