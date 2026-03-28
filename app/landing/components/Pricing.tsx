@@ -109,7 +109,7 @@ export default function Pricing() {
               lineHeight: 1,
             }}
           >
-            $9.99
+            $4.99
           </span>
           <span
             style={{

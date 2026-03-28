@@ -319,7 +319,7 @@ export default function Hero() {
                         >
                           <div style={{ background: '#E9E9EB', borderRadius: '18px 18px 18px 4px', padding: '10px 14px', boxShadow: '0 1px 2px rgba(0,0,0,0.08)' }}>
                             <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 13, color: '#000000', lineHeight: 1.5, margin: 0 }}>
-                              are you becoming who you said you want to become?
+                              bro we doing this again?
                             </p>
                           </div>
                           <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 10, color: 'rgba(0,0,0,0.28)', marginTop: 3, paddingLeft: 2 }}>8:00 AM</p>
