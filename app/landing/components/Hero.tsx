@@ -337,12 +337,10 @@ export default function Hero() {
                       {/* Messages area */}
                       <div style={{
                         background: '#F2F2F7',
-                        flex: 1,
-                        padding: '20px 12px',
+                        padding: '20px 12px 40px',
                         display: 'flex',
                         flexDirection: 'column',
                         gap: 10,
-                        overflow: 'hidden',
                       }}>
 
                         {/* Incoming bubble 1 */}
