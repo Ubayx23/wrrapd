@@ -1,11 +1,9 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BeamsBackground } from './BeamsBackground';
 
 export default function Hero() {
-  const [email, setEmail] = useState('');
-
   useEffect(() => {
     const prev = {
       htmlStyle: document.documentElement.getAttribute('style') || '',
@@ -21,7 +19,7 @@ export default function Hero() {
 
   return (
     <>
-      {/* ── FLOATING NAVBAR ── */}
+      {/* FLOATING NAVBAR */}
       <motion.nav
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -63,10 +61,10 @@ export default function Hero() {
             wrrapd<span style={{ color: '#4C3D8F' }}>.</span>
           </span>
 
-          {/* Divider — hidden on mobile */}
+          {/* Divider - hidden on mobile */}
           <div className="nav-divider-hide-mobile" style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.1)', marginRight: 4, flexShrink: 0 }} />
 
-          {/* Nav links — hidden on mobile */}
+          {/* Nav links - hidden on mobile */}
           {[['how it works', '#how-it-works'], ['pricing', '#pricing']].map(([label, href]) => (
             <a
               key={label}
@@ -124,7 +122,7 @@ export default function Hero() {
         </div>
       </motion.nav>
 
-      {/* ── HERO SECTION ── */}
+      {/* HERO SECTION */}
       <section style={{
         position: 'relative',
         width: '100%',
@@ -210,31 +208,59 @@ export default function Hero() {
                 zIndex: 0,
               }} />
 
-              {/* DaisyUI mockup-phone shell */}
+              {/* iPhone shell - floating animation */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 6, ease: 'easeInOut', repeat: Infinity }}
-                style={{ marginBottom: '-180px', zIndex: 1, flexShrink: 0 }}
+                style={{ marginBottom: '-180px', zIndex: 1, flexShrink: 0, display: 'flex', justifyContent: 'center' }}
               >
+                {/* Outer frame */}
                 <div
-                  className="mockup-phone"
                   style={{
-                    maxWidth: 'clamp(260px, 86vw, 340px)',
-                    width: '100%',
-                    borderColor: '#2a2a2a',
-                    boxShadow: '0 0 0 1px rgba(76,61,143,0.25), 0 40px 80px rgba(0,0,0,0.9), 0 0 100px rgba(76,61,143,0.25)',
+                    position: 'relative',
+                    width: 'clamp(280px, 72vw, 320px)',
+                    borderRadius: 44,
+                    background: '#1C1C1E',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    boxShadow: '0 50px 100px rgba(0,0,0,0.8), 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.08)',
+                    padding: '10px',
+                    boxSizing: 'border-box',
                   }}
                 >
-                  {/* Camera notch (DaisyUI dynamic island) */}
-                  <div className="mockup-phone-camera" />
+                  {/* Left volume button top */}
+                  <div style={{ position: 'absolute', left: -4, top: 80, width: 3, height: 28, background: '#333', borderRadius: 2 }} />
+                  {/* Left volume button bottom */}
+                  <div style={{ position: 'absolute', left: -4, top: 118, width: 3, height: 28, background: '#333', borderRadius: 2 }} />
+                  {/* Right power button */}
+                  <div style={{ position: 'absolute', right: -4, top: 100, width: 3, height: 44, background: '#333', borderRadius: 2 }} />
 
-                  {/* Screen */}
-                  <div className="mockup-phone-display">
-                    <div style={{ height: '100%', background: '#FFFFFF', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                  {/* Screen area */}
+                  <div
+                    style={{
+                      borderRadius: 36,
+                      background: '#FFFFFF',
+                      overflow: 'hidden',
+                      position: 'relative',
+                    }}
+                  >
+                    {/* Dynamic Island */}
+                    <div style={{
+                      position: 'absolute',
+                      top: 12,
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: 120,
+                      height: 34,
+                      background: '#000',
+                      borderRadius: 20,
+                      zIndex: 10,
+                      pointerEvents: 'none',
+                    }} />
+
+                    <div style={{ background: '#FFFFFF', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
                       {/* Status bar */}
                       <div style={{
-                        paddingTop: '7%',
                         padding: '7% 14px 4px',
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -277,7 +303,7 @@ export default function Hero() {
                         position: 'relative',
                       }}>
                         {/* Back chevron */}
-                        <span style={{ fontSize: 20, color: '#007AFF', lineHeight: 1, flexShrink: 0 }}>‹</span>
+                        <span style={{ fontSize: 20, color: '#007AFF', lineHeight: 1, flexShrink: 0 }}>&#8249;</span>
                         {/* Center: avatar + name stacked */}
                         <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                           <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#4C3D8F', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 1px 4px rgba(76,61,143,0.35)' }}>
@@ -299,7 +325,7 @@ export default function Hero() {
                             letterSpacing: '0.2px',
                           }}>wrrapd</span>
                         </div>
-                        {/* FaceTime button — right */}
+                        {/* FaceTime button - right */}
                         <div style={{ marginLeft: 'auto' }}>
                           <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
                             <rect x="0" y="2" width="14" height="12" rx="2.5" fill="#007AFF" />
@@ -308,100 +334,97 @@ export default function Hero() {
                         </div>
                       </div>
 
-                      {/* Messages */}
-                      <div style={{ flex: 1, padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: 8, overflow: 'hidden', background: '#F2F2F7' }}>
-                        {/* Incoming bubble */}
+                      {/* Messages area */}
+                      <div style={{
+                        background: '#F2F2F7',
+                        flex: 1,
+                        padding: '20px 12px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 10,
+                        overflow: 'hidden',
+                      }}>
+
+                        {/* Incoming bubble 1 */}
                         <motion.div
                           initial={{ opacity: 0, x: -14 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.5, delay: 0.9 }}
+                          transition={{ duration: 0.5, delay: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
                           style={{ maxWidth: '75%', alignSelf: 'flex-start' }}
                         >
-                          <div style={{ background: '#E9E9EB', borderRadius: '18px 18px 18px 4px', padding: '10px 14px', boxShadow: '0 1px 2px rgba(0,0,0,0.08)' }}>
-                            <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 13, color: '#000000', lineHeight: 1.5, margin: 0 }}>
-                              bro we doing this again?
+                          <div style={{
+                            background: '#E9E9EB',
+                            borderRadius: '18px 18px 18px 4px',
+                            padding: '10px 14px',
+                          }}>
+                            <p style={{
+                              fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+                              fontSize: 13,
+                              color: '#000000',
+                              lineHeight: 1.5,
+                              margin: 0,
+                            }}>
+                              ok talk to me. did you show up today?
                             </p>
                           </div>
-                          <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: 10, color: 'rgba(0,0,0,0.28)', marginTop: 3, paddingLeft: 2 }}>8:00 AM</p>
+                          <p style={{
+                            fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+                            fontSize: 10,
+                            color: 'rgba(0,0,0,0.28)',
+                            marginTop: 3,
+                            paddingLeft: 2,
+                            margin: '3px 0 0 2px',
+                          }}>8:00 AM</p>
                         </motion.div>
 
-                        {/* Typing dots — outgoing (right side) */}
+                        {/* Outgoing bubble */}
                         <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 1.5 }}
-                          style={{ alignSelf: 'flex-end' }}
+                          initial={{ opacity: 0, x: 14 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.5, delay: 1.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+                          style={{ maxWidth: '75%', alignSelf: 'flex-end' }}
                         >
-                          <div style={{ background: '#007AFF', borderRadius: '18px 18px 4px 18px', padding: '10px 14px', width: 58, display: 'flex', gap: 4, alignItems: 'center', justifyContent: 'center' }}>
-                            {[0, 1, 2].map(i => (
-                              <motion.div
-                                key={i}
-                                animate={{ y: [0, -4, 0] }}
-                                transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.18, ease: 'easeInOut' }}
-                                style={{ width: 7, height: 7, borderRadius: '50%', background: 'rgba(255,255,255,0.85)' }}
-                              />
-                            ))}
+                          <div style={{
+                            background: '#007AFF',
+                            borderRadius: '18px 18px 4px 18px',
+                            padding: '10px 14px',
+                          }}>
+                            <p style={{
+                              fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+                              fontSize: 13,
+                              color: '#FFFFFF',
+                              lineHeight: 1.5,
+                              margin: 0,
+                            }}>
+                              yes
+                            </p>
                           </div>
                         </motion.div>
-                      </div>
 
-                      {/* Keyboard + input */}
-                      <div style={{ flexShrink: 0 }}>
-                        {/* iMessage input bar */}
-                        <div style={{
-                          padding: '7px 10px',
-                          borderTop: '0.5px solid rgba(0,0,0,0.1)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 8,
-                          background: '#F9F9F9',
-                        }}>
-                          {/* Input pill */}
-                          <div style={{ flex: 1, background: '#ffffff', borderRadius: 20, padding: '7px 14px', border: '1px solid rgba(0,0,0,0.12)', boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.04)' }}>
-                            <span style={{ fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12, color: '#C0C0C6' }}>iMessage</span>
-                          </div>
-                          {/* Send button */}
-                          <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#007AFF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 6px rgba(0,122,255,0.4)' }}>
-                            <span style={{ color: '#ffffff', fontSize: 13, lineHeight: 1 }}>↑</span>
-                          </div>
-                        </div>
-
-                        {/* Keyboard rows */}
-                        <div style={{ background: '#CDD0D6', paddingTop: 4, paddingBottom: 6 }}>
-                          {[
-                            ['Q','W','E','R','T','Y','U','I','O','P'],
-                            ['A','S','D','F','G','H','J','K','L'],
-                            ['⇧','Z','X','C','V','B','N','M','⌫'],
-                            ['123',' ','return'],
-                          ].map((row, ri) => (
-                            <div key={ri} style={{
-                              display: 'flex',
-                              justifyContent: 'center',
-                              gap: 3,
-                              padding: ri === 3 ? '3px 4px 2px' : '0 4px 3px',
-                              marginLeft: ri === 1 ? 6 : ri === 2 ? 3 : 0,
+                        {/* Incoming bubble 2 */}
+                        <motion.div
+                          initial={{ opacity: 0, x: -14 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.5, delay: 1.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+                          style={{ maxWidth: '75%', alignSelf: 'flex-start' }}
+                        >
+                          <div style={{
+                            background: '#E9E9EB',
+                            borderRadius: '18px 18px 18px 4px',
+                            padding: '10px 14px',
+                          }}>
+                            <p style={{
+                              fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+                              fontSize: 13,
+                              color: '#000000',
+                              lineHeight: 1.5,
+                              margin: 0,
                             }}>
-                              {row.map((key, ki) => (
-                                <div key={ki} style={{
-                                  flex: key === ' ' ? 4 : key === '123' || key === 'return' ? 1.4 : 1,
-                                  height: ri === 3 ? 34 : 28,
-                                  background: ['⇧','⌫','123','return'].includes(key) ? '#ADB5BD' : '#ffffff',
-                                  borderRadius: 5,
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  fontSize: key === 'return' || key === '123' ? 8 : 10,
-                                  fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
-                                  color: '#000000',
-                                  boxShadow: '0 1px 0 1px rgba(0,0,0,0.25)',
-                                  minWidth: 0,
-                                }}>
-                                  {key === ' ' ? '' : key}
-                                </div>
-                              ))}
-                            </div>
-                          ))}
-                        </div>
+                              4/5 this week. thats better than last week. lowkey you&apos;re building something.
+                            </p>
+                          </div>
+                        </motion.div>
+
                       </div>
 
                     </div>
@@ -410,6 +433,7 @@ export default function Hero() {
               </motion.div>
             </motion.div>
 
+            {/* Fade gradient at bottom */}
             <div style={{
               position: 'relative',
               zIndex: 3,
