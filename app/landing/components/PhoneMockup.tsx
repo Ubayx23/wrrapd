@@ -15,259 +15,80 @@ export default function PhoneMockup() {
         width: '100%',
       }}
     >
-      {/* Purple glow behind phone */}
-      <div style={{
-        position: 'absolute',
-        top: '15%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: 420,
-        height: 420,
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(123,104,238,0.4) 0%, transparent 70%)',
-        filter: 'blur(70px)',
-        pointerEvents: 'none',
-        zIndex: 0,
-      }} />
+      <div style={{ position: 'absolute', top: '16%', left: '50%', transform: 'translateX(-50%)', width: 420, height: 420, borderRadius: '50%', background: 'radial-gradient(circle, rgba(123,104,238,0.28) 0%, transparent 72%)', filter: 'blur(74px)', pointerEvents: 'none', zIndex: 0 }} />
 
-      {/* Floating wrapper */}
-      <motion.div
-        animate={{ y: [0, -12, 0] }}
-        transition={{ duration: 6, ease: 'easeInOut', repeat: Infinity }}
-        style={{ marginBottom: '-180px', zIndex: 1, flexShrink: 0 }}
-      >
-        {/* Outer shell */}
-        <div style={{
-          position: 'relative',
-          width: 300,
-          margin: '0 auto',
-          background: '#1A1A1A',
-          borderRadius: 50,
-          border: '1.5px solid rgba(255,255,255,0.15)',
-          padding: 10,
-          boxSizing: 'border-box' as const,
-          boxShadow: '0 60px 120px rgba(0,0,0,0.9), 0 0 60px rgba(123,104,238,0.3), 0 0 0 1px rgba(255,255,255,0.05)',
-        }}>
+      <div style={{ marginBottom: '-180px', zIndex: 1, flexShrink: 0, width: 'min(300px, 88vw)' }}>
+        <div style={{ width: '100%', borderRadius: 52, background: '#1A1A1A', border: '1.5px solid rgba(255,255,255,0.15)', padding: 10, boxSizing: 'border-box', boxShadow: '0 80px 160px rgba(0,0,0,0.9), 0 30px 60px rgba(123,104,238,0.25), 0 0 0 1px rgba(255,255,255,0.05)', position: 'relative' }}>
+          <div style={{ position: 'absolute', left: -4, top: 100, width: 3, height: 28, background: '#333', borderRadius: 2 }} />
+          <div style={{ position: 'absolute', left: -4, top: 138, width: 3, height: 28, background: '#333', borderRadius: 2 }} />
+          <div style={{ position: 'absolute', right: -4, top: 120, width: 3, height: 44, background: '#333', borderRadius: 2 }} />
 
-          {/* Volume button top */}
-          <div style={{ position: 'absolute', left: -3, top: 110, width: 3, height: 28, background: '#333', borderRadius: 2 }} />
-          {/* Volume button bottom */}
-          <div style={{ position: 'absolute', left: -3, top: 150, width: 3, height: 28, background: '#333', borderRadius: 2 }} />
-          {/* Power button */}
-          <div style={{ position: 'absolute', right: -3, top: 130, width: 3, height: 44, background: '#333', borderRadius: 2 }} />
-
-          {/* Screen */}
-          <div style={{
-            background: '#FFFFFF',
-            borderRadius: 42,
-            overflow: 'hidden',
-            height: 560,
-            display: 'flex',
-            flexDirection: 'column',
-          }}>
-
-            {/* Dynamic Island */}
-            <div style={{
-              width: 110,
-              height: 30,
-              background: '#000000',
-              borderRadius: 20,
-              margin: '12px auto 0',
-              flexShrink: 0,
-            }} />
-
-            {/* Status bar */}
-            <div style={{
-              padding: '6px 20px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexShrink: 0,
-              background: '#FFFFFF',
-            }}>
-              <span style={{
-                fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
-                fontSize: 13,
-                fontWeight: 700,
-                color: '#000000',
-                letterSpacing: '-0.2px',
-              }}>9:41</span>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                {/* Signal bars */}
-                <svg width="16" height="11" viewBox="0 0 16 11" fill="none">
-                  <rect x="0" y="7" width="2.5" height="4" rx="0.5" fill="#000000" />
-                  <rect x="4" y="5" width="2.5" height="6" rx="0.5" fill="#000000" />
-                  <rect x="8" y="2.5" width="2.5" height="8.5" rx="0.5" fill="#000000" />
-                  <rect x="12" y="0" width="2.5" height="11" rx="0.5" fill="#000000" />
-                </svg>
-                {/* WiFi */}
-                <svg width="15" height="11" viewBox="0 0 15 11" fill="none">
-                  <path d="M7.5 8.5a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8Z" fill="#000000" />
-                  <path d="M3.2 6C4.5 4.7 5.9 4 7.5 4s3 .7 4.3 2" stroke="#000000" strokeWidth="1.4" strokeLinecap="round" fill="none" />
-                  <path d="M0.5 3.2C2.5 1.2 4.9 0 7.5 0s5 1.2 7 3.2" stroke="#000000" strokeWidth="1.4" strokeLinecap="round" fill="none" />
-                </svg>
-                {/* Battery */}
-                <svg width="22" height="11" viewBox="0 0 22 11" fill="none">
-                  <rect x="0.5" y="0.5" width="18" height="10" rx="2" stroke="#000000" strokeWidth="1" />
-                  <rect x="2" y="2" width="13" height="7" rx="1" fill="#000000" />
-                  <path d="M20 3.5v4a1.8 1.8 0 0 0 0-4Z" fill="#000000" />
-                </svg>
+          <div style={{ borderRadius: 42, overflow: 'hidden', height: 560, background: '#F2F2F7', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ position: 'relative', height: 50, flexShrink: 0 }}>
+              <div style={{ width: 120, height: 32, borderRadius: 20, background: '#000', position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)' }} />
+              <div style={{ position: 'absolute', top: 12, left: 16, right: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{ fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 13, fontWeight: 700, color: '#000' }}>9:41</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+                <svg width="15" height="10" viewBox="0 0 15 10" fill="none"><rect x="0" y="6" width="2" height="4" rx="0.4" fill="#000" /><rect x="3.3" y="4.5" width="2" height="5.5" rx="0.4" fill="#000" /><rect x="6.6" y="2.5" width="2" height="7.5" rx="0.4" fill="#000" /><rect x="9.9" y="0.5" width="2" height="9.5" rx="0.4" fill="#000" /></svg>
+                <svg width="13" height="10" viewBox="0 0 13 10" fill="none"><path d="M6.5 7.3a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z" fill="#000" /><path d="M3.1 5.2c1-.95 2.1-1.45 3.4-1.45s2.4.5 3.4 1.45" stroke="#000" strokeWidth="1.1" strokeLinecap="round" fill="none" /><path d="M1 2.4C2.6.9 4.4.1 6.5.1s3.9.8 5.5 2.3" stroke="#000" strokeWidth="1.1" strokeLinecap="round" fill="none" /></svg>
+                <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><rect x="0.5" y="0.5" width="18" height="9" rx="2.1" stroke="#000" /><rect x="2.2" y="2.1" width="12.5" height="5.8" rx="1" fill="#000" /><rect x="19.2" y="3.1" width="2.1" height="3.8" rx="0.9" fill="#000" /></svg>
+                </div>
               </div>
             </div>
 
-            {/* Contact header */}
-            <div style={{
-              padding: '4px 14px 8px',
-              borderBottom: '0.5px solid rgba(0,0,0,0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              flexShrink: 0,
-              background: '#FFFFFF',
-              position: 'relative',
-            }}>
-              <span style={{ fontSize: 20, color: '#007AFF', lineHeight: 1, flexShrink: 0 }}>&#8249;</span>
-              <div style={{
-                position: 'absolute',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 2,
-              }}>
-                <div style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: '50%',
-                  background: '#4C3D8F',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 700, color: '#ffffff' }}>W</span>
+            <div style={{ padding: '4px 12px 8px', borderBottom: '0.5px solid rgba(0,0,0,0.12)', position: 'relative', minHeight: 50, flexShrink: 0 }}>
+              <span style={{ color: '#0A84FF', fontSize: 24, lineHeight: 1, position: 'absolute', left: 12, top: 9 }}>&#8249;</span>
+              <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                <div style={{ width: 34, height: 34, borderRadius: 17, background: '#7B68EE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 16, fontWeight: 700, color: '#FFF' }}>W</span>
                 </div>
-                <span style={{
-                  fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
-                  fontSize: 11,
-                  fontWeight: 600,
-                  color: '#000000',
-                }}>wrrapd</span>
-              </div>
-              <div style={{ marginLeft: 'auto' }}>
-                <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
-                  <rect x="0" y="1.5" width="13" height="11" rx="2" fill="#007AFF" />
-                  <path d="M13 4.5l5.5-3v11L13 9.5V4.5Z" fill="#007AFF" />
-                </svg>
+                <span style={{ fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 11, fontWeight: 700, color: '#111', background: 'rgba(255,255,255,0.22)', border: '0.5px solid rgba(0,0,0,0.05)', borderRadius: 999, padding: '1px 7px', backdropFilter: 'blur(2px)' }}>Wrrapd</span>
               </div>
             </div>
 
-            {/* Messages area */}
-            <div style={{
-              background: '#F2F2F7',
-              flex: 1,
-              padding: '14px 12px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 8,
-              overflow: 'hidden',
-            }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px 10px 0', overflow: 'hidden' }}>
+              <div style={{ alignSelf: 'flex-start', maxWidth: '74%', background: '#E5E5EA', borderRadius: '18px 18px 18px 5px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#111', marginBottom: 6 }}>
+                are you locked in?
+              </div>
+              <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 9, color: 'rgba(0,0,0,0.38)', marginLeft: 4, marginBottom: 8 }}>7:00 PM</div>
+              <div style={{ alignSelf: 'flex-end', maxWidth: '46%', background: '#0A84FF', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#FFF', marginBottom: 10 }}>
+                yuhh
+              </div>
+              <div style={{ alignSelf: 'flex-start', maxWidth: '80%', background: '#E5E5EA', borderRadius: '18px 18px 18px 5px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#111' }}>
+              4/5 this week. lowkey... you&apos;re improving.
+              </div>
 
-              {/* Incoming bubble 1 */}
-              <motion.div
-                initial={{ opacity: 0, x: -14 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                style={{ maxWidth: '75%', alignSelf: 'flex-start' }}
-              >
-                <div style={{
-                  background: '#FFFFFF',
-                  borderRadius: '18px 18px 18px 4px',
-                  padding: '10px 14px',
-                  boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
-                }}>
-                  <p style={{
-                    fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
-                    fontSize: 14,
-                    color: '#000000',
-                    lineHeight: 1.4,
-                    margin: 0,
-                  }}>
-                    ok talk to me. did you show up today?
-                  </p>
+              <div style={{ marginTop: 'auto', marginLeft: -10, marginRight: -10, background: 'linear-gradient(to bottom, rgba(242,242,247,0) 0%, rgba(242,242,247,1) 18%, rgba(236,236,241,1) 100%)', borderTop: '0.5px solid rgba(0,0,0,0.08)', padding: '7px 8px 8px' }}>
+                <div style={{ background: '#FFF', border: '0.5px solid rgba(0,0,0,0.13)', borderRadius: 14, display: 'flex', alignItems: 'center', gap: 7, padding: '5px 9px', marginBottom: 7 }}>
+                  <span style={{ color: '#8E8E93', fontSize: 17, lineHeight: 1 }}>+</span>
+                  <span style={{ color: '#B3B3B8', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 14 }}>iMessage</span>
+                  <span style={{ marginLeft: 'auto', color: '#8E8E93', fontSize: 15 }}>✎</span>
                 </div>
-                <p style={{
-                  fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
-                  fontSize: 11,
-                  color: 'rgba(0,0,0,0.35)',
-                  margin: '4px 0 0 4px',
-                }}>8:00 AM</p>
-              </motion.div>
 
-              {/* Outgoing bubble */}
-              <motion.div
-                initial={{ opacity: 0, x: 14 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 1.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                style={{ maxWidth: '40%', alignSelf: 'flex-end' }}
-              >
-                <div style={{
-                  background: '#007AFF',
-                  borderRadius: '18px 18px 4px 18px',
-                  padding: '10px 14px',
-                }}>
-                  <p style={{
-                    fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
-                    fontSize: 14,
-                    color: '#FFFFFF',
-                    lineHeight: 1.4,
-                    margin: 0,
-                  }}>
-                    yes
-                  </p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: 4, marginBottom: 4 }}>
+                  {'QWERTYUIOP'.split('').map((key) => (
+                    <div key={key} style={{ height: 26, borderRadius: 6, background: '#FFF', boxShadow: '0 0.5px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12, color: '#111' }}>{key}</div>
+                  ))}
                 </div>
-              </motion.div>
-
-              {/* Incoming bubble 2 */}
-              <motion.div
-                initial={{ opacity: 0, x: -14 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 1.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                style={{ maxWidth: '80%', alignSelf: 'flex-start' }}
-              >
-                <div style={{
-                  background: '#FFFFFF',
-                  borderRadius: '18px 18px 18px 4px',
-                  padding: '10px 14px',
-                  boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
-                }}>
-                  <p style={{
-                    fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
-                    fontSize: 14,
-                    color: '#000000',
-                    lineHeight: 1.4,
-                    margin: 0,
-                  }}>
-                    4/5 this week. thats better than last week. lowkey you&apos;re building something.
-                  </p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(9, 1fr)', gap: 4, marginBottom: 4, paddingLeft: 12, paddingRight: 12 }}>
+                  {'ASDFGHJKL'.split('').map((key) => (
+                    <div key={key} style={{ height: 26, borderRadius: 6, background: '#FFF', boxShadow: '0 0.5px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12, color: '#111' }}>{key}</div>
+                  ))}
                 </div>
-              </motion.div>
-
+                <div style={{ display: 'grid', gridTemplateColumns: '42px repeat(7, 1fr) 54px', gap: 4 }}>
+                  <div style={{ height: 26, borderRadius: 6, background: '#D1D1D6', boxShadow: '0 0.5px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 11, color: '#111' }}>↑</div>
+                  {'ZXCVBNM'.split('').map((key) => (
+                    <div key={key} style={{ height: 26, borderRadius: 6, background: '#FFF', boxShadow: '0 0.5px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12, color: '#111' }}>{key}</div>
+                  ))}
+                  <div style={{ height: 26, borderRadius: 6, background: '#D1D1D6', boxShadow: '0 0.5px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 11, color: '#111' }}>⌫</div>
+                </div>
+              </div>
             </div>
 
-            {/* Home indicator */}
-            <div style={{
-              background: '#FFFFFF',
-              padding: '8px 0 12px',
-              display: 'flex',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}>
-              <div style={{ width: 120, height: 4, background: '#000000', borderRadius: 4 }} />
-            </div>
-
+            <div style={{ width: 118, height: 4, borderRadius: 4, background: '#000', margin: '8px auto', flexShrink: 0 }} />
           </div>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

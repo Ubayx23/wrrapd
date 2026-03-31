@@ -118,7 +118,7 @@ export default function Hero() {
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.8')}
             onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
           >
-            get started
+            prove it
           </a>
         </div>
       </motion.nav>
@@ -150,15 +150,21 @@ export default function Hero() {
             >
               <h1 style={{
                 fontFamily: 'DM Sans, sans-serif',
-                fontSize: 'clamp(32px, 6vw, 64px)',
+                fontSize: 'clamp(44px, 10vw, 96px)',
                 fontWeight: 800,
                 color: '#FFFFFF',
                 letterSpacing: 'clamp(-1px, -0.4vw, -2px)',
                 lineHeight: 1.1,
                 margin: '0 0 20px',
               }}>
-                you&apos;re doing more than you think.<br />
-                <span style={{ color: '#7B68EE' }}>you just don&apos;t see it.</span>
+                stop <span style={{
+                  fontStyle: 'italic',
+                  background: 'linear-gradient(135deg, #7B68EE 0%, #4C3D8F 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}>lying</span><br />
+                to yourself.
               </h1>
               <p style={{
                 fontFamily: 'Poppins, sans-serif',

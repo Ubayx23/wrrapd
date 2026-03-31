@@ -12,7 +12,7 @@ interface WaitlistProps {
 const AVATARS = ['/1claude.JPG', '/3claude.JPG', '/w8.jpg'];
 
 export default function Waitlist({ className = '' }: WaitlistProps) {
-  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -20,8 +20,8 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email) {
-      setError('drop your email first');
+    if (!phone) {
+      setError('drop your phone number first');
       return;
     }
 
@@ -30,13 +30,13 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
 
     const { error: dbError } = await supabase
       .from('waitlist')
-      .insert({ email: email || null });
+      .insert({ phone });
 
     setIsLoading(false);
 
     if (dbError) {
       if (dbError.code === '23505') {
-        setError('you are already on the list');
+        setError('that number is already on the list');
       } else {
         setError('something went wrong, try again');
       }
@@ -66,13 +66,13 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
               <CheckCircle className="w-5 h-5 text-white" />
             </motion.div>
             <p className="text-sm font-poppins text-white text-center">
-              you&apos;re on the list — we&apos;ll email you first.
+              you&apos;re on the list. we&apos;ll text you when we launch.
             </p>
             <button
-              onClick={() => { setIsSubmitted(false); setEmail(''); }}
+              onClick={() => { setIsSubmitted(false); setPhone(''); }}
               className="text-xs font-poppins text-white/50 hover:text-white transition-colors"
             >
-              add another email
+              add another number
             </button>
           </motion.div>
         ) : (
@@ -85,18 +85,18 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
           >
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
 
-              {/* Email */}
+              {/* Phone */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-poppins font-semibold text-white/60 tracking-wide uppercase px-1">
-                  your email for updates.
+                  your phone number.
                 </label>
                 <input
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={(e) => { setEmail(e.target.value); setError(''); }}
-                  placeholder="you@email.com"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  value={phone}
+                  onChange={(e) => { setPhone(e.target.value); setError(''); }}
+                  placeholder="your phone number"
                   disabled={isLoading}
                   className="w-full bg-white border border-white/20 rounded-2xl px-5 py-4 font-poppins text-gray-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 disabled:opacity-50 text-xl font-semibold tracking-wide shadow-sm"
                 />

@@ -173,7 +173,7 @@ export default function Page() {
             lineHeight: 1.6,
           }}
         >
-          check in once a day. stay on track. get your month wrapped.
+          check in once a day. stay on track. get your month wrrapd.
         </p>
 
         {/* Follow label */}
