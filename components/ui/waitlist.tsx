@@ -4,13 +4,15 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 interface WaitlistProps {
   className?: string;
 }
 
 export default function Waitlist({ className = '' }: WaitlistProps) {
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -18,8 +20,7 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const digits = phone.replace(/\D/g, '');
-    if (!phone || digits.length < 10) {
+    if (!phone || !isValidPhoneNumber(phone)) {
       setError('please enter a valid phone number.');
       return;
     }
@@ -27,10 +28,9 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
     setIsLoading(true);
     setError('');
 
-    // Check for duplicate before inserting
     const { data: existing, error: queryError } = await supabase
       .from('waitlist')
-      .select('id')
+      .select('phone')
       .eq('phone', phone)
       .maybeSingle();
 
@@ -153,32 +153,29 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                 your phone number.
               </label>
 
-              {/* Input */}
-              <input
-                type="tel"
-                inputMode="tel"
-                autoComplete="tel"
-                value={phone}
-                onChange={(e) => { setPhone(e.target.value); setError(''); }}
-                placeholder="your phone number"
-                disabled={isLoading}
+              {/* PhoneInput wrapper */}
+              <div
                 style={{
+                  background: 'rgba(255,255,255,0.08)',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  borderRadius: 12,
+                  padding: '14px 16px',
+                  color: 'white',
+                  fontSize: 16,
                   width: '100%',
                   boxSizing: 'border-box',
-                  background: '#FFFFFF',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: 16,
-                  padding: '16px 20px',
-                  fontFamily: 'Poppins, sans-serif',
-                  fontSize: 18,
-                  fontWeight: 600,
-                  color: '#111111',
-                  outline: 'none',
-                  letterSpacing: '0.02em',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                  opacity: isLoading ? 0.5 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
                 }}
-              />
+              >
+                <PhoneInput
+                  defaultCountry="US"
+                  value={phone}
+                  onChange={(value) => { setPhone(value || ''); setError(''); }}
+                  placeholder="your phone number"
+                  disabled={isLoading}
+                />
+              </div>
 
               {/* Submit */}
               <motion.button

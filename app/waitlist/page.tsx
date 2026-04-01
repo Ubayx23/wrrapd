@@ -9,7 +9,6 @@ export default function Page() {
   useEffect(() => {
     if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
-    // Unlock scroll — globals.css locks it for non-landing pages
     document.documentElement.style.overflow = 'auto';
     document.documentElement.style.height = 'auto';
     document.body.style.overflow = 'auto';
@@ -63,14 +62,14 @@ export default function Page() {
   return (
     <div style={{ minHeight: '100dvh', background: '#07070F', position: 'relative', overflow: 'hidden' }}>
 
-      {/* ── MeshGradient background ── */}
+      {/* MeshGradient background */}
       <MeshGradient
         style={{ position: 'absolute' as const, inset: 0, width: '100%', height: '100%' }}
         colors={['#07070F', '#0D0820', '#1A0F3C', '#4C3D8F']}
         speed={0.4}
       />
 
-      {/* ── Decorative repeating text strip above footer ── */}
+      {/* Decorative repeating text strip above footer */}
       <div
         style={{
           position: 'absolute',
@@ -93,7 +92,7 @@ export default function Page() {
         {'wrrapd · lock in · '.repeat(30)}
       </div>
 
-      {/* ── Main content ── */}
+      {/* Main content */}
       <main
         className="waitlist-page group"
         style={{
@@ -102,6 +101,7 @@ export default function Page() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          textAlign: 'center',
           justifyContent: 'center',
           minHeight: '100dvh',
           padding: 'clamp(36px, 6vw, 64px) clamp(20px, 5vw, 60px) clamp(100px, 12vw, 140px)',
@@ -141,7 +141,7 @@ export default function Page() {
             textTransform: 'uppercase' as const,
           }}
         >
-          🚀 &nbsp;april 8 drop
+          april 8 drop
         </div>
 
         {/* Headline */}
@@ -176,7 +176,24 @@ export default function Page() {
           check in once a day. stay on track. get your month wrrapd.
         </p>
 
-        {/* Follow label */}
+        {/* Frosted glass card wrapping waitlist */}
+        <div
+          style={{
+            background: 'rgba(20,14,50,0.85)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(123,104,238,0.25)',
+            borderRadius: 20,
+            padding: 32,
+            width: '100%',
+            maxWidth: 400,
+            margin: '0 auto',
+          }}
+        >
+          <Waitlist className="mb-0" />
+        </div>
+
+        {/* Social icons below the form */}
         <p
           style={{
             fontFamily: 'Poppins, sans-serif',
@@ -188,33 +205,15 @@ export default function Page() {
         >
           (follow me ;)
         </p>
-
-        {/* Social icons */}
         <LogoSocialLinks socials={socials} />
-
-        {/* Frosted glass card wrapping waitlist */}
-        <div
-          style={{
-            background: 'rgba(255,255,255,0.05)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: 20,
-            padding: 32,
-            width: '100%',
-            maxWidth: 520,
-          }}
-        >
-          <Waitlist className="mb-0" />
-        </div>
 
       </main>
 
-      {/* ── Footer ── */}
+      {/* Footer */}
       <footer className="sticky md:fixed bottom-0 left-0 right-0 py-4 px-6 flex justify-between items-center bg-wrrapd-gray text-wrrapd-navy text-sm font-poppins font-semibold border-t-2 border-wrrapd-navy/40 z-[50]">
         <span>Under Construction</span>
         <span className="text-xs font-normal opacity-60">built by a student for students</span>
-        <span>© 2026</span>
+        <span>2026</span>
       </footer>
 
     </div>

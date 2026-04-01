@@ -285,6 +285,40 @@ body {
   }
 }
 
+/* ── react-phone-number-input overrides ── */
+.PhoneInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+.PhoneInputInput {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: white !important;
+  font-size: 16px !important;
+  width: 100%;
+  font-family: inherit;
+}
+.PhoneInputInput::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+.PhoneInputCountrySelect {
+  background: transparent !important;
+  color: white !important;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer;
+}
+.PhoneInputCountrySelectArrow {
+  color: rgba(255, 255, 255, 0.5);
+}
+.PhoneInputCountryIcon {
+  width: 20px;
+  height: 15px;
+}
+
 /* Same mask as flashlight-overlay — hides the white logo inside the circle so the dark cutout shows through */
 .logo-white-layer {
   mask-image: radial-gradient(
