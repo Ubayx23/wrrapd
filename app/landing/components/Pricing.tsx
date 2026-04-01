@@ -142,7 +142,7 @@ export default function Pricing() {
             </a>
             <button
               onClick={() => {
-                document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
               }}
               style={{
                 border: '1px solid rgba(255,255,255,0.2)',
