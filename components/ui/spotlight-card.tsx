@@ -8,6 +8,7 @@ interface GlowCardProps {
   className?: string;
   customSize?: boolean;
   style?: React.CSSProperties;
+  borderOnly?: boolean;
 }
 
 const glowColors = {
@@ -23,6 +24,7 @@ export function GlowCard({
   className = "",
   customSize = false,
   style,
+  borderOnly = false,
 }: GlowCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -48,7 +50,7 @@ export function GlowCard({
       onMouseLeave={() => setIsHovered(false)}
       style={{
         position: "relative",
-        overflow: "hidden",
+        overflow: borderOnly ? "visible" : "hidden",
         borderRadius: "inherit",
         ...style,
       }}
@@ -58,13 +60,15 @@ export function GlowCard({
           style={{
             position: "absolute",
             pointerEvents: "none",
-            zIndex: 10,
-            borderRadius: "50%",
-            width: 300,
-            height: 300,
-            left: mousePosition.x - 150,
-            top: mousePosition.y - 150,
-            background: `radial-gradient(circle, ${color} 0%, transparent 70%)`,
+            zIndex: borderOnly ? -1 : 10,
+            borderRadius: borderOnly ? "inherit" : "50%",
+            width: borderOnly ? "calc(100% + 80px)" : 300,
+            height: borderOnly ? "calc(100% + 80px)" : 300,
+            left: borderOnly ? -40 : mousePosition.x - 150,
+            top: borderOnly ? -40 : mousePosition.y - 150,
+            background: borderOnly
+              ? `radial-gradient(ellipse at ${mousePosition.x}px ${mousePosition.y}px, ${color} 0%, transparent 65%)`
+              : `radial-gradient(circle, ${color} 0%, transparent 70%)`,
             transition: "opacity 0.2s ease",
           }}
         />

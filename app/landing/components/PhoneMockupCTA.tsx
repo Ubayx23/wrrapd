@@ -34,19 +34,24 @@ export default function PhoneMockupCTA() {
           </div>
 
           {/* Messages */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px 10px 0', overflow: 'hidden' }}>
-            <div style={{ alignSelf: 'flex-start', maxWidth: '80%', background: '#E5E5EA', borderRadius: '18px 18px 18px 5px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.35, color: '#111', marginBottom: 6 }}>
-              what do you say, wanna level up?
-            </div>
-            <div style={{ alignSelf: 'flex-end', maxWidth: '74%', background: '#0A84FF', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.35, color: '#FFF', marginBottom: 6 }}>
-              sure, doesn&apos;t hurt to try
-            </div>
-            <div style={{ alignSelf: 'flex-start', maxWidth: '84%', background: '#E5E5EA', borderRadius: '18px 18px 18px 5px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.35, color: '#111' }}>
-              prove it to yourself. sign up takes 1 minute.
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8, padding: '12px 10px', background: '#F2F2F7', overflow: 'auto' }}>
+              <div style={{ borderRadius: 18, maxWidth: '75%', padding: '10px 14px', fontSize: 14, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', background: '#E9E9EB', color: '#000000', alignSelf: 'flex-start', lineHeight: 1.35 }}>
+                what do you say, wanna level up?
+              </div>
+              <div style={{ fontSize: 11, color: 'rgba(0,0,0,0.4)', textAlign: 'center', alignSelf: 'center', marginTop: 2, marginBottom: 4 }}>
+                8:00 AM
+              </div>
+              <div style={{ borderRadius: '18px 18px 4px 18px', maxWidth: '75%', padding: '10px 14px', fontSize: 14, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', background: '#007AFF', color: '#ffffff', alignSelf: 'flex-end', lineHeight: 1.35 }}>
+                sure, doesn&apos;t hurt to try
+              </div>
+              <div style={{ borderRadius: 18, maxWidth: '75%', padding: '10px 14px', fontSize: 14, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', background: '#E9E9EB', color: '#000000', alignSelf: 'flex-start', lineHeight: 1.35 }}>
+                prove it to yourself. sign up takes 1 minute.
+              </div>
             </div>
 
             {/* Input bar */}
-            <div style={{ marginTop: 'auto', marginLeft: -10, marginRight: -10, background: 'linear-gradient(to bottom, rgba(242,242,247,0) 0%, rgba(242,242,247,1) 18%, rgba(236,236,241,1) 100%)', borderTop: '0.5px solid rgba(0,0,0,0.08)', padding: '7px 8px 8px' }}>
+            <div style={{ background: 'linear-gradient(to bottom, rgba(242,242,247,0) 0%, rgba(242,242,247,1) 18%, rgba(236,236,241,1) 100%)', borderTop: '0.5px solid rgba(0,0,0,0.08)', padding: '7px 8px 8px', flexShrink: 0 }}>
               <div style={{ background: '#FFF', border: '0.5px solid rgba(0,0,0,0.13)', borderRadius: 14, display: 'flex', alignItems: 'center', gap: 7, padding: '5px 9px', marginBottom: 7 }}>
                 <span style={{ color: '#8E8E93', fontSize: 17, lineHeight: 1 }}>+</span>
                 <span style={{ color: '#B3B3B8', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 14 }}>iMessage</span>

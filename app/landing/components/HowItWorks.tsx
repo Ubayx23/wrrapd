@@ -179,6 +179,7 @@ export default function HowItWorks() {
           <GlowCard
             glowColor="purple"
             customSize={true}
+            borderOnly={true}
             style={{
               width: '260px',
               borderRadius: '24px',
