@@ -1,231 +1,180 @@
 'use client';
+
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import PhoneMockupCTA from './PhoneMockupCTA';
 
 export default function Pricing() {
-  const [hovered, setHovered] = useState(false);
-
   return (
     <section
       id="pricing"
       style={{
         background: '#07070F',
-        padding: `clamp(40px, 4.9vw, 59px) clamp(24px, 6vw, 80px)`,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        paddingTop: 'clamp(60px, 10vw, 120px)',
+        paddingBottom: 'clamp(60px, 10vw, 120px)',
+        paddingLeft: 'clamp(24px, 6vw, 80px)',
+        paddingRight: 'clamp(24px, 6vw, 80px)',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: 160,
-        background: 'linear-gradient(to bottom, #07070F 0%, transparent 100%)',
-        pointerEvents: 'none',
-        zIndex: 2,
-      }} />
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-        style={{ textAlign: 'center', width: '100%', maxWidth: '440px', margin: '0 auto clamp(40px, 6vw, 64px)' }}
-      >
-        <span
-          style={{
-            fontFamily: 'Poppins, sans-serif',
-            fontWeight: 600,
-            fontSize: '11px',
-            color: 'rgba(123,104,238,0.7)',
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-            display: 'block',
-            marginBottom: '12px',
-          }}
-        >
-          pricing
-        </span>
-        <h2
-          style={{
-            fontFamily: 'DM Sans, sans-serif',
-            fontWeight: 800,
-            fontSize: 'clamp(36px, 6vw, 56px)',
-            color: '#FFFFFF',
-            letterSpacing: '-2px',
-            margin: 0,
-          }}
-        >
-          simple pricing.
-        </h2>
-      </motion.div>
-
-      <div style={{ position: 'relative', maxWidth: '440px', width: '100%', margin: '0 auto' }}>
-        {/* Purple glow behind card */}
-        <div style={{
+      {/* Ambient glow blob — top left */}
+      <div
+        style={{
           position: 'absolute',
-          width: 340,
-          height: 340,
+          width: 500,
+          height: 500,
+          top: -100,
+          left: -100,
+          background: 'radial-gradient(circle, rgba(123,104,238,0.1) 0%, transparent 70%)',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(76,61,143,0.25) 0%, transparent 70%)',
-          filter: 'blur(60px)',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
+          filter: 'blur(80px)',
           pointerEvents: 'none',
           zIndex: 0,
-        }} />
+        }}
+      />
+      {/* Ambient glow blob — bottom right */}
+      <div
+        style={{
+          position: 'absolute',
+          width: 400,
+          height: 400,
+          bottom: -80,
+          right: -80,
+          background: 'radial-gradient(circle, rgba(76,61,143,0.08) 0%, transparent 70%)',
+          borderRadius: '50%',
+          filter: 'blur(80px)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+
+      {/* Content */}
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          maxWidth: 1200,
+          margin: '0 auto',
+          display: 'flex',
+          gap: 'clamp(40px, 8vw, 64px)',
+          alignItems: 'center',
+        }}
+        className="cta-two-col"
+      >
+        {/* Left column */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          style={{
-            background: '#0D0F14',
-            border: '1px solid rgba(123, 104, 238, 0.35)',
-            boxShadow: '0 0 40px rgba(76,61,143,0.2)',
-            borderRadius: '20px',
-            padding: `clamp(40px, 6vw, 64px) clamp(32px, 5vw, 56px)`,
-            width: '100%',
-            boxSizing: 'border-box',
-            position: 'relative',
-            zIndex: 1,
-          }}
+          style={{ flex: 1 }}
         >
-        {/* Plan name */}
-        <div
-          style={{
-            fontFamily: 'Poppins, sans-serif',
-            fontWeight: 500,
-            fontSize: '12px',
-            color: '#7B68EE',
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-            marginBottom: '16px',
-          }}
-        >
-          wrrapd pro
-        </div>
-
-        {/* Price row */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '8px' }}>
-          <span
-            style={{
-              fontFamily: 'DM Sans, sans-serif',
-              fontWeight: 800,
-              fontSize: 'clamp(56px, 10vw, 72px)',
-              color: '#FFFFFF',
-              lineHeight: 1,
-            }}
-          >
-            $9.99
-          </span>
+          {/* Label */}
           <span
             style={{
               fontFamily: 'Poppins, sans-serif',
-              fontWeight: 400,
-              fontSize: '18px',
-              color: 'rgba(255,255,255,0.38)',
-              paddingBottom: '6px',
+              fontWeight: 500,
+              fontSize: 'clamp(10px, 1.2vw, 12px)',
+              color: '#7B68EE',
+              textTransform: 'uppercase',
+              letterSpacing: '0.15em',
+              display: 'block',
+              marginBottom: 16,
             }}
           >
-            /mo
+            EARLY ACCESS
           </span>
-        </div>
 
-        {/* Subtext */}
-        <div
-          style={{
-            fontFamily: 'Poppins, sans-serif',
-            fontWeight: 400,
-            fontSize: '13px',
-            color: 'rgba(255,255,255,0.38)',
-            marginBottom: '32px',
-          }}
-        >
-          cancel anytime.
-        </div>
+          {/* Headline */}
+          <h2
+            style={{
+              fontFamily: 'DM Sans, sans-serif',
+              fontWeight: 900,
+              fontSize: 'clamp(36px, 6vw, 64px)',
+              lineHeight: 1.1,
+              color: '#FFFFFF',
+              margin: 0,
+              letterSpacing: '-2px',
+            }}
+          >
+            you&apos;ve been saying<br />
+            you&apos;ll{' '}
+            <span style={{ color: '#7B68EE' }}>start.</span>
+          </h2>
 
-        {/* Divider */}
-        <div
-          style={{
-            borderTop: '1px solid rgba(255,255,255,0.06)',
-            marginBottom: '32px',
-          }}
-        />
+          {/* Subtext */}
+          <p
+            style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontSize: 'clamp(13px, 1.5vw, 15px)',
+              color: 'rgba(255,255,255,0.4)',
+              marginTop: 16,
+              marginBottom: 32,
+            }}
+          >
+            join the waitlist. be first in.
+          </p>
 
-        {/* Features list */}
-        {[
-          'daily SMS check-in',
-          'one goal tracked',
-          'monthly wrapped card',
-          'streak history',
-        ].map((feature) => (
+          {/* Buttons */}
           <div
-            key={feature}
             style={{
               display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: '12px',
-              marginBottom: '14px',
+              gap: 16,
+              flexWrap: 'wrap',
+              marginTop: 32,
             }}
           >
-            <span
+            <a
+              href="/waitlist"
               style={{
-                color: '#7B68EE',
+                background: '#7B68EE',
+                color: '#FFFFFF',
                 fontFamily: 'Poppins, sans-serif',
                 fontWeight: 600,
-                fontSize: '14px',
-                lineHeight: 1,
-                flexShrink: 0,
+                padding: '12px 24px',
+                borderRadius: 9999,
+                fontSize: 'clamp(13px, 1.4vw, 14px)',
+                textDecoration: 'none',
+                display: 'inline-block',
               }}
             >
-              ✓
-            </span>
-            <span
+              get early access
+            </a>
+            <button
+              onClick={() => {
+                document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+              }}
               style={{
+                border: '1px solid rgba(255,255,255,0.2)',
+                color: 'rgba(255,255,255,0.7)',
                 fontFamily: 'Poppins, sans-serif',
-                fontWeight: 400,
-                fontSize: '14px',
-                color: 'rgba(255,255,255,0.75)',
+                fontWeight: 600,
+                padding: '12px 24px',
+                borderRadius: 9999,
+                fontSize: 'clamp(13px, 1.4vw, 14px)',
+                background: 'transparent',
+                cursor: 'pointer',
               }}
             >
-              {feature}
-            </span>
+              learn more
+            </button>
           </div>
-        ))}
+        </motion.div>
 
-        {/* CTA button */}
-        <a
-          href="/waitlist"
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
+        {/* Right column */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           style={{
-            display: 'block',
-            width: '100%',
-            background: '#4C3D8F',
-            color: '#FFFFFF',
-            fontFamily: 'Poppins, sans-serif',
-            fontWeight: 600,
-            fontSize: '15px',
-            padding: '14px',
-            borderRadius: '12px',
-            marginTop: '32px',
-            border: 'none',
-            cursor: 'pointer',
-            opacity: hovered ? 0.85 : 1,
-            transition: 'opacity 0.15s ease',
-            textDecoration: 'none',
-            textAlign: 'center',
-            boxSizing: 'border-box',
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          get started
-        </a>
+          <PhoneMockupCTA />
         </motion.div>
       </div>
     </section>

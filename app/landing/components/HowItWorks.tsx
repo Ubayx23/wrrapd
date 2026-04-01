@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
+import { GlowCard } from '@/components/ui/spotlight-card';
 
 
 const glowStyle = {
@@ -175,27 +176,14 @@ export default function HowItWorks() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-          <div style={{ position: 'relative', display: 'inline-block' }}>
-            {/* Glow behind image — wide soft halo */}
-            <div style={{
-              position: 'absolute',
-              inset: -60,
-              borderRadius: 60,
-              background: 'radial-gradient(circle, rgba(123,104,238,0.55) 0%, rgba(76,61,143,0.25) 45%, transparent 70%)',
-              filter: 'blur(50px)',
-              zIndex: 0,
-              pointerEvents: 'none',
-            }} />
-            {/* Second tighter glow for intensity */}
-            <div style={{
-              position: 'absolute',
-              inset: -20,
-              borderRadius: 40,
-              background: 'radial-gradient(circle, rgba(123,104,238,0.35) 0%, transparent 60%)',
-              filter: 'blur(20px)',
-              zIndex: 0,
-              pointerEvents: 'none',
-            }} />
+          <GlowCard
+            glowColor="purple"
+            customSize={true}
+            style={{
+              width: '260px',
+              borderRadius: '24px',
+            }}
+          >
             <img
               src="/wrrapd-card.png"
               alt="wrrapd monthly card"
@@ -203,12 +191,10 @@ export default function HowItWorks() {
                 width: '260px',
                 borderRadius: '24px',
                 display: 'block',
-                position: 'relative',
-                zIndex: 1,
                 boxShadow: '0 40px 80px rgba(0,0,0,0.9), 0 0 80px rgba(123,104,238,0.45), 0 0 0 1px rgba(255,255,255,0.08)',
               }}
             />
-          </div>
+          </GlowCard>
         </div>
 
       </div>

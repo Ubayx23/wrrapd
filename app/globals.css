@@ -82,6 +82,15 @@
   }
 }
 
+.cta-two-col {
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  .cta-two-col {
+    flex-direction: row !important;
+  }
+}
+
 :root {
   --mouse-x: 50%;
   --mouse-y: 50%;
