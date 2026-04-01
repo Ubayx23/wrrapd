@@ -141,7 +141,7 @@ export default function Page() {
             textTransform: 'uppercase' as const,
           }}
         >
-          🚀 &nbsp;march 30 drop
+          🚀 &nbsp;april 8 drop
         </div>
 
         {/* Headline */}
@@ -158,7 +158,7 @@ export default function Page() {
           }}
         >
           to be launched<br />
-          on <em style={{ color: '#7B68EE', fontStyle: 'italic' }}>March 30</em>
+          on <em style={{ color: '#7B68EE', fontStyle: 'italic' }}>April 8</em>
         </h1>
 
         {/* Tagline */}

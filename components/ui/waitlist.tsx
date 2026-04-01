@@ -9,8 +9,6 @@ interface WaitlistProps {
   className?: string;
 }
 
-const AVATARS = ['/1claude.JPG', '/3claude.JPG', '/w8.jpg'];
-
 export default function Waitlist({ className = '' }: WaitlistProps) {
   const [phone, setPhone] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -20,13 +18,33 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!phone) {
-      setError('drop your phone number first');
+    const digits = phone.replace(/\D/g, '');
+    if (!phone || digits.length < 10) {
+      setError('please enter a valid phone number.');
       return;
     }
 
     setIsLoading(true);
     setError('');
+
+    // Check for duplicate before inserting
+    const { data: existing, error: queryError } = await supabase
+      .from('waitlist')
+      .select('id')
+      .eq('phone', phone)
+      .maybeSingle();
+
+    if (queryError) {
+      setIsLoading(false);
+      setError('something went wrong, try again');
+      return;
+    }
+
+    if (existing) {
+      setIsLoading(false);
+      setError('that number is already on the list.');
+      return;
+    }
 
     const { error: dbError } = await supabase
       .from('waitlist')
@@ -35,42 +53,74 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
     setIsLoading(false);
 
     if (dbError) {
-      if (dbError.code === '23505') {
-        setError('that number is already on the list');
-      } else {
-        setError('something went wrong, try again');
-      }
+      setError('something went wrong, try again');
       return;
     }
 
+    setPhone('');
     setIsSubmitted(true);
   };
 
   return (
-    <div className={`w-full max-w-sm ${className}`} data-purpose="waitlist-container">
+    <div
+      style={{
+        width: '100%',
+        maxWidth: 480,
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+      }}
+      data-purpose="waitlist-container"
+    >
       <AnimatePresence mode="wait">
         {isSubmitted ? (
           <motion.div
             key="success"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col items-center gap-3 py-2"
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, paddingTop: 8, paddingBottom: 8, width: '100%' }}
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.1, type: 'spring', stiffness: 300, damping: 25 }}
-              className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.10)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
             >
-              <CheckCircle className="w-5 h-5 text-white" />
+              <CheckCircle style={{ width: 20, height: 20, color: '#FFFFFF' }} />
             </motion.div>
-            <p className="text-sm font-poppins text-white text-center">
+            <p
+              style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 14,
+                color: '#FFFFFF',
+                textAlign: 'center',
+                margin: 0,
+              }}
+            >
               you&apos;re on the list. we&apos;ll text you when we launch.
             </p>
             <button
               onClick={() => { setIsSubmitted(false); setPhone(''); }}
-              className="text-xs font-poppins text-white/50 hover:text-white transition-colors"
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.5)',
+                padding: 0,
+              }}
             >
               add another number
             </button>
@@ -80,27 +130,55 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
             key="form"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col items-center gap-4 w-full"
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, width: '100%' }}
           >
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
+            <form
+              onSubmit={handleSubmit}
+              style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%' }}
+            >
+              {/* Label */}
+              <label
+                style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: 'rgba(255,255,255,0.6)',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  textAlign: 'left',
+                  paddingLeft: 4,
+                }}
+              >
+                your phone number.
+              </label>
 
-              {/* Phone */}
-              <div className="flex flex-col gap-1">
-                <label className="text-xs font-poppins font-semibold text-white/60 tracking-wide uppercase px-1">
-                  your phone number.
-                </label>
-                <input
-                  type="tel"
-                  inputMode="tel"
-                  autoComplete="tel"
-                  value={phone}
-                  onChange={(e) => { setPhone(e.target.value); setError(''); }}
-                  placeholder="your phone number"
-                  disabled={isLoading}
-                  className="w-full bg-white border border-white/20 rounded-2xl px-5 py-4 font-poppins text-gray-900 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 disabled:opacity-50 text-xl font-semibold tracking-wide shadow-sm"
-                />
-              </div>
+              {/* Input */}
+              <input
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                value={phone}
+                onChange={(e) => { setPhone(e.target.value); setError(''); }}
+                placeholder="your phone number"
+                disabled={isLoading}
+                style={{
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  background: '#FFFFFF',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: 16,
+                  padding: '16px 20px',
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: 18,
+                  fontWeight: 600,
+                  color: '#111111',
+                  outline: 'none',
+                  letterSpacing: '0.02em',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                  opacity: isLoading ? 0.5 : 1,
+                }}
+              />
 
               {/* Submit */}
               <motion.button
@@ -108,9 +186,35 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                 disabled={isLoading}
                 whileHover={{ scale: isLoading ? 1 : 1.02 }}
                 whileTap={{ scale: isLoading ? 1 : 0.97 }}
-                className="w-full mt-1 px-6 py-4 bg-wrrapd-navy text-wrrapd-gray font-poppins font-semibold rounded-2xl flex items-center justify-center gap-2 disabled:opacity-70 transition-colors duration-300 shadow-md text-base"
+                style={{
+                  width: '100%',
+                  marginTop: 4,
+                  padding: '16px 24px',
+                  background: '#07070F',
+                  border: '1.5px solid rgba(123,104,238,0.5)',
+                  borderRadius: 16,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  fontFamily: 'Poppins, sans-serif',
+                  fontWeight: 600,
+                  fontSize: 16,
+                  color: '#FFFFFF',
+                  cursor: isLoading ? 'not-allowed' : 'pointer',
+                  opacity: isLoading ? 0.7 : 1,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                }}
               >
-                {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "i'm in"}
+                {isLoading ? (
+                  <motion.span
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  >
+                    <Loader2 style={{ width: 16, height: 16, color: '#FFFFFF' }} />
+                  </motion.span>
+                ) : "i'm in"}
               </motion.button>
             </form>
 
@@ -121,29 +225,18 @@ export default function Waitlist({ className = '' }: WaitlistProps) {
                   initial={{ opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
-                  className="text-xs font-poppins text-red-500"
+                  style={{
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: 12,
+                    color: '#ef4444',
+                    margin: 0,
+                    textAlign: 'center',
+                  }}
                 >
                   {error}
                 </motion.p>
               )}
             </AnimatePresence>
-
-            {/* Social proof */}
-            <div className="flex items-center gap-3">
-              <div className="flex -space-x-2">
-                {AVATARS.map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt={`User ${i + 1}`}
-                    className="h-8 w-8 rounded-full ring-2 ring-wrrapd-gray object-cover"
-                  />
-                ))}
-              </div>
-              <p className="text-sm font-poppins text-white/60">
-                don&apos;t have FOMO / join now
-              </p>
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
