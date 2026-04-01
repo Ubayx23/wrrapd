@@ -14,8 +14,20 @@ export default function Pricing() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 160,
+        background: 'linear-gradient(to bottom, #07070F 0%, transparent 100%)',
+        pointerEvents: 'none',
+        zIndex: 2,
+      }} />
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
