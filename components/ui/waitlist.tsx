@@ -15,7 +15,7 @@ export default function Waitlist() {
     setError('');
 
     const digits = (phone || '').replace(/\D/g, '');
-    const looksValid = digits.length >= 10;
+    const looksValid = digits.length >= 9;
     let passedLibCheck = false;
     try {
       passedLibCheck = !!phone && isValidPhoneNumber(phone);
