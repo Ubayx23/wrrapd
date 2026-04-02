@@ -1,6 +1,7 @@
 'use client';
 
 import Waitlist from '@/components/ui/waitlist';
+import { ShaderBackground } from '@/components/ui/animated-shader-hero';
 
 export default function Page() {
   return (
@@ -9,37 +10,21 @@ export default function Page() {
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        background: 'linear-gradient(135deg, #1a0a2e 0%, #2d1b69 40%, #1a0a2e 100%)',
+        background: 'black',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Blob 1 */}
+      {/* Animated WebGL shader background */}
+      <ShaderBackground />
+
+      {/* Dark overlay so content stays readable */}
       <div
         style={{
           position: 'absolute',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          width: 400,
-          height: 400,
-          top: -100,
-          left: -100,
-          background: 'radial-gradient(circle, rgba(123,104,238,0.4) 0%, transparent 70%)',
-          filter: 'blur(60px)',
-        }}
-      />
-      {/* Blob 2 */}
-      <div
-        style={{
-          position: 'absolute',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          width: 300,
-          height: 300,
-          bottom: 0,
-          right: -50,
-          background: 'radial-gradient(circle, rgba(76,61,143,0.5) 0%, transparent 70%)',
-          filter: 'blur(50px)',
+          inset: 0,
+          background: 'rgba(4, 2, 20, 0.72)',
+          zIndex: 0,
         }}
       />
 
@@ -76,14 +61,14 @@ export default function Page() {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            background: 'rgba(255,255,255,0.1)',
-            border: '1px solid rgba(255,255,255,0.2)',
+            background: 'rgba(123,104,238,0.15)',
+            border: '1px solid rgba(123,104,238,0.4)',
             borderRadius: 100,
             padding: '8px 20px',
             marginBottom: 28,
           }}
         >
-          <span style={{ color: 'white', fontSize: 12, fontWeight: 700, letterSpacing: 2 }}>
+          <span style={{ color: '#b8aff5', fontSize: 12, fontWeight: 700, letterSpacing: 2 }}>
             APRIL 8 DROP
           </span>
         </div>
@@ -106,14 +91,15 @@ export default function Page() {
         {/* Subtext */}
         <p
           style={{
-            color: 'rgba(255,255,255,0.6)',
+            color: 'rgba(255,255,255,0.65)',
             fontSize: 'clamp(13px, 3vw, 16px)',
             lineHeight: 1.6,
             maxWidth: 340,
             margin: '0 auto 32px auto',
           }}
         >
-          check in once a day. stay on track. get your month wrrapd.
+          check in <strong style={{ color: 'white' }}>once a day</strong>. stay on track.{' '}
+          get your month <strong style={{ color: '#7B68EE' }}>wrrapd</strong>.
         </p>
 
         {/* Form container */}
@@ -123,7 +109,7 @@ export default function Page() {
 
         {/* Social section */}
         <div style={{ marginTop: 32, textAlign: 'center' }}>
-          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, marginBottom: 16 }}>
+          <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13, marginBottom: 16 }}>
             (follow me ;)
           </p>
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', alignItems: 'center' }}>
@@ -139,8 +125,8 @@ export default function Page() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.12)',
               }}
             >
               <img
@@ -161,8 +147,8 @@ export default function Page() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.12)',
               }}
             >
               <img
@@ -183,8 +169,8 @@ export default function Page() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.12)',
               }}
             >
               <img
@@ -205,8 +191,8 @@ export default function Page() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.12)',
               }}
             >
               <img
