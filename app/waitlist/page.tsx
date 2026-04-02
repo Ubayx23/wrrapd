@@ -20,12 +20,12 @@ export default function Page() {
       {/* Animated WebGL shader background */}
       <ShaderBackground />
 
-      {/* Light overlay so black text is readable over the shader */}
+      {/* Dark purple overlay over shader */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'rgba(255, 255, 255, 0.88)',
+          background: 'linear-gradient(160deg, rgba(10,4,35,0.82) 0%, rgba(30,10,70,0.78) 50%, rgba(10,4,35,0.85) 100%)',
           zIndex: 0,
         }}
       />
@@ -47,7 +47,7 @@ export default function Page() {
         {/* Logo */}
         <h1
           style={{
-            color: '#000000',
+            color: '#ffffff',
             fontFamily: 'DM Sans, sans-serif',
             fontSize: 'clamp(32px, 8vw, 48px)',
             fontWeight: 800,
@@ -55,7 +55,7 @@ export default function Page() {
             margin: '0 0 16px 0',
           }}
         >
-          wrrapd<span style={{ color: '#4C3D8F' }}>.</span>
+          wrrapd<span style={{ color: '#7B68EE' }}>.</span>
         </h1>
 
         {/* Badge */}
@@ -63,14 +63,14 @@ export default function Page() {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            background: 'rgba(76,61,143,0.1)',
-            border: '1px solid rgba(76,61,143,0.3)',
+            background: 'rgba(123,104,238,0.15)',
+            border: '1px solid rgba(123,104,238,0.35)',
             borderRadius: 100,
             padding: '8px 20px',
             marginBottom: 28,
           }}
         >
-          <span style={{ color: '#4C3D8F', fontSize: 12, fontWeight: 700, letterSpacing: 2 }}>
+          <span style={{ color: '#b8aff5', fontSize: 12, fontWeight: 700, letterSpacing: 2 }}>
             APRIL 8 DROP
           </span>
         </div>
@@ -78,7 +78,7 @@ export default function Page() {
         {/* Headline */}
         <h2
           style={{
-            color: '#000000',
+            color: '#ffffff',
             fontFamily: 'DM Sans, sans-serif',
             fontSize: 'clamp(28px, 7vw, 52px)',
             fontWeight: 800,
@@ -87,21 +87,21 @@ export default function Page() {
           }}
         >
           to be launched on<br />
-          <span style={{ color: '#4C3D8F', fontStyle: 'italic' }}>April 8</span>
+          <span style={{ color: '#7B68EE', fontStyle: 'italic' }}>April 8</span>
         </h2>
 
         {/* Subtext */}
         <p
           style={{
-            color: 'rgba(0,0,0,0.6)',
+            color: 'rgba(255,255,255,0.6)',
             fontSize: 'clamp(13px, 3vw, 16px)',
             lineHeight: 1.6,
             maxWidth: 340,
             margin: '0 auto 32px auto',
           }}
         >
-          check in <strong style={{ color: '#000000' }}>once a day</strong>. stay on track.{' '}
-          get your month <strong style={{ color: '#4C3D8F' }}>wrrapd</strong>.
+          check in <strong style={{ color: '#ffffff' }}>once a day</strong>. stay on track.{' '}
+          get your month <strong style={{ color: '#7B68EE' }}>wrrapd</strong>.
         </p>
 
         {/* Form container */}
@@ -111,7 +111,7 @@ export default function Page() {
 
         {/* Social section */}
         <div style={{ marginTop: 32, textAlign: 'center' }}>
-          <p style={{ color: 'rgba(0,0,0,0.4)', fontSize: 13, marginBottom: 16 }}>
+          <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13, marginBottom: 16 }}>
             stay updated ;)
           </p>
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', alignItems: 'center' }}>
@@ -127,8 +127,8 @@ export default function Page() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'rgba(0,0,0,0.06)',
-                border: '1px solid rgba(0,0,0,0.1)',
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.12)',
               }}
             >
               <img
@@ -149,8 +149,8 @@ export default function Page() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'rgba(0,0,0,0.06)',
-                border: '1px solid rgba(0,0,0,0.1)',
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.12)',
               }}
             >
               <img
@@ -171,8 +171,8 @@ export default function Page() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'rgba(0,0,0,0.06)',
-                border: '1px solid rgba(0,0,0,0.1)',
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.12)',
               }}
             >
               <img
@@ -193,8 +193,8 @@ export default function Page() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'rgba(0,0,0,0.06)',
-                border: '1px solid rgba(0,0,0,0.1)',
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.12)',
               }}
             >
               <img
@@ -216,13 +216,13 @@ export default function Page() {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderTop: '1px solid rgba(0,0,0,0.08)',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
           flexWrap: 'wrap',
           gap: 8,
         }}
       >
-        <span style={{ color: 'rgba(0,0,0,0.5)', fontWeight: 700, fontSize: 12 }}>Under Construction</span>
-        <span style={{ color: 'rgba(0,0,0,0.5)', fontWeight: 700, fontSize: 12 }}>© 2026 wrrapd</span>
+        <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 700, fontSize: 12 }}>Under Construction</span>
+        <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 700, fontSize: 12 }}>© 2026 wrrapd</span>
       </footer>
     </div>
   );
