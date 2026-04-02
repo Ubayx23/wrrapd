@@ -196,7 +196,7 @@ export default function Page() {
             </a>
             {/* TikTok */}
             <a
-              href="https://www.tiktok.com/@ubaydasimp"
+              href="https://www.tiktok.com/@ubaydev"
               target="_blank"
               rel="noopener noreferrer"
               style={{
