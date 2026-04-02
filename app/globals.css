@@ -112,9 +112,9 @@ body {
   min-height: 100dvh;
 }
 
-/* Desktop: lock scroll since everything fits in one screen — not on landing page */
+/* Desktop: lock scroll since everything fits in one screen — not on landing or waitlist page */
 @media (min-width: 744px) {
-  body:not(:has(.landing-page)) {
+  body:not(:has(.landing-page)):not(:has(.waitlist-page)) {
     overflow: hidden;
     height: 100vh;
   }
@@ -185,13 +185,14 @@ body {
 
 /* Mobile — below 744px: clean static layout, no overlay */
 @media (max-width: 743px) {
-  html:not(:has(.landing-page)), body:not(:has(.landing-page)) {
+  html:not(:has(.landing-page)):not(:has(.waitlist-page)),
+  body:not(:has(.landing-page)):not(:has(.waitlist-page)) {
     height: 100%;
     width: 100%;
     overflow: hidden;
   }
 
-  body:not(:has(.landing-page)) {
+  body:not(:has(.landing-page)):not(:has(.waitlist-page)) {
     background-color: #d8dfe9 !important;
     position: relative !important;
     display: flex !important;
@@ -200,6 +201,14 @@ body {
     justify-content: center !important;
     min-height: 100dvh !important;
     padding: 80px 24px 80px !important;
+  }
+
+  body:has(.waitlist-page) {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: black !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
   }
 
   .flashlight-overlay {
@@ -269,7 +278,7 @@ body {
     color: #0a1f47 !important;
   }
 
-  footer {
+  body:not(:has(.waitlist-page)) footer {
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
@@ -280,7 +289,7 @@ body {
     z-index: 50 !important;
   }
 
-  footer * {
+  body:not(:has(.waitlist-page)) footer * {
     color: rgba(255,255,255,0.8) !important;
   }
 }
