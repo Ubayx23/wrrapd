@@ -1,221 +1,242 @@
 'use client';
 
-import { useEffect } from 'react';
-import { MeshGradient } from '@paper-design/shaders-react';
-import { LogoSocialLinks, type Social } from '@/components/ui/social-links';
 import Waitlist from '@/components/ui/waitlist';
 
 export default function Page() {
-  useEffect(() => {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return;
-
-    document.documentElement.style.overflow = 'auto';
-    document.documentElement.style.height = 'auto';
-    document.body.style.overflow = 'auto';
-    document.body.style.height = 'auto';
-
-    return () => {
-      document.documentElement.style.overflow = '';
-      document.documentElement.style.height = '';
-      document.body.style.overflow = '';
-      document.body.style.height = '';
-    };
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return;
-
-    const root = document.documentElement;
-
-    const setPos = (x: number, y: number) => {
-      root.style.setProperty('--mouse-x', `${x}px`);
-      root.style.setProperty('--mouse-y', `${y}px`);
-    };
-
-    setPos(window.innerWidth / 2, window.innerHeight / 2);
-
-    const onMove = (e: MouseEvent | TouchEvent) => {
-      if (window.innerWidth <= 743) return;
-      const ev = e as MouseEvent;
-      const touch = (e as TouchEvent).touches?.[0];
-      const x = ev.clientX ?? touch?.clientX;
-      const y = ev.clientY ?? touch?.clientY;
-      if (typeof x === 'number' && typeof y === 'number') setPos(x, y);
-    };
-
-    window.addEventListener('mousemove', onMove, { passive: true });
-    window.addEventListener('touchmove', onMove, { passive: true });
-
-    return () => {
-      window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('touchmove', onMove);
-    };
-  }, []);
-
-  const socials: Social[] = [
-    { name: 'Twitter', image: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/X_icon_2.svg', href: 'https://x.com/ubaydev', iconSize: 'size-11', tilt: 2 },
-    { name: 'LinkedIn', image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png', href: 'https://www.linkedin.com/in/ubaydulla-noorullah-526994276/', iconSize: 'size-11' },
-    { name: 'Instagram', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png', href: 'https://www.instagram.com/ubay.xx/', iconSize: 'size-11' },
-    { name: 'TikTok', image: '/tiktok.png', href: 'https://www.tiktok.com/@ubaydasimp', iconSize: 'size-16', tilt: 12 },
-  ];
-
   return (
-    <div style={{ minHeight: '100dvh', background: '#07070F', position: 'relative', overflow: 'hidden' }}>
-
-      {/* MeshGradient background */}
-      <MeshGradient
-        style={{ position: 'absolute' as const, inset: 0, width: '100%', height: '100%' }}
-        colors={['#07070F', '#0D0820', '#1A0F3C', '#4C3D8F']}
-        speed={0.4}
-      />
-
-      {/* Decorative repeating text strip above footer */}
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'linear-gradient(135deg, #1a0a2e 0%, #2d1b69 40%, #1a0a2e 100%)',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Blob 1 */}
       <div
         style={{
           position: 'absolute',
-          bottom: 72,
-          left: 0,
-          right: 0,
-          fontFamily: 'DM Sans, sans-serif',
-          fontWeight: 900,
-          fontSize: 'clamp(0.7rem, 1.5vw, 1rem)',
-          letterSpacing: '0.2em',
-          textAlign: 'center',
-          color: 'rgba(255,255,255,0.06)',
+          borderRadius: '50%',
           pointerEvents: 'none',
-          userSelect: 'none',
-          zIndex: 5,
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
+          width: 400,
+          height: 400,
+          top: -100,
+          left: -100,
+          background: 'radial-gradient(circle, rgba(123,104,238,0.4) 0%, transparent 70%)',
+          filter: 'blur(60px)',
         }}
-      >
-        {'wrrapd · lock in · '.repeat(30)}
-      </div>
+      />
+      {/* Blob 2 */}
+      <div
+        style={{
+          position: 'absolute',
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          width: 300,
+          height: 300,
+          bottom: 0,
+          right: -50,
+          background: 'radial-gradient(circle, rgba(76,61,143,0.5) 0%, transparent 70%)',
+          filter: 'blur(50px)',
+        }}
+      />
 
       {/* Main content */}
-      <main
-        className="waitlist-page group"
+      <div
         style={{
           position: 'relative',
-          zIndex: 10,
+          zIndex: 1,
+          flex: 1,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          textAlign: 'center',
           justifyContent: 'center',
-          minHeight: '100dvh',
-          padding: 'clamp(36px, 6vw, 64px) clamp(20px, 5vw, 60px) clamp(100px, 12vw, 140px)',
-          gap: 'clamp(16px, 2.8vw, 28px)',
+          padding: 'clamp(24px, 6vw, 60px) 24px',
+          textAlign: 'center',
         }}
       >
-
         {/* Logo */}
-        <div
+        <h1
           style={{
+            color: 'white',
             fontFamily: 'DM Sans, sans-serif',
-            fontSize: 'clamp(3.5rem, 7vw, 6rem)',
+            fontSize: 'clamp(32px, 8vw, 48px)',
             fontWeight: 800,
-            color: '#FFFFFF',
-            letterSpacing: '-3px',
-            lineHeight: 1,
-            cursor: 'default',
-            textShadow: '0 0 40px rgba(123,104,238,0.8), 0 0 80px rgba(76,61,143,0.5), 0 2px 12px rgba(0,0,0,0.6)',
+            letterSpacing: -1,
+            margin: '0 0 16px 0',
           }}
         >
-          wrrapd.
-        </div>
+          wrrapd<span style={{ color: '#7B68EE' }}>.</span>
+        </h1>
 
-        {/* Launch badge */}
+        {/* Badge */}
         <div
           style={{
-            background: 'linear-gradient(135deg, rgba(76,61,143,0.9) 0%, rgba(123,104,238,0.7) 100%)',
-            border: '1px solid rgba(123,104,238,0.6)',
-            borderRadius: 999,
-            padding: '8px 22px',
-            color: '#FFFFFF',
-            fontFamily: 'Poppins, sans-serif',
-            fontSize: 13,
-            fontWeight: 600,
-            letterSpacing: '0.08em',
-            boxShadow: '0 0 24px rgba(123,104,238,0.45), 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15)',
-            textTransform: 'uppercase' as const,
+            display: 'inline-flex',
+            alignItems: 'center',
+            background: 'rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.2)',
+            borderRadius: 100,
+            padding: '8px 20px',
+            marginBottom: 28,
           }}
         >
-          april 8 drop
+          <span style={{ color: 'white', fontSize: 12, fontWeight: 700, letterSpacing: 2 }}>
+            APRIL 8 DROP
+          </span>
         </div>
 
         {/* Headline */}
-        <h1
+        <h2
           style={{
+            color: 'white',
             fontFamily: 'DM Sans, sans-serif',
-            fontSize: 'clamp(3.5rem, 10vw, 9rem)',
+            fontSize: 'clamp(28px, 7vw, 52px)',
             fontWeight: 800,
-            color: '#FFFFFF',
-            letterSpacing: 'clamp(-2px, -0.4vw, -3px)',
-            lineHeight: 1.05,
-            textAlign: 'center',
-            margin: 0,
+            lineHeight: 1.2,
+            margin: '0 0 12px 0',
           }}
         >
-          to be launched<br />
-          on <em style={{ color: '#7B68EE', fontStyle: 'italic' }}>April 8</em>
-        </h1>
+          to be launched on<br />
+          <span style={{ color: '#7B68EE', fontStyle: 'italic' }}>April 8</span>
+        </h2>
 
-        {/* Tagline */}
+        {/* Subtext */}
         <p
           style={{
-            fontFamily: 'Poppins, sans-serif',
-            fontSize: 'clamp(0.85rem, 1.8vw, 1.1rem)',
-            color: 'rgba(255,255,255,0.45)',
-            textAlign: 'center',
-            maxWidth: 420,
-            margin: 0,
+            color: 'rgba(255,255,255,0.6)',
+            fontSize: 'clamp(13px, 3vw, 16px)',
             lineHeight: 1.6,
+            maxWidth: 340,
+            margin: '0 auto 32px auto',
           }}
         >
           check in once a day. stay on track. get your month wrrapd.
         </p>
 
-        {/* Frosted glass card wrapping waitlist */}
-        <div
-          style={{
-            background: 'rgba(20,14,50,0.85)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(123,104,238,0.25)',
-            borderRadius: 20,
-            padding: 32,
-            width: '100%',
-            maxWidth: 400,
-            margin: '0 auto',
-          }}
-        >
-          <Waitlist className="mb-0" />
+        {/* Form container */}
+        <div style={{ width: '100%', maxWidth: 380 }}>
+          <Waitlist />
         </div>
 
-        {/* Social icons below the form */}
-        <p
-          style={{
-            fontFamily: 'Poppins, sans-serif',
-            fontSize: '0.875rem',
-            color: 'rgba(255,255,255,0.5)',
-            margin: 0,
-            letterSpacing: '0.03em',
-          }}
-        >
-          (follow me ;)
-        </p>
-        <LogoSocialLinks socials={socials} />
-
-      </main>
+        {/* Social section */}
+        <div style={{ marginTop: 32, textAlign: 'center' }}>
+          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, marginBottom: 16 }}>
+            (follow me ;)
+          </p>
+          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', alignItems: 'center' }}>
+            {/* Twitter / X */}
+            <a
+              href="https://x.com/ubaydev"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 10,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.1)',
+              }}
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/5a/X_icon_2.svg"
+                alt="X"
+                style={{ width: 20, height: 20 }}
+              />
+            </a>
+            {/* LinkedIn */}
+            <a
+              href="https://www.linkedin.com/in/ubaydulla-noorullah-526994276/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 10,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.1)',
+              }}
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+                alt="LinkedIn"
+                style={{ width: 22, height: 22 }}
+              />
+            </a>
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/ubay.xx/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 10,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.1)',
+              }}
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                alt="Instagram"
+                style={{ width: 22, height: 22 }}
+              />
+            </a>
+            {/* TikTok */}
+            <a
+              href="https://www.tiktok.com/@ubaydasimp"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 10,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.1)',
+              }}
+            >
+              <img
+                src="/tiktok.png"
+                alt="TikTok"
+                style={{ width: 22, height: 22 }}
+              />
+            </a>
+          </div>
+        </div>
+      </div>
 
       {/* Footer */}
-      <footer className="sticky md:fixed bottom-0 left-0 right-0 py-4 px-6 flex justify-between items-center bg-wrrapd-gray text-wrrapd-navy text-sm font-poppins font-semibold border-t-2 border-wrrapd-navy/40 z-[50]">
-        <span>Under Construction</span>
-        <span className="text-xs font-normal opacity-60">built by a student for students</span>
-        <span>2026</span>
+      <footer
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          padding: '20px 24px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
+          flexWrap: 'wrap',
+          gap: 8,
+        }}
+      >
+        <span style={{ color: 'white', fontWeight: 700, fontSize: 12 }}>Under Construction</span>
+        <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12 }}>built by a student for students</span>
+        <span style={{ color: 'white', fontWeight: 700, fontSize: 12 }}>© 2025 wrrapd</span>
       </footer>
-
     </div>
   );
 }

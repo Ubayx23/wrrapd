@@ -1,242 +1,147 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
-interface WaitlistProps {
-  className?: string;
-}
-
-export default function Waitlist({ className = '' }: WaitlistProps) {
-  const [phone, setPhone] = useState<string>('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+export default function Waitlist() {
+  const [phone, setPhone] = useState('');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    setError('');
 
     if (!phone || !isValidPhoneNumber(phone)) {
       setError('please enter a valid phone number.');
       return;
     }
 
-    setIsLoading(true);
-    setError('');
+    setLoading(true);
 
-    const { data: existing, error: queryError } = await supabase
-      .from('waitlist')
-      .select('phone')
-      .eq('phone', phone)
-      .maybeSingle();
+    try {
+      const { data: existing } = await supabase
+        .from('waitlist')
+        .select('phone')
+        .eq('phone', phone)
+        .maybeSingle();
 
-    if (queryError) {
-      setIsLoading(false);
-      setError('something went wrong, try again');
-      return;
+      if (existing) {
+        setError('that number is already on the list.');
+        return;
+      }
+
+      const { error: insertError } = await supabase
+        .from('waitlist')
+        .insert([{ phone }]);
+
+      if (insertError) {
+        setError('something went wrong. try again.');
+      } else {
+        setSuccess(true);
+      }
+    } finally {
+      setLoading(false);
     }
-
-    if (existing) {
-      setIsLoading(false);
-      setError('that number is already on the list.');
-      return;
-    }
-
-    const { error: dbError } = await supabase
-      .from('waitlist')
-      .insert({ phone });
-
-    setIsLoading(false);
-
-    if (dbError) {
-      setError('something went wrong, try again');
-      return;
-    }
-
-    setPhone('');
-    setIsSubmitted(true);
   };
 
   return (
-    <div
-      style={{
-        width: '100%',
-        maxWidth: 480,
-        margin: '0 auto',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'center',
-      }}
-      data-purpose="waitlist-container"
-    >
-      <AnimatePresence mode="wait">
-        {isSubmitted ? (
-          <motion.div
-            key="success"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, paddingTop: 8, paddingBottom: 8, width: '100%' }}
+    <div style={{ width: '100%' }}>
+      <style>{`
+        .PhoneInputInput { background: transparent; border: none; outline: none; color: white; font-size: 16px; width: 100%; font-family: inherit; }
+        .PhoneInputInput::placeholder { color: rgba(255,255,255,0.4); }
+        .PhoneInputCountrySelectArrow { color: white; opacity: 0.6; }
+        .PhoneInput { width: 100%; display: flex; align-items: center; gap: 8px; }
+        .PhoneInputCountrySelect { background: transparent; color: white; border: none; outline: none; }
+      `}</style>
+
+      {success ? (
+        <div style={{ textAlign: 'center', padding: '20px 0' }}>
+          <div style={{ fontSize: 32, marginBottom: 12 }}>&#10003;</div>
+          <p style={{ color: 'white', fontSize: 16, lineHeight: 1.5, marginBottom: 16 }}>
+            you&apos;re on the list. we&apos;ll text you when we launch.
+          </p>
+          <button
+            onClick={() => { setSuccess(false); setPhone(''); }}
+            style={{
+              background: 'transparent',
+              border: '1px solid rgba(255,255,255,0.3)',
+              color: 'white',
+              padding: '10px 20px',
+              borderRadius: 8,
+              fontSize: 14,
+              cursor: 'pointer',
+            }}
           >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.1, type: 'spring', stiffness: 300, damping: 25 }}
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: '50%',
-                background: 'rgba(255,255,255,0.10)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <CheckCircle style={{ width: 20, height: 20, color: '#FFFFFF' }} />
-            </motion.div>
-            <p
-              style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 14,
-                color: '#FFFFFF',
-                textAlign: 'center',
-                margin: 0,
-              }}
-            >
-              you&apos;re on the list. we&apos;ll text you when we launch.
+            add another number
+          </button>
+        </div>
+      ) : (
+        <div>
+          <label
+            style={{
+              color: 'rgba(255,255,255,0.5)',
+              fontSize: 11,
+              letterSpacing: 2,
+              textTransform: 'uppercase',
+              marginBottom: 10,
+              display: 'block',
+              textAlign: 'left',
+            }}
+          >
+            YOUR PHONE NUMBER.
+          </label>
+
+          <div
+            style={{
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.15)',
+              borderRadius: 12,
+              padding: '12px 16px',
+              display: 'flex',
+              alignItems: 'center',
+              width: '100%',
+              boxSizing: 'border-box',
+            }}
+          >
+            <PhoneInput
+              defaultCountry="US"
+              value={phone}
+              onChange={(val: string | undefined) => setPhone(val || '')}
+              placeholder="your phone number"
+              style={{ width: '100%' }}
+            />
+          </div>
+
+          {error && (
+            <p style={{ color: '#ff6b6b', fontSize: 13, marginTop: 8, textAlign: 'center' }}>
+              {error}
             </p>
-            <button
-              onClick={() => { setIsSubmitted(false); setPhone(''); }}
-              style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 12,
-                color: 'rgba(255,255,255,0.5)',
-                padding: 0,
-              }}
-            >
-              add another number
-            </button>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="form"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, width: '100%' }}
+          )}
+
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            style={{
+              width: '100%',
+              marginTop: 12,
+              padding: '16px',
+              background: '#4C3D8F',
+              color: 'white',
+              border: 'none',
+              borderRadius: 12,
+              fontSize: 16,
+              fontWeight: 700,
+              cursor: loading ? 'not-allowed' : 'pointer',
+              opacity: loading ? 0.7 : 1,
+            }}
           >
-            <form
-              onSubmit={handleSubmit}
-              style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%' }}
-            >
-              {/* Label */}
-              <label
-                style={{
-                  fontFamily: 'Poppins, sans-serif',
-                  fontSize: 11,
-                  fontWeight: 600,
-                  color: 'rgba(255,255,255,0.6)',
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  textAlign: 'left',
-                  paddingLeft: 4,
-                }}
-              >
-                your phone number.
-              </label>
-
-              {/* PhoneInput wrapper */}
-              <div
-                style={{
-                  background: 'rgba(255,255,255,0.08)',
-                  border: '1px solid rgba(255,255,255,0.15)',
-                  borderRadius: 12,
-                  padding: '14px 16px',
-                  color: 'white',
-                  fontSize: 16,
-                  width: '100%',
-                  boxSizing: 'border-box',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <PhoneInput
-                  defaultCountry="US"
-                  value={phone}
-                  onChange={(value) => { setPhone(value || ''); setError(''); }}
-                  placeholder="your phone number"
-                  disabled={isLoading}
-                />
-              </div>
-
-              {/* Submit */}
-              <motion.button
-                type="submit"
-                disabled={isLoading}
-                whileHover={{ scale: isLoading ? 1 : 1.02 }}
-                whileTap={{ scale: isLoading ? 1 : 0.97 }}
-                style={{
-                  width: '100%',
-                  marginTop: 4,
-                  padding: '16px 24px',
-                  background: '#07070F',
-                  border: '1.5px solid rgba(123,104,238,0.5)',
-                  borderRadius: 16,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 8,
-                  fontFamily: 'Poppins, sans-serif',
-                  fontWeight: 600,
-                  fontSize: 16,
-                  color: '#FFFFFF',
-                  cursor: isLoading ? 'not-allowed' : 'pointer',
-                  opacity: isLoading ? 0.7 : 1,
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-                }}
-              >
-                {isLoading ? (
-                  <motion.span
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                  >
-                    <Loader2 style={{ width: 16, height: 16, color: '#FFFFFF' }} />
-                  </motion.span>
-                ) : "i'm in"}
-              </motion.button>
-            </form>
-
-            {/* Error */}
-            <AnimatePresence>
-              {error && (
-                <motion.p
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  style={{
-                    fontFamily: 'Poppins, sans-serif',
-                    fontSize: 12,
-                    color: '#ef4444',
-                    margin: 0,
-                    textAlign: 'center',
-                  }}
-                >
-                  {error}
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {loading ? 'loading...' : "i'm in"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
