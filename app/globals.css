@@ -112,6 +112,17 @@ body {
   min-height: 100dvh;
 }
 
+/* Prevent white overscroll glow on iOS for dark pages */
+body:has(.landing-page) {
+  background-color: #07070F;
+  overscroll-behavior-y: none;
+}
+
+body:has(.waitlist-page) {
+  background-color: #06021a;
+  overscroll-behavior-y: none;
+}
+
 /* Desktop: lock scroll since everything fits in one screen — not on landing or waitlist page */
 @media (min-width: 744px) {
   body:not(:has(.landing-page)):not(:has(.waitlist-page)) {

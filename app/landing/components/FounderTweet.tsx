@@ -20,7 +20,7 @@ export default function FounderTweet() {
         width: '100%',
         maxWidth: 480,
         borderRadius: 16,
-        colorScheme: 'light',
+        colorScheme: 'dark',
       }}>
         <GlowEffect
           colors={['#4C3D8F', '#7B68EE', '#2D2460', '#7B68EE']}
@@ -28,7 +28,7 @@ export default function FounderTweet() {
           blur='strong'
           duration={4}
         />
-        <div style={{ position: 'relative', zIndex: 1, borderRadius: 16, overflow: 'hidden' }}>
+        <div data-theme="dark" style={{ position: 'relative', zIndex: 1, borderRadius: 16, overflow: 'hidden' }}>
           <Tweet id="2033996418705461745" />
         </div>
       </div>
