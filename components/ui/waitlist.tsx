@@ -14,7 +14,16 @@ export default function Waitlist() {
   const handleSubmit = async () => {
     setError('');
 
-    if (!phone || !isValidPhoneNumber(phone)) {
+    const digits = (phone || '').replace(/\D/g, '');
+    const looksValid = digits.length >= 10;
+    let passedLibCheck = false;
+    try {
+      passedLibCheck = !!phone && isValidPhoneNumber(phone);
+    } catch {
+      passedLibCheck = looksValid;
+    }
+
+    if (!looksValid && !passedLibCheck) {
       setError('please enter a valid phone number.');
       return;
     }
