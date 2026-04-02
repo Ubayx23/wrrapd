@@ -66,7 +66,7 @@ export default function Hero() {
           <div className="nav-divider-hide-mobile" style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.1)', marginRight: 4, flexShrink: 0 }} />
 
           {/* Nav links - hidden on mobile */}
-          {[['how it works', '#how-it-works'], ['pricing', '#pricing']].map(([label, href]) => (
+          {[['how it works', '#how-it-works']].map(([label, href]) => (
             <a
               key={label}
               href={href}
