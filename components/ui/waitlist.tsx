@@ -58,20 +58,23 @@ export default function Waitlist() {
       `}</style>
 
       {success ? (
-        <div style={{ textAlign: 'center', padding: '20px 0' }}>
-          <div style={{ fontSize: 32, marginBottom: 12 }}>&#10003;</div>
-          <p style={{ color: '#ffffff', fontSize: 16, lineHeight: 1.5, marginBottom: 16 }}>
-            you&apos;re on the list. we&apos;ll text you when we launch.
+        <div style={{ textAlign: 'center', padding: '24px 0' }}>
+          <div style={{ fontSize: 40, marginBottom: 12, color: '#7B68EE' }}>&#10003;</div>
+          <p style={{ color: '#ffffff', fontSize: 17, fontWeight: 700, lineHeight: 1.5, marginBottom: 6 }}>
+            you&apos;re on the list.
+          </p>
+          <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 14, lineHeight: 1.5, marginBottom: 20 }}>
+            we&apos;ll text you when we launch.
           </p>
           <button
             onClick={() => { setSuccess(false); setPhone(''); }}
             style={{
               background: 'transparent',
-              border: '1px solid rgba(255,255,255,0.25)',
-              color: '#ffffff',
+              border: '1px solid rgba(255,255,255,0.2)',
+              color: 'rgba(255,255,255,0.6)',
               padding: '10px 20px',
               borderRadius: 8,
-              fontSize: 14,
+              fontSize: 13,
               cursor: 'pointer',
             }}
           >
@@ -82,24 +85,25 @@ export default function Waitlist() {
         <div>
           <label
             style={{
-              color: 'rgba(255,255,255,0.5)',
+              color: 'rgba(255,255,255,0.6)',
               fontSize: 11,
               letterSpacing: 2,
               textTransform: 'uppercase',
               marginBottom: 10,
               display: 'block',
               textAlign: 'left',
+              fontWeight: 600,
             }}
           >
-            YOUR PHONE NUMBER.
+            YOUR PHONE NUMBER
           </label>
 
           <div
             style={{
-              background: 'rgba(255,255,255,0.1)',
-              border: '1px solid rgba(255,255,255,0.15)',
+              background: 'rgba(255,255,255,0.07)',
+              border: '1.5px solid rgba(255,255,255,0.25)',
               borderRadius: 12,
-              padding: '12px 16px',
+              padding: '13px 16px',
               display: 'flex',
               alignItems: 'center',
               width: '100%',
@@ -116,9 +120,30 @@ export default function Waitlist() {
           </div>
 
           {error && (
-            <p style={{ color: '#ff6b6b', fontSize: 13, marginTop: 8, textAlign: 'center' }}>
-              {error}
-            </p>
+            <div
+              style={{
+                marginTop: 10,
+                padding: '10px 14px',
+                borderRadius: 8,
+                background: error.includes('already') ? 'rgba(123,104,238,0.15)' : 'rgba(255,80,80,0.12)',
+                border: error.includes('already') ? '1px solid rgba(123,104,238,0.4)' : '1px solid rgba(255,80,80,0.35)',
+                textAlign: 'center',
+              }}
+            >
+              <p style={{
+                color: error.includes('already') ? '#b8aff5' : '#ff7070',
+                fontSize: 13,
+                margin: 0,
+                fontWeight: 500,
+              }}>
+                {error.includes('already') ? 'already on the list.' : error}
+              </p>
+              {error.includes('already') && (
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, margin: '4px 0 0 0' }}>
+                  that number is already registered. we&apos;ll be in touch.
+                </p>
+              )}
+            </div>
           )}
 
           <button
@@ -128,7 +153,7 @@ export default function Waitlist() {
               width: '100%',
               marginTop: 12,
               padding: '16px',
-              background: '#4C3D8F',
+              background: 'linear-gradient(135deg, #5B4DB8 0%, #7B68EE 100%)',
               color: 'white',
               border: 'none',
               borderRadius: 12,
@@ -136,6 +161,7 @@ export default function Waitlist() {
               fontWeight: 700,
               cursor: loading ? 'not-allowed' : 'pointer',
               opacity: loading ? 0.7 : 1,
+              letterSpacing: 0.3,
             }}
           >
             {loading ? 'loading...' : "i'm in"}

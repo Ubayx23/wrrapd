@@ -25,7 +25,7 @@ export default function Page() {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(160deg, rgba(10,4,35,0.82) 0%, rgba(30,10,70,0.78) 50%, rgba(10,4,35,0.85) 100%)',
+          background: 'linear-gradient(160deg, rgba(6,2,22,0.92) 0%, rgba(20,8,55,0.88) 50%, rgba(6,2,22,0.94) 100%)',
           zIndex: 0,
         }}
       />
@@ -86,26 +86,39 @@ export default function Page() {
             margin: '0 0 12px 0',
           }}
         >
-          to be launched on<br />
+          <span style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 700 }}>to be launched on</span><br />
           <span style={{ color: '#7B68EE', fontStyle: 'italic' }}>April 8</span>
         </h2>
 
         {/* Subtext */}
         <p
           style={{
-            color: 'rgba(255,255,255,0.6)',
+            color: 'rgba(255,255,255,0.55)',
             fontSize: 'clamp(13px, 3vw, 16px)',
-            lineHeight: 1.6,
+            lineHeight: 1.7,
             maxWidth: 340,
             margin: '0 auto 32px auto',
           }}
         >
-          check in <strong style={{ color: '#ffffff' }}>once a day</strong>. stay on track.{' '}
-          get your month <strong style={{ color: '#7B68EE' }}>wrrapd</strong>.
+          check in <strong style={{ color: '#ffffff', fontWeight: 700 }}>once a day</strong>.{' '}
+          stay on track.{' '}
+          get your month{' '}
+          <strong style={{ color: '#7B68EE', fontWeight: 800 }}>wrrapd</strong>.
         </p>
 
-        {/* Form container */}
-        <div style={{ width: '100%', maxWidth: 380 }}>
+        {/* Form container — frosted card */}
+        <div
+          style={{
+            width: '100%',
+            maxWidth: 380,
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: 20,
+            padding: '28px 24px',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+          }}
+        >
           <Waitlist />
         </div>
 
