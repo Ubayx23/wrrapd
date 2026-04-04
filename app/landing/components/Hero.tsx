@@ -1,22 +1,9 @@
 'use client';
-import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BeamsBackground } from './BeamsBackground';
 import PhoneMockup from './PhoneMockup';
 
 export default function Hero() {
-  useEffect(() => {
-    const prev = {
-      htmlStyle: document.documentElement.getAttribute('style') || '',
-      bodyStyle: document.body.getAttribute('style') || '',
-    };
-    document.documentElement.style.cssText += ';height:auto!important;overflow:auto!important';
-    document.body.style.cssText += ';overflow:auto!important;height:auto!important;min-height:100dvh!important;display:block!important;position:static!important';
-    return () => {
-      document.documentElement.setAttribute('style', prev.htmlStyle);
-      document.body.setAttribute('style', prev.bodyStyle);
-    };
-  }, []);
 
   return (
     <>

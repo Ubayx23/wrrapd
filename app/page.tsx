@@ -8,7 +8,7 @@ import FounderTweet from './landing/components/FounderTweet';
 
 export default function LandingPage() {
   return (
-    <main className="landing-page" style={{ background: '#07070F', minHeight: '100vh', overflowX: 'hidden' }}>
+    <main className="landing-page" style={{ background: '#07070F', minHeight: '100vh' }}>
       <Hero />
       <Problem />
       <HowItWorks />
