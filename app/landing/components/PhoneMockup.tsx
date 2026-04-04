@@ -47,15 +47,20 @@ export default function PhoneMockup() {
             </div>
 
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px 10px 0', overflow: 'hidden' }}>
-              <div style={{ alignSelf: 'flex-start', maxWidth: '74%', background: '#E5E5EA', borderRadius: '18px 18px 18px 5px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#111', marginBottom: 6 }}>
-                are you locked in?
+              <div style={{ alignSelf: 'flex-start', maxWidth: '74%', background: '#E5E5EA', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#111', marginBottom: 10 }}>
+                did you show up today
               </div>
-              <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 9, color: 'rgba(0,0,0,0.38)', marginLeft: 4, marginBottom: 8 }}>7:00 PM</div>
               <div style={{ alignSelf: 'flex-end', maxWidth: '46%', background: '#0A84FF', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#FFF', marginBottom: 10 }}>
-                yuhh
+                no
               </div>
-              <div style={{ alignSelf: 'flex-start', maxWidth: '80%', background: '#E5E5EA', borderRadius: '18px 18px 18px 5px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#111' }}>
-              4/5 this week. lowkey... you&apos;re improving.
+              <div style={{ alignSelf: 'flex-start', maxWidth: '60%', background: '#E5E5EA', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#111', marginBottom: 4 }}>
+                noted.
+              </div>
+              <div style={{ alignSelf: 'flex-start', maxWidth: '60%', background: '#E5E5EA', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#111', marginBottom: 4 }}>
+                3/30 days.
+              </div>
+              <div style={{ alignSelf: 'flex-start', maxWidth: '60%', background: '#E5E5EA', borderRadius: '18px 18px 18px 5px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#111' }}>
+                below average.
               </div>
 
               <div style={{ marginTop: 'auto', marginLeft: -10, marginRight: -10, background: 'linear-gradient(to bottom, rgba(242,242,247,0) 0%, rgba(242,242,247,1) 18%, rgba(236,236,241,1) 100%)', borderTop: '0.5px solid rgba(0,0,0,0.08)', padding: '7px 8px 8px' }}>

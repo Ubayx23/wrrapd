@@ -1,6 +1,4 @@
 'use client';
-import { Tweet } from 'react-tweet';
-import { GlowEffect } from '@/components/ui/glow-effect';
 
 export default function FounderTweet() {
   return (
@@ -15,27 +13,24 @@ export default function FounderTweet() {
       zIndex: 1,
       width: '100%',
     }}>
-      <div style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: 480,
-        borderRadius: 16,
-        colorScheme: 'dark',
-      }}>
-        <GlowEffect
-          colors={['#4C3D8F', '#7B68EE', '#2D2460', '#7B68EE']}
-          mode='rotate'
-          blur='strong'
-          duration={4}
-        />
-        <div data-theme="dark" style={{ position: 'relative', zIndex: 1, borderRadius: 16, overflow: 'hidden' }}>
-          <Tweet id="2033996418705461745" />
-        </div>
-      </div>
 
+      {/* V2 hint */}
+      <p style={{
+        fontFamily: 'Poppins, sans-serif',
+        fontSize: 11,
+        fontWeight: 400,
+        color: 'rgba(255,255,255,0.18)',
+        textAlign: 'center',
+        margin: 0,
+        letterSpacing: '0.02em',
+      }}>
+        rankings + squads coming soon
+      </p>
+
+      {/* Bottom tagline */}
       <div style={{
         textAlign: 'center',
-        marginTop: 'clamp(48px, 6vw, 64px)',
+        marginTop: 20,
         paddingBottom: 100,
       }}>
         <span style={{
@@ -46,7 +41,7 @@ export default function FounderTweet() {
           display: 'block',
           marginBottom: 8,
         }}>
-          built by a student for students.
+          built for doers.
         </span>
         <span style={{
           fontFamily: 'DM Sans, sans-serif',

@@ -138,7 +138,7 @@ export default function Pricing() {
                 display: 'inline-block',
               }}
             >
-              get early access
+              Request Access
             </a>
             <button
               onClick={() => {

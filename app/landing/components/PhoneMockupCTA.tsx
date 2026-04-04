@@ -36,17 +36,20 @@ export default function PhoneMockupCTA() {
           {/* Messages */}
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8, padding: '12px 10px', background: '#F2F2F7', overflow: 'auto' }}>
-              <div style={{ borderRadius: 18, maxWidth: '75%', padding: '10px 14px', fontSize: 14, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', background: '#E9E9EB', color: '#000000', alignSelf: 'flex-start', lineHeight: 1.35 }}>
-                what do you say, wanna level up?
+              <div style={{ borderRadius: '18px 18px 5px 18px', maxWidth: '75%', padding: '10px 14px', fontSize: 14, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', background: '#E9E9EB', color: '#000000', alignSelf: 'flex-start', lineHeight: 1.35, marginBottom: 8 }}>
+                did you show up today
               </div>
-              <div style={{ fontSize: 11, color: 'rgba(0,0,0,0.4)', textAlign: 'center', alignSelf: 'center', marginTop: 2, marginBottom: 4 }}>
-                8:00 AM
+              <div style={{ borderRadius: '18px 18px 5px 18px', maxWidth: '75%', padding: '10px 14px', fontSize: 14, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', background: '#007AFF', color: '#ffffff', alignSelf: 'flex-end', lineHeight: 1.35, marginBottom: 8 }}>
+                yes
               </div>
-              <div style={{ borderRadius: '18px 18px 4px 18px', maxWidth: '75%', padding: '10px 14px', fontSize: 14, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', background: '#007AFF', color: '#ffffff', alignSelf: 'flex-end', lineHeight: 1.35 }}>
-                sure, doesn&apos;t hurt to try
+              <div style={{ borderRadius: '18px 18px 5px 18px', maxWidth: '60%', padding: '10px 14px', fontSize: 14, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', background: '#E9E9EB', color: '#000000', alignSelf: 'flex-start', lineHeight: 1.35, marginBottom: 4 }}>
+                noted.
               </div>
-              <div style={{ borderRadius: 18, maxWidth: '75%', padding: '10px 14px', fontSize: 14, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', background: '#E9E9EB', color: '#000000', alignSelf: 'flex-start', lineHeight: 1.35 }}>
-                prove it to yourself. sign up takes 1 minute.
+              <div style={{ borderRadius: '18px 18px 5px 18px', maxWidth: '60%', padding: '10px 14px', fontSize: 14, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', background: '#E9E9EB', color: '#000000', alignSelf: 'flex-start', lineHeight: 1.35, marginBottom: 4 }}>
+                17/30 days.
+              </div>
+              <div style={{ borderRadius: '18px 18px 18px 5px', maxWidth: '60%', padding: '10px 14px', fontSize: 14, fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', background: '#E9E9EB', color: '#000000', alignSelf: 'flex-start', lineHeight: 1.35 }}>
+                above average.
               </div>
             </div>
 

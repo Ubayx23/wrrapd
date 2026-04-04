@@ -133,8 +133,43 @@ export default function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-              style={{ textAlign: 'center', padding: '0 24px', position: 'relative', zIndex: 1 }}
+              style={{ textAlign: 'center', padding: '0 24px', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             >
+              {/* Status pill */}
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: 100,
+                padding: '6px 14px',
+                marginBottom: 28,
+              }}>
+                <motion.span
+                  animate={{ opacity: [1, 0.25, 1] }}
+                  transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                  style={{
+                    width: 7,
+                    height: 7,
+                    borderRadius: '50%',
+                    background: '#4ade80',
+                    display: 'block',
+                    flexShrink: 0,
+                  }}
+                />
+                <span style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: 'clamp(11px, 1.2vw, 12px)',
+                  fontWeight: 500,
+                  color: 'rgba(255,255,255,0.5)',
+                  letterSpacing: '0.02em',
+                  whiteSpace: 'nowrap',
+                }}>
+                  Cohort 1 · 47 spots remaining
+                </span>
+              </div>
+
               <h1 style={{
                 fontFamily: 'DM Sans, sans-serif',
                 fontSize: 'clamp(44px, 10vw, 96px)',
@@ -155,14 +190,15 @@ export default function Hero() {
               </h1>
               <p style={{
                 fontFamily: 'Poppins, sans-serif',
-                fontSize: 'clamp(14px, 2vw, 17px)',
-                fontWeight: 400,
-                color: 'rgba(255,255,255,0.38)',
+                fontSize: 'clamp(12px, 1.4vw, 14px)',
+                fontWeight: 500,
+                color: 'rgba(255,255,255,0.55)',
                 margin: '0 auto 48px',
-                maxWidth: 340,
-                lineHeight: 1.7,
+                maxWidth: 280,
+                lineHeight: 1.6,
+                letterSpacing: '0.01em',
               }}>
-                one text a day. yes or no. that&apos;s it.
+                not everyone gets in.
               </p>
             </motion.div>
 

@@ -6,6 +6,7 @@ import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
 export default function Waitlist() {
+  const [habit, setHabit] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -13,6 +14,11 @@ export default function Waitlist() {
 
   const handleSubmit = async () => {
     setError('');
+
+    if (!habit.trim()) {
+      setError('please answer the question above.');
+      return;
+    }
 
     const digits = (phone || '').replace(/\D/g, '');
     const looksValid = digits.length >= 9;
@@ -44,7 +50,7 @@ export default function Waitlist() {
 
       const { error: insertError } = await supabase
         .from('waitlist')
-        .insert([{ phone }]);
+        .insert([{ phone, habit_answer: habit.trim() }]);
 
       if (insertError) {
         setError('something went wrong. try again.');
@@ -70,13 +76,13 @@ export default function Waitlist() {
         <div style={{ textAlign: 'center', padding: '24px 0' }}>
           <div style={{ fontSize: 40, marginBottom: 12, color: '#7B68EE' }}>&#10003;</div>
           <p style={{ color: '#ffffff', fontSize: 17, fontWeight: 700, lineHeight: 1.5, marginBottom: 6 }}>
-            you&apos;re on the list.
+            application received.
           </p>
           <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 14, lineHeight: 1.5, marginBottom: 20 }}>
-            we&apos;ll text you when we launch.
+            we review every answer. we&apos;ll be in touch.
           </p>
           <button
-            onClick={() => { setSuccess(false); setPhone(''); }}
+            onClick={() => { setSuccess(false); setPhone(''); setHabit(''); }}
             style={{
               background: 'transparent',
               border: '1px solid rgba(255,255,255,0.2)',
@@ -92,6 +98,7 @@ export default function Waitlist() {
         </div>
       ) : (
         <div>
+          {/* Habit question */}
           <label
             style={{
               color: 'rgba(255,255,255,0.6)',
@@ -104,9 +111,62 @@ export default function Waitlist() {
               fontWeight: 600,
             }}
           >
-            YOUR PHONE NUMBER
+            what have you been lying to yourself about?
           </label>
+          <div
+            style={{
+              background: 'rgba(255,255,255,0.07)',
+              border: '1.5px solid rgba(255,255,255,0.25)',
+              borderRadius: 12,
+              padding: '13px 16px',
+              marginBottom: 16,
+              boxSizing: 'border-box',
+              width: '100%',
+            }}
+          >
+            <input
+              type="text"
+              value={habit}
+              onChange={(e) => setHabit(e.target.value)}
+              placeholder="be honest."
+              maxLength={120}
+              required
+              style={{
+                background: 'transparent',
+                border: 'none',
+                outline: 'none',
+                color: '#fff',
+                fontSize: 16,
+                width: '100%',
+                fontFamily: 'inherit',
+              }}
+            />
+          </div>
+          <p style={{
+            color: 'rgba(255,255,255,0.3)',
+            fontSize: 11,
+            lineHeight: 1.5,
+            margin: '-8px 0 16px 2px',
+            fontFamily: 'Poppins, sans-serif',
+          }}>
+            not everyone gets in. your answer decides.
+          </p>
 
+          {/* Phone field */}
+          <label
+            style={{
+              color: 'rgba(255,255,255,0.6)',
+              fontSize: 11,
+              letterSpacing: 2,
+              textTransform: 'uppercase',
+              marginBottom: 10,
+              display: 'block',
+              textAlign: 'left',
+              fontWeight: 600,
+            }}
+          >
+            where we text you
+          </label>
           <div
             style={{
               background: 'rgba(255,255,255,0.07)',
@@ -173,7 +233,7 @@ export default function Waitlist() {
               letterSpacing: 0.3,
             }}
           >
-            {loading ? 'loading...' : "i'm in"}
+            {loading ? 'submitting...' : 'request access'}
           </button>
         </div>
       )}

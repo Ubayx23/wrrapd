@@ -33,6 +33,46 @@ export default function Features() {
 
           {/* Part 1 — Two-tier headline */}
           <div style={{ marginBottom: 24, position: 'relative', zIndex: 1 }}>
+            {/* Status pill */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease }}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 100,
+                padding: '5px 14px',
+                marginBottom: 20,
+              }}
+            >
+              <motion.span
+                animate={{ opacity: [1, 0.25, 1] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: '#7B68EE',
+                  display: 'block',
+                  flexShrink: 0,
+                }}
+              />
+              <span style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 11,
+                fontWeight: 500,
+                color: 'rgba(255,255,255,0.38)',
+                letterSpacing: '0.04em',
+                whiteSpace: 'nowrap',
+              }}>
+                Cohort 1 · 47 spots remaining
+              </span>
+            </motion.div>
+
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}

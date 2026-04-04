@@ -17,10 +17,9 @@ export default function Page() {
         overflow: 'hidden',
       }}
     >
-      {/* Animated WebGL shader background */}
       <ShaderBackground />
 
-      {/* Dark purple overlay over shader */}
+      {/* Overlay */}
       <div
         style={{
           position: 'absolute',
@@ -75,38 +74,44 @@ export default function Page() {
           </span>
         </div>
 
-        {/* Headline */}
-        <h2
-          style={{
-            color: '#ffffff',
+        {/* Stacked headline */}
+        <div style={{ marginBottom: 40 }}>
+          <p style={{
             fontFamily: 'DM Sans, sans-serif',
-            fontSize: 'clamp(28px, 7vw, 52px)',
             fontWeight: 800,
-            lineHeight: 1.2,
-            margin: '0 0 12px 0',
-          }}
-        >
-          <span style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 700 }}>to be launched on</span><br />
-          <span style={{ color: '#7B68EE', fontStyle: 'italic' }}>April 8</span>
-        </h2>
+            fontSize: 'clamp(28px, 6vw, 52px)',
+            lineHeight: 1.15,
+            letterSpacing: 'clamp(-1px, -0.3vw, -2px)',
+            color: '#ffffff',
+            margin: '0 0 2px 0',
+          }}>
+            one question a day.
+          </p>
+          <p style={{
+            fontFamily: 'DM Sans, sans-serif',
+            fontWeight: 800,
+            fontSize: 'clamp(28px, 6vw, 52px)',
+            lineHeight: 1.15,
+            letterSpacing: 'clamp(-1px, -0.3vw, -2px)',
+            color: 'rgba(255,255,255,0.45)',
+            margin: '0 0 2px 0',
+          }}>
+            one answer.
+          </p>
+          <p style={{
+            fontFamily: 'DM Sans, sans-serif',
+            fontWeight: 800,
+            fontSize: 'clamp(28px, 6vw, 52px)',
+            lineHeight: 1.15,
+            letterSpacing: 'clamp(-1px, -0.3vw, -2px)',
+            color: 'rgba(255,255,255,0.22)',
+            margin: 0,
+          }}>
+            we keep track.
+          </p>
+        </div>
 
-        {/* Subtext */}
-        <p
-          style={{
-            color: 'rgba(255,255,255,0.55)',
-            fontSize: 'clamp(13px, 3vw, 16px)',
-            lineHeight: 1.7,
-            maxWidth: 340,
-            margin: '0 auto 32px auto',
-          }}
-        >
-          check in <strong style={{ color: '#ffffff', fontWeight: 700 }}>once a day</strong>.{' '}
-          stay on track.{' '}
-          get your month{' '}
-          <strong style={{ color: '#7B68EE', fontWeight: 800 }}>wrrapd</strong>.
-        </p>
-
-        {/* Form container — frosted card */}
+        {/* Form card */}
         <div
           style={{
             width: '100%',
@@ -138,8 +143,8 @@ export default function Page() {
           gap: 8,
         }}
       >
-        <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 700, fontSize: 12 }}>Under Construction</span>
-        <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 700, fontSize: 12 }}>© 2026 wrrapd</span>
+        <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 700, fontSize: 12 }}>wrrapd</span>
+        <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 700, fontSize: 12 }}>© 2026</span>
       </footer>
     </div>
   );
