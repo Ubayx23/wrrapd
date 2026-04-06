@@ -82,6 +82,18 @@ export default function OnboardPage() {
     };
   }, []);
 
+  // If a session already exists (e.g. user logged in but has no profile yet),
+  // skip step 1 and go straight to profile setup
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        console.log('[wrrapd] existing session found on /onboard, skipping to step 2');
+        setUserId(session.user.id);
+        setStep(2);
+      }
+    });
+  }, []);
+
   async function handleCreateAccount() {
     if (!email.trim() || !password.trim()) {
       setError('both fields required');
@@ -90,35 +102,59 @@ export default function OnboardPage() {
     setLoading(true);
     setError('');
     const { data, error: authError } = await supabase.auth.signUp({ email, password });
-    setLoading(false);
     if (authError) {
-      setError(authError.message);
+      setLoading(false);
+      const msg = authError.message.toLowerCase();
+      if (msg.includes('already registered') || msg.includes('already been registered') || msg.includes('user already')) {
+        setError('account already exists. sign in instead.');
+      } else {
+        setError(authError.message);
+      }
       return;
     }
     if (!data.user) {
+      setLoading(false);
       setError('something went wrong. try again.');
       return;
     }
-    setUserId(data.user.id);
+    // Wait for the session to be fully established before proceeding
+    const { data: { session } } = await supabase.auth.getSession();
+    setLoading(false);
+    if (!session) {
+      setError('session not established. check your email to confirm your account, then sign in.');
+      return;
+    }
+    setUserId(session.user.id);
     setStep(2);
   }
 
   async function handleFinish() {
-    if (!userId) {
-      setError('session lost. start over.');
-      return;
-    }
     setLoading(true);
     setError('');
-    const { error: dbError } = await supabase.from('profiles').upsert({
-      id: userId,
+    // Always re-read the session at insert time to ensure the JWT is attached
+    const { data: { session } } = await supabase.auth.getSession();
+    const activeUserId = session?.user?.id ?? null;
+    console.log('[wrrapd] client: regular anon (RLS applies)');
+    console.log('[wrrapd] session at insert:', session);
+    console.log('[wrrapd] userId at insert:', activeUserId);
+    if (!session || !activeUserId) {
+      setLoading(false);
+      setError('session expired. please start over.');
+      setStep(1);
+      return;
+    }
+    const payload = {
+      id: activeUserId,
       name: name.trim(),
       goal: goal.trim(),
       check_in_time: checkInTime,
-    });
+    };
+    console.log('[wrrapd] inserting profile payload:', payload);
+    const { data: insertData, error: dbError } = await supabase.from('profiles').upsert(payload).select();
+    console.log('[wrrapd] insert result — data:', insertData, '| error:', dbError);
     setLoading(false);
     if (dbError) {
-      setError(dbError.message);
+      setError(`insert failed: ${dbError.message} (code: ${dbError.code})`);
       return;
     }
     router.push('/dashboard');
@@ -146,8 +182,9 @@ export default function OnboardPage() {
     if (step === 1) {
       return (
         <>
-          <h1 style={headingStyle}>create your account</h1>
-          <p style={subStyle}>takes 30 seconds.</p>
+          <h1 style={{ ...headingStyle, fontSize: 'clamp(28px, 8vw, 40px)', marginBottom: '32px' }}>
+            let&apos;s see if you&apos;re serious.
+          </h1>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '16px' }}>
             <div>
               <span style={labelStyle}>email</span>
@@ -176,6 +213,17 @@ export default function OnboardPage() {
           <button style={buttonStyle(true)} onClick={handleCreateAccount} disabled={loading}>
             {loading ? 'creating account...' : 'create account'}
           </button>
+          <p style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: 'clamp(12px, 3vw, 13px)',
+            color: 'rgba(255,255,255,0.3)',
+            marginTop: '20px',
+            marginBottom: 0,
+            textAlign: 'center',
+          }}>
+            already in?{' '}
+            <a href="/login" style={{ color: '#9B5DE5', textDecoration: 'none' }}>sign in</a>
+          </p>
         </>
       );
     }
@@ -358,7 +406,11 @@ export default function OnboardPage() {
                 margin: '12px 0 0 0',
                 lineHeight: 1.5,
               }}>
-                {error}
+                {error.includes('sign in instead') ? (
+                  <>account already exists.{' '}
+                    <a href="/login" style={{ color: '#9B5DE5', textDecoration: 'none' }}>sign in instead.</a>
+                  </>
+                ) : error}
               </p>
             )}
           </motion.div>

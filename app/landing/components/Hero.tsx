@@ -84,12 +84,12 @@ export default function Hero() {
 
           {/* CTA */}
           <a
-            href="/waitlist"
+            href="/onboard"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: '#4C3D8F',
+              background: '#9B5DE5',
               color: '#ffffff',
               fontFamily: 'Poppins, sans-serif',
               fontSize: 13,
@@ -105,7 +105,7 @@ export default function Hero() {
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.8')}
             onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
           >
-            prove it
+            start free trial
           </a>
         </div>
       </motion.nav>
