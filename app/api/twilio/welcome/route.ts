@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: 'no phone number on profile' }, { status: 400 });
   }
 
-  const messageBody = `welcome to wrrapd.\ndid you show up for ${profile.goal} today?\nyes or no. reply STOP anytime to opt out.`;
+  const messageBody = `welcome to wrrapd. you signed up to receive one daily SMS check-in. msg & data rates may apply. reply YES to confirm. reply STOP anytime to cancel.\n\ndid you show up for ${profile.goal} today? yes or no.`;
 
   console.log('[wrrapd/welcome] sending message to:', profile.phone_number);
   console.log('[wrrapd/welcome] message body:', messageBody);
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
       to: profile.phone_number,
     });
     console.log('[wrrapd/welcome] twilio response:', { sid: msg.sid, status: msg.status, to: msg.to, from: msg.from });
-    return NextResponse.json({ success: true, sid: msg.sid });
+    return NextResponse.json({ success: true, phone: profile.phone_number });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     console.error('[wrrapd/welcome] twilio error:', message);
