@@ -239,7 +239,7 @@ export default function OnboardPage() {
     try { localStorage.removeItem(STORAGE_KEY); } catch {}
 
     // Redirect to dashboard with welcome flag — popup fires the text after user taps "got it"
-    router.push('/dashboard?welcome=1');
+    router.push('/dashboard?new=true');
   }
 
   function buttonStyle(active = true): React.CSSProperties {
