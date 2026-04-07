@@ -2,11 +2,6 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const adminSupabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
 export async function insertProfile(payload: {
   id: string;
   name: string;
@@ -15,6 +10,11 @@ export async function insertProfile(payload: {
   email: string;
   check_in_time: string;
 }): Promise<{ success: boolean; error?: string }> {
+  const adminSupabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+
   console.log('[wrrapd] insertProfile called with:', payload);
 
   const { data, error } = await adminSupabase
