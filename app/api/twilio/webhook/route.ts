@@ -98,9 +98,7 @@ export async function POST(req: Request) {
 
   console.log(`[wrrapd/webhook] recorded ${response} for user ${user.id}, day_count=${dayCount}`);
 
-  const replyText = response === 'yes'
-    ? `noted. ${dayCount} days in.`
-    : `noted. ${dayCount} days counted.`;
+  const replyText = `noted. ${dayCount} days in.`;
 
   return twimlReply(replyText);
 }
