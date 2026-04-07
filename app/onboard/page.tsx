@@ -238,20 +238,8 @@ export default function OnboardPage() {
     }
     try { localStorage.removeItem(STORAGE_KEY); } catch {}
 
-    // Send welcome text — do not block redirect on failure
-    try {
-      const welcomeRes = await fetch('/api/twilio/welcome', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: activeUserId }),
-      });
-      const welcomeData = await welcomeRes.json();
-      console.log('welcome text result:', welcomeData);
-    } catch (welcomeErr) {
-      console.error('welcome text failed:', welcomeErr);
-    }
-
-    router.push('/dashboard');
+    // Redirect to dashboard with welcome flag — popup fires the text after user taps "got it"
+    router.push('/dashboard?welcome=1');
   }
 
   function buttonStyle(active = true): React.CSSProperties {
