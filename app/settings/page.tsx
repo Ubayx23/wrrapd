@@ -113,6 +113,12 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const prev = document.body.style.cssText;
+    document.body.style.cssText = 'background-color: #0a0a0a; margin: 0; padding: 0; overflow-x: hidden;';
+    return () => { document.body.style.cssText = prev; };
+  }, []);
+
+  useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) { router.replace('/onboard'); return; }
       setEmail(session.user.email ?? '');
@@ -151,15 +157,15 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100dvh', background: '#07070F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 13, color: 'rgba(255,255,255,0.2)' }}>loading...</span>
+      <div style={{ minHeight: '100dvh', width: '100vw', maxWidth: '100%', background: '#0a0a0a', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box' }}>
+        <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 18, fontWeight: 800, color: '#ffffff', letterSpacing: '-0.5px' }}>wrrapd.</span>
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100dvh', background: '#07070F', boxSizing: 'border-box' }}>
-      <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 24px 100px' }}>
+    <div style={{ minHeight: '100dvh', width: '100vw', maxWidth: '100%', background: '#0a0a0a', boxSizing: 'border-box', overflowX: 'hidden' }}>
+      <div style={{ width: '100%', maxWidth: 480, margin: '0 auto', padding: '0 20px 100px', boxSizing: 'border-box' }}>
 
         {/* TOP BAR */}
         <div style={{
@@ -350,7 +356,7 @@ export default function SettingsPage() {
         bottom: 0,
         left: 0,
         right: 0,
-        background: '#07070F',
+        background: '#0a0a0a',
         borderTop: '1px solid rgba(255,255,255,0.07)',
         display: 'flex',
         alignItems: 'center',
