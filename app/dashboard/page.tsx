@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 
 type Profile = {
@@ -70,6 +70,7 @@ const navItems = [
 
 export default function DashboardPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
   const [loading, setLoading] = useState(true);
@@ -77,12 +78,20 @@ export default function DashboardPage() {
   const [textSent, setTextSent] = useState(false);
   const [textSending, setTextSending] = useState(false);
   const [textError, setTextError] = useState<string | null>(null);
+  const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+  const [welcomeSending, setWelcomeSending] = useState(false);
 
   useEffect(() => {
     const prev = document.body.style.cssText;
     document.body.style.cssText = 'background-color: #0a0a0a; margin: 0; padding: 0; overflow-x: hidden;';
     return () => { document.body.style.cssText = prev; };
   }, []);
+
+  useEffect(() => {
+    if (!loading && searchParams.get('welcome') === '1') {
+      setShowWelcomePopup(true);
+    }
+  }, [loading, searchParams]);
 
   useEffect(() => {
     async function load() {
@@ -146,6 +155,28 @@ export default function DashboardPage() {
   async function handleSignOut() {
     await supabase.auth.signOut();
     router.replace('/login');
+  }
+
+  async function handleGotIt() {
+    setWelcomeSending(true);
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      try {
+        const res = await fetch('/api/twilio/welcome', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: session.user.id }),
+        });
+        const data = await res.json();
+        console.log('[wrrapd/dashboard] welcome text result:', data);
+      } catch (e) {
+        console.error('[wrrapd/dashboard] welcome text failed:', e);
+      }
+    }
+    setWelcomeSending(false);
+    setShowWelcomePopup(false);
+    // Clean the URL param without triggering a navigation
+    window.history.replaceState({}, '', '/dashboard');
   }
 
   if (loading) {
@@ -432,6 +463,80 @@ export default function DashboardPage() {
           </a>
         ))}
       </nav>
+
+      {/* WELCOME POPUP */}
+      {showWelcomePopup && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          background: '#0a0a0a',
+          zIndex: 200,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0 32px',
+          textAlign: 'center',
+        }}>
+          <div style={{
+            width: 48,
+            height: 48,
+            borderRadius: '50%',
+            background: 'rgba(155,93,229,0.15)',
+            border: '1px solid rgba(155,93,229,0.35)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 28,
+          }}>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10l4 4 8-8" stroke="#9B5DE5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <h2 style={{
+            fontFamily: 'DM Sans, sans-serif',
+            fontWeight: 800,
+            fontSize: 'clamp(26px, 7vw, 34px)',
+            color: '#ffffff',
+            letterSpacing: '-1.5px',
+            lineHeight: 1.1,
+            margin: '0 0 12px',
+          }}>
+            you&apos;re in.
+          </h2>
+          <p style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: 'clamp(13px, 3.5vw, 15px)',
+            color: 'rgba(255,255,255,0.4)',
+            margin: '0 0 48px',
+            lineHeight: 1.6,
+          }}>
+            check your phone.
+          </p>
+          <button
+            onClick={handleGotIt}
+            disabled={welcomeSending}
+            style={{
+              width: '100%',
+              maxWidth: 320,
+              background: '#9B5DE5',
+              border: 'none',
+              borderRadius: 12,
+              padding: '16px 20px',
+              color: '#ffffff',
+              fontFamily: 'Poppins, sans-serif',
+              fontSize: 15,
+              fontWeight: 600,
+              cursor: welcomeSending ? 'not-allowed' : 'pointer',
+              opacity: welcomeSending ? 0.5 : 1,
+              transition: 'opacity 0.15s',
+              letterSpacing: '0.01em',
+            }}
+          >
+            {welcomeSending ? 'sending...' : 'got it'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
