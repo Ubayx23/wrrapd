@@ -102,18 +102,22 @@
   66% { transform: translate(-20px, 20px) scale(0.95); }
 }
 
+html,
+body {
+  background-color: #0a0a0a;
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
 html {
   overflow-y: auto;
-  overflow-x: hidden;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  /* Allow vertical scroll on mobile; hide horizontal overflow always */
-  overflow-x: hidden;
   overflow-y: auto;
-  background-color: #d8dfe9;
   min-height: 100dvh;
 }
 
@@ -208,7 +212,7 @@ body:has(.waitlist-page) {
   }
 
   body:not(:has(.landing-page)):not(:has(.waitlist-page)) {
-    background-color: #d8dfe9 !important;
+    background-color: #0a0a0a !important;
     position: relative !important;
     display: flex !important;
     flex-direction: column !important;
