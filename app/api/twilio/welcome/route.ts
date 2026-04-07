@@ -23,7 +23,7 @@ export async function POST(request: Request) {
   console.log('[wrrapd/welcome] fetching profile...');
   const { data: profile, error: profileError } = await adminSupabase
     .from('profiles')
-    .select('id, name, goal, phone_number')
+    .select('id, name, goal, phone_number, check_in_time')
     .eq('id', userId)
     .single();
 
@@ -61,6 +61,16 @@ export async function POST(request: Request) {
       to: profile.phone_number,
     });
     console.log('[wrrapd/welcome] twilio response:', { sid: msg.sid, status: msg.status, to: msg.to, from: msg.from });
+
+    // Admin notification — fire and forget, never block the response
+    const adminMessage = `new wrrapd signup.\nname: ${profile.name}\ngoal: ${profile.goal}\ntime: ${profile.check_in_time}`;
+    client.messages.create({
+      body: adminMessage,
+      from: process.env.TWILIO_PHONE_NUMBER,
+      to: '+18585994153',
+    }).then(m => console.log('[wrrapd/welcome] admin notif sent:', m.sid))
+      .catch(e => console.error('[wrrapd/welcome] admin notif failed:', e));
+
     return NextResponse.json({ success: true, phone: profile.phone_number });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
