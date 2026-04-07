@@ -63,7 +63,8 @@ export async function POST(request: Request) {
     console.log('[wrrapd/welcome] twilio response:', { sid: msg.sid, status: msg.status, to: msg.to, from: msg.from });
 
     // Admin notification — fire and forget, never block the response
-    const adminMessage = `new wrrapd signup.\nname: ${profile.name}\ngoal: ${profile.goal}\ntime: ${profile.check_in_time}`;
+    const last4 = profile.phone_number.slice(-4);
+    const adminMessage = `new wrrapd signup.\nname: ${profile.name}\ngoal: ${profile.goal}\ntime: ${profile.check_in_time}\nphone: ...${last4}`;
     client.messages.create({
       body: adminMessage,
       from: process.env.TWILIO_PHONE_NUMBER,
