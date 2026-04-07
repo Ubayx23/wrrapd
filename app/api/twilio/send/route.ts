@@ -43,6 +43,19 @@ export async function GET() {
       continue;
     }
 
+    const today = new Date().toISOString().slice(0, 10);
+    const { data: alreadyTexted } = await adminSupabase
+      .from('check_ins')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('date', today)
+      .maybeSingle();
+
+    if (alreadyTexted) {
+      console.log(`[wrrapd/send] skipping user ${user.id} (already has check_in today)`);
+      continue;
+    }
+
     const messageBody = `did you show up for ${user.goal} today?\nreply yes or no. first reply counts.`;
 
     console.log(`[wrrapd/send] sending to ${user.phone_number} for goal: ${user.goal}`);
