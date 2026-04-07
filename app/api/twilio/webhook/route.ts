@@ -1,11 +1,6 @@
 import { twiml } from 'twilio';
 import { createClient } from '@supabase/supabase-js';
 
-const adminSupabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
 function todayDate(): string {
   return new Date().toISOString().slice(0, 10);
 }
@@ -19,6 +14,10 @@ function twimlReply(text: string): Response {
 }
 
 export async function POST(req: Request) {
+  const adminSupabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
   const contentType = req.headers.get('content-type') ?? '';
   let from = '';
   let body = '';
