@@ -9,12 +9,14 @@ export default function Page() {
       className="waitlist-page"
       style={{
         minHeight: '100dvh',
-        width: '100%',
+        width: '100vw',
+        maxWidth: '100%',
         display: 'flex',
         flexDirection: 'column',
         background: 'black',
         position: 'relative',
         overflow: 'hidden',
+        boxSizing: 'border-box',
       }}
     >
       <ShaderBackground />
@@ -39,7 +41,7 @@ export default function Page() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 'clamp(24px, 6vw, 60px) 24px',
+          padding: 'clamp(24px, 6vw, 60px) clamp(16px, 4vw, 32px)',
           textAlign: 'center',
         }}
       >
@@ -115,13 +117,14 @@ export default function Page() {
         <div
           style={{
             width: '100%',
-            maxWidth: 380,
+            maxWidth: 'min(420px, calc(100vw - 48px))',
             background: 'rgba(255,255,255,0.04)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: 20,
-            padding: '28px 24px',
+            padding: 'clamp(20px, 5vw, 28px) clamp(16px, 4vw, 24px)',
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)',
+            boxSizing: 'border-box',
           }}
         >
           <Waitlist />

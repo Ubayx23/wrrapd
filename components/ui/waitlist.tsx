@@ -39,8 +39,8 @@ export default function Waitlist() {
     try {
       const { data: existing } = await supabase
         .from('waitlist')
-        .select('phone')
-        .eq('phone', phone)
+        .select('phone_number')
+        .eq('phone_number', phone)
         .maybeSingle();
 
       if (existing) {
@@ -50,7 +50,7 @@ export default function Waitlist() {
 
       const { error: insertError } = await supabase
         .from('waitlist')
-        .insert([{ phone, habit_answer: habit.trim() }]);
+        .insert([{ phone_number: phone, habit_answer: habit.trim() }]);
 
       if (insertError) {
         setError('something went wrong. try again.');
