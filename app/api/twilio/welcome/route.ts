@@ -39,10 +39,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: 'no phone number on profile' }, { status: 400 });
   }
 
+  if (!profile.goal) {
+    console.warn('[wrrapd/welcome] goal is empty, using fallback');
+    profile.goal = 'your goal';
+  }
+
   const messageBody = `welcome to wrrapd. you signed up to receive one daily SMS check-in. msg & data rates may apply. reply YES to confirm. reply STOP anytime to cancel.\n\ndid you show up for ${profile.goal} today? yes or no.`;
 
-  console.log('[wrrapd/welcome] sending message to:', profile.phone_number);
   console.log('[wrrapd/welcome] message body:', messageBody);
+  console.log('[wrrapd/welcome] sending to:', profile.phone_number);
 
   const client = twilio(
     process.env.TWILIO_ACCOUNT_SID,
