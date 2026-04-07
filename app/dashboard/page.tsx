@@ -79,6 +79,12 @@ export default function DashboardPage() {
   const [textError, setTextError] = useState<string | null>(null);
 
   useEffect(() => {
+    const prev = document.body.style.cssText;
+    document.body.style.cssText = 'background-color: #0a0a0a; margin: 0; padding: 0; overflow-x: hidden;';
+    return () => { document.body.style.cssText = prev; };
+  }, []);
+
+  useEffect(() => {
     async function load() {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
@@ -146,13 +152,16 @@ export default function DashboardPage() {
     return (
       <div style={{
         minHeight: '100dvh',
-        background: '#07070F',
+        width: '100vw',
+        maxWidth: '100%',
+        background: '#0a0a0a',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        boxSizing: 'border-box',
       }}>
-        <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 13, color: 'rgba(255,255,255,0.2)' }}>
-          loading...
+        <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 18, fontWeight: 800, color: '#ffffff', letterSpacing: '-0.5px' }}>
+          wrrapd.
         </span>
       </div>
     );
@@ -181,12 +190,13 @@ export default function DashboardPage() {
   return (
     <div style={{
       minHeight: '100dvh',
-      width: '100%',
+      width: '100vw',
+      maxWidth: '100%',
       background: '#0a0a0a',
       boxSizing: 'border-box',
       overflowX: 'hidden',
     }}>
-      <div style={{ padding: '0 20px 80px' }}>
+      <div style={{ width: '100%', maxWidth: 480, margin: '0 auto', padding: '0 20px 80px', boxSizing: 'border-box' }}>
 
         {/* TOP BAR */}
         <div style={{
