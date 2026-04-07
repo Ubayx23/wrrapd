@@ -74,6 +74,9 @@ export default function DashboardPage() {
   const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeNav, setActiveNav] = useState('home');
+  const [textSent, setTextSent] = useState(false);
+  const [textSending, setTextSending] = useState(false);
+  const [textError, setTextError] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -106,6 +109,33 @@ export default function DashboardPage() {
     }
     load();
   }, [router]);
+
+  async function handleSendTest() {
+    setTextSending(true);
+    setTextError(null);
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) { setTextSending(false); setTextError('no session found. try signing in again.'); return; }
+    try {
+      const res = await fetch('/api/twilio/send/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: session.user.id }),
+      });
+      const data = await res.json();
+      console.log('[wrrapd/dashboard] send test response:', data);
+      if (!res.ok || !data.success) {
+        setTextError(data.error ?? 'text failed to send.');
+        return;
+      }
+      setTextSent(true);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error('[wrrapd/dashboard] send test error:', message);
+      setTextError(message);
+    } finally {
+      setTextSending(false);
+    }
+  }
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -151,10 +181,12 @@ export default function DashboardPage() {
   return (
     <div style={{
       minHeight: '100dvh',
-      background: '#07070F',
+      width: '100%',
+      background: '#0a0a0a',
       boxSizing: 'border-box',
+      overflowX: 'hidden',
     }}>
-      <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 24px 80px' }}>
+      <div style={{ padding: '0 20px 80px' }}>
 
         {/* TOP BAR */}
         <div style={{
@@ -217,6 +249,69 @@ export default function DashboardPage() {
           }}>
             showing up for: {profile.goal}
           </p>
+        </div>
+
+        {/* CHECK-IN CARD */}
+        <div style={{
+          marginBottom: 'clamp(32px, 7vw, 48px)',
+          background: 'rgba(155,93,229,0.06)',
+          border: '1px solid rgba(155,93,229,0.18)',
+          borderRadius: 14,
+          padding: '16px 18px',
+        }}>
+          <p style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: 13,
+            color: 'rgba(255,255,255,0.55)',
+            margin: '0 0 14px',
+            lineHeight: 1.5,
+          }}>
+            your check-in is at {formatCheckInTime(profile.check_in_time)}.
+          </p>
+          {textSent ? (
+            <p style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontSize: 12,
+              color: '#22c55e',
+              margin: 0,
+            }}>
+              text sent. check your phone.
+            </p>
+          ) : (
+            <>
+              <button
+                onClick={handleSendTest}
+                disabled={textSending}
+                style={{
+                  width: '100%',
+                  background: 'transparent',
+                  border: '1px solid #9B5DE5',
+                  borderRadius: 10,
+                  padding: '12px 16px',
+                  color: '#9B5DE5',
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: 13,
+                  fontWeight: 500,
+                  cursor: textSending ? 'not-allowed' : 'pointer',
+                  opacity: textSending ? 0.5 : 1,
+                  transition: 'opacity 0.15s',
+                  letterSpacing: '0.01em',
+                }}
+              >
+                {textSending ? 'sending...' : 'send me a text now'}
+              </button>
+              {textError && (
+                <p style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: 12,
+                  color: '#ff6b6b',
+                  margin: '10px 0 0',
+                }}>
+                  {textError}
+                </p>
+              )}
+            </>
+          )}
         </div>
 
         {/* SECTION 2 — the number */}
@@ -291,7 +386,7 @@ export default function DashboardPage() {
         bottom: 0,
         left: 0,
         right: 0,
-        background: '#07070F',
+        background: '#0a0a0a',
         borderTop: '1px solid rgba(255,255,255,0.07)',
         display: 'flex',
         alignItems: 'center',
