@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 function HomeIcon({ active }: { active: boolean }) {
   const c = active ? '#9B5DE5' : 'rgba(255,255,255,0.3)';
@@ -65,9 +66,15 @@ const faqs = [
 export default function HelpPage() {
   const router = useRouter();
 
+  useEffect(() => {
+    const prev = document.body.style.cssText;
+    document.body.style.cssText = 'background-color: #0a0a0a; margin: 0; padding: 0; overflow-x: hidden;';
+    return () => { document.body.style.cssText = prev; };
+  }, []);
+
   return (
-    <div style={{ minHeight: '100dvh', background: '#07070F', boxSizing: 'border-box' }}>
-      <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 24px 100px' }}>
+    <div style={{ minHeight: '100dvh', width: '100vw', maxWidth: '100%', background: '#0a0a0a', boxSizing: 'border-box', overflowX: 'hidden' }}>
+      <div style={{ width: '100%', maxWidth: 480, margin: '0 auto', padding: '0 20px 100px', boxSizing: 'border-box' }}>
 
         {/* TOP BAR */}
         <div style={{
@@ -145,7 +152,7 @@ export default function HelpPage() {
         bottom: 0,
         left: 0,
         right: 0,
-        background: '#07070F',
+        background: '#0a0a0a',
         borderTop: '1px solid rgba(255,255,255,0.07)',
         display: 'flex',
         alignItems: 'center',
