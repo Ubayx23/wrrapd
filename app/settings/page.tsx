@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
+import AnnouncementBanner from '@/app/components/AnnouncementBanner';
 
 type Profile = {
   check_in_time: string;
@@ -206,6 +207,8 @@ export default function SettingsPage() {
             settings.
           </span>
         </div>
+
+        <AnnouncementBanner />
 
         {/* ACCOUNT */}
         <div style={{ marginBottom: 32 }}>

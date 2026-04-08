@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import AnnouncementBanner from '@/app/components/AnnouncementBanner';
 
 function HomeIcon({ active }: { active: boolean }) {
   const c = active ? '#9B5DE5' : 'rgba(255,255,255,0.3)';
@@ -115,6 +116,8 @@ export default function HelpPage() {
             help.
           </span>
         </div>
+
+        <AnnouncementBanner />
 
         {/* FAQ LIST */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(32px, 8vw, 44px)' }}>
