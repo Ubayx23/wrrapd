@@ -146,9 +146,8 @@ export default function OnboardPage() {
         // account + profile complete — send to dashboard
         router.replace('/dashboard');
       } else {
-        // account created but onboarding never finished — skip step 1, resume at step 2
-        setUserId(session.user.id);
-        setStep(2);
+        // session exists but no profile — sign out so they can start fresh at step 1
+        await supabase.auth.signOut();
       }
     });
   }, [router]);
