@@ -3,6 +3,7 @@ import twilio from 'twilio';
 import { createClient } from '@supabase/supabase-js';
 
 export async function GET() {
+  console.log('[wrrapd/send] TWILIO_PHONE_NUMBER:', process.env.TWILIO_PHONE_NUMBER);
   const adminSupabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!

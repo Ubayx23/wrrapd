@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 
 export async function POST(request: Request) {
   console.log('[wrrapd/welcome] received request');
+  console.log('[wrrapd/welcome] TWILIO_PHONE_NUMBER:', process.env.TWILIO_PHONE_NUMBER);
 
   const body = await request.json();
   const { userId } = body;
