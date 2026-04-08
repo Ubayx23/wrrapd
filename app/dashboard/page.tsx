@@ -11,6 +11,7 @@ type Profile = {
   check_in_time: string;
   created_at: string;
   phone_number: string;
+  is_active: boolean;
 };
 
 type CheckIn = {
@@ -81,6 +82,9 @@ function DashboardContent() {
   const [checkInError, setCheckInError] = useState<string | null>(null);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
   const [welcomePhase, setWelcomePhase] = useState<'initial' | 'sending' | 'success' | 'error'>('initial');
+  const [upgradeLoading, setUpgradeLoading] = useState(false);
+  const [upgradeError, setUpgradeError] = useState<string | null>(null);
+  const [showPaidBanner, setShowPaidBanner] = useState(false);
 
   useEffect(() => {
     const prev = document.body.style.cssText;
@@ -92,6 +96,11 @@ function DashboardContent() {
     if (!loading && searchParams.get('new') === 'true') {
       setShowWelcomePopup(true);
       setWelcomePhase('initial');
+    }
+    if (!loading && searchParams.get('paid') === 'true') {
+      setShowPaidBanner(true);
+      window.history.replaceState({}, '', '/dashboard');
+      setTimeout(() => setShowPaidBanner(false), 3000);
     }
   }, [loading, searchParams]);
 
@@ -106,7 +115,7 @@ function DashboardContent() {
       const [profileRes, checkInsRes] = await Promise.all([
         supabase
           .from('profiles')
-          .select('id, name, goal, check_in_time, created_at, phone_number')
+          .select('id, name, goal, check_in_time, created_at, phone_number, is_active')
           .eq('id', session.user.id)
           .single(),
         supabase
@@ -165,6 +174,31 @@ function DashboardContent() {
       setCheckInError(message);
     } finally {
       setCheckInLoading(false);
+    }
+  }
+
+  async function handleUpgrade() {
+    setUpgradeLoading(true);
+    setUpgradeError(null);
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) { setUpgradeLoading(false); setUpgradeError('no session. try signing in again.'); return; }
+    try {
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: session.user.id }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) {
+        setUpgradeError(data.error ?? 'something went wrong.');
+        setUpgradeLoading(false);
+        return;
+      }
+      window.location.href = data.url;
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      setUpgradeError(message);
+      setUpgradeLoading(false);
     }
   }
 
@@ -734,6 +768,120 @@ function DashboardContent() {
                 </button>
               </>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* PAYWALL OVERLAY */}
+      {!isTrial && !profile.is_active && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(0,0,0,0.97)',
+          zIndex: 300,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0 24px',
+        }}>
+          <div style={{
+            width: '100%',
+            maxWidth: 340,
+            background: '#0a0a0a',
+            border: '1px solid rgba(155,93,229,0.3)',
+            borderRadius: 16,
+            padding: '40px 28px',
+            textAlign: 'center',
+          }}>
+            <h2 style={{
+              fontFamily: 'DM Sans, sans-serif',
+              fontWeight: 800,
+              fontSize: 'clamp(28px, 7vw, 36px)',
+              color: '#ffffff',
+              letterSpacing: '-1.5px',
+              lineHeight: 1.1,
+              margin: '0 0 10px',
+            }}>
+              trial over.
+            </h2>
+            <p style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontSize: 13,
+              color: 'rgba(255,255,255,0.32)',
+              margin: '0 0 8px',
+              lineHeight: 1.6,
+            }}>
+              $9.99/month to keep going.
+            </p>
+            <p style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.2)',
+              margin: '0 0 32px',
+              lineHeight: 1.5,
+            }}>
+              cancel anytime.
+            </p>
+            <button
+              onClick={handleUpgrade}
+              disabled={upgradeLoading}
+              style={{
+                width: '100%',
+                background: '#9B5DE5',
+                border: 'none',
+                borderRadius: 10,
+                padding: '15px 20px',
+                color: '#ffffff',
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: upgradeLoading ? 'not-allowed' : 'pointer',
+                opacity: upgradeLoading ? 0.5 : 1,
+                letterSpacing: '0.01em',
+                minHeight: 44,
+                transition: 'opacity 0.15s',
+              }}
+            >
+              {upgradeLoading ? 'loading...' : 'continue'}
+            </button>
+            {upgradeError && (
+              <p style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 12,
+                color: '#ff6b6b',
+                margin: '12px 0 0',
+              }}>
+                {upgradeError}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* PAID BANNER */}
+      {showPaidBanner && (
+        <div style={{
+          position: 'fixed',
+          bottom: 'calc(80px + env(safe-area-inset-bottom, 0px))',
+          left: 0,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          padding: '0 20px',
+          zIndex: 400,
+          pointerEvents: 'none',
+        }}>
+          <div style={{
+            background: 'rgba(155,93,229,0.15)',
+            border: '1px solid rgba(155,93,229,0.4)',
+            borderRadius: 10,
+            padding: '12px 20px',
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: 13,
+            color: '#ffffff',
+            letterSpacing: '0.01em',
+          }}>
+            you&apos;re in. welcome to wrrapd.
           </div>
         </div>
       )}
