@@ -117,6 +117,8 @@ export default function OnboardPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [stripeLoading, setStripeLoading] = useState(false);
   const [stripeError, setStripeError] = useState('');
+  const [sessionEmail, setSessionEmail] = useState<string | null>(null);
+  const [resumedFromSession, setResumedFromSession] = useState(false);
 
   // Override global scroll-lock
   useEffect(() => {
@@ -146,8 +148,11 @@ export default function OnboardPage() {
         // account + profile complete — send to dashboard
         router.replace('/dashboard');
       } else {
-        // session exists but no profile — sign out so they can start fresh at step 1
-        await supabase.auth.signOut();
+        // session exists but no profile — resume from step 2 with existing account
+        setUserId(session.user.id);
+        setSessionEmail(session.user.email ?? null);
+        setResumedFromSession(true);
+        setStep(2);
       }
     });
   }, [router]);
@@ -433,6 +438,17 @@ export default function OnboardPage() {
       const valid = name.trim().length > 0;
       return (
         <>
+          {sessionEmail && (
+            <p style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontSize: 11,
+              color: 'rgba(255,255,255,0.28)',
+              margin: '0 0 20px',
+              letterSpacing: '0.01em',
+            }}>
+              signed in as {sessionEmail}
+            </p>
+          )}
           <h1 style={headingStyle}>what do we call you</h1>
           <p style={subStyle}>first name is fine.</p>
           <div style={{ marginBottom: '16px' }}>
@@ -630,7 +646,7 @@ export default function OnboardPage() {
         padding: '0 clamp(24px, 6vw, 40px)',
       }}>
         {/* Back button — left absolute */}
-        {step > 1 && step < 6 && (
+        {step > 1 && step < 6 && !(resumedFromSession && step === 2) && (
           <button
             onClick={() => goToStep(step - 1)}
             style={{

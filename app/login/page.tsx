@@ -55,14 +55,35 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
     const { data: signInData, error: authError } = await supabase.auth.signInWithPassword({ email, password });
-    setLoading(false);
     if (authError) {
+      setLoading(false);
       setError('wrong email or password.');
       return;
     }
     console.log('[wrrapd] sign in success — session:', signInData.session);
-    console.log('[wrrapd] calling router.push(/dashboard)');
-    router.push('/dashboard');
+
+    const userId = signInData.session?.user?.id;
+    if (!userId) {
+      setLoading(false);
+      setError('something went wrong. try again.');
+      return;
+    }
+
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('id', userId)
+      .maybeSingle();
+
+    setLoading(false);
+
+    if (profile) {
+      console.log('[wrrapd] profile found, redirecting to /dashboard');
+      router.push('/dashboard');
+    } else {
+      console.log('[wrrapd] no profile found, redirecting to /onboard to complete signup');
+      router.push('/onboard');
+    }
   }
 
   return (
