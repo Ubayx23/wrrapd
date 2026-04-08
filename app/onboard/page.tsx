@@ -10,6 +10,11 @@ const STORAGE_KEY = 'wrrapd_onboard';
 const TOTAL_STEPS = 5;
 
 const TIMES = [
+  { value: '18:00', label: '6pm' },
+  { value: '19:00', label: '7pm' },
+  { value: '20:00', label: '8pm' },
+  { value: '21:00', label: '9pm' },
+  { value: '22:00', label: '10pm' },
   { value: '06:00', label: '6am' },
   { value: '07:00', label: '7am' },
   { value: '08:00', label: '8am' },
@@ -105,7 +110,7 @@ export default function OnboardPage() {
   const [name, setName] = useState('');
   const [goal, setGoal] = useState('');
   const [phone, setPhone] = useState('');
-  const [checkInTime, setCheckInTime] = useState('08:00');
+  const [checkInTime, setCheckInTime] = useState('21:00');
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -484,8 +489,8 @@ export default function OnboardPage() {
     if (step === 5) {
       return (
         <>
-          <h1 style={headingStyle}>when should we text you</h1>
-          <p style={subStyle}>every day at this time, no exceptions.</p>
+          <h1 style={headingStyle}>when should we check on you?</h1>
+          <p style={subStyle}>we recommend 9pm. the day is done by then.</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
             {TIMES.map(t => {
               const selected = checkInTime === t.value;
