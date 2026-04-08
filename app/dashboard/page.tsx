@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 
@@ -10,6 +10,7 @@ type Profile = {
   goal: string;
   check_in_time: string;
   created_at: string;
+  phone_number: string;
 };
 
 type CheckIn = {
@@ -68,7 +69,7 @@ const navItems = [
   { id: 'help', label: 'help', href: '/help', Icon: HelpIcon },
 ];
 
-export default function DashboardPage() {
+function DashboardContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -79,7 +80,7 @@ export default function DashboardPage() {
   const [textSending, setTextSending] = useState(false);
   const [textError, setTextError] = useState<string | null>(null);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
-  const [welcomeSending, setWelcomeSending] = useState(false);
+  const [welcomePhase, setWelcomePhase] = useState<'initial' | 'sending' | 'success' | 'error'>('initial');
 
   useEffect(() => {
     const prev = document.body.style.cssText;
@@ -88,8 +89,9 @@ export default function DashboardPage() {
   }, []);
 
   useEffect(() => {
-    if (!loading && searchParams.get('welcome') === '1') {
+    if (!loading && searchParams.get('new') === 'true') {
       setShowWelcomePopup(true);
+      setWelcomePhase('initial');
     }
   }, [loading, searchParams]);
 
@@ -104,7 +106,7 @@ export default function DashboardPage() {
       const [profileRes, checkInsRes] = await Promise.all([
         supabase
           .from('profiles')
-          .select('id, name, goal, check_in_time, created_at')
+          .select('id, name, goal, check_in_time, created_at, phone_number')
           .eq('id', session.user.id)
           .single(),
         supabase
@@ -157,25 +159,35 @@ export default function DashboardPage() {
     router.replace('/login');
   }
 
-  async function handleGotIt() {
-    setWelcomeSending(true);
+  async function handleSendFirstText() {
+    setWelcomePhase('sending');
     const { data: { session } } = await supabase.auth.getSession();
-    if (session) {
-      try {
-        const res = await fetch('/api/twilio/welcome', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId: session.user.id }),
-        });
-        const data = await res.json();
-        console.log('[wrrapd/dashboard] welcome text result:', data);
-      } catch (e) {
-        console.error('[wrrapd/dashboard] welcome text failed:', e);
-      }
+    if (!session) {
+      setWelcomePhase('error');
+      return;
     }
-    setWelcomeSending(false);
+    try {
+      const res = await fetch('/api/twilio/welcome', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: session.user.id }),
+      });
+      const data = await res.json();
+      console.log('[wrrapd/dashboard] welcome text result:', data);
+      if (!res.ok || !data.success) {
+        setWelcomePhase('error');
+        return;
+      }
+      setWelcomePhase('success');
+    } catch (e) {
+      console.error('[wrrapd/dashboard] welcome text failed:', e);
+      setWelcomePhase('error');
+    }
+  }
+
+  function handleClosePopup() {
     setShowWelcomePopup(false);
-    // Clean the URL param without triggering a navigation
+    setWelcomePhase('initial');
     window.history.replaceState({}, '', '/dashboard');
   }
 
@@ -469,74 +481,229 @@ export default function DashboardPage() {
         <div style={{
           position: 'fixed',
           inset: 0,
-          background: '#0a0a0a',
+          background: 'rgba(0,0,0,0.95)',
           zIndex: 200,
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '0 32px',
-          textAlign: 'center',
+          padding: '0 24px',
         }}>
           <div style={{
-            width: 48,
-            height: 48,
-            borderRadius: '50%',
-            background: 'rgba(155,93,229,0.15)',
-            border: '1px solid rgba(155,93,229,0.35)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: 28,
+            width: '100%',
+            maxWidth: 340,
+            background: '#0a0a0a',
+            border: '1px solid rgba(155,93,229,0.4)',
+            borderRadius: 16,
+            padding: '36px 28px',
+            textAlign: 'center',
           }}>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M4 10l4 4 8-8" stroke="#9B5DE5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            {welcomePhase === 'initial' && (
+              <>
+                <h2 style={{
+                  fontFamily: 'DM Sans, sans-serif',
+                  fontWeight: 800,
+                  fontSize: 'clamp(28px, 7vw, 36px)',
+                  color: '#ffffff',
+                  letterSpacing: '-1.5px',
+                  lineHeight: 1.1,
+                  margin: '0 0 12px',
+                }}>
+                  you&apos;re in.
+                </h2>
+                <p style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: 13,
+                  color: 'rgba(255,255,255,0.38)',
+                  margin: '0 0 32px',
+                  lineHeight: 1.6,
+                }}>
+                  tap below to get your first text.
+                </p>
+                <button
+                  onClick={handleSendFirstText}
+                  style={{
+                    width: '100%',
+                    background: '#9B5DE5',
+                    border: 'none',
+                    borderRadius: 10,
+                    padding: '15px 20px',
+                    color: '#ffffff',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    letterSpacing: '0.01em',
+                    minHeight: 44,
+                  }}
+                >
+                  send my first text
+                </button>
+              </>
+            )}
+
+            {welcomePhase === 'sending' && (
+              <>
+                <h2 style={{
+                  fontFamily: 'DM Sans, sans-serif',
+                  fontWeight: 800,
+                  fontSize: 'clamp(28px, 7vw, 36px)',
+                  color: '#ffffff',
+                  letterSpacing: '-1.5px',
+                  lineHeight: 1.1,
+                  margin: '0 0 12px',
+                }}>
+                  you&apos;re in.
+                </h2>
+                <p style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: 13,
+                  color: 'rgba(255,255,255,0.38)',
+                  margin: '0 0 32px',
+                  lineHeight: 1.6,
+                }}>
+                  tap below to get your first text.
+                </p>
+                <button
+                  disabled
+                  style={{
+                    width: '100%',
+                    background: '#9B5DE5',
+                    border: 'none',
+                    borderRadius: 10,
+                    padding: '15px 20px',
+                    color: '#ffffff',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    cursor: 'not-allowed',
+                    opacity: 0.5,
+                    letterSpacing: '0.01em',
+                    minHeight: 44,
+                  }}
+                >
+                  sending...
+                </button>
+              </>
+            )}
+
+            {welcomePhase === 'success' && (
+              <>
+                <h2 style={{
+                  fontFamily: 'DM Sans, sans-serif',
+                  fontWeight: 800,
+                  fontSize: 'clamp(28px, 7vw, 36px)',
+                  color: '#ffffff',
+                  letterSpacing: '-1.5px',
+                  lineHeight: 1.1,
+                  margin: '0 0 8px',
+                }}>
+                  check your phone.
+                </h2>
+                <p style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: 13,
+                  color: 'rgba(255,255,255,0.25)',
+                  margin: '0 0 32px',
+                  lineHeight: 1.6,
+                }}>
+                  sent to ...{profile.phone_number.slice(-4)}
+                </p>
+                <button
+                  onClick={handleClosePopup}
+                  style={{
+                    width: '100%',
+                    background: 'transparent',
+                    border: '1px solid #9B5DE5',
+                    borderRadius: 10,
+                    padding: '15px 20px',
+                    color: '#9B5DE5',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    letterSpacing: '0.01em',
+                    minHeight: 44,
+                  }}
+                >
+                  got it
+                </button>
+              </>
+            )}
+
+            {welcomePhase === 'error' && (
+              <>
+                <h2 style={{
+                  fontFamily: 'DM Sans, sans-serif',
+                  fontWeight: 800,
+                  fontSize: 'clamp(22px, 6vw, 28px)',
+                  color: '#ffffff',
+                  letterSpacing: '-1px',
+                  lineHeight: 1.2,
+                  margin: '0 0 10px',
+                }}>
+                  something went wrong.
+                </h2>
+                <p style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: 13,
+                  color: 'rgba(255,255,255,0.3)',
+                  margin: '0 0 32px',
+                  lineHeight: 1.6,
+                }}>
+                  try again.
+                </p>
+                <button
+                  onClick={handleSendFirstText}
+                  style={{
+                    width: '100%',
+                    background: '#9B5DE5',
+                    border: 'none',
+                    borderRadius: 10,
+                    padding: '15px 20px',
+                    color: '#ffffff',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    letterSpacing: '0.01em',
+                    minHeight: 44,
+                  }}
+                >
+                  retry
+                </button>
+              </>
+            )}
           </div>
-          <h2 style={{
-            fontFamily: 'DM Sans, sans-serif',
-            fontWeight: 800,
-            fontSize: 'clamp(26px, 7vw, 34px)',
-            color: '#ffffff',
-            letterSpacing: '-1.5px',
-            lineHeight: 1.1,
-            margin: '0 0 12px',
-          }}>
-            you&apos;re in.
-          </h2>
-          <p style={{
-            fontFamily: 'Poppins, sans-serif',
-            fontSize: 'clamp(13px, 3.5vw, 15px)',
-            color: 'rgba(255,255,255,0.4)',
-            margin: '0 0 48px',
-            lineHeight: 1.6,
-          }}>
-            check your phone.
-          </p>
-          <button
-            onClick={handleGotIt}
-            disabled={welcomeSending}
-            style={{
-              width: '100%',
-              maxWidth: 320,
-              background: '#9B5DE5',
-              border: 'none',
-              borderRadius: 12,
-              padding: '16px 20px',
-              color: '#ffffff',
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: 15,
-              fontWeight: 600,
-              cursor: welcomeSending ? 'not-allowed' : 'pointer',
-              opacity: welcomeSending ? 0.5 : 1,
-              transition: 'opacity 0.15s',
-              letterSpacing: '0.01em',
-            }}
-          >
-            {welcomeSending ? 'sending...' : 'got it'}
-          </button>
         </div>
       )}
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={
+      <div style={{
+        minHeight: '100dvh',
+        width: '100vw',
+        maxWidth: '100%',
+        backgroundColor: '#0a0a0a',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <span style={{
+          fontFamily: 'DM Sans, sans-serif',
+          fontWeight: 800,
+          fontSize: 18,
+          color: '#ffffff',
+          letterSpacing: '-0.5px',
+        }}>
+          wrrapd.
+        </span>
+      </div>
+    }>
+      <DashboardContent />
+    </Suspense>
   );
 }
