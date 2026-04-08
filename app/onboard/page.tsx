@@ -7,7 +7,7 @@ import { supabase } from '@/lib/supabase';
 import { insertProfile } from './actions';
 
 const STORAGE_KEY = 'wrrapd_onboard';
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 6;
 
 const TIMES = [
   { value: '18:00', label: '6pm' },
@@ -115,6 +115,8 @@ export default function OnboardPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [stripeLoading, setStripeLoading] = useState(false);
+  const [stripeError, setStripeError] = useState('');
 
   // Override global scroll-lock
   useEffect(() => {
@@ -227,8 +229,43 @@ export default function OnboardPage() {
     }
     try { localStorage.removeItem(STORAGE_KEY); } catch {}
 
-    // Redirect to dashboard with welcome flag — popup fires the text after user taps "got it"
-    router.push('/dashboard?new=true');
+    goToStep(6);
+  }
+
+  async function handleStartTrial() {
+    setStripeLoading(true);
+    setStripeError('');
+    const { data: { session } } = await supabase.auth.getSession();
+    const activeUserId = session?.user?.id ?? userId;
+    if (!activeUserId) {
+      setStripeError('session expired. try signing in.');
+      setStripeLoading(false);
+      return;
+    }
+    // fire welcome text in background
+    fetch('/api/twilio/welcome', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: activeUserId }),
+    }).catch(() => {});
+    try {
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: activeUserId }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) {
+        setStripeError(data.error ?? 'something went wrong. try again.');
+        setStripeLoading(false);
+        return;
+      }
+      window.location.href = data.url;
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      setStripeError(message);
+      setStripeLoading(false);
+    }
   }
 
   function buttonStyle(active = true): React.CSSProperties {
@@ -515,6 +552,54 @@ export default function OnboardPage() {
       );
     }
 
+    if (step === 6) {
+      return (
+        <>
+          <h1 style={{ ...headingStyle, fontSize: 'clamp(28px, 8vw, 40px)', marginBottom: '12px' }}>
+            last step.
+          </h1>
+          <p style={{ ...subStyle, marginBottom: '32px' }}>
+            card required. you won&apos;t be charged for 7 days.
+          </p>
+          <button
+            style={buttonStyle(!stripeLoading)}
+            onClick={handleStartTrial}
+            disabled={stripeLoading}
+          >
+            {stripeLoading ? 'loading...' : 'start my free trial'}
+          </button>
+          <p style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: 'clamp(11px, 3vw, 12px)',
+            color: 'rgba(255,255,255,0.22)',
+            marginTop: '16px',
+            marginBottom: 0,
+            textAlign: 'center',
+            lineHeight: 1.5,
+          }}>
+            cancel anytime. no questions asked.
+          </p>
+          {stripeError && (
+            <div style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}>
+              <span style={{
+                background: 'rgba(239,68,68,0.15)',
+                border: '1px solid rgba(239,68,68,0.3)',
+                color: '#fca5a5',
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 12,
+                padding: '7px 14px',
+                borderRadius: 999,
+                lineHeight: 1.5,
+                textAlign: 'center',
+              }}>
+                {stripeError}
+              </span>
+            </div>
+          )}
+        </>
+      );
+    }
+
     return null;
   }
 
@@ -546,7 +631,7 @@ export default function OnboardPage() {
         padding: '0 clamp(24px, 6vw, 40px)',
       }}>
         {/* Back button — left absolute */}
-        {step > 1 && (
+        {step > 1 && step < 6 && (
           <button
             onClick={() => goToStep(step - 1)}
             style={{
