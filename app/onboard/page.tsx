@@ -129,19 +129,24 @@ export default function OnboardPage() {
     };
   }, []);
 
-  // On mount: if session + profile already exists go to dashboard. Always start at step 1.
+  // On mount: check session and profile state
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
-      if (session) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('id')
-          .eq('id', session.user.id)
-          .maybeSingle();
-        if (profile) {
-          router.replace('/dashboard');
-        }
-        // session exists but no profile — stay at step 1, they must go through email/password
+      if (!session) return; // no session — stay at step 1
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('id', session.user.id)
+        .maybeSingle();
+
+      if (profile) {
+        // account + profile complete — send to dashboard
+        router.replace('/dashboard');
+      } else {
+        // account created but onboarding never finished — skip step 1, resume at step 2
+        setUserId(session.user.id);
+        setStep(2);
       }
     });
   }, [router]);
