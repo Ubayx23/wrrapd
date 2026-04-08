@@ -129,50 +129,29 @@ export default function OnboardPage() {
     };
   }, []);
 
-  // Restore progress from localStorage on mount, then check session
+  // On mount: if session + profile already exists go to dashboard. Always start at step 1.
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.name) setName(parsed.name);
-        if (parsed.goal) setGoal(parsed.goal);
-        if (parsed.phone) setPhone(parsed.phone);
-        if (parsed.checkInTime) setCheckInTime(parsed.checkInTime);
-      }
-    } catch {}
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session) {
-        console.log('[wrrapd] existing session on /onboard, skipping to step 2');
-        setUserId(session.user.id);
-        try {
-          const saved = localStorage.getItem(STORAGE_KEY);
-          const parsed = saved ? JSON.parse(saved) : {};
-          const savedStep = parsed.step ?? 2;
-          setStep(savedStep >= 2 ? savedStep : 2);
-        } catch {
-          setStep(2);
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('id')
+          .eq('id', session.user.id)
+          .maybeSingle();
+        if (profile) {
+          router.replace('/dashboard');
         }
-      } else {
-        // No session — restore step only if it's step 1
-        try {
-          const saved = localStorage.getItem(STORAGE_KEY);
-          if (saved) {
-            const parsed = JSON.parse(saved);
-            if (parsed.step && parsed.step === 1) setStep(1);
-          }
-        } catch {}
+        // session exists but no profile — stay at step 1, they must go through email/password
       }
     });
-  }, []);
+  }, [router]);
 
-  // Persist progress to localStorage whenever relevant state changes
+  // Persist field progress to localStorage (step intentionally excluded)
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ step, name, goal, phone, checkInTime }));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, goal, phone, checkInTime }));
     } catch {}
-  }, [step, name, goal, phone, checkInTime]);
+  }, [name, goal, phone, checkInTime]);
 
   function goToStep(n: number) {
     setError('');
