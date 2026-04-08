@@ -475,7 +475,7 @@ export default function OnboardPage() {
       const valid = goal.trim().length > 0;
       return (
         <>
-          <h1 style={headingStyle}>what are you committing to?</h1>
+          <h1 style={headingStyle}>who are you becoming?</h1>
           <p style={subStyle}>be specific. one thing.</p>
           <div style={{ marginBottom: '16px' }}>
             <span style={labelStyle}>your goal</span>
@@ -484,7 +484,7 @@ export default function OnboardPage() {
               value={goal}
               onChange={e => setGoal(e.target.value)}
               style={inputStyle}
-              placeholder="the gym, my business, my craft..."
+              placeholder="a disciplined entrepreneur, a consistent athlete, a focused student..."
               onKeyDown={e => e.key === 'Enter' && valid && goToStep(4)}
               autoFocus
             />

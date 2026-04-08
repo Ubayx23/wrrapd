@@ -179,14 +179,14 @@ export default function Hero() {
                 lineHeight: 1.1,
                 margin: '0 0 20px',
               }}>
-                stop <span style={{
+                become who you<br />
+                <span style={{
                   fontStyle: 'italic',
                   background: 'linear-gradient(135deg, #7B68EE 0%, #4C3D8F 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
-                }}>lying</span><br />
-                to yourself.
+                }}>said</span> you would.
               </h1>
               <p style={{
                 fontFamily: 'Poppins, sans-serif',

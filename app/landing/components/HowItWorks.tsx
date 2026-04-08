@@ -126,7 +126,7 @@ export default function HowItWorks() {
               margin: '0 0 14px',
             }}
           >
-            simple. just show up.
+            how it works.
           </h2>
 
           <p
@@ -138,32 +138,39 @@ export default function HowItWorks() {
               lineHeight: 1.6,
             }}
           >
-            three steps. that&apos;s all it takes.
+            simple enough to actually do.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {[
-              <>sign up. pick what you want to show up for.</>,
-              <>every morning <motion.span style={glowStyle} animate={glowAnim} transition={glowTransition}>wrrapd</motion.span> texts you one question.</>,
-              <>reply <motion.span style={glowStyle} animate={glowAnim} transition={glowTransition}>yes</motion.span> or no. first reply counts.</>,
-              <>your points update. your <motion.span style={glowStyle} animate={glowAnim} transition={glowTransition}>rank</motion.span> moves.</>,
-              <>miss a day, you drop. show up, you climb.</>,
-              <>end of month your <motion.span style={glowStyle} animate={glowAnim} transition={glowTransition}>wrrapd</motion.span> drops.</>,
-            ].map((line, i) => (
+              { main: 'tell us who you\'re becoming.', sub: 'not your goal. your identity.' },
+              { main: 'we check on you every day.', sub: 'one question. yes or no. first reply counts.' },
+              { main: 'end of month, your wrrapd drops.', sub: 'a record of who you actually were.' },
+            ].map(({ main, sub }, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number], delay: i * 0.1 }}
-                style={{
+                style={{ lineHeight: 1.5 }}
+              >
+                <div style={{
                   fontFamily: 'Poppins, sans-serif',
                   fontSize: 'clamp(16px, 2vw, 22px)',
-                  color: 'rgba(255,255,255,0.6)',
-                  lineHeight: 1.5,
-                }}
-              >
-                {line}
+                  color: 'rgba(255,255,255,0.85)',
+                  fontWeight: 500,
+                }}>
+                  {main}
+                </div>
+                <div style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: 'clamp(13px, 1.4vw, 15px)',
+                  color: 'rgba(255,255,255,0.35)',
+                  marginTop: 3,
+                }}>
+                  {sub}
+                </div>
               </motion.div>
             ))}
           </div>
