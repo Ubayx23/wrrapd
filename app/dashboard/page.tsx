@@ -76,9 +76,9 @@ function DashboardContent() {
   const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeNav, setActiveNav] = useState('home');
-  const [textSent, setTextSent] = useState(false);
-  const [textSending, setTextSending] = useState(false);
-  const [textError, setTextError] = useState<string | null>(null);
+  const [todayResponse, setTodayResponse] = useState<string | null>(null);
+  const [checkInLoading, setCheckInLoading] = useState(false);
+  const [checkInError, setCheckInError] = useState<string | null>(null);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
   const [welcomePhase, setWelcomePhase] = useState<'initial' | 'sending' | 'success' | 'error'>('initial');
 
@@ -122,35 +122,49 @@ function DashboardContent() {
       }
       setProfile(profileRes.data);
       if (checkInsRes.data) setCheckIns(checkInsRes.data);
+
+      const today = new Date().toISOString().slice(0, 10);
+      const todayCheckin = checkInsRes.data?.find(c => c.date === today);
+      if (todayCheckin) setTodayResponse(todayCheckin.response);
+
       setLoading(false);
     }
     load();
   }, [router]);
 
-  async function handleSendTest() {
-    setTextSending(true);
-    setTextError(null);
+  async function handleCheckIn(response: 'yes' | 'no') {
+    setCheckInLoading(true);
+    setCheckInError(null);
     const { data: { session } } = await supabase.auth.getSession();
-    if (!session) { setTextSending(false); setTextError('no session found. try signing in again.'); return; }
+    if (!session) { setCheckInLoading(false); setCheckInError('no session. try signing in again.'); return; }
     try {
-      const res = await fetch('/api/twilio/send/test', {
+      const res = await fetch('/api/checkin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: session.user.id }),
+        body: JSON.stringify({ userId: session.user.id, response }),
       });
       const data = await res.json();
-      console.log('[wrrapd/dashboard] send test response:', data);
       if (!res.ok || !data.success) {
-        setTextError(data.error ?? 'text failed to send.');
+        if (res.status === 409) {
+          setCheckInError('already checked in today.');
+        } else {
+          setCheckInError(data.error ?? 'something went wrong.');
+        }
         return;
       }
-      setTextSent(true);
+      setTodayResponse(response);
+      // refresh check-ins from supabase
+      const { data: fresh } = await supabase
+        .from('check_ins')
+        .select('date, response')
+        .eq('user_id', session.user.id)
+        .gte('date', new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10));
+      if (fresh) setCheckIns(fresh);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
-      console.error('[wrrapd/dashboard] send test error:', message);
-      setTextError(message);
+      setCheckInError(message);
     } finally {
-      setTextSending(false);
+      setCheckInLoading(false);
     }
   }
 
@@ -310,57 +324,104 @@ function DashboardContent() {
           background: 'rgba(155,93,229,0.06)',
           border: '1px solid rgba(155,93,229,0.18)',
           borderRadius: 14,
-          padding: '16px 18px',
+          padding: '20px 18px',
         }}>
-          <p style={{
-            fontFamily: 'Poppins, sans-serif',
-            fontSize: 13,
-            color: 'rgba(255,255,255,0.55)',
-            margin: '0 0 14px',
-            lineHeight: 1.5,
-          }}>
-            your check-in is at {formatCheckInTime(profile.check_in_time)}.
-          </p>
-          {textSent ? (
-            <p style={{
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: 12,
-              color: '#22c55e',
-              margin: 0,
-            }}>
-              text sent. check your phone.
-            </p>
+          {todayResponse ? (
+            <>
+              <p style={{
+                fontFamily: 'DM Sans, sans-serif',
+                fontWeight: 700,
+                fontSize: 'clamp(16px, 4vw, 18px)',
+                color: '#ffffff',
+                letterSpacing: '-0.5px',
+                margin: '0 0 6px',
+              }}>
+                logged.
+              </p>
+              <p style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.3)',
+                margin: 0,
+              }}>
+                {todayResponse} today.
+              </p>
+            </>
           ) : (
             <>
-              <button
-                onClick={handleSendTest}
-                disabled={textSending}
-                style={{
-                  width: '100%',
-                  background: 'transparent',
-                  border: '1px solid #9B5DE5',
-                  borderRadius: 10,
-                  padding: '12px 16px',
-                  color: '#9B5DE5',
-                  fontFamily: 'Poppins, sans-serif',
-                  fontSize: 13,
-                  fontWeight: 500,
-                  cursor: textSending ? 'not-allowed' : 'pointer',
-                  opacity: textSending ? 0.5 : 1,
-                  transition: 'opacity 0.15s',
-                  letterSpacing: '0.01em',
-                }}
-              >
-                {textSending ? 'sending...' : 'send me a text now'}
-              </button>
-              {textError && (
+              <p style={{
+                fontFamily: 'DM Sans, sans-serif',
+                fontWeight: 700,
+                fontSize: 'clamp(16px, 4vw, 18px)',
+                color: '#ffffff',
+                letterSpacing: '-0.5px',
+                lineHeight: 1.2,
+                margin: '0 0 4px',
+              }}>
+                did you show up today?
+              </p>
+              <p style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.28)',
+                margin: '0 0 16px',
+              }}>
+                for: {profile.goal}
+              </p>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <button
+                  onClick={() => handleCheckIn('yes')}
+                  disabled={checkInLoading}
+                  style={{
+                    flex: 1,
+                    background: 'transparent',
+                    border: '1px solid #22c55e',
+                    borderRadius: 10,
+                    padding: '13px 16px',
+                    color: '#22c55e',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    cursor: checkInLoading ? 'not-allowed' : 'pointer',
+                    opacity: checkInLoading ? 0.5 : 1,
+                    minHeight: 44,
+                    transition: 'opacity 0.15s',
+                    letterSpacing: '0.01em',
+                  }}
+                >
+                  yes
+                </button>
+                <button
+                  onClick={() => handleCheckIn('no')}
+                  disabled={checkInLoading}
+                  style={{
+                    flex: 1,
+                    background: 'transparent',
+                    border: '1px solid #ff6b6b',
+                    borderRadius: 10,
+                    padding: '13px 16px',
+                    color: '#ff6b6b',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    cursor: checkInLoading ? 'not-allowed' : 'pointer',
+                    opacity: checkInLoading ? 0.5 : 1,
+                    minHeight: 44,
+                    transition: 'opacity 0.15s',
+                    letterSpacing: '0.01em',
+                  }}
+                >
+                  no
+                </button>
+              </div>
+              {checkInError && (
                 <p style={{
                   fontFamily: 'Poppins, sans-serif',
                   fontSize: 12,
-                  color: '#ff6b6b',
+                  color: 'rgba(255,255,255,0.35)',
                   margin: '10px 0 0',
                 }}>
-                  {textError}
+                  {checkInError}
                 </p>
               )}
             </>
