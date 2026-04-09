@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 const accent = '#9B5DE5';
 
-const cards = [
-  'you had the plan. never the proof.',
-  'you said tomorrow. tomorrow lied back.',
-  'you knew who you wanted to be. you just never checked.',
+const identities = [
+  { pre: 'the', bold: 'disciplined', post: 'entrepreneur.' },
+  { pre: 'the', bold: 'consistent', post: 'athlete.' },
+  { pre: 'the', bold: 'focused', post: 'student.' },
 ];
 
 export default function NotForSection() {
@@ -64,35 +64,36 @@ export default function NotForSection() {
           <span style={{ color: accent }}>become someone.</span>
         </motion.h2>
 
-        {/* Cards */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(12px, 2vw, 16px)', marginBottom: 'clamp(36px, 5vw, 56px)' }}>
-          {cards.map((text, i) => (
-            <motion.div
+        {/* Identities */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(18px, 3vw, 28px)', marginBottom: 'clamp(36px, 5vw, 56px)' }}>
+          {identities.map(({ pre, bold, post }, i) => (
+            <motion.p
               key={i}
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.55, delay: i * 0.1, ease }}
               style={{
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 12,
-                padding: 'clamp(14px, 2.5vw, 20px) clamp(16px, 3vw, 24px)',
-                background: 'rgba(255,255,255,0.02)',
+                fontFamily: 'DM Sans, sans-serif',
+                fontWeight: 400,
+                fontSize: 'clamp(22px, 4vw, 38px)',
+                lineHeight: 1.2,
+                color: 'rgba(255,255,255,0.45)',
+                margin: 0,
+                letterSpacing: 'clamp(-0.5px, -0.1vw, -1px)',
                 textAlign: 'center',
               }}
             >
-              <p style={{
-                fontFamily: 'DM Sans, sans-serif',
-                fontWeight: 400,
-                fontSize: 'clamp(15px, 2vw, 20px)',
-                lineHeight: 1.4,
-                color: 'rgba(255,255,255,0.7)',
-                margin: 0,
-                letterSpacing: 'clamp(-0.3px, -0.05vw, -0.5px)',
+              {pre}{' '}
+              <span style={{
+                color: '#9B5DE5',
+                fontWeight: 800,
+                textShadow: '0 0 32px rgba(155,93,229,0.55)',
               }}>
-                {text}
-              </p>
-            </motion.div>
+                {bold}
+              </span>{' '}
+              {post}
+            </motion.p>
           ))}
         </div>
 
