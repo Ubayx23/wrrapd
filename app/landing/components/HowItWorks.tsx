@@ -74,19 +74,6 @@ export default function HowItWorks() {
         />
       </motion.div>
 
-      <style>{`
-        .how-it-works-inner {
-          flex-direction: column;
-          align-items: center;
-        }
-        @media (min-width: 768px) {
-          .how-it-works-inner {
-            flex-direction: row;
-            align-items: center;
-          }
-        }
-      `}</style>
-
       <div
         className="how-it-works-inner"
         style={{
@@ -100,21 +87,7 @@ export default function HowItWorks() {
       >
 
         {/* LEFT — text */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <p
-            style={{
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: 11,
-              fontWeight: 600,
-              color: '#7B68EE',
-              letterSpacing: '2px',
-              textTransform: 'uppercase',
-              margin: '0 0 14px',
-            }}
-          >
-            HOW IT WORKS
-          </p>
-
+        <div style={{ flex: 1, minWidth: 0, textAlign: 'center' }}>
           <h2
             style={{
               fontFamily: 'DM Sans, sans-serif',
@@ -153,13 +126,14 @@ export default function HowItWorks() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number], delay: i * 0.1 }}
-                style={{ lineHeight: 1.5 }}
+                style={{ lineHeight: 1.5, textAlign: 'center' }}
               >
                 <div style={{
                   fontFamily: 'Poppins, sans-serif',
                   fontSize: 'clamp(16px, 2vw, 22px)',
                   color: 'rgba(255,255,255,0.85)',
                   fontWeight: 500,
+                  textAlign: 'center',
                 }}>
                   {main}
                 </div>
@@ -168,6 +142,7 @@ export default function HowItWorks() {
                   fontSize: 'clamp(13px, 1.4vw, 15px)',
                   color: 'rgba(255,255,255,0.35)',
                   marginTop: 3,
+                  textAlign: 'center',
                 }}>
                   {sub}
                 </div>

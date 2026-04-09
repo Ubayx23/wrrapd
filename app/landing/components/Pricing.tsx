@@ -44,7 +44,7 @@ export default function Pricing() {
         }}
       />
 
-      <div style={{ position: 'relative', zIndex: 1, maxWidth: 420, margin: '0 auto' }}>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: 420, margin: '0 auto', textAlign: 'center' }}>
         {/* Headline above card */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
@@ -58,6 +58,7 @@ export default function Pricing() {
             color: 'rgba(255,255,255,0.35)',
             margin: '0 0 20px',
             lineHeight: 1.5,
+            textAlign: 'center',
           }}
         >
           the cost of excuses is higher.
@@ -78,7 +79,7 @@ export default function Pricing() {
           }}
         >
           {/* Strikethrough price */}
-          <div style={{ marginBottom: 4 }}>
+          <div style={{ marginBottom: 4, textAlign: 'center' }}>
             <span
               style={{
                 fontFamily: 'Poppins, sans-serif',
@@ -102,6 +103,7 @@ export default function Pricing() {
               letterSpacing: '-4px',
               lineHeight: 1,
               margin: '4px 0 10px',
+              textAlign: 'center',
             }}
           >
             FREE
@@ -115,6 +117,7 @@ export default function Pricing() {
               color: 'rgba(255,255,255,0.28)',
               margin: '0 0 28px',
               lineHeight: 1.5,
+              textAlign: 'center',
             }}
           >
             for 30 days. then $9.99/month.
@@ -147,10 +150,12 @@ export default function Pricing() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   gap: 10,
                   fontFamily: 'Poppins, sans-serif',
                   fontSize: 'clamp(12px, 2.5vw, 14px)',
                   color: 'rgba(255,255,255,0.55)',
+                  textAlign: 'center',
                 }}
               >
                 <span

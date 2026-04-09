@@ -48,7 +48,7 @@ export default function PhoneMockup() {
 
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px 10px 0', overflow: 'hidden' }}>
               <div style={{ alignSelf: 'flex-start', maxWidth: '82%', background: '#E5E5EA', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.4, color: '#111', marginBottom: 10 }}>
-                did the disciplined entrepreneur show up today?
+                did you show up today?
               </div>
               <div style={{ alignSelf: 'flex-end', maxWidth: '46%', background: '#0A84FF', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#FFF', marginBottom: 10 }}>
                 yes

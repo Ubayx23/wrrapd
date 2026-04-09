@@ -33,6 +33,25 @@
   }
 }
 
+/* ── how-it-works responsive layout ── */
+.how-it-works-inner {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .how-it-works-inner {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* ── landing page section centering ── */
+.landing-page section {
+  width: 100%;
+  text-align: center;
+}
+
 /* ── Feature tags hover ── */
 .feature-tag {
   transition: background 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease;

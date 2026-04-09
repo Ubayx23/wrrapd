@@ -78,7 +78,7 @@ export default function NotForSection() {
                 borderRadius: 12,
                 padding: 'clamp(14px, 2.5vw, 20px) clamp(16px, 3vw, 24px)',
                 background: 'rgba(255,255,255,0.02)',
-                textAlign: 'left',
+                textAlign: 'center',
               }}
             >
               <p style={{
