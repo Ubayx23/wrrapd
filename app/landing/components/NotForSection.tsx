@@ -59,7 +59,9 @@ export default function NotForSection() {
             margin: '0 0 clamp(28px, 4vw, 44px)',
           }}
         >
-          <span style={{ color: '#ffffff' }}>you said you&apos;d.</span>
+          <span style={{ color: '#ffffff' }}>you said you&apos;d</span>
+          <br />
+          <span style={{ color: accent }}>become.</span>
         </motion.h2>
 
         {/* Identities */}
