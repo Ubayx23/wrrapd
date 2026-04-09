@@ -117,7 +117,7 @@ export default function Pricing() {
               lineHeight: 1.5,
             }}
           >
-            for 7 days. then $9.99/month.
+            for 30 days. then $9.99/month.
           </p>
 
           {/* Divider */}

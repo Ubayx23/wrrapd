@@ -59,9 +59,9 @@ export default function NotForSection() {
             margin: '0 0 clamp(28px, 4vw, 44px)',
           }}
         >
-          <span style={{ color: '#ffffff' }}>you said you&apos;d become someone.</span>
+          <span style={{ color: '#ffffff' }}>you said you&apos;d</span>
           <br />
-          <span style={{ color: accent }}>what happened?</span>
+          <span style={{ color: accent }}>become someone.</span>
         </motion.h2>
 
         {/* Cards */}
@@ -111,8 +111,7 @@ export default function NotForSection() {
             margin: 0,
           }}
         >
-          wrrapd doesn&apos;t motivate you.<br />
-          it shows you who you actually are.
+          wrrapd is the mirror.
         </motion.p>
 
       </div>

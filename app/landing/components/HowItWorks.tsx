@@ -143,9 +143,9 @@ export default function HowItWorks() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {[
-              { main: 'tell us who you\'re becoming.', sub: 'not your goal. your identity.' },
-              { main: 'we check on you every day.', sub: 'one question. yes or no. first reply counts.' },
-              { main: 'end of month, your wrrapd drops.', sub: 'a record of who you actually were.' },
+              { main: 'who are you becoming?', sub: 'not your goal. your identity.' },
+              { main: 'we check on you daily.', sub: 'one question. yes or no.' },
+              { main: 'your wrrapd drops monthly.', sub: 'a record of who you actually were.' },
             ].map(({ main, sub }, i) => (
               <motion.div
                 key={i}

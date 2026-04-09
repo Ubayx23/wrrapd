@@ -182,10 +182,7 @@ export default function Hero() {
                 become who you<br />
                 <span style={{
                   fontStyle: 'italic',
-                  background: 'linear-gradient(135deg, #7B68EE 0%, #4C3D8F 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
+                  color: '#9B5DE5',
                 }}>said</span> you would.
               </h1>
               <p style={{
