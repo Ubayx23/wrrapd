@@ -84,7 +84,11 @@ export default function Hero() {
 
           {/* CTA */}
           <a
-            href="/onboard"
+            href="#waitlist"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -105,7 +109,7 @@ export default function Hero() {
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.8')}
             onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
           >
-            start free trial
+            join waitlist
           </a>
         </div>
       </motion.nav>
@@ -190,12 +194,25 @@ export default function Hero() {
                 fontSize: 'clamp(12px, 1.4vw, 14px)',
                 fontWeight: 500,
                 color: 'rgba(255,255,255,0.55)',
-                margin: '0 auto 48px',
+                margin: '0 auto 16px',
                 maxWidth: 280,
                 lineHeight: 1.6,
                 letterSpacing: '0.01em',
+                textAlign: 'center',
               }}>
                 not everyone gets in.
+              </p>
+              <p style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 'clamp(11px, 1.2vw, 13px)',
+                fontWeight: 400,
+                color: 'rgba(255,255,255,0.28)',
+                margin: '0 auto 48px',
+                lineHeight: 1.6,
+                letterSpacing: '0.04em',
+                textAlign: 'center',
+              }}>
+                dropping april 30.
               </p>
             </motion.div>
 

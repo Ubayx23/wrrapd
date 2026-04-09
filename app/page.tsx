@@ -2,7 +2,7 @@
 import Hero from './landing/components/Hero';
 import NotForSection from './landing/components/NotForSection';
 import HowItWorks from './landing/components/HowItWorks';
-import Pricing from './landing/components/Pricing';
+import WaitlistForm from './landing/components/WaitlistForm';
 import FAQ from './landing/components/FAQ';
 import FounderTweet from './landing/components/FounderTweet';
 
@@ -12,7 +12,7 @@ export default function LandingPage() {
       <Hero />
       <NotForSection />
       <HowItWorks />
-      <Pricing />
+      <WaitlistForm />
       <FAQ />
       <FounderTweet />
     </main>
