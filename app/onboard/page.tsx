@@ -111,6 +111,7 @@ export default function OnboardPage() {
   const [goal, setGoal] = useState('');
   const [phone, setPhone] = useState('');
   const [checkInTime, setCheckInTime] = useState('21:00');
+  const [consent, setConsent] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -465,7 +466,7 @@ export default function OnboardPage() {
     }
 
     if (step === 4) {
-      const valid = isValidPhone(phone);
+      const valid = isValidPhone(phone) && consent === true;
       return (
         <>
           <h1 style={headingStyle}>what&apos;s your number?</h1>
@@ -482,6 +483,26 @@ export default function OnboardPage() {
               onKeyDown={e => e.key === 'Enter' && valid && goToStep(5)}
               autoFocus
             />
+          </div>
+          <div style={{ marginTop: '20px', marginBottom: '16px' }}>
+            <label style={{ display: 'flex', alignItems: 'flex-start', cursor: 'pointer', fontSize: 'clamp(12px, 2vw, 13px)', lineHeight: '1.6', color: 'rgba(255,255,255,0.8)' }}>
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={e => setConsent(e.target.checked)}
+                style={{ marginRight: '10px', marginTop: '2px', width: '18px', height: '18px', cursor: 'pointer', accentColor: '#9B5DE5', flexShrink: 0 }}
+              />
+              <span>
+                I agree to receive one daily SMS check-in from wrrapd. Msg & data rates may apply. 1 msg/day. Reply <strong>STOP</strong> to cancel.{' '}
+                <a href="/terms" target="_blank" style={{ color: '#9B5DE5', textDecoration: 'underline' }}>
+                  terms
+                </a>
+                {' '}•{' '}
+                <a href="/privacy" target="_blank" style={{ color: '#9B5DE5', textDecoration: 'underline' }}>
+                  privacy
+                </a>
+              </span>
+            </label>
           </div>
           <button style={buttonStyle(valid)} onClick={() => valid && goToStep(5)} disabled={!valid}>
             got it
