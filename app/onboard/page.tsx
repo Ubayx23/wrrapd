@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { insertProfile } from './actions';
+import { insertProfile, checkPhoneAvailable } from './actions';
 
 const STORAGE_KEY = 'wrrapd_onboard';
 const TOTAL_STEPS = 5;
@@ -39,6 +39,7 @@ const TIMES = [
   { value: '12:00', label: '12pm' },
   { value: '15:00', label: '3pm' },
   { value: '18:00', label: '6pm' },
+  { value: '21:00', label: '9pm' },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -551,6 +552,19 @@ export default function OnboardPage() {
     if (step === 4) {
       const phoneValid = isValidPhone(phone);
       const valid = phoneValid && consentChecked;
+      const advance = async () => {
+        if (!valid) return;
+        setError('');
+        setLoading(true);
+        const normalized = normalizePhone(phone);
+        const { available } = await checkPhoneAvailable(normalized);
+        setLoading(false);
+        if (!available) {
+          setError('that phone is already on an account. try signing in.');
+          return;
+        }
+        goToStep(5);
+      };
       return (
         <>
           <h1 style={headingStyle}>what&apos;s your number?</h1>
@@ -564,7 +578,7 @@ export default function OnboardPage() {
               style={inputStyle}
               placeholder="(555) 000-0000"
               autoComplete="tel"
-              onKeyDown={e => e.key === 'Enter' && valid && goToStep(5)}
+              onKeyDown={e => e.key === 'Enter' && valid && !loading && advance()}
               autoFocus
             />
           </div>
@@ -613,12 +627,12 @@ export default function OnboardPage() {
               lineHeight: 1.5,
               color: 'rgba(255,255,255,0.55)',
             }}>
-              by checking this, i agree to receive daily sms check-ins from wrrapd. msg &amp; data rates may apply. text STOP to opt out, HELP for help.
+              I agree to receive daily SMS messages from wrrapd. Free for 14 days, then $4.99/month. Msg &amp; data rates may apply. Reply STOP to cancel.
             </span>
           </button>
 
-          <button style={buttonStyle(valid)} onClick={() => valid && goToStep(5)} disabled={!valid}>
-            got it
+          <button style={buttonStyle(valid)} onClick={advance} disabled={!valid || loading}>
+            {loading ? 'checking...' : 'got it'}
           </button>
         </>
       );

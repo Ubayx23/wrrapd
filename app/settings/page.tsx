@@ -31,6 +31,7 @@ const TIMES = [
   { value: '12:00', label: '12pm' },
   { value: '15:00', label: '3pm' },
   { value: '18:00', label: '6pm' },
+  { value: '21:00', label: '9pm' },
 ];
 
 function HomeIcon({ active }: { active: boolean }) {

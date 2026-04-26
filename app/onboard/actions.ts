@@ -2,6 +2,19 @@
 
 import { createClient } from '@supabase/supabase-js';
 
+export async function checkPhoneAvailable(phone: string): Promise<{ available: boolean }> {
+  const adminSupabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+  const { data } = await adminSupabase
+    .from('profiles')
+    .select('id')
+    .eq('phone_number', phone)
+    .maybeSingle();
+  return { available: !data };
+}
+
 export async function insertProfile(payload: {
   id: string;
   name: string;
