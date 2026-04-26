@@ -49,39 +49,6 @@ export default function Hero() {
             wrrapd<span style={{ color: '#4C3D8F' }}>.</span>
           </span>
 
-          {/* Divider - hidden on mobile */}
-          <div className="nav-divider-hide-mobile" style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.1)', marginRight: 4, flexShrink: 0 }} />
-
-          {/* Nav links - hidden on mobile */}
-          {[['how it works', '#how-it-works']].map(([label, href]) => (
-            <a
-              key={label}
-              href={href}
-              className="nav-link-hide-mobile"
-              onClick={(e) => {
-                e.preventDefault();
-                const id = href.replace('#', '');
-                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-              style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 13,
-                fontWeight: 500,
-                color: 'rgba(255,255,255,0.45)',
-                textDecoration: 'none',
-                padding: '6px 12px',
-                borderRadius: 100,
-                transition: 'color 0.15s',
-                flexShrink: 0,
-                display: 'inline-block',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#ffffff')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
-            >
-              {label}
-            </a>
-          ))}
-
           {/* CTA */}
           <a
             href="#waitlist"
@@ -93,7 +60,7 @@ export default function Hero() {
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: '#9B5DE5',
+              background: '#A87DF0',
               color: '#ffffff',
               fontFamily: 'Poppins, sans-serif',
               fontSize: 13,
@@ -186,14 +153,14 @@ export default function Hero() {
                 become who you<br />
                 <span style={{
                   fontStyle: 'italic',
-                  color: '#9B5DE5',
+                  color: '#A87DF0',
                 }}>said</span> you would.
               </h1>
               <p style={{
                 fontFamily: 'Poppins, sans-serif',
                 fontSize: 'clamp(12px, 1.4vw, 14px)',
                 fontWeight: 500,
-                color: 'rgba(255,255,255,0.55)',
+                color: 'rgba(255,250,245,0.62)',
                 margin: '0 auto 16px',
                 maxWidth: 280,
                 lineHeight: 1.6,

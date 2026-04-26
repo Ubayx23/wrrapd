@@ -142,7 +142,13 @@ body {
 
 /* Prevent white overscroll glow on iOS for dark pages */
 body:has(.landing-page) {
-  background-color: #07070F;
+  background-color: #0A0814;
+}
+
+/* Landing page input placeholder visibility */
+.landing-page input::placeholder {
+  color: rgba(255, 250, 245, 0.38);
+  opacity: 1;
 }
 
 body:has(.waitlist-page) {

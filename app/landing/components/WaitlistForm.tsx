@@ -5,11 +5,14 @@ import { motion } from 'framer-motion';
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
+const inputBorderIdle = '1px solid rgba(255,255,255,0.18)';
+const inputBorderFocus = '1px solid #A87DF0';
+
 const inputStyle: React.CSSProperties = {
   width: '100%',
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.1)',
-  borderRadius: 12,
+  background: 'rgba(255,255,255,0.07)',
+  border: inputBorderIdle,
+  borderRadius: 14,
   padding: '14px 18px',
   color: '#ffffff',
   fontSize: 'clamp(14px, 3vw, 15px)',
@@ -17,7 +20,7 @@ const inputStyle: React.CSSProperties = {
   outline: 'none',
   boxSizing: 'border-box',
   textAlign: 'left',
-  transition: 'border-color 0.15s',
+  transition: 'border-color 0.15s, background 0.15s',
 };
 
 export default function WaitlistForm() {
@@ -58,7 +61,7 @@ export default function WaitlistForm() {
       <section
         id="waitlist"
         style={{
-          background: '#07070F',
+          background: '#0A0814',
           padding: 'clamp(60px, 10vw, 120px) clamp(24px, 6vw, 80px)',
           textAlign: 'center',
           width: '100%',
@@ -74,7 +77,7 @@ export default function WaitlistForm() {
             fontFamily: 'DM Sans, sans-serif',
             fontWeight: 800,
             fontSize: 'clamp(24px, 5vw, 36px)',
-            color: '#9B5DE5',
+            color: '#A87DF0',
             margin: '0 0 12px',
             letterSpacing: '-1px',
           }}>
@@ -83,7 +86,7 @@ export default function WaitlistForm() {
           <p style={{
             fontFamily: 'Poppins, sans-serif',
             fontSize: 'clamp(13px, 2vw, 15px)',
-            color: 'rgba(255,255,255,0.4)',
+            color: 'rgba(255,250,245,0.45)',
             margin: 0,
           }}>
             dropping april 30.
@@ -97,7 +100,7 @@ export default function WaitlistForm() {
     <section
       id="waitlist"
       style={{
-        background: '#07070F',
+        background: '#0A0814',
         padding: 'clamp(60px, 10vw, 120px) clamp(24px, 6vw, 80px)',
         textAlign: 'center',
         width: '100%',
@@ -113,7 +116,7 @@ export default function WaitlistForm() {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        background: 'radial-gradient(circle, rgba(155,93,229,0.08) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(168,125,240,0.10) 0%, transparent 70%)',
         borderRadius: '50%',
         filter: 'blur(80px)',
         pointerEvents: 'none',
@@ -130,13 +133,13 @@ export default function WaitlistForm() {
             fontFamily: 'Poppins, sans-serif',
             fontSize: 11,
             fontWeight: 600,
-            color: '#9B5DE5',
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
+            color: '#A87DF0',
+            letterSpacing: '0.06em',
+            textTransform: 'none',
             margin: '0 0 14px',
           }}
         >
-          early access
+          for the first 47
         </motion.p>
 
         <motion.h2
@@ -165,7 +168,7 @@ export default function WaitlistForm() {
           style={{
             fontFamily: 'Poppins, sans-serif',
             fontSize: 'clamp(12px, 1.8vw, 14px)',
-            color: 'rgba(255,255,255,0.35)',
+            color: 'rgba(255,250,245,0.40)',
             margin: '0 0 32px',
             lineHeight: 1.6,
           }}
@@ -186,6 +189,8 @@ export default function WaitlistForm() {
             onChange={e => setEmail(e.target.value)}
             placeholder="your email"
             style={inputStyle}
+            onFocus={e => { e.currentTarget.style.border = inputBorderFocus; e.currentTarget.style.background = 'rgba(255,255,255,0.10)'; }}
+            onBlur={e => { e.currentTarget.style.border = inputBorderIdle; e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; }}
             onKeyDown={e => e.key === 'Enter' && !loading && handleSubmit()}
           />
           <input
@@ -194,6 +199,8 @@ export default function WaitlistForm() {
             onChange={e => setPhone(e.target.value)}
             placeholder="your phone number"
             style={inputStyle}
+            onFocus={e => { e.currentTarget.style.border = inputBorderFocus; e.currentTarget.style.background = 'rgba(255,255,255,0.10)'; }}
+            onBlur={e => { e.currentTarget.style.border = inputBorderIdle; e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; }}
             onKeyDown={e => e.key === 'Enter' && !loading && handleSubmit()}
           />
           <button
@@ -201,9 +208,9 @@ export default function WaitlistForm() {
             disabled={loading}
             style={{
               width: '100%',
-              background: '#9B5DE5',
+              background: '#A87DF0',
               border: 'none',
-              borderRadius: 12,
+              borderRadius: 14,
               padding: '15px 24px',
               color: '#ffffff',
               fontSize: 'clamp(13px, 2.5vw, 15px)',
@@ -211,12 +218,13 @@ export default function WaitlistForm() {
               fontWeight: 600,
               cursor: loading ? 'not-allowed' : 'pointer',
               opacity: loading ? 0.5 : 1,
-              transition: 'opacity 0.15s',
+              transition: 'opacity 0.15s, transform 0.15s',
               letterSpacing: '0.01em',
               boxSizing: 'border-box',
+              boxShadow: '0 8px 24px rgba(168,125,240,0.30)',
             }}
           >
-            {loading ? 'joining...' : 'get early access'}
+            {loading ? 'joining...' : 'count me in'}
           </button>
         </motion.div>
 
