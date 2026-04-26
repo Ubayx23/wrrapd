@@ -14,7 +14,7 @@ export async function GET() {
   );
 
   const currentHour = new Date().getHours();
-  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+  const trialWindowStart = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
 
   console.log(`[wrrapd/send] running at ${new Date().toISOString()}, current hour: ${currentHour}`);
 
@@ -22,7 +22,7 @@ export async function GET() {
     .from('profiles')
     .select('id, name, goal, phone_number, check_in_time')
     .not('phone_number', 'is', null)
-    .or(`is_active.eq.true,created_at.gte.${sevenDaysAgo}`);
+    .or(`is_active.eq.true,created_at.gte.${trialWindowStart}`);
 
   if (dbError) {
     console.error('[wrrapd/send] db error:', dbError);

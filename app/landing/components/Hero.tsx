@@ -51,11 +51,7 @@ export default function Hero() {
 
           {/* CTA */}
           <a
-            href="#waitlist"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }}
+            href="/onboard"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -76,7 +72,7 @@ export default function Hero() {
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.8')}
             onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
           >
-            join waitlist
+            lock in now
           </a>
         </div>
       </motion.nav>

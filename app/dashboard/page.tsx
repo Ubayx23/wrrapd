@@ -87,8 +87,6 @@ function DashboardContent() {
   const [upgradeLoading, setUpgradeLoading] = useState(false);
   const [upgradeError, setUpgradeError] = useState<string | null>(null);
   const [showPaidBanner, setShowPaidBanner] = useState(false);
-  const [stripeGateLoading, setStripeGateLoading] = useState(false);
-  const [stripeGateError, setStripeGateError] = useState<string | null>(null);
 
   useEffect(() => {
     const prev = document.body.style.cssText;
@@ -203,31 +201,6 @@ function DashboardContent() {
       const message = err instanceof Error ? err.message : String(err);
       setUpgradeError(message);
       setUpgradeLoading(false);
-    }
-  }
-
-  async function handleStripeGate() {
-    setStripeGateLoading(true);
-    setStripeGateError(null);
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) { setStripeGateLoading(false); setStripeGateError('no session. try signing in again.'); return; }
-    try {
-      const res = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: session.user.id }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.url) {
-        setStripeGateError(data.error ?? 'something went wrong.');
-        setStripeGateLoading(false);
-        return;
-      }
-      window.location.href = data.url;
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : String(err);
-      setStripeGateError(message);
-      setStripeGateLoading(false);
     }
   }
 
@@ -798,92 +771,6 @@ function DashboardContent() {
                   retry
                 </button>
               </>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* STRIPE GATE OVERLAY */}
-      {!profile.stripe_customer_id && (
-        <div style={{
-          position: 'fixed',
-          inset: 0,
-          background: 'rgba(0,0,0,0.98)',
-          zIndex: 500,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '0 24px',
-        }}>
-          <div style={{
-            width: '100%',
-            maxWidth: 340,
-            background: '#0a0a0a',
-            border: '1px solid rgba(155,93,229,0.3)',
-            borderRadius: 16,
-            padding: '40px 28px',
-            textAlign: 'center',
-          }}>
-            <h2 style={{
-              fontFamily: 'DM Sans, sans-serif',
-              fontWeight: 800,
-              fontSize: 'clamp(28px, 7vw, 36px)',
-              color: '#ffffff',
-              letterSpacing: '-1.5px',
-              lineHeight: 1.1,
-              margin: '0 0 12px',
-            }}>
-              one last thing.
-            </h2>
-            <p style={{
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: 13,
-              color: 'rgba(255,255,255,0.32)',
-              margin: '0 0 6px',
-              lineHeight: 1.6,
-            }}>
-              card required to hold your spot.
-            </p>
-            <p style={{
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: 12,
-              color: 'rgba(255,255,255,0.18)',
-              margin: '0 0 32px',
-              lineHeight: 1.5,
-            }}>
-              you won&apos;t be charged for 30 days.
-            </p>
-            <button
-              onClick={handleStripeGate}
-              disabled={stripeGateLoading}
-              style={{
-                width: '100%',
-                background: '#9B5DE5',
-                border: 'none',
-                borderRadius: 10,
-                padding: '15px 20px',
-                color: '#ffffff',
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 14,
-                fontWeight: 600,
-                cursor: stripeGateLoading ? 'not-allowed' : 'pointer',
-                opacity: stripeGateLoading ? 0.5 : 1,
-                letterSpacing: '0.01em',
-                minHeight: 44,
-                transition: 'opacity 0.15s',
-              }}
-            >
-              {stripeGateLoading ? 'loading...' : 'set up billing'}
-            </button>
-            {stripeGateError && (
-              <p style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 12,
-                color: '#ff6b6b',
-                margin: '12px 0 0',
-              }}>
-                {stripeGateError}
-              </p>
             )}
           </div>
         </div>

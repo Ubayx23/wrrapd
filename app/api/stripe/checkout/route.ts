@@ -63,9 +63,6 @@ export async function POST(request: Request) {
       price: process.env.STRIPE_PRICE_ID,
       quantity: 1,
     }],
-    subscription_data: {
-      trial_period_days: 7,
-    },
     success_url: 'https://wrrapd.app/dashboard?paid=true',
     cancel_url: 'https://wrrapd.app/dashboard',
   });

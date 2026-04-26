@@ -26,6 +26,16 @@ export async function insertProfile(payload: {
   console.log('[wrrapd] insertProfile result — full row:', data, '| error:', error);
 
   if (error) {
+    if (error.code === '23505') {
+      const msg = error.message ?? '';
+      if (msg.includes('phone_number') || msg.includes('phone')) {
+        return { success: false, error: 'that phone is already on an account. try signing in.' };
+      }
+      if (msg.includes('email')) {
+        return { success: false, error: 'that email is already on an account. try signing in.' };
+      }
+      return { success: false, error: 'an account already exists with these details. try signing in.' };
+    }
     return { success: false, error: `${error.message} (code: ${error.code})` };
   }
 
