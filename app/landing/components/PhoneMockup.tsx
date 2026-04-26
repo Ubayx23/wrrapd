@@ -1,7 +1,20 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
+
+const IDENTITIES = ['in shape', 'disciplined', 'consistent', 'focused'];
 
 export default function PhoneMockup() {
+  const [identityIdx, setIdentityIdx] = useState(0);
+  const [response, setResponse] = useState<'iam' | 'iamnot'>('iam');
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIdentityIdx(i => (i + 1) % IDENTITIES.length);
+    }, 2800);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 60 }}
@@ -47,42 +60,110 @@ export default function PhoneMockup() {
             </div>
 
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px 10px 0', overflow: 'hidden' }}>
-              <div style={{ alignSelf: 'flex-start', maxWidth: '82%', background: '#E5E5EA', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.4, color: '#111', marginBottom: 10 }}>
-                did you show up today?
+              <div style={{ alignSelf: 'flex-start', maxWidth: '100%', whiteSpace: 'nowrap', background: '#E5E5EA', borderRadius: '18px 18px 5px 18px', padding: '8px 11px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12, lineHeight: 1.4, color: '#111', marginBottom: 10 }}>
+                are you someone who&apos;s{' '}
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={IDENTITIES[identityIdx]}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.28, ease: 'easeOut' }}
+                    style={{ display: 'inline-block', fontWeight: 600, color: '#7B5CCC' }}
+                  >
+                    {IDENTITIES[identityIdx]}
+                  </motion.span>
+                </AnimatePresence>
+                ?
               </div>
-              <div style={{ alignSelf: 'flex-end', maxWidth: '46%', background: '#0A84FF', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#FFF', marginBottom: 10 }}>
-                yes
-              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={response}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.18, ease: 'easeOut' }}
+                  style={{ alignSelf: 'flex-end', maxWidth: '60%', background: '#0A84FF', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#FFF', marginBottom: 10 }}
+                >
+                  {response === 'iam' ? 'I am' : 'I am not'}
+                </motion.div>
+              </AnimatePresence>
               <div style={{ alignSelf: 'flex-start', maxWidth: '60%', background: '#E5E5EA', borderRadius: '18px 18px 5px 18px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#111', marginBottom: 4 }}>
                 noted.
               </div>
-              <div style={{ alignSelf: 'flex-start', maxWidth: '60%', background: '#E5E5EA', borderRadius: '18px 18px 18px 5px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#111' }}>
-                21 days in.
-              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={response === 'iam' ? 'd1' : 'd0'}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.18, ease: 'easeOut' }}
+                  style={{ alignSelf: 'flex-start', maxWidth: '60%', background: '#E5E5EA', borderRadius: '18px 18px 18px 5px', padding: '9px 13px', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12.5, lineHeight: 1.25, color: '#111' }}
+                >
+                  {response === 'iam' ? '1 day in.' : 'day zero.'}
+                </motion.div>
+              </AnimatePresence>
 
-              <div style={{ marginTop: 'auto', marginLeft: -10, marginRight: -10, background: 'linear-gradient(to bottom, rgba(242,242,247,0) 0%, rgba(242,242,247,1) 18%, rgba(236,236,241,1) 100%)', borderTop: '0.5px solid rgba(0,0,0,0.08)', padding: '7px 8px 8px' }}>
-                <div style={{ background: '#FFF', border: '0.5px solid rgba(0,0,0,0.13)', borderRadius: 14, display: 'flex', alignItems: 'center', gap: 7, padding: '5px 9px', marginBottom: 7 }}>
+              <div style={{ marginTop: 'auto', marginLeft: -10, marginRight: -10, background: 'linear-gradient(to bottom, rgba(242,242,247,0) 0%, rgba(242,242,247,1) 22%, rgba(236,236,241,1) 100%)', borderTop: '0.5px solid rgba(0,0,0,0.08)', padding: '10px 10px 14px' }}>
+                <div style={{ background: '#FFF', border: '0.5px solid rgba(0,0,0,0.13)', borderRadius: 16, display: 'flex', alignItems: 'center', gap: 7, padding: '6px 10px', marginBottom: 10 }}>
                   <span style={{ color: '#8E8E93', fontSize: 17, lineHeight: 1 }}>+</span>
                   <span style={{ color: '#B3B3B8', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 14 }}>iMessage</span>
                   <span style={{ marginLeft: 'auto', color: '#8E8E93', fontSize: 15 }}>✎</span>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: 4, marginBottom: 4 }}>
-                  {'QWERTYUIOP'.split('').map((key) => (
-                    <div key={key} style={{ height: 26, borderRadius: 6, background: '#FFF', boxShadow: '0 0.5px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12, color: '#111' }}>{key}</div>
-                  ))}
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(9, 1fr)', gap: 4, marginBottom: 4, paddingLeft: 12, paddingRight: 12 }}>
-                  {'ASDFGHJKL'.split('').map((key) => (
-                    <div key={key} style={{ height: 26, borderRadius: 6, background: '#FFF', boxShadow: '0 0.5px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12, color: '#111' }}>{key}</div>
-                  ))}
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '42px repeat(7, 1fr) 54px', gap: 4 }}>
-                  <div style={{ height: 26, borderRadius: 6, background: '#D1D1D6', boxShadow: '0 0.5px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 11, color: '#111' }}>↑</div>
-                  {'ZXCVBNM'.split('').map((key) => (
-                    <div key={key} style={{ height: 26, borderRadius: 6, background: '#FFF', boxShadow: '0 0.5px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 12, color: '#111' }}>{key}</div>
-                  ))}
-                  <div style={{ height: 26, borderRadius: 6, background: '#D1D1D6', boxShadow: '0 0.5px 0 rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 11, color: '#111' }}>⌫</div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                  <button
+                    type="button"
+                    onClick={() => setResponse('iam')}
+                    style={{
+                      height: 36,
+                      borderRadius: 999,
+                      background: response === 'iam' ? '#A87DF0' : '#FFF',
+                      border: response === 'iam' ? 'none' : '1px solid rgba(0,0,0,0.12)',
+                      color: response === 'iam' ? '#FFF' : '#5C5C66',
+                      fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+                      fontSize: 13,
+                      fontWeight: response === 'iam' ? 600 : 500,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      letterSpacing: '0.01em',
+                      boxShadow: response === 'iam'
+                        ? '0 1px 0 rgba(0,0,0,0.06), 0 4px 14px rgba(168,125,240,0.35)'
+                        : '0 0.5px 0 rgba(0,0,0,0.08)',
+                      cursor: 'pointer',
+                      padding: 0,
+                      transition: 'background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease',
+                    }}
+                  >
+                    I am
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setResponse('iamnot')}
+                    style={{
+                      height: 36,
+                      borderRadius: 999,
+                      background: response === 'iamnot' ? '#A87DF0' : '#FFF',
+                      border: response === 'iamnot' ? 'none' : '1px solid rgba(0,0,0,0.12)',
+                      color: response === 'iamnot' ? '#FFF' : '#5C5C66',
+                      fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+                      fontSize: 13,
+                      fontWeight: response === 'iamnot' ? 600 : 500,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      letterSpacing: '0.01em',
+                      boxShadow: response === 'iamnot'
+                        ? '0 1px 0 rgba(0,0,0,0.06), 0 4px 14px rgba(168,125,240,0.35)'
+                        : '0 0.5px 0 rgba(0,0,0,0.08)',
+                      cursor: 'pointer',
+                      padding: 0,
+                      transition: 'background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease',
+                    }}
+                  >
+                    I am not
+                  </button>
                 </div>
               </div>
             </div>
