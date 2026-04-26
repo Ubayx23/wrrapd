@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     profile.goal = 'your goal';
   }
 
-  const messageBody = `welcome to wrrapd. you signed up to receive one daily SMS check-in. msg & data rates may apply. reply YES to confirm. reply STOP anytime to cancel.\n\ndid you show up for ${profile.goal} today? yes or no.`;
+  const messageBody = `welcome to wrrapd. you signed up to receive one daily SMS check-in. msg & data rates may apply. reply YES to confirm. reply STOP anytime to cancel.\n\nare you someone who's ${profile.goal}? reply I am or I am not.`;
 
   console.log('[wrrapd/welcome] message body:', messageBody);
   console.log('[wrrapd/welcome] sending to:', profile.phone_number);

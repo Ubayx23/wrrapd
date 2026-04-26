@@ -263,8 +263,8 @@ function DashboardContent() {
   if (!profile) return null;
 
   const days = daysSince(profile.created_at);
-  const isTrial = days < 30;
-  const trialDaysLeft = Math.max(30 - days, 0);
+  const isTrial = days < 14;
+  const trialDaysLeft = Math.max(14 - days, 0);
 
   const daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
   const dayOfMonth = new Date().getDate();
@@ -289,17 +289,26 @@ function DashboardContent() {
       boxSizing: 'border-box',
       overflowX: 'hidden',
     }}>
-      <div style={{ width: '100%', maxWidth: 480, margin: '0 auto', padding: '0 20px 80px', boxSizing: 'border-box' }}>
+      <div style={{
+        width: '100%',
+        maxWidth: 480,
+        margin: '0 auto',
+        padding: '0 20px 100px',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100dvh',
+      }}>
 
         {/* TOP BAR */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          paddingTop: 'clamp(20px, 5vw, 32px)',
-          paddingBottom: 16,
+          paddingTop: 'clamp(20px, 5vw, 28px)',
+          paddingBottom: 14,
           borderBottom: '1px solid rgba(255,255,255,0.06)',
-          marginBottom: 'clamp(32px, 7vw, 48px)',
+          marginBottom: 'clamp(20px, 5vw, 28px)',
         }}>
           <span style={{
             fontFamily: 'DM Sans, sans-serif',
@@ -333,36 +342,36 @@ function DashboardContent() {
         <AnnouncementBanner />
 
         {/* SECTION 1 — identity */}
-        <div style={{ marginBottom: 'clamp(40px, 10vw, 64px)' }}>
+        <div style={{ marginBottom: 'clamp(24px, 5vw, 32px)' }}>
           <h1 style={{
             fontFamily: 'DM Sans, sans-serif',
             fontWeight: 800,
-            fontSize: 'clamp(30px, 8vw, 42px)',
+            fontSize: 'clamp(28px, 7.5vw, 38px)',
             color: '#ffffff',
             letterSpacing: '-1.5px',
             lineHeight: 1.1,
-            margin: '0 0 10px',
+            margin: '0 0 8px',
           }}>
             hey, {profile.name}.
           </h1>
           <p style={{
             fontFamily: 'Poppins, sans-serif',
             fontSize: 'clamp(12px, 3vw, 13px)',
-            color: 'rgba(255,255,255,0.28)',
+            color: 'rgba(255,255,255,0.32)',
             margin: 0,
             lineHeight: 1.5,
           }}>
-            showing up for: {profile.goal}
+            you said you&apos;d be {profile.goal}.
           </p>
         </div>
 
         {/* CHECK-IN CARD */}
         <div style={{
-          marginBottom: 'clamp(32px, 7vw, 48px)',
-          background: 'rgba(155,93,229,0.06)',
-          border: '1px solid rgba(155,93,229,0.18)',
+          marginBottom: 'clamp(24px, 5vw, 32px)',
+          background: 'rgba(168,125,240,0.07)',
+          border: '1px solid rgba(168,125,240,0.20)',
           borderRadius: 14,
-          padding: '20px 18px',
+          padding: '18px 16px',
         }}>
           {todayResponse ? (
             <>
@@ -393,18 +402,10 @@ function DashboardContent() {
                 fontSize: 'clamp(16px, 4vw, 18px)',
                 color: '#ffffff',
                 letterSpacing: '-0.5px',
-                lineHeight: 1.2,
-                margin: '0 0 4px',
+                lineHeight: 1.25,
+                margin: '0 0 14px',
               }}>
-                did you show up today?
-              </p>
-              <p style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 12,
-                color: 'rgba(255,255,255,0.28)',
-                margin: '0 0 16px',
-              }}>
-                for: {profile.goal}
+                are you someone who&apos;s {profile.goal} today?
               </p>
               <div style={{ display: 'flex', gap: 10 }}>
                 <button
@@ -427,7 +428,7 @@ function DashboardContent() {
                     letterSpacing: '0.01em',
                   }}
                 >
-                  yes
+                  i am
                 </button>
                 <button
                   onClick={() => handleCheckIn('no')}
@@ -449,7 +450,7 @@ function DashboardContent() {
                     letterSpacing: '0.01em',
                   }}
                 >
-                  no
+                  i am not
                 </button>
               </div>
               {checkInError && (
@@ -468,17 +469,17 @@ function DashboardContent() {
 
         {/* SECTION 2 — the number */}
         <div style={{
-          marginBottom: 'clamp(40px, 10vw, 64px)',
+          marginBottom: 'clamp(20px, 4.5vw, 28px)',
           textAlign: 'center',
         }}>
           <div style={{
             fontFamily: 'DM Sans, sans-serif',
             fontWeight: 800,
-            fontSize: 'clamp(96px, 28vw, 140px)',
+            fontSize: 'clamp(72px, 22vw, 110px)',
             color: '#ffffff',
-            letterSpacing: '-6px',
+            letterSpacing: '-5px',
             lineHeight: 1,
-            marginBottom: 16,
+            marginBottom: 12,
           }}>
             {totalCheckIns}
           </div>
@@ -493,13 +494,80 @@ function DashboardContent() {
           <p style={{
             fontFamily: 'Poppins, sans-serif',
             fontSize: 'clamp(12px, 3vw, 14px)',
-            color: '#9B5DE5',
+            color: '#A87DF0',
             margin: 0,
             fontWeight: 500,
           }}>
             {aboveAverage ? 'above average.' : 'below average.'}
           </p>
         </div>
+
+        {/* SECTION 2.5 — 14-day trial grid */}
+        {isTrial && (() => {
+          const todayStr = new Date().toISOString().slice(0, 10);
+          const startedAt = new Date(profile.created_at);
+          const trialDays = Array.from({ length: 14 }, (_, i) => {
+            const d = new Date(startedAt);
+            d.setDate(d.getDate() + i);
+            const dateStr = d.toISOString().slice(0, 10);
+            const checkIn = checkIns.find(c => c.date === dateStr);
+            const isToday = dateStr === todayStr;
+            const isPast = dateStr < todayStr;
+            return { dateStr, response: checkIn?.response ?? null, isToday, isPast };
+          });
+          return (
+            <div style={{ marginBottom: 'clamp(20px, 5vw, 32px)' }}>
+              <p style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: 11,
+                color: 'rgba(255,255,255,0.30)',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                margin: '0 0 12px',
+                textAlign: 'center',
+              }}>
+                your 14 days
+              </p>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(7, 1fr)',
+                gap: 6,
+              }}>
+                {trialDays.map((day, i) => {
+                  let bg = 'transparent';
+                  let border = '1px solid rgba(255,255,255,0.05)';
+                  if (day.isToday) {
+                    bg = 'rgba(168,125,240,0.18)';
+                    border = '1px solid #A87DF0';
+                  } else if (day.response === 'yes') {
+                    bg = 'rgba(34,197,94,0.22)';
+                    border = '1px solid rgba(34,197,94,0.45)';
+                  } else if (day.response === 'no') {
+                    bg = 'rgba(255,107,107,0.18)';
+                    border = '1px solid rgba(255,107,107,0.40)';
+                  } else if (day.isPast) {
+                    bg = 'rgba(255,255,255,0.025)';
+                    border = '1px solid rgba(255,255,255,0.06)';
+                  }
+                  return (
+                    <div
+                      key={i}
+                      style={{
+                        aspectRatio: '1 / 1',
+                        background: bg,
+                        border,
+                        borderRadius: 6,
+                      }}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* SPACER — pushes the strips to the bottom of the viewport */}
+        <div style={{ marginTop: 'auto' }} />
 
         {/* SECTION 3 — status strip */}
         <div style={{ ...strip, marginBottom: 0 }}>
@@ -513,13 +581,33 @@ function DashboardContent() {
           <span style={{
             fontFamily: 'Poppins, sans-serif',
             fontSize: 'clamp(11px, 2.5vw, 13px)',
-            color: isTrial ? '#9B5DE5' : 'rgba(255,255,255,0.25)',
+            color: isTrial ? '#A87DF0' : 'rgba(255,255,255,0.25)',
           }}>
             {isTrial ? `${trialDaysLeft} days left` : 'active'}
           </span>
         </div>
 
-        {/* SECTION 4 — next check-in strip */}
+        {/* SECTION 4 — pricing reminder strip (during trial) */}
+        {isTrial && (
+          <div style={{ ...strip, borderTop: 'none' }}>
+            <span style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontSize: 'clamp(11px, 2.5vw, 13px)',
+              color: 'rgba(255,255,255,0.22)',
+            }}>
+              $4.99/mo after trial
+            </span>
+            <span style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontSize: 'clamp(11px, 2.5vw, 13px)',
+              color: 'rgba(255,255,255,0.22)',
+            }}>
+              cancel anytime
+            </span>
+          </div>
+        )}
+
+        {/* SECTION 5 — next check-in strip */}
         <div style={{ ...strip, borderTop: 'none' }}>
           <span style={{
             fontFamily: 'Poppins, sans-serif',
@@ -815,7 +903,7 @@ function DashboardContent() {
               margin: '0 0 8px',
               lineHeight: 1.6,
             }}>
-              $9.99/month to keep going.
+              $4.99/month to keep going.
             </p>
             <p style={{
               fontFamily: 'Poppins, sans-serif',

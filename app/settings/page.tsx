@@ -7,7 +7,15 @@ import AnnouncementBanner from '@/app/components/AnnouncementBanner';
 
 type Profile = {
   check_in_time: string;
+  goal: string;
+  created_at: string;
 };
+
+function formatJoinDate(dateStr: string): string {
+  const d = new Date(dateStr);
+  const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+  return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+}
 
 function formatCheckInTime(t: string): string {
   const [h] = t.split(':').map(Number);
@@ -18,15 +26,15 @@ function formatCheckInTime(t: string): string {
 }
 
 const TIMES = [
-  { value: '06:00', label: '6am' },
   { value: '07:00', label: '7am' },
-  { value: '08:00', label: '8am' },
   { value: '09:00', label: '9am' },
-  { value: '10:00', label: '10am' },
+  { value: '12:00', label: '12pm' },
+  { value: '15:00', label: '3pm' },
+  { value: '18:00', label: '6pm' },
 ];
 
 function HomeIcon({ active }: { active: boolean }) {
-  const c = active ? '#9B5DE5' : 'rgba(255,255,255,0.3)';
+  const c = active ? '#A87DF0' : 'rgba(255,255,255,0.3)';
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
       <path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" stroke={c} strokeWidth="1.4" strokeLinejoin="round" />
@@ -36,7 +44,7 @@ function HomeIcon({ active }: { active: boolean }) {
 }
 
 function SettingsIcon({ active }: { active: boolean }) {
-  const c = active ? '#9B5DE5' : 'rgba(255,255,255,0.3)';
+  const c = active ? '#A87DF0' : 'rgba(255,255,255,0.3)';
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
       <circle cx="10" cy="10" r="2.5" stroke={c} strokeWidth="1.4" />
@@ -46,7 +54,7 @@ function SettingsIcon({ active }: { active: boolean }) {
 }
 
 function HelpIcon({ active }: { active: boolean }) {
-  const c = active ? '#9B5DE5' : 'rgba(255,255,255,0.3)';
+  const c = active ? '#A87DF0' : 'rgba(255,255,255,0.3)';
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
       <circle cx="10" cy="10" r="7.5" stroke={c} strokeWidth="1.4" />
@@ -97,7 +105,7 @@ const linkBtn: React.CSSProperties = {
   border: 'none',
   fontFamily: 'Poppins, sans-serif',
   fontSize: 'clamp(12px, 3vw, 13px)',
-  color: '#9B5DE5',
+  color: '#A87DF0',
   cursor: 'pointer',
   padding: 0,
   textDecoration: 'none',
@@ -108,7 +116,7 @@ export default function SettingsPage() {
   const [email, setEmail] = useState('');
   const [profile, setProfile] = useState<Profile | null>(null);
   const [showTimeSelector, setShowTimeSelector] = useState(false);
-  const [selectedTime, setSelectedTime] = useState('08:00');
+  const [selectedTime, setSelectedTime] = useState('09:00');
   const [saving, setSaving] = useState(false);
   const [isTrial, setIsTrial] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -125,14 +133,14 @@ export default function SettingsPage() {
       setEmail(session.user.email ?? '');
       const { data } = await supabase
         .from('profiles')
-        .select('check_in_time, created_at')
+        .select('check_in_time, goal, created_at')
         .eq('id', session.user.id)
         .single();
       if (data) {
-        setProfile({ check_in_time: data.check_in_time });
+        setProfile({ check_in_time: data.check_in_time, goal: data.goal, created_at: data.created_at });
         setSelectedTime(data.check_in_time);
         const days = Math.floor((Date.now() - new Date(data.created_at).getTime()) / 86400000);
-        setIsTrial(days < 7);
+        setIsTrial(days < 14);
       }
       setLoading(false);
     });
@@ -166,7 +174,16 @@ export default function SettingsPage() {
 
   return (
     <div style={{ minHeight: '100dvh', width: '100vw', maxWidth: '100%', background: '#0a0a0a', boxSizing: 'border-box', overflowX: 'hidden' }}>
-      <div style={{ width: '100%', maxWidth: 480, margin: '0 auto', padding: '0 20px 100px', boxSizing: 'border-box' }}>
+      <div style={{
+        width: '100%',
+        maxWidth: 480,
+        margin: '0 auto',
+        padding: '0 20px 100px',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100dvh',
+      }}>
 
         {/* TOP BAR */}
         <div style={{
@@ -234,7 +251,7 @@ export default function SettingsPage() {
               <span style={{
                 fontFamily: 'Poppins, sans-serif',
                 fontSize: 'clamp(12px, 3vw, 13px)',
-                color: isTrial ? '#9B5DE5' : 'rgba(255,255,255,0.4)',
+                color: isTrial ? '#A87DF0' : 'rgba(255,255,255,0.4)',
               }}>
                 {isTrial ? 'free trial' : 'active'}
               </span>
@@ -275,8 +292,8 @@ export default function SettingsPage() {
                         key={t.value}
                         onClick={() => setSelectedTime(t.value)}
                         style={{
-                          background: sel ? 'rgba(155,93,229,0.12)' : 'rgba(255,255,255,0.03)',
-                          border: `1px solid ${sel ? '#9B5DE5' : 'rgba(255,255,255,0.07)'}`,
+                          background: sel ? 'rgba(168,125,240,0.14)' : 'rgba(255,255,255,0.03)',
+                          border: `1px solid ${sel ? '#A87DF0' : 'rgba(255,255,255,0.07)'}`,
                           borderRadius: 10,
                           padding: '11px 16px',
                           color: sel ? '#ffffff' : 'rgba(255,255,255,0.4)',
@@ -298,7 +315,7 @@ export default function SettingsPage() {
                   disabled={saving}
                   style={{
                     width: '100%',
-                    background: '#9B5DE5',
+                    background: '#A87DF0',
                     border: 'none',
                     borderRadius: 10,
                     padding: '13px 20px',
@@ -319,7 +336,7 @@ export default function SettingsPage() {
         </div>
 
         {/* NOTIFICATIONS */}
-        <div style={{ marginBottom: 48 }}>
+        <div style={{ marginBottom: 32 }}>
           <span style={sectionLabel}>notifications</span>
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
             <div style={strip}>
@@ -328,6 +345,26 @@ export default function SettingsPage() {
             </div>
           </div>
         </div>
+
+        {/* IDENTITY */}
+        {profile && (
+          <div style={{ marginBottom: 48 }}>
+            <span style={sectionLabel}>your identity</span>
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+              <div style={strip}>
+                <span style={rowText}>becoming</span>
+                <span style={rowValue}>{profile.goal}</span>
+              </div>
+              <div style={strip}>
+                <span style={rowText}>joined</span>
+                <span style={rowValue}>{formatJoinDate(profile.created_at)}</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SPACER — pushes sign out to the bottom */}
+        <div style={{ marginTop: 'auto' }} />
 
         {/* SIGN OUT */}
         <button
@@ -380,7 +417,7 @@ export default function SettingsPage() {
             <span style={{
               fontFamily: 'Poppins, sans-serif',
               fontSize: 10,
-              color: id === 'settings' ? '#9B5DE5' : 'rgba(255,255,255,0.28)',
+              color: id === 'settings' ? '#A87DF0' : 'rgba(255,255,255,0.28)',
               letterSpacing: '0.03em',
             }}>
               {label}

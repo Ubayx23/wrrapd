@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import AnnouncementBanner from '@/app/components/AnnouncementBanner';
 
 function HomeIcon({ active }: { active: boolean }) {
-  const c = active ? '#9B5DE5' : 'rgba(255,255,255,0.3)';
+  const c = active ? '#A87DF0' : 'rgba(255,255,255,0.3)';
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
       <path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" stroke={c} strokeWidth="1.4" strokeLinejoin="round" />
@@ -15,7 +15,7 @@ function HomeIcon({ active }: { active: boolean }) {
 }
 
 function SettingsIcon({ active }: { active: boolean }) {
-  const c = active ? '#9B5DE5' : 'rgba(255,255,255,0.3)';
+  const c = active ? '#A87DF0' : 'rgba(255,255,255,0.3)';
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
       <circle cx="10" cy="10" r="2.5" stroke={c} strokeWidth="1.4" />
@@ -25,7 +25,7 @@ function SettingsIcon({ active }: { active: boolean }) {
 }
 
 function HelpIcon({ active }: { active: boolean }) {
-  const c = active ? '#9B5DE5' : 'rgba(255,255,255,0.3)';
+  const c = active ? '#A87DF0' : 'rgba(255,255,255,0.3)';
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
       <circle cx="10" cy="10" r="7.5" stroke={c} strokeWidth="1.4" />
@@ -41,14 +41,22 @@ const navItems = [
   { id: 'help',     label: 'help',     href: '/help',      Icon: HelpIcon },
 ];
 
-const faqs = [
+const faqs: { q: string; a: string }[] = [
   {
     q: 'how does it work?',
-    a: 'one text a day. reply yes or no. first reply counts.',
+    a: 'one text a day. reply I am or I am not. first reply counts.',
   },
   {
     q: 'when do i get texted?',
     a: 'every day at the time you chose. no exceptions.',
+  },
+  {
+    q: 'why "I am" or "I am not"?',
+    a: 'showing up isn\'t a task. it\'s an identity. the words you use shape who you become.',
+  },
+  {
+    q: 'what happens after the trial?',
+    a: '$4.99/month. cancel anytime. no card on file until you subscribe.',
   },
   {
     q: 'what is my wrrapd?',
@@ -57,10 +65,6 @@ const faqs = [
   {
     q: 'how do i cancel?',
     a: 'go to settings and cancel anytime. no questions asked.',
-  },
-  {
-    q: 'i need help.',
-    a: 'text us at +1 (555) 000-0000',
   },
 ];
 
@@ -75,7 +79,16 @@ export default function HelpPage() {
 
   return (
     <div style={{ minHeight: '100dvh', width: '100vw', maxWidth: '100%', background: '#0a0a0a', boxSizing: 'border-box', overflowX: 'hidden' }}>
-      <div style={{ width: '100%', maxWidth: 480, margin: '0 auto', padding: '0 20px 100px', boxSizing: 'border-box' }}>
+      <div style={{
+        width: '100%',
+        maxWidth: 480,
+        margin: '0 auto',
+        padding: '0 20px 100px',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100dvh',
+      }}>
 
         {/* TOP BAR */}
         <div style={{
@@ -120,7 +133,7 @@ export default function HelpPage() {
         <AnnouncementBanner />
 
         {/* FAQ LIST */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(32px, 8vw, 44px)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(28px, 6.5vw, 38px)' }}>
           {faqs.map(({ q, a }) => (
             <div key={q}>
               <p style={{
@@ -145,6 +158,50 @@ export default function HelpPage() {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* STILL STUCK CONTACT CARD — sits right below FAQs */}
+        <div style={{
+          marginTop: 'clamp(28px, 6vw, 40px)',
+          padding: '24px 20px',
+          background: 'rgba(168,125,240,0.06)',
+          border: '1px solid rgba(168,125,240,0.20)',
+          borderRadius: 14,
+          textAlign: 'center',
+        }}>
+          <p style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: 11,
+            color: 'rgba(255,255,255,0.35)',
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            margin: '0 0 10px',
+          }}>
+            still stuck?
+          </p>
+          <a
+            href="sms:+18585994153"
+            style={{
+              fontFamily: 'DM Sans, sans-serif',
+              fontWeight: 800,
+              fontSize: 'clamp(18px, 5vw, 22px)',
+              color: '#A87DF0',
+              textDecoration: 'none',
+              letterSpacing: '-0.5px',
+              display: 'inline-block',
+            }}
+          >
+            text +1 (858) 599-4153
+          </a>
+          <p style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: 11,
+            color: 'rgba(255,255,255,0.25)',
+            margin: '8px 0 0',
+            lineHeight: 1.5,
+          }}>
+            we reply within 24 hours.
+          </p>
         </div>
 
       </div>
@@ -176,7 +233,7 @@ export default function HelpPage() {
             <span style={{
               fontFamily: 'Poppins, sans-serif',
               fontSize: 10,
-              color: id === 'help' ? '#9B5DE5' : 'rgba(255,255,255,0.28)',
+              color: id === 'help' ? '#A87DF0' : 'rgba(255,255,255,0.28)',
               letterSpacing: '0.03em',
             }}>
               {label}

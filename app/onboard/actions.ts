@@ -9,7 +9,8 @@ export async function insertProfile(payload: {
   phone_number: string;
   email: string;
   check_in_time: string;
-}): Promise<{ success: boolean; error?: string }> {
+  consented_at: string;
+}): Promise<{ success: boolean; error?: string; reset?: boolean }> {
   const adminSupabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -35,6 +36,9 @@ export async function insertProfile(payload: {
         return { success: false, error: 'that email is already on an account. try signing in.' };
       }
       return { success: false, error: 'an account already exists with these details. try signing in.' };
+    }
+    if (error.code === '23503') {
+      return { success: false, error: 'your session expired. starting over.', reset: true };
     }
     return { success: false, error: `${error.message} (code: ${error.code})` };
   }

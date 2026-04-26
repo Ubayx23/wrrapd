@@ -64,15 +64,18 @@ export async function POST(req: Request) {
     return twimlReply('already got your reply for today.');
   }
 
-  const normalized = body.trim().toLowerCase();
+  const normalized = body.trim().toLowerCase().replace(/\s+/g, ' ');
   let response: 'yes' | 'no' | null = null;
 
-  if (normalized.startsWith('y')) response = 'yes';
-  else if (normalized.startsWith('n')) response = 'no';
+  // Order matters: "i am not" must be checked before "i am" since both share the prefix.
+  if (/^i\s*am\s*not\b/.test(normalized) || normalized === 'iamnot') response = 'no';
+  else if (/^i\s*am\b/.test(normalized) || normalized === 'iam') response = 'yes';
+  else if (/^y/.test(normalized)) response = 'yes';
+  else if (/^n/.test(normalized)) response = 'no';
 
   if (!response) {
     console.log(`[wrrapd/webhook] unrecognized reply from ${from}: "${body}"`);
-    return twimlReply('reply yes or no. that\'s it.');
+    return twimlReply('reply I am or I am not. that\'s it.');
   }
 
   const { count } = await adminSupabase

@@ -9,17 +9,36 @@ import { insertProfile } from './actions';
 const STORAGE_KEY = 'wrrapd_onboard';
 const TOTAL_STEPS = 5;
 
+const IDENTITIES = ['in shape', 'disciplined', 'consistent', 'focused'];
+
+const NAME_MAX_LEN = 30;
+const GOAL_MAX_LEN = 20;
+
+const PROFANITY = [
+  'fuck', 'fck', 'fuk', 'shit', 'sht', 'bitch', 'btch', 'cunt',
+  'asshole', 'dick', 'pussy', 'piss',
+  'nigger', 'nigga', 'faggot', 'fag', 'retard', 'tranny', 'kike', 'spic', 'chink',
+];
+
+function containsProfanity(text: string): boolean {
+  const t = text.toLowerCase();
+  return PROFANITY.some(word => new RegExp(`\\b${word}\\b`, 'i').test(t));
+}
+
+function validateUserInput(text: string, fieldName: string, maxLen: number): string | null {
+  const trimmed = text.trim();
+  if (!trimmed) return `${fieldName} required.`;
+  if (trimmed.length > maxLen) return `${fieldName} too long. ${maxLen} characters max.`;
+  if (containsProfanity(trimmed)) return `please use a different ${fieldName}.`;
+  return null;
+}
+
 const TIMES = [
-  { value: '18:00', label: '6pm' },
-  { value: '19:00', label: '7pm' },
-  { value: '20:00', label: '8pm' },
-  { value: '21:00', label: '9pm' },
-  { value: '22:00', label: '10pm' },
-  { value: '06:00', label: '6am' },
   { value: '07:00', label: '7am' },
-  { value: '08:00', label: '8am' },
   { value: '09:00', label: '9am' },
-  { value: '10:00', label: '10am' },
+  { value: '12:00', label: '12pm' },
+  { value: '15:00', label: '3pm' },
+  { value: '18:00', label: '6pm' },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -110,13 +129,14 @@ export default function OnboardPage() {
   const [name, setName] = useState('');
   const [goal, setGoal] = useState('');
   const [phone, setPhone] = useState('');
-  const [checkInTime, setCheckInTime] = useState('21:00');
+  const [checkInTime, setCheckInTime] = useState('09:00');
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [sessionEmail, setSessionEmail] = useState<string | null>(null);
   const [resumedFromSession, setResumedFromSession] = useState(false);
+  const [consentChecked, setConsentChecked] = useState(false);
 
   // Override global scroll-lock
   useEffect(() => {
@@ -220,12 +240,25 @@ export default function OnboardPage() {
       phone_number: normalizePhone(phone),
       email: session.user.email ?? '',
       check_in_time: checkInTime,
+      consented_at: new Date().toISOString(),
     };
     console.log('[wrrapd] calling insertProfile with:', payload);
     const result = await insertProfile(payload);
     console.log('[wrrapd] insertProfile result:', result);
     setLoading(false);
     if (!result.success) {
+      if (result.reset) {
+        await supabase.auth.signOut();
+        try { localStorage.removeItem(STORAGE_KEY); } catch {}
+        setUserId(null);
+        setSessionEmail(null);
+        setResumedFromSession(false);
+        setEmail('');
+        setPassword('');
+        setError(result.error ?? 'your session expired. start over.');
+        goToStep(1);
+        return;
+      }
       setError(result.error ?? 'failed to save your profile. please try again.');
       return;
     }
@@ -403,7 +436,12 @@ export default function OnboardPage() {
     }
 
     if (step === 2) {
-      const valid = name.trim().length > 0;
+      const valid = name.trim().length > 0 && name.trim().length <= NAME_MAX_LEN;
+      const advance = () => {
+        const err = validateUserInput(name, 'name', NAME_MAX_LEN);
+        if (err) { setError(err); return; }
+        goToStep(3);
+      };
       return (
         <>
           {sessionEmail && (
@@ -428,11 +466,12 @@ export default function OnboardPage() {
               style={inputStyle}
               placeholder="your name"
               autoComplete="given-name"
-              onKeyDown={e => e.key === 'Enter' && valid && goToStep(3)}
+              maxLength={NAME_MAX_LEN}
+              onKeyDown={e => e.key === 'Enter' && valid && advance()}
               autoFocus
             />
           </div>
-          <button style={buttonStyle(valid)} onClick={() => valid && goToStep(3)} disabled={!valid}>
+          <button style={buttonStyle(valid)} onClick={advance} disabled={!valid}>
             next
           </button>
         </>
@@ -440,24 +479,69 @@ export default function OnboardPage() {
     }
 
     if (step === 3) {
-      const valid = goal.trim().length > 0;
+      const isPreset = IDENTITIES.includes(goal);
+      const trimmed = goal.trim();
+      const valid = trimmed.length > 0 && trimmed.length <= GOAL_MAX_LEN;
+      const advance = () => {
+        const err = validateUserInput(goal, 'identity', GOAL_MAX_LEN);
+        if (err) { setError(err); return; }
+        goToStep(4);
+      };
       return (
         <>
           <h1 style={headingStyle}>who are you becoming?</h1>
-          <p style={subStyle}>be specific. one thing.</p>
-          <div style={{ marginBottom: '16px' }}>
-            <span style={labelStyle}>your goal</span>
-            <input
-              type="text"
-              value={goal}
-              onChange={e => setGoal(e.target.value)}
-              style={inputStyle}
-              placeholder="a disciplined entrepreneur, a consistent athlete, a focused student..."
-              onKeyDown={e => e.key === 'Enter' && valid && goToStep(4)}
-              autoFocus
-            />
+          <p style={subStyle}>pick one. or write your own.</p>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: 8,
+            marginBottom: 10,
+          }}>
+            {IDENTITIES.map(identity => {
+              const selected = goal === identity;
+              return (
+                <button
+                  key={identity}
+                  type="button"
+                  onClick={() => setGoal(identity)}
+                  style={{
+                    background: selected ? 'rgba(168,125,240,0.18)' : 'rgba(255,255,255,0.04)',
+                    border: `1px solid ${selected ? '#A87DF0' : 'rgba(255,255,255,0.08)'}`,
+                    borderRadius: 12,
+                    padding: '14px 12px',
+                    color: selected ? '#ffffff' : 'rgba(255,255,255,0.55)',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: 'clamp(13px, 3.5vw, 14px)',
+                    fontWeight: selected ? 600 : 400,
+                    cursor: 'pointer',
+                    textAlign: 'center',
+                    transition: 'all 0.12s',
+                    minHeight: 48,
+                  }}
+                >
+                  {identity}
+                </button>
+              );
+            })}
           </div>
-          <button style={buttonStyle(valid)} onClick={() => valid && goToStep(4)} disabled={!valid}>
+
+          <input
+            type="text"
+            value={isPreset ? '' : goal}
+            onChange={e => setGoal(e.target.value)}
+            style={{
+              ...inputStyle,
+              fontSize: 'clamp(13px, 3.4vw, 14px)',
+              padding: '13px 16px',
+              marginBottom: 16,
+            }}
+            placeholder="or your own..."
+            maxLength={GOAL_MAX_LEN}
+            onKeyDown={e => e.key === 'Enter' && valid && advance()}
+          />
+
+          <button style={buttonStyle(valid)} onClick={advance} disabled={!valid}>
             next
           </button>
         </>
@@ -465,12 +549,13 @@ export default function OnboardPage() {
     }
 
     if (step === 4) {
-      const valid = isValidPhone(phone);
+      const phoneValid = isValidPhone(phone);
+      const valid = phoneValid && consentChecked;
       return (
         <>
           <h1 style={headingStyle}>what&apos;s your number?</h1>
           <p style={subStyle}>this is how we reach you. daily.</p>
-          <div style={{ marginBottom: '16px' }}>
+          <div style={{ marginBottom: '12px' }}>
             <span style={labelStyle}>phone</span>
             <input
               type="tel"
@@ -483,6 +568,55 @@ export default function OnboardPage() {
               autoFocus
             />
           </div>
+
+          <button
+            type="button"
+            onClick={() => setConsentChecked(c => !c)}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 12,
+              width: '100%',
+              padding: '14px 16px',
+              background: 'rgba(255,255,255,0.03)',
+              border: `1px solid ${consentChecked ? '#A87DF0' : 'rgba(255,255,255,0.08)'}`,
+              borderRadius: 12,
+              marginBottom: 20,
+              textAlign: 'left',
+              cursor: 'pointer',
+              transition: 'border-color 0.15s, background 0.15s',
+            }}
+          >
+            <div style={{
+              width: 18,
+              height: 18,
+              minWidth: 18,
+              borderRadius: 4,
+              background: consentChecked ? '#A87DF0' : 'transparent',
+              border: `1px solid ${consentChecked ? '#A87DF0' : 'rgba(255,255,255,0.3)'}`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 1,
+              flexShrink: 0,
+              transition: 'all 0.15s',
+            }}>
+              {consentChecked && (
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                  <path d="M2 5.5l2.5 2.5L9 3.5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
+            <span style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontSize: 'clamp(11px, 3vw, 12px)',
+              lineHeight: 1.5,
+              color: 'rgba(255,255,255,0.55)',
+            }}>
+              by checking this, i agree to receive daily sms check-ins from wrrapd. msg &amp; data rates may apply. text STOP to opt out, HELP for help.
+            </span>
+          </button>
+
           <button style={buttonStyle(valid)} onClick={() => valid && goToStep(5)} disabled={!valid}>
             got it
           </button>
@@ -494,7 +628,7 @@ export default function OnboardPage() {
       return (
         <>
           <h1 style={headingStyle}>when should we check on you?</h1>
-          <p style={subStyle}>we recommend 9pm. the day is done by then.</p>
+          <p style={subStyle}>pick when the day asks you the question.</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
             {TIMES.map(t => {
               const selected = checkInTime === t.value;

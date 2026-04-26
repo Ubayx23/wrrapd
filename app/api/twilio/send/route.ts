@@ -14,7 +14,7 @@ export async function GET() {
   );
 
   const currentHour = new Date().getHours();
-  const trialWindowStart = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+  const trialWindowStart = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
 
   console.log(`[wrrapd/send] running at ${new Date().toISOString()}, current hour: ${currentHour}`);
 
@@ -57,7 +57,7 @@ export async function GET() {
       continue;
     }
 
-    const messageBody = `did you show up for ${user.goal} today?\nreply yes or no. first reply counts.`;
+    const messageBody = `are you someone who's ${user.goal} today?\nreply I am or I am not. first reply counts.`;
 
     console.log(`[wrrapd/send] sending to ${user.phone_number} for goal: ${user.goal}`);
 

@@ -10,8 +10,9 @@ npx tsc --noEmit # Type-check without building
 
 ## Project Overview
 wrrapd (wrrapd.app) is an SMS accountability app for Gen Z.
-One text a day. Yes or no. First reply counts.
-$9.99/month after 7 day free trial.
+One text a day. Identity affirmation: "are you someone who's [goal] today?"
+User replies "I am" or "I am not". First reply counts.
+$4.99/month after 14 day free trial.
 
 ## Active Routes
 / — landing page (app/page.tsx or app/landing)
