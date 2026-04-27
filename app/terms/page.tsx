@@ -10,14 +10,17 @@ export default function TermsPage() {
   }, []);
 
   return (
-    <div style={{
-      minHeight: '100dvh',
-      width: '100vw',
-      maxWidth: '100%',
-      background: '#0a0a0a',
-      boxSizing: 'border-box',
-      overflowX: 'hidden',
-    }}>
+    <div
+      className="landing-page"
+      style={{
+        minHeight: '100dvh',
+        width: '100vw',
+        maxWidth: '100%',
+        background: '#0a0a0a',
+        boxSizing: 'border-box',
+        overflowX: 'hidden',
+      }}
+    >
       <div style={{
         width: '100%',
         maxWidth: 680,
@@ -58,7 +61,7 @@ export default function TermsPage() {
           color: 'rgba(255,255,255,0.28)',
           margin: '0 0 48px',
         }}>
-          last updated: april 8, 2026
+          last updated: april 26, 2026
         </p>
 
         <Section title="what wrrapd is">
@@ -115,7 +118,7 @@ export default function TermsPage() {
         <Section title="contact">
           <Body>
             questions about these terms? reach us at{' '}
-            <a href="mailto:ubaydullanoorullah@gmail.com" style={{ color: '#9B5DE5', textDecoration: 'none' }}>
+            <a href="mailto:ubaydullanoorullah@gmail.com" style={{ color: '#A87DF0', textDecoration: 'none' }}>
               ubaydullanoorullah@gmail.com
             </a>
             .

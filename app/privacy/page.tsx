@@ -10,14 +10,17 @@ export default function PrivacyPage() {
   }, []);
 
   return (
-    <div style={{
-      minHeight: '100dvh',
-      width: '100vw',
-      maxWidth: '100%',
-      background: '#0a0a0a',
-      boxSizing: 'border-box',
-      overflowX: 'hidden',
-    }}>
+    <div
+      className="landing-page"
+      style={{
+        minHeight: '100dvh',
+        width: '100vw',
+        maxWidth: '100%',
+        background: '#0a0a0a',
+        boxSizing: 'border-box',
+        overflowX: 'hidden',
+      }}
+    >
       <div style={{
         width: '100%',
         maxWidth: 680,
@@ -58,7 +61,7 @@ export default function PrivacyPage() {
           color: 'rgba(255,255,255,0.28)',
           margin: '0 0 48px',
         }}>
-          last updated: april 8, 2026
+          last updated: april 26, 2026
         </p>
 
         <Section title="what we collect">
@@ -68,7 +71,7 @@ export default function PrivacyPage() {
             'email address',
             'phone number',
             'your daily goal or commitment',
-            'check-in responses (yes or no)',
+            'check-in responses (I am or I am not)',
             'device and browser information',
             'payment method details (processed by Stripe)',
           ]} />
@@ -120,7 +123,7 @@ export default function PrivacyPage() {
         <Section title="deleting your account">
           <Body>
             you can request deletion of your account and all associated data at any time by emailing us at{' '}
-            <a href="mailto:ubaydullanoorullah@gmail.com" style={{ color: '#9B5DE5', textDecoration: 'none' }}>
+            <a href="mailto:ubaydullanoorullah@gmail.com" style={{ color: '#A87DF0', textDecoration: 'none' }}>
               ubaydullanoorullah@gmail.com
             </a>
             . we will process your request within 30 days.
@@ -136,7 +139,7 @@ export default function PrivacyPage() {
         <Section title="contact">
           <Body>
             questions about this policy? reach us at{' '}
-            <a href="mailto:ubaydullanoorullah@gmail.com" style={{ color: '#9B5DE5', textDecoration: 'none' }}>
+            <a href="mailto:ubaydullanoorullah@gmail.com" style={{ color: '#A87DF0', textDecoration: 'none' }}>
               ubaydullanoorullah@gmail.com
             </a>
             .
@@ -199,7 +202,7 @@ function List({ items }: { items: string[] }) {
           <span style={{
             position: 'absolute',
             left: 0,
-            color: 'rgba(155,93,229,0.6)',
+            color: 'rgba(168,125,240,0.6)',
           }}>
             -
           </span>
