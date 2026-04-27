@@ -10,14 +10,17 @@ export default function TermsPage() {
   }, []);
 
   return (
-    <div style={{
-      minHeight: '100dvh',
-      width: '100vw',
-      maxWidth: '100%',
-      background: '#0a0a0a',
-      boxSizing: 'border-box',
-      overflowX: 'hidden',
-    }}>
+    <div
+      className="landing-page"
+      style={{
+        minHeight: '100dvh',
+        width: '100vw',
+        maxWidth: '100%',
+        background: '#0a0a0a',
+        boxSizing: 'border-box',
+        overflowX: 'hidden',
+      }}
+    >
       <div style={{
         width: '100%',
         maxWidth: 680,
@@ -58,21 +61,21 @@ export default function TermsPage() {
           color: 'rgba(255,255,255,0.28)',
           margin: '0 0 48px',
         }}>
-          last updated: april 8, 2026
+          last updated: april 26, 2026
         </p>
 
         <Section title="what wrrapd is">
           <Body>
-            wrrapd is a daily SMS accountability service. once you sign up, we send you one text message per day asking whether you showed up for your stated goal. you reply yes or no. that is the service.
+            wrrapd is a daily SMS accountability service. once you sign up, we send you one text message per day asking whether you are someone who&apos;s living up to your stated identity. you reply &quot;I am&quot; or &quot;I am not&quot;. that is the service.
           </Body>
         </Section>
 
         <Section title="subscription and billing">
           <Body>
-            wrrapd offers a 7-day free trial. no charge is made during the trial period. after the trial ends, your card will be charged $9.99 per month.
+            wrrapd offers a 14-day free trial. no charge is made during the trial period. after the trial ends, you may subscribe for $4.99 per month to continue using the service.
           </Body>
           <Body>
-            by starting the free trial you are agreeing to provide a valid payment method and authorizing recurring charges of $9.99/month after the trial ends.
+            once you subscribe, you authorize recurring charges of $4.99/month. you may cancel anytime from your account settings.
           </Body>
         </Section>
 
@@ -115,7 +118,7 @@ export default function TermsPage() {
         <Section title="contact">
           <Body>
             questions about these terms? reach us at{' '}
-            <a href="mailto:ubaydullanoorullah@gmail.com" style={{ color: '#9B5DE5', textDecoration: 'none' }}>
+            <a href="mailto:ubaydullanoorullah@gmail.com" style={{ color: '#A87DF0', textDecoration: 'none' }}>
               ubaydullanoorullah@gmail.com
             </a>
             .
