@@ -175,7 +175,7 @@ export default function Hero() {
                 letterSpacing: '0.04em',
                 textAlign: 'center',
               }}>
-                dropping april 30.
+                dropping june 1.
               </p>
             </motion.div>
 
