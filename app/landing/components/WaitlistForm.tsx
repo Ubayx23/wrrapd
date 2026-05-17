@@ -29,10 +29,15 @@ export default function WaitlistForm() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [consentChecked, setConsentChecked] = useState(false);
 
   async function handleSubmit() {
     if (!email.trim() || !phone.trim()) {
       setError('both fields required');
+      return;
+    }
+    if (!consentChecked) {
+      setError('please agree to receive text messages to continue');
       return;
     }
     setLoading(true);
@@ -81,7 +86,7 @@ export default function WaitlistForm() {
             margin: '0 0 12px',
             letterSpacing: '-1px',
           }}>
-            you&apos;re on the list.
+            You&apos;re on the waitlist.
           </p>
           <p style={{
             fontFamily: 'Poppins, sans-serif',
@@ -89,7 +94,7 @@ export default function WaitlistForm() {
             color: 'rgba(255,250,245,0.45)',
             margin: 0,
           }}>
-            dropping april 30.
+            We&apos;ll text you when wrrapd launches.
           </p>
         </motion.div>
       </section>
@@ -173,7 +178,7 @@ export default function WaitlistForm() {
             lineHeight: 1.6,
           }}
         >
-          dropping april 30. cohort 1 only.
+          dropping june 1. cohort 1 only.
         </motion.p>
 
         <motion.div
@@ -203,9 +208,57 @@ export default function WaitlistForm() {
             onBlur={e => { e.currentTarget.style.border = inputBorderIdle; e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; }}
             onKeyDown={e => e.key === 'Enter' && !loading && handleSubmit()}
           />
+
+          <button
+            type="button"
+            onClick={() => setConsentChecked(c => !c)}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 12,
+              width: '100%',
+              padding: '14px 16px',
+              background: 'rgba(255,255,255,0.04)',
+              border: `1px solid ${consentChecked ? '#A87DF0' : 'rgba(255,255,255,0.12)'}`,
+              borderRadius: 14,
+              textAlign: 'left',
+              cursor: 'pointer',
+              transition: 'border-color 0.15s, background 0.15s',
+            }}
+          >
+            <div style={{
+              width: 18,
+              height: 18,
+              minWidth: 18,
+              borderRadius: 4,
+              background: consentChecked ? '#A87DF0' : 'transparent',
+              border: `1px solid ${consentChecked ? '#A87DF0' : 'rgba(255,255,255,0.3)'}`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 1,
+              flexShrink: 0,
+              transition: 'all 0.15s',
+            }}>
+              {consentChecked && (
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                  <path d="M2 5.5l2.5 2.5L9 3.5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              )}
+            </div>
+            <span style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontSize: 'clamp(11px, 3vw, 12px)',
+              lineHeight: 1.5,
+              color: 'rgba(255,255,255,0.55)',
+            }}>
+              I agree to receive recurring text messages from Wrrapd at the phone number above. Message frequency: 1 per day. Message and data rates may apply. Reply STOP to opt out, HELP for help.
+            </span>
+          </button>
+
           <button
             onClick={handleSubmit}
-            disabled={loading}
+            disabled={loading || !consentChecked}
             style={{
               width: '100%',
               background: '#A87DF0',
@@ -216,8 +269,8 @@ export default function WaitlistForm() {
               fontSize: 'clamp(13px, 2.5vw, 15px)',
               fontFamily: 'Poppins, sans-serif',
               fontWeight: 600,
-              cursor: loading ? 'not-allowed' : 'pointer',
-              opacity: loading ? 0.5 : 1,
+              cursor: (loading || !consentChecked) ? 'not-allowed' : 'pointer',
+              opacity: (loading || !consentChecked) ? 0.5 : 1,
               transition: 'opacity 0.15s, transform 0.15s',
               letterSpacing: '0.01em',
               boxSizing: 'border-box',

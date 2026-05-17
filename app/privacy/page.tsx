@@ -94,6 +94,9 @@ export default function PrivacyPage() {
           <Body>
             to opt out of SMS messages at any time, reply STOP to any message we send. to get help, reply HELP.
           </Body>
+          <Body>
+            we do not share or sell mobile phone numbers to third parties for marketing or promotional purposes.
+          </Body>
         </Section>
 
         <Section title="data sharing">
