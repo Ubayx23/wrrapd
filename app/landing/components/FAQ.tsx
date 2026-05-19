@@ -9,7 +9,7 @@ const FAQS = [
   },
   {
     q: 'what is the wrrapd card?',
-    a: 'it shows your streak and your journey. like spotify wrapped, but for your goals.',
+    a: 'like spotify wrrapd but for your streak and journey.',
   },
   {
     q: 'can I change my goal?',
