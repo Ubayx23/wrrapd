@@ -43,7 +43,7 @@ export default function AnnouncementBanner() {
         margin: 0,
         lineHeight: 1.65,
       }}>
-        heads up. sms check-ins are delayed while we finish carrier setup. this month is on us.
+        heads up. sms check-ins are delayed while we finish carrier setup.
       </p>
       <button
         onClick={dismiss}

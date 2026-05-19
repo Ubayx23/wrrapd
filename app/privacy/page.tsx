@@ -73,7 +73,6 @@ export default function PrivacyPage() {
             'your daily goal or commitment',
             'check-in responses (I am or I am not)',
             'device and browser information',
-            'payment method details (processed by Stripe)',
           ]} />
         </Section>
 
@@ -82,7 +81,6 @@ export default function PrivacyPage() {
           <List items={[
             'send you one daily SMS check-in at your chosen time',
             'track your accountability responses over time',
-            'process subscription payments via Stripe',
             'provide customer support when you contact us',
           ]} />
         </Section>
@@ -107,7 +105,6 @@ export default function PrivacyPage() {
             we work with the following third-party services to operate wrrapd:
           </Body>
           <List items={[
-            'Stripe: payment processing',
             'Twilio: SMS delivery',
             'Supabase: secure database hosting',
             'Vercel: application hosting',
@@ -119,7 +116,7 @@ export default function PrivacyPage() {
 
         <Section title="data retention">
           <Body>
-            we store your data for as long as your account is active. if you cancel your subscription, your data remains stored unless you explicitly request deletion.
+            we store your data for as long as your account is active. your data remains stored unless you explicitly request deletion.
           </Body>
         </Section>
 

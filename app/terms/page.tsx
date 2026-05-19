@@ -70,12 +70,9 @@ export default function TermsPage() {
           </Body>
         </Section>
 
-        <Section title="subscription and billing">
+        <Section title="cost">
           <Body>
-            wrrapd offers a 14-day free trial. no charge is made during the trial period. after the trial ends, you may subscribe for $4.99 per month to continue using the service.
-          </Body>
-          <Body>
-            once you subscribe, you authorize recurring charges of $4.99/month. you may cancel anytime from your account settings.
+            wrrapd is free to use. there is no charge, no subscription, and no payment information is collected.
           </Body>
         </Section>
 
@@ -88,12 +85,9 @@ export default function TermsPage() {
           </Body>
         </Section>
 
-        <Section title="cancellation">
+        <Section title="opting out">
           <Body>
-            you may cancel your subscription at any time through your account settings. cancellation takes effect at the end of the current billing cycle.
-          </Body>
-          <Body>
-            no refunds are issued once a billing cycle has started. if you cancel during a billing period, you retain access until that period ends.
+            you may stop using wrrapd at any time. to stop receiving text messages, reply STOP to any message we send.
           </Body>
         </Section>
 

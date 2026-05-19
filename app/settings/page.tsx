@@ -110,7 +110,6 @@ export default function SettingsPage() {
   const [showTimeSelector, setShowTimeSelector] = useState(false);
   const [selectedTime, setSelectedTime] = useState('08:00');
   const [saving, setSaving] = useState(false);
-  const [isTrial, setIsTrial] = useState(true);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -125,14 +124,12 @@ export default function SettingsPage() {
       setEmail(session.user.email ?? '');
       const { data } = await supabase
         .from('profiles')
-        .select('check_in_time, created_at')
+        .select('check_in_time')
         .eq('id', session.user.id)
         .single();
       if (data) {
         setProfile({ check_in_time: data.check_in_time });
         setSelectedTime(data.check_in_time);
-        const days = Math.floor((Date.now() - new Date(data.created_at).getTime()) / 86400000);
-        setIsTrial(days < 7);
       }
       setLoading(false);
     });
@@ -221,28 +218,6 @@ export default function SettingsPage() {
             <div style={strip}>
               <span style={rowText}>password</span>
               <button style={linkBtn}>change password</button>
-            </div>
-          </div>
-        </div>
-
-        {/* SUBSCRIPTION */}
-        <div style={{ marginBottom: 32 }}>
-          <span style={sectionLabel}>subscription</span>
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-            <div style={strip}>
-              <span style={rowText}>status</span>
-              <span style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 'clamp(12px, 3vw, 13px)',
-                color: isTrial ? '#9B5DE5' : 'rgba(255,255,255,0.4)',
-              }}>
-                {isTrial ? 'free trial' : 'active'}
-              </span>
-            </div>
-            <div style={strip}>
-              <button style={{ ...linkBtn, color: 'rgba(239,68,68,0.6)', fontSize: 'clamp(12px, 3vw, 13px)' }}>
-                cancel subscription
-              </button>
             </div>
           </div>
         </div>
