@@ -29,7 +29,7 @@ export default function PhoneMockupCTA() {
               <div style={{ width: 34, height: 34, borderRadius: 17, background: '#7B68EE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 16, fontWeight: 700, color: '#FFF' }}>W</span>
               </div>
-              <span style={{ fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 11, fontWeight: 700, color: '#111', background: 'rgba(255,255,255,0.22)', border: '0.5px solid rgba(0,0,0,0.05)', borderRadius: 999, padding: '1px 7px' }}>Wrrapd</span>
+              <span style={{ fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif', fontSize: 11, fontWeight: 700, color: '#111', background: 'rgba(255,255,255,0.22)', border: '0.5px solid rgba(0,0,0,0.05)', borderRadius: 999, padding: '1px 7px' }}>wrrapd</span>
             </div>
           </div>
 

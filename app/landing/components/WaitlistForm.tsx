@@ -252,7 +252,7 @@ export default function WaitlistForm() {
               lineHeight: 1.5,
               color: 'rgba(255,255,255,0.55)',
             }}>
-              I agree to receive recurring text messages from Wrrapd at the phone number above. Message frequency: 1 per day. Message and data rates may apply. Reply STOP to opt out, HELP for help.
+              I agree to receive recurring text messages from wrrapd at the phone number above. Message frequency: 1 per day. Message and data rates may apply. Reply STOP to opt out, HELP for help.
             </span>
           </button>
 
