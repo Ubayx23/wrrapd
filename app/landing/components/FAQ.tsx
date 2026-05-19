@@ -8,8 +8,8 @@ const FAQS = [
     a: 'you pick a time, we text you one question. that\'s it.',
   },
   {
-    q: 'what is the wrapped card?',
-    a: 'once a month you get a recap of your streak and your wins. like spotify wrapped but for your goals.',
+    q: 'what is the wrrapd card?',
+    a: 'it shows your streak and your journey.',
   },
   {
     q: 'can I change my goal?',
