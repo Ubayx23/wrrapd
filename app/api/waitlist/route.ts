@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
 
-  let body: { email?: string; phone?: string };
+  let body: { email?: string; phone?: string; consent?: boolean };
   try {
     body = await req.json();
   } catch {
@@ -16,16 +16,23 @@ export async function POST(req: NextRequest) {
 
   const email = body.email?.trim().toLowerCase();
   const phone = body.phone?.trim();
+  const consent = body.consent === true;
 
-  if (!email || !phone) {
-    return NextResponse.json({ error: 'email and phone required' }, { status: 400 });
+  if (!email) {
+    return NextResponse.json({ error: 'email required' }, { status: 400 });
   }
 
-  console.log('[waitlist] inserting:', { email, phone });
+  // Phone is stored only if the user explicitly checked the SMS consent box.
+  // No consent means we ignore any phone the user typed and store email only.
+  const insertPayload: { email: string; phone?: string } = (consent && phone)
+    ? { email, phone }
+    : { email };
+
+  console.log('[waitlist] inserting:', insertPayload);
 
   const { error } = await supabase
     .from('waitlist')
-    .insert({ email, phone });
+    .insert(insertPayload);
 
   if (error) {
     console.error('[waitlist] insert error:', error);

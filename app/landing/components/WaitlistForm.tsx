@@ -32,21 +32,23 @@ export default function WaitlistForm() {
   const [consentChecked, setConsentChecked] = useState(false);
 
   async function handleSubmit() {
-    if (!email.trim() || !phone.trim()) {
-      setError('both fields required');
-      return;
-    }
-    if (!consentChecked) {
-      setError('please agree to receive text messages to continue');
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail.includes('@')) {
+      setError('valid email required');
       return;
     }
     setLoading(true);
     setError('');
     try {
+      const trimmedPhone = phone.trim();
       const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), phone: phone.trim() }),
+        body: JSON.stringify({
+          email: trimmedEmail,
+          phone: trimmedPhone || undefined,
+          consent: consentChecked,
+        }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -258,7 +260,7 @@ export default function WaitlistForm() {
 
           <button
             onClick={handleSubmit}
-            disabled={loading || !consentChecked}
+            disabled={loading || !email.includes('@')}
             style={{
               width: '100%',
               background: '#A87DF0',
@@ -269,8 +271,8 @@ export default function WaitlistForm() {
               fontSize: 'clamp(13px, 2.5vw, 15px)',
               fontFamily: 'Poppins, sans-serif',
               fontWeight: 600,
-              cursor: (loading || !consentChecked) ? 'not-allowed' : 'pointer',
-              opacity: (loading || !consentChecked) ? 0.5 : 1,
+              cursor: (loading || !email.includes('@')) ? 'not-allowed' : 'pointer',
+              opacity: (loading || !email.includes('@')) ? 0.5 : 1,
               transition: 'opacity 0.15s, transform 0.15s',
               letterSpacing: '0.01em',
               boxSizing: 'border-box',
