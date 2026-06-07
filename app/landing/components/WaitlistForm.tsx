@@ -180,7 +180,7 @@ export default function WaitlistForm() {
             lineHeight: 1.6,
           }}
         >
-          dropping june 1. cohort 1 only.
+          dropping soon. cohort 1 only.
         </motion.p>
 
         <motion.div

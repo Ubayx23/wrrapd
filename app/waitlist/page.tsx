@@ -72,7 +72,7 @@ export default function Page() {
           }}
         >
           <span style={{ color: '#b8aff5', fontSize: 12, fontWeight: 700, letterSpacing: 2 }}>
-            APRIL 8 DROP
+            DROPPING SOON
           </span>
         </div>
 
