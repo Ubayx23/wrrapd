@@ -76,13 +76,16 @@ export default function PrivacyPage() {
           ]} />
         </Section>
 
+        <Section title="SMS and mobile information">
+          <Body>
+            We do not share, sell, or provide your mobile phone number or messaging consent data to third parties or affiliates for marketing or promotional purposes. Your phone number is used solely to deliver the wrrapd daily check-in service you signed up for.
+          </Body>
+        </Section>
+
         <Section title="how we use it">
-          <Body>we use your information to:</Body>
-          <List items={[
-            'send you one daily SMS check-in at your chosen time',
-            'track your accountability responses over time',
-            'provide customer support when you contact us',
-          ]} />
+          <Body>
+            We collect your name, email, phone number, and daily check-in responses. This data is used only to: deliver your daily SMS check-in, track your accountability record, and process your subscription. We never use your data for third party marketing.
+          </Body>
         </Section>
 
         <Section title="SMS and phone numbers">
@@ -94,6 +97,12 @@ export default function PrivacyPage() {
           </Body>
           <Body>
             we do not share or sell mobile phone numbers to third parties for marketing or promotional purposes.
+          </Body>
+        </Section>
+
+        <Section title="Messaging program details">
+          <Body>
+            By opting in you agree to receive recurring text messages from wrrapd. Message frequency: 1 message per day. Message and data rates may apply. Reply STOP to opt out at any time. Reply HELP for help. Consent is not a condition of purchase.
           </Body>
         </Section>
 
