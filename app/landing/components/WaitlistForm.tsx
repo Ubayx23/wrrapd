@@ -283,6 +283,35 @@ export default function WaitlistForm() {
           </button>
         </motion.div>
 
+        <p style={{
+          fontFamily: 'Poppins, sans-serif',
+          fontSize: 'clamp(10px, 2.6vw, 11px)',
+          color: 'rgba(255,255,255,0.4)',
+          margin: '14px 0 0',
+          lineHeight: 1.5,
+          textAlign: 'center',
+        }}>
+          by joining, you agree to our{' '}
+          <a href="/privacy" style={{
+            color: 'rgba(168,125,240,0.9)',
+            textDecoration: 'underline',
+            textDecorationColor: 'rgba(168,125,240,0.55)',
+            textUnderlineOffset: 3,
+          }}>
+            privacy policy
+          </a>
+          {' '}and{' '}
+          <a href="/terms" style={{
+            color: 'rgba(168,125,240,0.9)',
+            textDecoration: 'underline',
+            textDecorationColor: 'rgba(168,125,240,0.55)',
+            textUnderlineOffset: 3,
+          }}>
+            terms
+          </a>
+          .
+        </p>
+
         {error && (
           <p style={{
             fontFamily: 'Poppins, sans-serif',
