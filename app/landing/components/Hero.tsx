@@ -1,7 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
 import { BeamsBackground } from './BeamsBackground';
-import PhoneMockup from './PhoneMockup';
 
 export default function Hero() {
 
@@ -182,9 +181,6 @@ export default function Hero() {
                 dropping soon.
               </p>
             </motion.div>
-
-            {/* PHONE MOCKUP */}
-            <PhoneMockup />
 
             {/* Fade gradient at bottom */}
             <div style={{
