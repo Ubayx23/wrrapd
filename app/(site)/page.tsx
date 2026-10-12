@@ -6,8 +6,9 @@ import HowItWorks from "@/components/site/HowItWorks";
 import Knots from "@/components/site/Knots";
 import Nav from "@/components/site/Nav";
 import Note from "@/components/site/Note";
-import PaperMethod from "@/components/site/PaperMethod";
 import Today from "@/components/site/Today";
+import ImageSlot from "@/components/ui/ImageSlot";
+import { today } from "@/content/site";
 
 export default function Home() {
   return (
@@ -16,9 +17,8 @@ export default function Home() {
       <main>
         <Hero />
         <Knots />
-        <Today />
+        <Today background={<ImageSlot src={today.image.src} alt={today.image.alt} fit="cover" fallback="night" />} />
         <HowItWorks />
-        <PaperMethod />
         <Note />
         <Faq />
         <CtaBand />

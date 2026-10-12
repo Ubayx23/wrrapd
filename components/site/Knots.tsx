@@ -29,6 +29,9 @@ function KnotCard({ knot }: { knot: Knot }) {
   return (
     <div>
       <h3 className="font-display text-[clamp(30px,3.4vw,40px)] font-normal leading-[1.05]">{knot.name}</h3>
+      {knot.picture && (
+        <p className="mt-3 font-display text-[22px] italic leading-[1.3] text-ink-2">{knot.picture}</p>
+      )}
 
       <p className={`${label} mt-7`}>{knots.labels.happening}</p>
       <p className="mt-2 text-[16.5px] leading-[1.65] text-ink-2">{knot.happening}</p>

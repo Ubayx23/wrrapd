@@ -5,7 +5,7 @@ export type Link = { label: string; href: string };
 
 export const meta = {
   title: "wrrapd",
-  description: "Untangle your mind, one lesson at a time. A free program for overthinkers.",
+  description: "Untangle your mind, one lesson at a time. Short lessons for overthinkers, then take it to paper.",
   url: "https://wrrapd.app",
   ogImage: "/images/landing/hero.png",
 };
@@ -20,14 +20,12 @@ const links: Link[] = [
 export const nav = {
   logo: "wrrapd.",
   links,
-  cta: { label: "Find your knot", href: "#knots" } satisfies Link,
   menuOpen: "Menu",
   menuClose: "Close",
   menuLabel: "Site navigation",
 };
 
 export const hero = {
-  eyebrow: "a free program for overthinkers",
   title: ["Untangle your mind,", "one lesson at a time."],
   sub: "You don't have a motivation problem. You have a few knots. Learn how each one works, then untie it on paper.",
   cta: { label: "Find your knot", href: "#knots" } satisfies Link,
@@ -42,6 +40,8 @@ export type Knot = {
   slug: string;
   name: string;
   soundsLike: string;
+  /** "Picture it" line from copy v3. Optional until v3 is synced; the card skips it when empty. */
+  picture?: string;
   happening: string;
   ask: string;
   doNow: string;
@@ -110,6 +110,7 @@ export const knots = {
 export const today = {
   eyebrow: "today's thought",
   instruction: "Write it at the top of today's page. Come back to it tonight.",
+  image: { src: "/images/landing/quote.png", alt: "" },
   thoughts: [
     { text: "We suffer more often in imagination than in reality.", source: "Seneca, Letters to Lucilius" },
     {
@@ -159,18 +160,6 @@ export const steps = {
   ],
 };
 
-export const practice = {
-  eyebrow: "the practice",
-  heading: "Five lines, every night.",
-  lines: ["what happened", "what I thought", "what I felt", "what I did", "what the observer notices"],
-  body: [
-    "When something hits you, don't analyze it. Write it in five lines. The first four are the story. The fifth is you stepping out of the story and looking at it. That step back is the practice.",
-    "Seneca did a version of this every night. Before sleep, he went back over his whole day, without excuses and without punishing himself. Just looking.",
-  ],
-  copy: "Copy the five lines",
-  copied: "Copied. Go write.",
-};
-
 export const note = {
   eyebrow: "why this exists",
   body: [
@@ -186,6 +175,10 @@ export const note = {
 export const faq = {
   eyebrow: "before you begin",
   heading: "Fair questions.",
+  sideNote: {
+    text: "Still have a question? Message me on Instagram.",
+    link: { label: "@ubay.xx", href: "https://www.instagram.com/ubay.xx/" } satisfies Link,
+  },
   items: [
     {
       question: "Why is wrrapd free?",

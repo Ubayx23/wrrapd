@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Button from "@/components/ui/Button";
 import { nav } from "@/content/site";
 
 const pill = "rounded-full border border-line bg-surface";
@@ -66,16 +65,17 @@ export default function Nav() {
             : "relative z-40"
         }
       >
-        <div className="mx-auto flex h-[76px] w-full max-w-[1100px] items-center px-5 md:h-[88px]">
-          <a
-            href="#top"
-            className={`${pill} inline-flex min-h-[44px] items-center px-4 font-display text-[22px] leading-none no-underline transition-colors duration-150 hover:border-ink-3`}
-          >
-            {nav.logo}
-          </a>
-
-          {/* desktop: pills joined by hairlines */}
-          <span aria-hidden="true" className="mx-3 hidden h-px flex-1 bg-line md:block" />
+        {/* desktop: logo pill, then links centered on the page, hairlines filling both sides */}
+        <div className="mx-auto flex h-[76px] w-full max-w-[1100px] items-center px-5 md:grid md:h-[88px] md:grid-cols-[1fr_auto_1fr]">
+          <div className="flex items-center">
+            <a
+              href="#top"
+              className={`${pill} inline-flex min-h-[44px] items-center px-4 font-display text-[22px] leading-none no-underline transition-colors duration-150 hover:border-ink-3`}
+            >
+              {nav.logo}
+            </a>
+            <span aria-hidden="true" className="mx-3 hidden h-px flex-1 bg-line md:block" />
+          </div>
           <nav aria-label={nav.menuLabel} className={`${pill} hidden items-center px-2 md:flex`}>
             <ul className="flex items-center">
               {nav.links.map((link) => (
@@ -90,10 +90,7 @@ export default function Nav() {
               ))}
             </ul>
           </nav>
-          <span aria-hidden="true" className="mx-3 hidden h-px flex-1 bg-line md:block" />
-          <Button href={nav.cta.href} className="hidden md:inline-flex">
-            {nav.cta.label}
-          </Button>
+          <span aria-hidden="true" className="ml-3 hidden h-px bg-line md:block" />
 
           {/* mobile */}
           <button
@@ -143,9 +140,6 @@ export default function Nav() {
                   </li>
                 ))}
               </ul>
-              <Button href={nav.cta.href} onClick={() => setOpen(false)} className="mt-6 w-full">
-                {nav.cta.label}
-              </Button>
             </div>
           )}
           {open && (

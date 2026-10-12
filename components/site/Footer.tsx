@@ -3,7 +3,8 @@ import { footer } from "@/content/site";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line">
+    // No top border: the closing band's image fades out underneath, so the footer slides up over its tail.
+    <footer className="relative z-10 -mt-12 sm:-mt-[7vw]">
       <Container className="grid grid-cols-1 gap-10 pb-10 pt-14 sm:grid-cols-[2fr_1fr_1fr] md:pt-16">
         <div>
           <p className="font-display text-[28px] leading-none">{footer.logo}</p>

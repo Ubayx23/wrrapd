@@ -10,7 +10,9 @@ type Props = {
   /** Where to focus the crop when src stands in for a missing mobileSrc. */
   mobileFocus?: string;
   /** What to render when src itself is missing. */
-  fallback?: "fade" | "none";
+  fallback?: "fade" | "night" | "none";
+  /** width: full width at natural height. cover: fill the parent box (the parent sets the size). */
+  fit?: "width" | "cover";
   priority?: boolean;
   className?: string;
 };
@@ -27,12 +29,16 @@ export default function ImageSlot({
   mobileSrc,
   mobileFocus = "34% 50%",
   fallback = "none",
+  fit = "width",
   priority = false,
   className,
 }: Props) {
   const size = publicFileExists(src) ? pngSize(src) : null;
 
   if (!size) {
+    if (fallback === "night") {
+      return <div aria-hidden="true" className={cn("h-full w-full bg-night", className)} />;
+    }
     if (fallback === "fade") {
       return (
         <div
@@ -45,6 +51,20 @@ export default function ImageSlot({
   }
 
   const loading = priority ? { priority: true } : { loading: "lazy" as const };
+
+  if (fit === "cover") {
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={SIZES}
+        {...loading}
+        className={cn("object-cover", className)}
+        style={{ objectPosition: "center" }}
+      />
+    );
+  }
   const mobileSize = mobileSrc && publicFileExists(mobileSrc) ? pngSize(mobileSrc) : null;
 
   // Art direction: a dedicated mobile file under 640px, the wide file above.

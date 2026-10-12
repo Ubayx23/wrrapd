@@ -45,10 +45,9 @@ export default function Hero() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 -inset-y-10 -z-10 bg-[radial-gradient(closest-side,rgba(245,238,226,0.85),rgba(245,238,226,0))]"
         />
-        <p className="text-[14px] font-medium text-lavender">{hero.eyebrow}</p>
         <h1
           id="hero-title"
-          className="mt-4 font-display text-[clamp(44px,7.2vw,88px)] font-normal leading-[0.98] tracking-[-0.02em]"
+          className="font-display text-[clamp(44px,7.2vw,88px)] font-normal leading-[0.98] tracking-[-0.02em]"
         >
           {hero.title.map((line) => (
             <span key={line} className="block">

@@ -17,7 +17,7 @@ export default function Signature({ name }: { name: string }) {
           strokeLinecap="round"
           initial={reduce ? false : { pathLength: 0 }}
           whileInView={{ pathLength: 1 }}
-          viewport={{ once: true, margin: "0px 0px -15% 0px" }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.9, ease: [0.3, 0.7, 0.2, 1], delay: 0.2 }}
         />
       </svg>

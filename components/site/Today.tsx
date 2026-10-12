@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 import { today } from "@/content/site";
 
 type Pick = { date: string; text: string; source: string };
@@ -17,7 +18,11 @@ function pickFor(d: Date): Pick {
   return { date, ...thought };
 }
 
-export default function Today() {
+/**
+ * The night sky band. The background is rendered on the server (it needs fs to check the file)
+ * and passed in, so this component only owns the date and the thought.
+ */
+export default function Today({ background }: { background: ReactNode }) {
   // Client only: the date depends on the reader's clock, so the server renders a placeholder.
   const [pick, setPick] = useState<Pick | null>(null);
 
@@ -37,34 +42,41 @@ export default function Today() {
     <section
       id="today"
       aria-labelledby="today-title"
-      className="mt-[72px] scroll-mt-24 border-y border-line py-[96px] md:mt-[120px] md:py-[150px]"
+      // The bottom padding keeps the text above the hills, which fill roughly the lower 28% of the band.
+      className="relative isolate mt-[72px] flex min-h-[480px] scroll-mt-24 flex-col justify-center pb-[190px] pt-16 md:mt-[120px] md:min-h-[max(560px,32vw)] md:pb-[200px] md:pt-20"
     >
-      <Container className="flex flex-col items-center text-center">
-        <h2 id="today-title" className="text-[14px] font-medium text-lavender">
-          {today.eyebrow}
-        </h2>
+      <div className="absolute inset-0 -z-10">{background}</div>
 
-        <div className="mt-5 flex min-h-[180px] w-full flex-col items-center" aria-live="polite">
-          {pick ? (
-            <div className="flex animate-fade-in flex-col items-center motion-reduce:animate-none">
-              <p className="text-[15px] tracking-[0.06em] text-ink-3 [font-variant-caps:all-small-caps]">{pick.date}</p>
-              <blockquote className="mt-6">
-                <p className="max-w-[22em] text-balance font-display text-[clamp(28px,4.2vw,52px)] leading-[1.12] tracking-[-0.01em]">
-                  &ldquo;{pick.text}&rdquo;
+      <Container className="text-center text-bg">
+        <Reveal className="flex flex-col items-center">
+          <h2 id="today-title" className="text-[14px] font-medium text-lavender-light">
+            {today.eyebrow}
+          </h2>
+
+          <div className="mt-4 flex w-full flex-col items-center" aria-live="polite">
+            {pick ? (
+              <div className="flex animate-fade-in flex-col items-center motion-reduce:animate-none">
+                <p className="text-[15px] tracking-[0.06em] text-bg/70 [font-variant-caps:all-small-caps]">
+                  {pick.date}
                 </p>
-                <footer className="mt-5 text-[15px] text-ink-3">{pick.source}</footer>
-              </blockquote>
-            </div>
-          ) : (
-            <div aria-hidden="true" className="flex w-full flex-col items-center gap-4 pt-10">
-              <span className="h-3 w-40 rounded-full bg-line/70" />
-              <span className="mt-4 h-8 w-full max-w-[520px] rounded-full bg-line/60" />
-              <span className="h-8 w-full max-w-[380px] rounded-full bg-line/60" />
-            </div>
-          )}
-        </div>
+                <blockquote className="mt-5">
+                  <p className="max-w-[22em] text-balance font-display text-[clamp(28px,4.2vw,52px)] leading-[1.12] tracking-[-0.01em]">
+                    &ldquo;{pick.text}&rdquo;
+                  </p>
+                  <footer className="mt-5 text-[15px] text-bg/70">{pick.source}</footer>
+                </blockquote>
+              </div>
+            ) : (
+              <div aria-hidden="true" className="flex w-full flex-col items-center gap-4 pt-3">
+                <span className="h-3 w-40 rounded-full bg-bg/15" />
+                <span className="mt-4 h-8 w-full max-w-[520px] rounded-full bg-bg/10" />
+                <span className="h-8 w-full max-w-[380px] rounded-full bg-bg/10" />
+              </div>
+            )}
+          </div>
 
-        <p className="mt-10 text-[16px] text-ink-2">{today.instruction}</p>
+          <p className="mt-8 text-[16px] text-bg">{today.instruction}</p>
+        </Reveal>
       </Container>
     </section>
   );

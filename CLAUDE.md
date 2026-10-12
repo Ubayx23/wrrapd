@@ -15,12 +15,14 @@ Tagline: untangle your mind.
 
 ## Voice
 Calm, honest, like a good tutor. Direct and action first. Never hype, never harsh, never motivational fluff. Short sentences. No em dashes. No emojis.
+Never market 'free' above the FAQ. It only appears in the FAQ and the footer bottom line.
 
 ## Design system
 Tokens (also CSS variables in app/globals.css and colors in tailwind.config.ts):
 - bg #F5EEE2 (matches the paper in the illustrations so their edges disappear into the page), surface #FBF7EF, line #E4DAC8
 - ink #1D1B26, ink-2 #5B5867, ink-3 #8E8A98
 - lavender #7C6FD0 (eyebrow labels and small details only), peach #E9A27F, sage #A9BFA0
+- night #2A2540 and lavender-light #C9C0F2, only for the night sky band (Today). Text on it is bg cream.
 Type: Instrument Serif for headings, Figtree for body.
 Buttons: ink pills (rounded-full), surface-colored text, a small up-right arrow, min height 44px.
 Nav: Trainza style. Logo pill on the left, centered link pill, CTA pill on the right.
@@ -33,7 +35,7 @@ In-app design (map, lessons) is not decided yet. See docs/design/app-later/.
 
 ## Product map
 Live:
-- / : landing page. Sections in order: Hero, The knots, Today, How it works, The practice, A note from Ubay, FAQ, Closing band, Footer.
+- / : landing page. Sections in order: Hero, The knots, Today, How it works, A note from Ubay, FAQ, Closing band, Footer.
 Planned:
 - /map : home. A neuron map of lessons with a feeling filter (overwhelmed, stuck in my head, wanting it too much, getting in my own way, scared to start) that highlights related neurons.
 - /lesson/[slug] : lesson reader, slide by slide
@@ -51,8 +53,8 @@ Next.js 15 App Router, TypeScript, Tailwind CSS 3, Framer Motion, Supabase (auth
 
 ## Structure
 - app/(site)/ : landing route
-- components/site/ : landing sections (Nav, Hero, Knots, Today, HowItWorks, PaperMethod, Note, Faq, CtaBand, Footer)
-- components/ui/ : shared primitives (Button, TornEdge, SectionHeader, Accordion, ImageSlot, Container, Reveal, Parallax, Signature)
+- components/site/ : landing sections (Nav, Hero, Knots, Today, HowItWorks, Note, Faq, CtaBand, Footer)
+- components/ui/ : shared primitives (Button, SectionHeader, Accordion, ImageSlot, Container, Reveal, Parallax, Signature)
 - content/site.ts : all landing copy
 - content/lessons/ : lesson markdown
 - lib/ : helpers
