@@ -225,5 +225,5 @@ export const footer = {
     { heading: "Program", links },
     { heading: "Follow", links: [{ label: "Instagram", href: "#" }] satisfies Link[] },
   ],
-  copyright: "wrrapd. All rights reserved.",
+  copyright: "wrrapd™. All rights reserved.",
 };
