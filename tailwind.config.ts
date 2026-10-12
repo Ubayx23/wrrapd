@@ -5,27 +5,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "wrrapd-navy": "#FFFFFF",
-        "wrrapd-gray": "#07070F",
-        "wrrapd-purple": "#4C3D8F",
-        "wrrapd-accent": "#7B68EE",
+        bg: "#FBFAF7",
+        surface: "#FFFFFF",
+        line: "#ECE8E1",
+        ink: { DEFAULT: "#1D1B26", 2: "#5B5867", 3: "#8E8A98" },
+        lavender: "#7C6FD0",
+        peach: "#E9A27F",
+        sage: "#A9BFA0",
       },
       fontFamily: {
-        space: ['"Space Grotesk"', "sans-serif"],
-        dmsans: ['"DM Sans"', "sans-serif"],
-        playfair: ['"Playfair Display"', "serif"],
-        poppins: ['"Poppins"', "sans-serif"],
-        syne: ['"Syne"', "sans-serif"],
-        outfit: ['"Outfit"', "sans-serif"],
-        bebas: ['"Bebas Neue"', "sans-serif"],
+        display: ["var(--font-instrument-serif)", "Georgia", "serif"],
+        body: ["var(--font-figtree)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
     },
   },
-  plugins: [require("daisyui")],
-  daisyui: {
-    themes: false,
-    base: false,
-  },
+  plugins: [],
 };
 
 export default config;
