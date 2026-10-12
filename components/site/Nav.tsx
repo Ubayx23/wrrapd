@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Logo from "@/components/ui/Logo";
 import { nav } from "@/content/site";
 
 const pill = "rounded-full border border-line bg-surface";
@@ -70,9 +71,10 @@ export default function Nav() {
           <div className="flex items-center">
             <a
               href="#top"
-              className={`${pill} inline-flex min-h-[44px] items-center px-4 font-display text-[22px] leading-none no-underline transition-colors duration-150 hover:border-ink-3`}
+              className={`${pill} inline-flex min-h-[44px] items-center px-4 text-ink no-underline transition-colors duration-150 hover:border-ink-3`}
             >
-              {nav.logo}
+              <Logo />
+              <span className="sr-only">{nav.logo}</span>
             </a>
             <span aria-hidden="true" className="mx-3 hidden h-px flex-1 bg-line md:block" />
           </div>
@@ -114,10 +116,9 @@ export default function Nav() {
               className="fixed inset-x-0 top-0 z-50 border-b border-line bg-bg px-5 pb-8 pt-5 shadow-[0_12px_40px_rgba(29,27,38,0.08)] md:hidden"
             >
               <div className="flex items-center justify-between">
-                <span
-                  className={`${pill} inline-flex min-h-[44px] items-center px-4 font-display text-[22px] leading-none`}
-                >
-                  {nav.logo}
+                <span className={`${pill} inline-flex min-h-[44px] items-center px-4 text-ink`}>
+                  <Logo />
+                  <span className="sr-only">{nav.logo}</span>
                 </span>
                 <button
                   type="button"

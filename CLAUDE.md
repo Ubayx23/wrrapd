@@ -54,7 +54,7 @@ Next.js 15 App Router, TypeScript, Tailwind CSS 3, Framer Motion, Supabase (auth
 ## Structure
 - app/(site)/ : landing route
 - components/site/ : landing sections (Nav, Hero, Knots, Today, HowItWorks, Note, Faq, CtaBand, Footer)
-- components/ui/ : shared primitives (Button, SectionHeader, Accordion, ImageSlot, Container, Reveal, Parallax, Signature)
+- components/ui/ : shared primitives (Button, SectionHeader, Accordion, ImageSlot, Container, Reveal, Parallax, Signature, Logo)
 - content/site.ts : all landing copy
 - content/lessons/ : lesson markdown
 - lib/ : helpers
