@@ -2,7 +2,7 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 const base =
-  "group/button inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-ink px-5 text-[15px] font-medium text-surface no-underline transition-colors duration-200 hover:bg-ink/90";
+  "group/button inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-ink px-5 text-[15px] font-medium text-surface no-underline transition-[transform,background-color] duration-150 hover:-translate-y-px hover:bg-ink/90 active:translate-y-0 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined; arrow?: boolean };
 type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; arrow?: boolean };
@@ -14,7 +14,7 @@ function Arrow() {
       height="12"
       viewBox="0 0 12 12"
       aria-hidden="true"
-      className="transition-transform duration-200 group-hover/button:-translate-y-px group-hover/button:translate-x-px motion-reduce:transition-none"
+      className="transition-transform duration-150 group-hover/button:-translate-y-0.5 group-hover/button:translate-x-0.5 motion-reduce:transition-none"
     >
       <path
         d="M3 9 9 3M4.5 3H9v4.5"

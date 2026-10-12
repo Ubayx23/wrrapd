@@ -33,7 +33,7 @@ In-app design (map, lessons) is not decided yet. See docs/design/app-later/.
 
 ## Product map
 Live:
-- / : landing page (in progress)
+- / : landing page. Sections in order: Hero, The knots, Today, How it works, The practice, A note from Ubay, FAQ, Closing band, Footer.
 Planned:
 - /map : home. A neuron map of lessons with a feeling filter (overwhelmed, stuck in my head, wanting it too much, getting in my own way, scared to start) that highlights related neurons.
 - /lesson/[slug] : lesson reader, slide by slide
@@ -51,15 +51,17 @@ Next.js 15 App Router, TypeScript, Tailwind CSS 3, Framer Motion, Supabase (auth
 
 ## Structure
 - app/(site)/ : landing route
-- components/site/ : landing sections (Nav, Hero, Programs, HowItWorks, PaperMethod, Faq, Journal, CtaBand, Footer)
-- components/ui/ : shared primitives (Button, TornEdge, SectionHeader, Accordion, ImageSlot)
+- components/site/ : landing sections (Nav, Hero, Knots, Today, HowItWorks, PaperMethod, Note, Faq, CtaBand, Footer)
+- components/ui/ : shared primitives (Button, TornEdge, SectionHeader, Accordion, ImageSlot, Container, Reveal, Parallax, Signature)
 - content/site.ts : all landing copy
 - content/lessons/ : lesson markdown
 - lib/ : helpers
 - public/images/landing/ : landing illustrations
+- docs/copy/ : landing copy (source of truth)
 - docs/design/landing/ : landing references
 - docs/design/app-later/ : references for the in-app design, not decided yet
 content/site.ts holds all landing copy. Components never hardcode copy.
+docs/copy/landing.md is the source of truth for landing copy. Edit copy there first, then sync content/site.ts.
 
 ## Code rules
 - Server components by default. "use client" only for canvas and interactions.

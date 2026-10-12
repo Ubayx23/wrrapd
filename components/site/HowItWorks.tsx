@@ -5,7 +5,7 @@ import { steps } from "@/content/site";
 
 export default function HowItWorks() {
   return (
-    <section id="how" aria-labelledby="how-title" className="scroll-mt-6 pt-[72px] md:pt-[120px]">
+    <section id="how" aria-labelledby="how-title" className="scroll-mt-24 pt-[72px] md:pt-[120px]">
       <Container>
         <Reveal>
           <SectionHeader id="how-title" eyebrow={steps.eyebrow} heading={steps.heading} />

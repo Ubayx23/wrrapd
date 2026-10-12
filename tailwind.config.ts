@@ -13,6 +13,14 @@ const config: Config = {
         peach: "#E9A27F",
         sage: "#A9BFA0",
       },
+      keyframes: {
+        "nav-in": { from: { transform: "translateY(-100%)" }, to: { transform: "translateY(0)" } },
+        "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
+      },
+      animation: {
+        "nav-in": "nav-in 0.3s ease-out",
+        "fade-in": "fade-in 0.5s ease-out",
+      },
       fontFamily: {
         display: ["var(--font-instrument-serif)", "Georgia", "serif"],
         body: ["var(--font-figtree)", "ui-sans-serif", "system-ui", "sans-serif"],

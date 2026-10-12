@@ -6,7 +6,7 @@ import { faq } from "@/content/site";
 
 export default function Faq() {
   return (
-    <section id="faq" aria-labelledby="faq-title" className="scroll-mt-6 pt-[72px] md:pt-[120px]">
+    <section id="faq" aria-labelledby="faq-title" className="scroll-mt-24 pt-[72px] md:pt-[120px]">
       <Container>
         <Reveal>
           <SectionHeader id="faq-title" eyebrow={faq.eyebrow} heading={faq.heading} />

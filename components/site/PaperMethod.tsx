@@ -55,8 +55,11 @@ export default function PaperMethod() {
             </div>
 
             <div className="min-w-0">
-              <p className="max-w-[30em] text-[17px] leading-[1.6] text-ink-2">{practice.body}</p>
-              <p className="mt-5 text-[17px] font-medium leading-[1.6] text-ink">{practice.note}</p>
+              <div className="max-w-[32em] space-y-5 text-[17px] leading-[1.65] text-ink-2">
+                {practice.body.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Button onClick={copy}>{practice.copy}</Button>
                 <span aria-live="polite" className="text-[14px] text-ink-3">
