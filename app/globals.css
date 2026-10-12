@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --bg: #fbfaf7;
-  --surface: #ffffff;
-  --line: #ece8e1;
+  --bg: #f5eee2;
+  --surface: #fbf7ef;
+  --line: #e4dac8;
   --ink: #1d1b26;
   --ink-2: #5b5867;
   --ink-3: #8e8a98;

@@ -5,9 +5,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#FBFAF7",
-        surface: "#FFFFFF",
-        line: "#ECE8E1",
+        bg: "#F5EEE2",
+        surface: "#FBF7EF",
+        line: "#E4DAC8",
         ink: { DEFAULT: "#1D1B26", 2: "#5B5867", 3: "#8E8A98" },
         lavender: "#7C6FD0",
         peach: "#E9A27F",

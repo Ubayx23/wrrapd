@@ -18,14 +18,14 @@ Calm, honest, like a good tutor. Direct and action first. Never hype, never hars
 
 ## Design system
 Tokens (also CSS variables in app/globals.css and colors in tailwind.config.ts):
-- bg #FBFAF7, surface #FFFFFF, line #ECE8E1
+- bg #F5EEE2 (matches the paper in the illustrations so their edges disappear into the page), surface #FBF7EF, line #E4DAC8
 - ink #1D1B26, ink-2 #5B5867, ink-3 #8E8A98
-- lavender #7C6FD0, peach #E9A27F, sage #A9BFA0
+- lavender #7C6FD0 (eyebrow labels and small details only), peach #E9A27F, sage #A9BFA0
 Type: Instrument Serif for headings, Figtree for body.
-Buttons: ink pills (rounded-full) with a small up-right arrow.
+Buttons: ink pills (rounded-full), surface-colored text, a small up-right arrow, min height 44px.
 Nav: Trainza style. Logo pill on the left, centered link pill, CTA pill on the right.
 Section headers: a small lavender eyebrow on the left and a serif heading on the right, over a hairline.
-Illustrations: painted gouache in lavender, peach and sage, with torn paper edges.
+Illustrations: painted gouache in lavender, peach and sage, with torn paper edges. No border, radius or shadow on illustrations; they blend into the page. Rendered through components/ui/ImageSlot (next/image, with fallbacks when a file is missing).
 Main reference: docs/design/landing/trainza-editorial.png.
 Never use: icon feature grids, stat counters, testimonials, gradient blobs, glassmorphism, emojis, em dashes.
 The landing should feel like a calm studio or program, not a SaaS product.

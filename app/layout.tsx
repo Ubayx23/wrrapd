@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Figtree, Instrument_Serif } from "next/font/google";
+import { meta } from "@/content/site";
+import { pngSize } from "@/lib/image";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -16,24 +18,34 @@ const figtree = Figtree({
   display: "swap",
 });
 
+const ogSize = pngSize(meta.ogImage);
+
 export const metadata: Metadata = {
-  title: "wrrapd",
-  description:
-    "Untangle your mind. Free lessons on how your thoughts work, then take it to paper.",
+  metadataBase: new URL(meta.url),
+  title: meta.title,
+  description: meta.description,
+  openGraph: {
+    title: meta.title,
+    description: meta.description,
+    url: "/",
+    siteName: meta.title,
+    type: "website",
+    images: [{ url: meta.ogImage, ...ogSize, alt: meta.title }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: meta.title,
+    description: meta.description,
+    images: [meta.ogImage],
+  },
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${instrumentSerif.variable} ${figtree.variable}`}
-    >
-      <body
-        className="bg-bg font-body text-ink antialiased"
-        suppressHydrationWarning
-      >
+    <html lang="en" className={`${instrumentSerif.variable} ${figtree.variable}`}>
+      <body className="bg-bg font-body text-ink antialiased" suppressHydrationWarning>
         {children}
       </body>
     </html>
