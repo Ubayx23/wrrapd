@@ -223,7 +223,7 @@ export const footer = {
   blurb: "A free program for overthinkers. Learn how your mind works, then take it to paper.",
   columns: [
     { heading: "Program", links },
-    { heading: "Follow", links: [{ label: "Instagram", href: "#" }] satisfies Link[] },
+    { heading: "Follow", links: [{ label: "Instagram", href: "https://www.instagram.com/ubay.xx/" }] satisfies Link[] },
   ],
   copyright: "wrrapd™. All rights reserved.",
 };
