@@ -92,7 +92,7 @@ export const knots = {
       happening:
         "Wanting turned into needing. Now the thing you want is holding your peace hostage, and every delay feels like a threat.",
       ask: "If I never got this, who would I still be?",
-      doNow: "Write what is yours to do today and underline it. The result isn't on that list. It never was.",
+      doNow: "Think of what you want and clench your fist. Feel how tight that is. Now open your hand and keep thinking about it. You still want it. You just stopped strangling it. Now do one thing today that moves you toward it.",
     },
     {
       slug: "self-sabotage",
