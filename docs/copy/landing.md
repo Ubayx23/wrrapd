@@ -27,7 +27,7 @@ Voice: calm, direct, a little sharp, like a friend who has read the Stoics. Shor
 - Sounds like: "Let me think about it one more time."
 - What's happening: You're not solving the problem. You're replaying it. A thought that keeps repeating isn't giving you new information. It's asking for your attention, and you keep giving it.
 - Ask yourself: If I already knew the answer, what would I do next?
-- Do this now: Write the thought down in one sentence. Under it, write "I'll come back to this at 7pm." Close the notebook.
+- Do this now: Write the thought in one sentence. Under it, write "7pm." Close the notebook and go back to what you were doing. At 7pm, give it 10 minutes. If it still matters, write one next step. If it doesn't, cross it out.
 
 ### 2. The future
 - Sounds like: "What if it all goes wrong?"
