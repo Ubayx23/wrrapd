@@ -47,7 +47,7 @@ export default function Hero() {
         />
         <h1
           id="hero-title"
-          className="font-display text-[clamp(44px,7.2vw,88px)] font-normal leading-[0.98] tracking-[-0.02em]"
+          className="font-display text-[clamp(48px,8.4vw,104px)] font-normal leading-[0.96] tracking-[-0.02em]"
         >
           {hero.title.map((line) => (
             <span key={line} className="block">
@@ -55,10 +55,7 @@ export default function Hero() {
             </span>
           ))}
         </h1>
-        <p className="mx-auto mt-6 max-w-[34em] text-pretty text-[17px] leading-[1.6] text-ink-2 md:text-[18px]">
-          {hero.sub}
-        </p>
-        <Button href={hero.cta.href} className="mt-8">
+        <Button href={hero.cta.href} className="mt-9">
           {hero.cta.label}
         </Button>
       </Container>

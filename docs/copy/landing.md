@@ -13,9 +13,7 @@ Voice: calm, direct, a little sharp, like a friend who has read the Stoics. Shor
 ---
 
 ## Hero
-- Eyebrow: a free program for overthinkers
 - Headline: Untangle your mind, / one lesson at a time.
-- Sub: You don't have a motivation problem. You have a few knots. Learn how each one works, then untie it on paper.
 - Button: Find your knot
 
 ---

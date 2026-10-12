@@ -27,7 +27,6 @@ export const nav = {
 
 export const hero = {
   title: ["Untangle your mind,", "one lesson at a time."],
-  sub: "You don't have a motivation problem. You have a few knots. Learn how each one works, then untie it on paper.",
   cta: { label: "Find your knot", href: "#knots" } satisfies Link,
   image: {
     src: "/images/landing/hero.png",
