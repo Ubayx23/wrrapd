@@ -146,4 +146,4 @@ No. wrrapd teaches how the mind works, the way a good book would. If you're goin
 - Brand: wrrapd. / A free program for overthinkers. Learn how your mind works, then take it to paper.
 - Program: The knots / Today / How it works / FAQ
 - Follow: Instagram
-- Bottom: Free. Built for one overthinker first. / year
+- Bottom: © year wrrapd. All rights reserved.

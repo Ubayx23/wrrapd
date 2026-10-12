@@ -15,7 +15,7 @@ Tagline: untangle your mind.
 
 ## Voice
 Calm, honest, like a good tutor. Direct and action first. Never hype, never harsh, never motivational fluff. Short sentences. No em dashes. No emojis.
-Never market 'free' above the FAQ. It only appears in the FAQ and the footer bottom line.
+Never market 'free' above the FAQ. It only appears in the FAQ and the footer.
 
 ## Design system
 Tokens (also CSS variables in app/globals.css and colors in tailwind.config.ts):

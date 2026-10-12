@@ -30,8 +30,9 @@ export default function Footer() {
       </Container>
       <Container className="pb-[calc(env(safe-area-inset-bottom,0px)+24px)]">
         <div className="flex flex-wrap justify-between gap-x-6 gap-y-1 border-t border-line pt-6 text-[13.5px] text-ink-3">
-          <span>{footer.bottom}</span>
-          <span>{new Date().getFullYear()}</span>
+          <span>
+            &copy; {new Date().getFullYear()} {footer.copyright}
+          </span>
         </div>
       </Container>
     </footer>
