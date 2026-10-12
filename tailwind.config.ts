@@ -5,22 +5,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: { DEFAULT: "#f7efbd", hi: "#fbf6d6" },
-        margin: "rgba(206,92,92,.32)",
-        ink: { DEFAULT: "#1e2a3f", 2: "#4b5669", 3: "#7c8391" },
-        hl: {
-          blue: "#a5c9ef",
-          purple: "#ccb0f0",
-          orange: "#f6ae88",
-          green: "#bfdf99",
-          pink: "#f3aad9",
-        },
-        strand: { fill: "#8fb2f0", edge: "#c46fd1" },
+        bg: "#FBFAF7",
+        surface: "#FFFFFF",
+        line: "#ECE8E1",
+        ink: { DEFAULT: "#1D1B26", 2: "#5B5867", 3: "#8E8A98" },
+        lavender: "#7C6FD0",
+        peach: "#E9A27F",
+        sage: "#A9BFA0",
       },
       fontFamily: {
-        display: ["var(--font-instrument-serif)", "Iowan Old Style", "Georgia", "serif"],
+        display: ["var(--font-instrument-serif)", "Georgia", "serif"],
         body: ["var(--font-figtree)", "ui-sans-serif", "system-ui", "sans-serif"],
-        hand: ["var(--font-caveat)", "Bradley Hand", "cursive"],
       },
     },
   },

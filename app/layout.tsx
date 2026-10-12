@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Caveat, Figtree, Instrument_Serif } from "next/font/google";
+import { Figtree, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -16,12 +16,6 @@ const figtree = Figtree({
   display: "swap",
 });
 
-const caveat = Caveat({
-  subsets: ["latin"],
-  variable: "--font-caveat",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   title: "wrrapd",
   description:
@@ -34,11 +28,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
-      className={`${instrumentSerif.variable} ${figtree.variable} ${caveat.variable}`}
+      className={`${instrumentSerif.variable} ${figtree.variable}`}
     >
       <body
-        className="paper-grid font-body text-ink antialiased"
+        className="bg-bg font-body text-ink antialiased"
         suppressHydrationWarning
       >
         {children}

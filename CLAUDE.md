@@ -17,21 +17,23 @@ Tagline: untangle your mind.
 Calm, honest, like a good tutor. Direct and action first. Never hype, never harsh, never motivational fluff. Short sentences. No em dashes. No emojis.
 
 ## Design system
-One look only: legal pad paper. No dark mode.
-- Paper: #f7efbd with a 24px grid, lines rgba(72,80,58,.13)
-- Paper light (notes, sheets): #fbf6d6
-- Margin line: rgba(206,92,92,.32)
-- Ink: #1e2a3f, ink-2 #4b5669, ink-3 #7c8391
-- Highlighters: blue #a5c9ef, purple #ccb0f0, orange #f6ae88, green #bfdf99, pink #f3aad9
-- Strands (intro knot): fill #8fb2f0, edge #c46fd1
-Type: Instrument Serif (display), Figtree (body), Caveat (handwritten notes, used sparingly).
-Signature details: highlighter swipes behind key words, hand-drawn ink lines (SVG turbulence wobble), torn paper edges, a red margin line, neurons drawn in ink, the strand knot.
-Avoid: gradient buttons, glassmorphism, identical rounded cards, centering everything, decorative stock icons, purple SaaS gradients, Inter.
-References: docs/design/wrrapd-prototype.html is the approved look. docs/design/inspiration/ has the mood references.
+Tokens (also CSS variables in app/globals.css and colors in tailwind.config.ts):
+- bg #FBFAF7, surface #FFFFFF, line #ECE8E1
+- ink #1D1B26, ink-2 #5B5867, ink-3 #8E8A98
+- lavender #7C6FD0, peach #E9A27F, sage #A9BFA0
+Type: Instrument Serif for headings, Figtree for body.
+Buttons: ink pills (rounded-full) with a small up-right arrow.
+Nav: Trainza style. Logo pill on the left, centered link pill, CTA pill on the right.
+Section headers: a small lavender eyebrow on the left and a serif heading on the right, over a hairline.
+Illustrations: painted gouache in lavender, peach and sage, with torn paper edges.
+Main reference: docs/design/landing/trainza-editorial.png.
+Never use: icon feature grids, stat counters, testimonials, gradient blobs, glassmorphism, emojis, em dashes.
+The landing should feel like a calm studio or program, not a SaaS product.
+In-app design (map, lessons) is not decided yet. See docs/design/app-later/.
 
 ## Product map
 Live:
-- / : intro (untangle the knot) then the landing page
+- / : landing page (in progress)
 Planned:
 - /map : home. A neuron map of lessons with a feeling filter (overwhelmed, stuck in my head, wanting it too much, getting in my own way, scared to start) that highlights related neurons.
 - /lesson/[slug] : lesson reader, slide by slide
@@ -48,12 +50,16 @@ Core lessons: overthinking, holding back, the future, attachment, self-sabotage.
 Next.js 15 App Router, TypeScript, Tailwind CSS 3, Framer Motion, Supabase (auth and progress only, not yet wired), Vercel.
 
 ## Structure
-- app/ : routes only
-- components/landing/ : landing sections
-- components/ui/ : shared primitives (Highlight, Button, TornEdge, InkFilter)
-- lib/ : helpers
+- app/(site)/ : landing route
+- components/site/ : landing sections (Nav, Hero, Programs, HowItWorks, PaperMethod, Faq, Journal, CtaBand, Footer)
+- components/ui/ : shared primitives (Button, TornEdge, SectionHeader, Accordion, ImageSlot)
+- content/site.ts : all landing copy
 - content/lessons/ : lesson markdown
-- docs/design/ : prototype and inspiration
+- lib/ : helpers
+- public/images/landing/ : landing illustrations
+- docs/design/landing/ : landing references
+- docs/design/app-later/ : references for the in-app design, not decided yet
+content/site.ts holds all landing copy. Components never hardcode copy.
 
 ## Code rules
 - Server components by default. "use client" only for canvas and interactions.
