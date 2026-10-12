@@ -5,19 +5,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "wrrapd-navy": "#FFFFFF",
-        "wrrapd-gray": "#07070F",
-        "wrrapd-purple": "#4C3D8F",
-        "wrrapd-accent": "#7B68EE",
+        paper: { DEFAULT: "#f7efbd", hi: "#fbf6d6" },
+        margin: "rgba(206,92,92,.32)",
+        ink: { DEFAULT: "#1e2a3f", 2: "#4b5669", 3: "#7c8391" },
+        hl: {
+          blue: "#a5c9ef",
+          purple: "#ccb0f0",
+          orange: "#f6ae88",
+          green: "#bfdf99",
+          pink: "#f3aad9",
+        },
+        strand: { fill: "#8fb2f0", edge: "#c46fd1" },
       },
       fontFamily: {
-        space: ['"Space Grotesk"', "sans-serif"],
-        dmsans: ['"DM Sans"', "sans-serif"],
-        playfair: ['"Playfair Display"', "serif"],
-        poppins: ['"Poppins"', "sans-serif"],
-        syne: ['"Syne"', "sans-serif"],
-        outfit: ['"Outfit"', "sans-serif"],
-        bebas: ['"Bebas Neue"', "sans-serif"],
+        display: ["var(--font-instrument-serif)", "Iowan Old Style", "Georgia", "serif"],
+        body: ["var(--font-figtree)", "ui-sans-serif", "system-ui", "sans-serif"],
+        hand: ["var(--font-caveat)", "Bradley Hand", "cursive"],
       },
     },
   },

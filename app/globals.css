@@ -1,3 +1,102 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --paper: #f7efbd;
+  --paper-hi: #fbf6d6;
+  --grid: rgba(72, 80, 58, 0.13);
+  --margin-line: rgba(206, 92, 92, 0.32);
+  --ink: #1e2a3f;
+  --ink-2: #4b5669;
+  --ink-3: #7c8391;
+  --hl-blue: #a5c9ef;
+  --hl-purple: #ccb0f0;
+  --hl-orange: #f6ae88;
+  --hl-green: #bfdf99;
+  --hl-pink: #f3aad9;
+  --strand-fill: #8fb2f0;
+  --strand-edge: #c46fd1;
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .paper-grid {
+    background-color: var(--paper);
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* highlighter swipe */
+  .hl {
+    background-image: linear-gradient(100deg, transparent 0 2%, var(--hl) 2% 97%, transparent 97%);
+    background-repeat: no-repeat;
+    background-position: 0 62%;
+    background-size: 100% 72%;
+    padding-inline: 0.12em;
+    margin-inline: -0.06em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .hl-draw {
+    animation: hl-draw 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.35s both;
+  }
+  .hl-hover {
+    background-size: 0% 72%;
+    transition: background-size 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .group:hover .hl-hover,
+  .group:focus-within .hl-hover {
+    background-size: 100% 72%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hl-draw {
+      animation: none;
+    }
+    .hl-hover {
+      transition: none;
+    }
+  }
+}
+
+@keyframes hl-draw {
+  from {
+    background-size: 0% 72%;
+  }
+}
+
+/* intro gate: set before first paint by the inline script on / */
+html[data-intro] {
+  overflow: hidden;
+}
+.landing {
+  transition: opacity 0.4s ease;
+}
+html[data-intro] .landing {
+  opacity: 0;
+}
+html[data-intro] .hl-draw {
+  animation-play-state: paused;
+}

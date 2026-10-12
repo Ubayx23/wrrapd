@@ -34,10 +34,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${instrumentSerif.variable} ${figtree.variable} ${caveat.variable}`}
     >
       <body
-        className="bg-[#f7efbd] text-[#1e2a3f] font-[family-name:var(--font-figtree)]"
+        className="paper-grid font-body text-ink antialiased"
         suppressHydrationWarning
       >
         {children}

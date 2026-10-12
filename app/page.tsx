@@ -1,16 +1,27 @@
+import Footer from "@/components/landing/Footer";
+import Hero from "@/components/landing/Hero";
+import HowItWorks from "@/components/landing/HowItWorks";
+import Intro from "@/components/landing/Intro";
+import PaperMethod from "@/components/landing/PaperMethod";
+import InkFilter from "@/components/ui/InkFilter";
+import { introGateScript } from "@/lib/intro";
+
 export default function Home() {
   return (
-    <main
-      className="flex min-h-[100svh] items-center justify-center overflow-x-hidden bg-[#f7efbd] px-5"
-      style={{
-        backgroundImage:
-          "linear-gradient(rgba(72,80,58,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(72,80,58,.13) 1px, transparent 1px)",
-        backgroundSize: "24px 24px",
-      }}
-    >
-      <h1 className="font-[family-name:var(--font-instrument-serif)] text-[clamp(3rem,14vw,7rem)] leading-none text-[#1e2a3f]">
-        wrrapd.
-      </h1>
-    </main>
+    <>
+      <script dangerouslySetInnerHTML={{ __html: introGateScript }} />
+      <InkFilter />
+      <Intro />
+      <div id="landing" className="landing overflow-x-hidden">
+        <div className="mx-auto max-w-[1120px] px-4 sm:px-5">
+          <Hero />
+          <main>
+            <HowItWorks />
+            <PaperMethod />
+          </main>
+          <Footer />
+        </div>
+      </div>
+    </>
   );
 }
