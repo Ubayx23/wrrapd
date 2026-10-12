@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="24 -20 272 272">
+  <!-- Tab icon. Same knot path as public/images/landing/logo.svg, framed square around the knot,
+       with a heavier stroke so it still reads at 16px. -->
+  <rect x="24" y="-20" width="272" height="272" rx="52" fill="#F5EEE2"/>
+  <path d="M44 120 C44 76 97 63 127 94 C158 126 131 170 94 157 C60 146 68 98 108 88 C148 78 168 119 196 120 C218 121 238 120 276 120"
+        fill="none" stroke="#1D1B26" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
