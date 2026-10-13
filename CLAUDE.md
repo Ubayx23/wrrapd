@@ -28,6 +28,7 @@ Tokens (also CSS variables in app/globals.css and colors in tailwind.config.ts):
 - night #2A2540 and lavender-light #C9C0F2, only for the night sky band (Today). Text on it is bg cream.
 Type: Instrument Serif for headings, Figtree for body.
 Buttons: ink pills (rounded-full), surface-colored text, a small up-right arrow, min height 44px.
+Cursor: ThreadCursor, a dot with a trailing thread that tangles when you move fast and straightens when you slow down. Desktop only.
 Nav: Trainza style. Logo pill on the left, centered link pill, CTA pill on the right.
 Section headers: a small lavender eyebrow on the left and a serif heading on the right, over a hairline.
 Illustrations: painted gouache in lavender, peach and sage, with torn paper edges. No border, radius or shadow on illustrations; they blend into the page. Rendered through components/ui/ImageSlot (next/image, with fallbacks when a file is missing).
