@@ -12,6 +12,7 @@ export const meta = {
 
 const links: Link[] = [
   { label: "The knots", href: "#knots" },
+  { label: "The map", href: "#map" },
   { label: "Today", href: "#today" },
   { label: "How it works", href: "#how" },
   { label: "FAQ", href: "#faq" },
@@ -27,6 +28,7 @@ export const nav = {
 
 export const hero = {
   title: ["Untangle your mind,", "one lesson at a time."],
+  subtitle: "Learn how your mind works. Use it today. Remember it next week.",
   cta: { label: "Find your knot", href: "#knots" } satisfies Link,
   image: {
     src: "/images/landing/hero.png",
@@ -142,21 +144,83 @@ export const today = {
 
 export const steps = {
   eyebrow: "how it works",
-  heading: "Learn it. Write it. Notice it.",
+  heading: "Learn it. Use it. Recall it.",
   items: [
     {
       title: "Learn it",
-      body: "Each lesson takes one knot apart. What it is, why your mind does it, how it shows up in you, and what to do about it. Five minutes, no fluff.",
+      body: 'One knot, one short lesson. What it is, why your mind does it, and how it shows up in you. Five minutes, then it stops. No feed, no "up next".',
     },
     {
-      title: "Write it",
-      body: "Every lesson ends with one question for your notebook. Paper, not a screen. You remember what you write by hand, and nobody reads it but you.",
+      title: "Use it",
+      body: "Every lesson ends with something to do today and one sentence to write in your own words, by hand. Reading isn't the lesson. Doing it is.",
     },
     {
-      title: "Notice it",
-      body: "After a while, you catch the knot while it's forming. That's the whole skill. Seeing it from the outside is what loosens it.",
+      title: "Recall it",
+      body: "wrrapd asks you about it again after a day, three days and a week. Each time you remember, the connection gets stronger, and it shows up on your map.",
     },
   ],
+};
+
+export type MapNode = { slug: string; label: string; core?: boolean };
+
+export const map = {
+  eyebrow: "your map",
+  heading: "Watch your mind connect.",
+  body: "Every lesson is a neuron. Every time you use one, it lights up and connects to the others. Overthinking links to the future. Attachment links to holding back. Over time you don't just remember lessons. You start to see how your patterns feed each other.",
+  tabsLabel: "Map stage",
+  /** One per tab, in order. alt describes the map in that state for screen readers. */
+  states: [
+    {
+      label: "Learn it",
+      caption: "A new neuron appears.",
+      alt: "A map of fifteen lessons drawn as neurons. Everything is faint except overthinking, the one you just learned.",
+    },
+    {
+      label: "Use it",
+      caption: "It lights up when you actually do the action, not when you read it.",
+      alt: "Overthinking lights up in lavender and connects to thoughts aren't facts, the observer and the future.",
+    },
+    {
+      label: "Recall it",
+      caption: "Every time you remember it, the connection gets stronger.",
+      alt: "The connections from overthinking grow stronger, and new links reach presence, purpose in the moment, the loop and holding back.",
+    },
+  ],
+  footnote: {
+    quote: '"Neurons that fire together wire together."',
+    source: "Hebb's rule, as summarized by neuroscientist Carla Shatz.",
+  },
+  nodes: [
+    { slug: "overthinking", label: "overthinking", core: true },
+    { slug: "the-future", label: "the future", core: true },
+    { slug: "presence", label: "presence" },
+    { slug: "the-observer", label: "the observer" },
+    { slug: "thoughts-arent-facts", label: "thoughts aren't facts" },
+    { slug: "attachment", label: "attachment", core: true },
+    { slug: "wanting-vs-needing", label: "wanting vs needing" },
+    { slug: "enough", label: "enough" },
+    { slug: "holding-back", label: "holding back", core: true },
+    { slug: "fear-of-being-seen", label: "fear of being seen" },
+    { slug: "self-trust", label: "self-trust" },
+    { slug: "self-sabotage", label: "self-sabotage", core: true },
+    { slug: "the-loop", label: "the loop" },
+    { slug: "urges", label: "urges" },
+    { slug: "purpose-in-the-moment", label: "purpose in the moment" },
+  ] satisfies MapNode[],
+};
+
+export const why = {
+  eyebrow: "why there's no AI here",
+  heading: "Your brain is the point.",
+  body: "Scrolling gives you information. AI gives you answers. Neither makes you remember. You keep what you work for: what you write in your own words, use in your own life, and recall a few days later. That's how a thought becomes a connection in your brain, and no app can do that part for you.",
+  research:
+    "In a 2025 MIT study, people who wrote essays with ChatGPT could barely quote what they had just written. Ease feels like learning. It isn't.",
+  rows: [
+    { them: "A feed: you see it.", us: "wrrapd: you do it." },
+    { them: "AI: it explains it to you.", us: "wrrapd: you explain it, in your own words." },
+    { them: "Scrolling: endless.", us: "wrrapd: one lesson, then it stops." },
+  ],
+  closing: ["wrrapd won't think for you.", "That's the whole point."],
 };
 
 export const note = {
@@ -183,6 +247,11 @@ export const faq = {
       question: "Why is wrrapd free?",
       answer:
         "Because the ideas aren't mine to sell. Most of what's here comes from the Stoics, the Buddha and modern psychology, and some of it is over two thousand years old. I'm putting it in one place and making it easier to use. Something meant to make your mind lighter shouldn't come with a bill.",
+    },
+    {
+      question: "Why is there no AI in wrrapd?",
+      answer:
+        "Because the work is the point. AI can explain a lesson in seconds, and you'd forget it just as fast. wrrapd gives you the idea, then gets out of the way so your own brain does the work. That's the part that sticks.",
     },
     {
       question: "What's the catch?",

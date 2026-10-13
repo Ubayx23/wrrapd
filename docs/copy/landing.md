@@ -1,4 +1,4 @@
-# wrrapd landing copy (v2)
+# wrrapd landing copy (v3)
 
 Source of truth for every word on the landing page. Edit here, then have Claude Code sync content/site.ts.
 Voice: calm, direct, a little sharp, like a friend who has read the Stoics. Short sentences. No em dashes. No emojis.
@@ -7,13 +7,14 @@ Voice: calm, direct, a little sharp, like a friend who has read the Stoics. Shor
 
 ## Nav
 - wrrapd.
-- Links: The knots (#knots) / Today (#today) / How it works (#how) / FAQ (#faq)
+- Links: The knots (#knots) / The map (#map) / Today (#today) / How it works (#how) / FAQ (#faq)
 - Button: Find your knot (#knots)
 
 ---
 
 ## Hero
 - Headline: Untangle your mind, / one lesson at a time.
+- Line under the headline: Learn how your mind works. Use it today. Remember it next week.
 - Button: Find your knot
 
 ---
@@ -57,6 +58,45 @@ Card footer for every knot: "The full lesson is being written. For now, take thi
 
 ---
 
+## How it works (id="how")
+- Eyebrow: how it works
+- Heading: Learn it. Use it. Recall it.
+1. Learn it: One knot, one short lesson. What it is, why your mind does it, and how it shows up in you. Five minutes, then it stops. No feed, no "up next".
+2. Use it: Every lesson ends with something to do today and one sentence to write in your own words, by hand. Reading isn't the lesson. Doing it is.
+3. Recall it: wrrapd asks you about it again after a day, three days and a week. Each time you remember, the connection gets stronger, and it shows up on your map.
+
+---
+
+## The map (id="map")
+- Eyebrow: your map
+- Heading: Watch your mind connect.
+- Body: Every lesson is a neuron. Every time you use one, it lights up and connects to the others. Overthinking links to the future. Attachment links to holding back. Over time you don't just remember lessons. You start to see how your patterns feed each other.
+- Tabs (they drive the map). Group label for screen readers: Map stage
+  - Learn it: A new neuron appears.
+  - Use it: It lights up when you actually do the action, not when you read it.
+  - Recall it: Every time you remember it, the connection gets stronger.
+- Footnote: "Neurons that fire together wire together." Hebb's rule, as summarized by neuroscientist Carla Shatz.
+- Neuron labels: overthinking, the future, presence, the observer, thoughts aren't facts, attachment, wanting vs needing, enough, holding back, fear of being seen, self-trust, self-sabotage, the loop, urges, purpose in the moment. The five core knots are overthinking, the future, attachment, holding back and self-sabotage.
+- Map description for screen readers, one per tab:
+  - Learn it: A map of fifteen lessons drawn as neurons. Everything is faint except overthinking, the one you just learned.
+  - Use it: Overthinking lights up in lavender and connects to thoughts aren't facts, the observer and the future.
+  - Recall it: The connections from overthinking grow stronger, and new links reach presence, purpose in the moment, the loop and holding back.
+
+---
+
+## Why no AI (id="why")
+- Eyebrow: why there's no AI here
+- Heading: Your brain is the point.
+- Body: Scrolling gives you information. AI gives you answers. Neither makes you remember. You keep what you work for: what you write in your own words, use in your own life, and recall a few days later. That's how a thought becomes a connection in your brain, and no app can do that part for you.
+- Research line: In a 2025 MIT study, people who wrote essays with ChatGPT could barely quote what they had just written. Ease feels like learning. It isn't.
+- Contrast rows:
+  - A feed: you see it. / wrrapd: you do it.
+  - AI: it explains it to you. / wrrapd: you explain it, in your own words.
+  - Scrolling: endless. / wrrapd: one lesson, then it stops.
+- Closing line: wrrapd won't think for you. / That's the whole point.
+
+---
+
 ## Today (id="today")
 - Eyebrow: today's thought
 - Show today's date (e.g. "Monday, October 12"). Pick the thought by day of the year, cycling through the list.
@@ -77,15 +117,6 @@ Thoughts:
 12. "Presence isn't calm. It's coming back, again and again." / wrrapd
 13. "Your notebook is the one place you don't have to perform." / wrrapd
 14. "You can care fully and still hold it loosely." / wrrapd
-
----
-
-## How it works (id="how")
-- Eyebrow: how it works
-- Heading: Learn it. Write it. Notice it.
-1. Learn it: Each lesson takes one knot apart. What it is, why your mind does it, how it shows up in you, and what to do about it. Five minutes, no fluff.
-2. Write it: Every lesson ends with one question for your notebook. Paper, not a screen. You remember what you write by hand, and nobody reads it but you.
-3. Notice it: After a while, you catch the knot while it's forming. That's the whole skill. Seeing it from the outside is what loosens it.
 
 ---
 
@@ -119,6 +150,9 @@ Thoughts:
 Why is wrrapd free?
 Because the ideas aren't mine to sell. Most of what's here comes from the Stoics, the Buddha and modern psychology, and some of it is over two thousand years old. I'm putting it in one place and making it easier to use. Something meant to make your mind lighter shouldn't come with a bill.
 
+Why is there no AI in wrrapd?
+Because the work is the point. AI can explain a lesson in seconds, and you'd forget it just as fast. wrrapd gives you the idea, then gets out of the way so your own brain does the work. That's the part that sticks.
+
 What's the catch?
 There isn't one. No ads, no selling your data, no premium tier waiting at lesson six. If wrrapd ever needs money to keep running, there will be a donate button, and it will always be optional.
 
@@ -144,6 +178,6 @@ No. wrrapd teaches how the mind works, the way a good book would. If you're goin
 
 ## Footer
 - Brand: wrrapd. / A free program for overthinkers. Learn how your mind works, then take it to paper.
-- Program: The knots / Today / How it works / FAQ
+- Program: The knots / The map / Today / How it works / FAQ
 - Follow: Instagram
 - Bottom: © year wrrapd™. All rights reserved.

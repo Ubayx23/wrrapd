@@ -1,5 +1,8 @@
 # CLAUDE.md
 
+## Core idea
+Instagram gives you information. AI gives you answers. wrrapd makes your brain do the work. Every feature follows the loop: learn it, use it, recall it. One lesson at a time, no feed, no AI explanations. Progress counts what you used and remembered, not what you read.
+
 ## What wrrapd is
 wrrapd is a free reflection platform for overthinkers. It teaches you how your mind works through short, deep lessons, then sends you to your own notebook to reflect. Built by Ubay for himself first, shared on Instagram.
 Tagline: untangle your mind.
@@ -35,7 +38,7 @@ In-app design (map, lessons) is not decided yet. See docs/design/app-later/.
 
 ## Product map
 Live:
-- / : landing page. Sections in order: Hero, The knots, Today, How it works, A note from Ubay, FAQ, Closing band, Footer.
+- / : landing page. Sections in order: Hero, The knots, How it works, The map, Why no AI, Today, A note from Ubay, FAQ, Closing band, Footer.
 Planned:
 - /map : home. A neuron map of lessons with a feeling filter (overwhelmed, stuck in my head, wanting it too much, getting in my own way, scared to start) that highlights related neurons.
 - /lesson/[slug] : lesson reader, slide by slide
@@ -53,7 +56,7 @@ Next.js 15 App Router, TypeScript, Tailwind CSS 3, Framer Motion, Supabase (auth
 
 ## Structure
 - app/(site)/ : landing route
-- components/site/ : landing sections (Nav, Hero, Knots, Today, HowItWorks, Note, Faq, CtaBand, Footer)
+- components/site/ : landing sections (Nav, Hero, Knots, HowItWorks, MindMap, WhyNoAi, Today, Note, Faq, CtaBand, Footer)
 - components/ui/ : shared primitives (Button, SectionHeader, Accordion, ImageSlot, Container, Reveal, Parallax, Signature, Logo)
 - content/site.ts : all landing copy
 - content/lessons/ : lesson markdown
