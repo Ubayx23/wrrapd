@@ -13,10 +13,9 @@ const MOUNTAINS_MOBILE = 0.4;
 const GAP = 28;
 
 // Mobile text block, top to button bottom: pt-7, a headline that always balances to 3 lines
-// (its width is capped in em), the 19px line under it on 2 lines after mt-5, mt-9, then the 44px
-// button. Keep in sync with the classes below.
+// (its width is capped in em), mt-9, then the 44px button. Keep in sync with the classes below.
 const MOBILE_H1 = "clamp(36px,11.3vw,44px)";
-const MOBILE_TEXT = `(28px + 3 * 0.96 * var(--h1-mobile) + 20px + 2 * 28.5px + 36px + 44px)`;
+const MOBILE_TEXT = `(28px + 3 * 0.96 * var(--h1-mobile) + 36px + 44px)`;
 const MOBILE_GAP = 8;
 
 /** Distance from the bottom of a full-width, bottom-anchored image to its mountain line, in vw. */
@@ -84,9 +83,6 @@ export default function Hero() {
             </span>
           ))}
         </h1>
-        <p className="mx-auto mt-5 max-w-[19em] text-[19px] leading-[1.5] text-ink-2 max-sm:[text-wrap:balance] sm:max-w-none">
-          {hero.subtitle}
-        </p>
         <Button href={hero.cta.href} className="mt-9">
           {hero.cta.label}
         </Button>

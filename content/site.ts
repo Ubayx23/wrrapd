@@ -5,7 +5,8 @@ export type Link = { label: string; href: string };
 
 export const meta = {
   title: "wrrapd",
-  description: "Untangle your mind, one lesson at a time. Short lessons for overthinkers, then take it to paper.",
+  description:
+    "A program that teaches you principles of the mind, helps you put them to use, and lets you notice the patterns in your own life.",
   url: "https://wrrapd.app",
   ogImage: "/images/landing/hero.png",
 };
@@ -27,7 +28,6 @@ export const nav = {
 
 export const hero = {
   title: ["Untangle your mind,", "one lesson at a time."],
-  subtitle: "Learn how your mind works. Use it today. Remember it next week.",
   cta: { label: "Find your knot", href: "#knots" } satisfies Link,
   image: {
     src: "/images/landing/hero.png",
@@ -40,20 +40,20 @@ export type Knot = {
   slug: string;
   name: string;
   soundsLike: string;
-  /** "Picture it" line from copy v3. Optional until v3 is synced; the card skips it when empty. */
-  picture?: string;
-  happening: string;
-  ask: string;
-  doNow: string;
+  /** The "Picture it" line, shown under the name with no label. */
+  picture: string;
+  principle: string;
+  useToday: string;
+  notice: string;
 };
 
 export const knots = {
   eyebrow: "the five knots",
   heading: "What's loud in your head right now?",
-  intro: "Pick the one that sounds most like you today. That's where you start.",
+  intro: "Every knot is a pattern. Pick the one that sounds like you today.",
   prompt: "Tap the one that sounds like you.",
-  labels: { happening: "What's happening", ask: "Ask yourself", doNow: "Do this now" },
-  footer: "The full lesson is being written. For now, take this question to paper.",
+  labels: { principle: "The principle", useToday: "Use it today", notice: "Notice it" },
+  footer: "The full lesson is being written. For now, take this to paper.",
   copy: "Copy the question",
   copied: "Copied",
   items: [
@@ -61,108 +61,88 @@ export const knots = {
       slug: "overthinking",
       name: "Overthinking",
       soundsLike: "Let me think about it one more time.",
-      happening:
+      picture:
+        "Thinking is walking somewhere. Overthinking is pacing the same room, hoping a door will appear.",
+      principle:
         "You're not solving the problem. You're replaying it. A thought that keeps repeating isn't giving you new information. It's asking for your attention, and you keep giving it.",
-      ask: "If I already knew the answer, what would I do next?",
-      doNow:
+      useToday:
         'Write the thought in one sentence. Under it, write "7pm." Close the notebook and go back to what you were doing. At 7pm, give it 10 minutes. If it still matters, write one next step. If it doesn\'t, cross it out.',
+      notice: "If I already knew the answer, what would I do next?",
     },
     {
       slug: "the-future",
       name: "The future",
       soundsLike: "What if it all goes wrong?",
-      happening:
+      picture:
+        "Worry is carrying tomorrow's bag today. It's heavy, and it isn't even yours yet.",
+      principle:
         "Your mind is living in a day that doesn't exist yet. It rehearses the worst version so you feel prepared, but all it really does is make you live it twice.",
-      ask: "What is the one step in front of me today?",
-      doNow:
+      useToday:
         "Split a page in two. Left: what I can act on this week. Right: what I can't control. Do one thing from the left side. Leave the right side on the page.",
+      notice: "What is the one step in front of me today?",
     },
     {
       slug: "holding-back",
       name: "Holding back",
       soundsLike: "I'll start when I'm ready.",
-      happening:
+      picture:
+        "You can't steer a parked car. Move first, then adjust.",
+      principle:
         "Not starting feels safe, because you can't fail at something you never tried. But waiting to feel ready is just fear with good manners.",
-      ask: "What would I start this week if no one would ever see it fail?",
-      doNow: "Do the smallest version of it in the next ten minutes. One paragraph. One message. One rep.",
+      useToday:
+        "Do the smallest version of it in the next ten minutes. One paragraph. One message. One rep.",
+      notice: "What would I start this week if no one would ever see it fail?",
     },
     {
       slug: "attachment",
       name: "Attachment",
       soundsLike: "I'll be okay once I have it.",
-      happening:
+      picture:
+        "Desire is an open hand. Attachment is a closed fist. You can hold the same thing either way, but only one of them lets you feel it.",
+      principle:
         "Wanting turned into needing. Now the thing you want is holding your peace hostage, and every delay feels like a threat.",
-      ask: "If I never got this, who would I still be?",
-      doNow: "Think of what you want and clench your fist. Feel how tight that is. Now open your hand and keep thinking about it. You still want it. You just stopped strangling it. Now do one thing today that moves you toward it.",
+      useToday:
+        "Think of what you want and clench your fist. Feel how tight that is. Now open your hand and keep thinking about it. You still want it. You just stopped strangling it. Now do one thing today that moves you toward it.",
+      notice: "If I never got this, who would I still be?",
     },
     {
       slug: "self-sabotage",
       name: "Self-sabotage",
       soundsLike: "Why do I keep doing this?",
-      happening:
+      picture:
+        "It's a smoke alarm that goes off every time you cook. It isn't broken. It's just trying too hard to keep you safe.",
+      principle:
         "It isn't laziness. Some part of you is protecting you from something: being seen, being judged, or losing the version of you that you already know.",
-      ask: "What am I afraid would happen if I actually followed through?",
-      doNow: 'Finish this sentence on paper: "The part of me that stops me is trying to protect me from..."',
+      useToday:
+        'Finish this sentence on paper: "The part of me that stops me is trying to protect me from..."',
+      notice: "What am I afraid would happen if I actually followed through?",
     },
   ] satisfies Knot[],
 };
 
-export const today = {
-  eyebrow: "today's thought",
-  instruction: "Write it at the top of today's page. Come back to it tonight.",
-  image: { src: "/images/landing/quote.png", alt: "" },
-  thoughts: [
-    { text: "We suffer more often in imagination than in reality.", source: "Seneca, Letters to Lucilius" },
-    {
-      text: "Men are disturbed not by things, but by the views which they take of things.",
-      source: "Epictetus, Enchiridion",
-    },
-    { text: "All that we are is the result of what we have thought.", source: "The Dhammapada" },
-    {
-      text: "If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it; and this you have the power to revoke at any moment.",
-      source: "Marcus Aurelius, Meditations",
-    },
-    { text: "You have a right to your actions, but never to the fruits of your actions.", source: "Bhagavad Gita" },
-    {
-      text: "Begin at once to live, and count each separate day as a separate life.",
-      source: "Seneca, Letters to Lucilius",
-    },
-    {
-      text: "How much more grievous are the consequences of anger than the causes of it.",
-      source: "Marcus Aurelius, Meditations",
-    },
-    { text: "A thought that repeats isn't new information.", source: "wrrapd" },
-    { text: "Waiting to feel ready is fear with good manners.", source: "wrrapd" },
-    { text: "Define enough before you start, or you'll chase it forever.", source: "wrrapd" },
-    { text: "The part of you that sabotages you is trying to protect you. Ask it from what.", source: "wrrapd" },
-    { text: "Presence isn't calm. It's coming back, again and again.", source: "wrrapd" },
-    { text: "Your notebook is the one place you don't have to perform.", source: "wrrapd" },
-    { text: "You can care fully and still hold it loosely.", source: "wrrapd" },
-  ],
-};
-
-export type MapNode = { slug: string; label: string; core?: boolean };
+/** mobile: one of the seven neurons the small map shows. The rest render only from lg up. */
+export type MapNode = { slug: string; label: string; core?: boolean; mobile?: boolean };
 
 export const how = {
   eyebrow: "how it works",
-  heading: "Watch your mind connect.",
+  heading: "Learn it. Use it. Notice it.",
   tabsLabel: "Steps",
   /** One per step, in order. alt describes the map at that step for screen readers. */
   steps: [
     {
-      label: "Learn it",
-      body: "One knot, one short lesson. A new neuron appears.",
-      alt: "A map of fifteen lessons drawn as neurons. Everything is faint except overthinking, the one you just learned.",
+      label: "Learn the principle",
+      body: "One short lesson on one principle of how your mind works. A new neuron appears.",
+      alt: "A map of lessons drawn as neurons. Everything is faint except overthinking, the principle you just learned.",
     },
     {
-      label: "Use it",
-      body: "Do the action and write it in your own words. The neuron lights up.",
-      alt: "Overthinking lights up in lavender and connects to thoughts aren't facts, the observer and the future.",
+      label: "Put it to use",
+      body: "Every lesson ends with something to do today. Do it, and the neuron lights up.",
+      alt: "You did today's action, so overthinking lights up in lavender and connects to thoughts aren't facts, the observer and the future.",
     },
     {
-      label: "Recall it",
-      body: "wrrapd asks you again in a few days. Every time you remember, the connection gets stronger.",
-      alt: "The connections from overthinking grow stronger, and new links reach presence, purpose in the moment, the loop and holding back.",
+      label: "Notice the pattern",
+      body: "Over time the lessons connect, and you start seeing the same patterns in your own life. Seeing them is what loosens them.",
+      alt: "The connections from overthinking grow stronger, and new links reach further lessons, like presence and holding back. The same pattern shows up across the map.",
     },
   ],
   footnote: {
@@ -170,15 +150,15 @@ export const how = {
     source: "Hebb's rule, as summarized by Carla Shatz.",
   },
   nodes: [
-    { slug: "overthinking", label: "overthinking", core: true },
-    { slug: "the-future", label: "the future", core: true },
-    { slug: "presence", label: "presence" },
-    { slug: "the-observer", label: "the observer" },
-    { slug: "thoughts-arent-facts", label: "thoughts aren't facts" },
-    { slug: "attachment", label: "attachment", core: true },
+    { slug: "overthinking", label: "overthinking", core: true, mobile: true },
+    { slug: "the-future", label: "the future", core: true, mobile: true },
+    { slug: "presence", label: "presence", mobile: true },
+    { slug: "the-observer", label: "the observer", mobile: true },
+    { slug: "thoughts-arent-facts", label: "thoughts aren't facts", mobile: true },
+    { slug: "attachment", label: "attachment", core: true, mobile: true },
     { slug: "wanting-vs-needing", label: "wanting vs needing" },
     { slug: "enough", label: "enough" },
-    { slug: "holding-back", label: "holding back", core: true },
+    { slug: "holding-back", label: "holding back", core: true, mobile: true },
     { slug: "fear-of-being-seen", label: "fear of being seen" },
     { slug: "self-trust", label: "self-trust" },
     { slug: "self-sabotage", label: "self-sabotage", core: true },
@@ -199,7 +179,7 @@ export const faq = {
     {
       question: "Why is wrrapd free?",
       answer:
-        "Because the ideas aren't mine to sell. Most of what's here comes from the Stoics, the Buddha and modern psychology, and some of it is over two thousand years old. I'm putting it in one place and making it easier to use. Something meant to make your mind lighter shouldn't come with a bill.",
+        "Because I don't have all the answers myself. I'm working through the same knots you are, and charging for that would feel wrong. Most of what's here isn't mine anyway. It comes from the Stoics, the Buddha and modern psychology, and some of it is over two thousand years old. I'm just putting it in one place and making it easier to use.",
     },
     {
       question: "What's the catch?",
@@ -209,7 +189,7 @@ export const faq = {
     {
       question: "What can I expect?",
       answer:
-        "Short lessons, each on one knot in your thinking. Some will feel obvious until you write about them. Expect a few uncomfortable questions. Don't expect a fix overnight. You're learning to see your own mind, and that takes reps.",
+        "Short lessons, each on one principle of how your mind works, each ending with something to do that day. Some will feel obvious until you try them. Over time you'll start noticing the same patterns in your own life. That's the point, and it takes reps.",
     },
     {
       question: "Why paper and not an app?",
@@ -248,7 +228,7 @@ export type Interest = (typeof interests)[number]["value"];
 
 export const join = {
   heading: "Help build wrrapd.",
-  sub: "Get each new lesson first, and vote on what we learn next.",
+  sub: "Get each new lesson first, and vote on which knot we take apart next.",
   question: "What do you want to untangle first?",
   otherLabel: "What else?",
   otherMax: 60,

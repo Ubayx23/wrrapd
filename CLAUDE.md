@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 ## Core idea
-Instagram gives you information. AI gives you answers. wrrapd makes your brain do the work. Every feature follows the loop: learn it, use it, recall it. One lesson at a time, no feed, no AI explanations. Progress counts what you used and remembered, not what you read.
+wrrapd is a program that teaches you principles, helps you put them to use, and lets you notice the patterns in your own life. Every section and every lesson follows that order: learn the principle, put it to use, notice the pattern. One lesson at a time, no feed, no AI explanations.
 
 ## What wrrapd is
 wrrapd is a free reflection platform for overthinkers. It teaches you how your mind works through short, deep lessons, then sends you to your own notebook to reflect. Built by Ubay for himself first, shared on Instagram.
@@ -19,13 +19,14 @@ Tagline: untangle your mind.
 ## Voice
 Calm, honest, like a good tutor. Direct and action first. Never hype, never harsh, never motivational fluff. Short sentences. No em dashes. No emojis.
 Never market 'free' above the FAQ. It only appears in the FAQ and the footer.
+The hero has no subheading.
 
 ## Design system
 Tokens (also CSS variables in app/globals.css and colors in tailwind.config.ts):
 - bg #F5EEE2 (matches the paper in the illustrations so their edges disappear into the page), surface #FBF7EF, line #E4DAC8
 - ink #1D1B26, ink-2 #5B5867, ink-3 #8E8A98
 - lavender #7C6FD0 (eyebrow labels and small details only), peach #E9A27F, sage #A9BFA0
-- night #2A2540 and lavender-light #C9C0F2, only for the night sky band (Today). Text on it is bg cream.
+- night #2A2540 (not used on the landing right now), lavender-light #C9C0F2 for lit neurons on the map.
 Type: Instrument Serif for headings, Figtree for body.
 Buttons: ink pills (rounded-full), surface-colored text, a small up-right arrow, min height 44px.
 Cursor: KnotCursor, a small knot of thread around the pointer. It turns slowly at rest, pulls tight into a trefoil when you move fast, loosens when you slow down, and unties into a lavender ring over links. Desktop only.
@@ -57,7 +58,7 @@ Next.js 15 App Router, TypeScript, Tailwind CSS 3, Framer Motion, Supabase (auth
 
 ## Structure
 - app/(site)/ : landing route
-- components/site/ : landing sections (Nav, Hero, HowItWorks, Knots, Faq, Join, JoinForm, Footer). Today is kept but not on the page.
+- components/site/ : landing sections (Nav, Hero, HowItWorks, Knots, Faq, Join, JoinForm, Footer)
 - components/ui/ : shared primitives (Button, SectionHeader, Accordion, ImageSlot, Container, Reveal, Parallax, Logo, KnotCursor)
 - content/site.ts : all landing copy
 - Email list: Supabase table email_list, written only by the server action in app/(site)/actions.ts.

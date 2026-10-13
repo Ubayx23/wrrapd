@@ -53,3 +53,15 @@
     border-radius: 4px;
   }
 }
+
+@layer components {
+  /* One rhythm for the whole page: every section starts 72px (mobile) or 120px (md up) after the one before it.
+     Sections only take top padding, so that gap is the same everywhere. */
+  .section-space {
+    @apply pt-[72px] md:pt-[120px];
+  }
+  /* Body text in every section. */
+  .body-text {
+    @apply text-[16px] leading-[1.6] text-ink-2 md:text-[17px];
+  }
+}

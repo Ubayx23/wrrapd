@@ -16,7 +16,7 @@ function KnotCard({ knot }: { knot: Knot }) {
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(knot.ask);
+      await navigator.clipboard.writeText(knot.notice);
       setCopied(true);
       window.clearTimeout(timer.current);
       timer.current = window.setTimeout(() => setCopied(false), 2000);
@@ -29,20 +29,18 @@ function KnotCard({ knot }: { knot: Knot }) {
   return (
     <div>
       <h3 className="font-display text-[clamp(30px,3.4vw,40px)] font-normal leading-[1.05]">{knot.name}</h3>
-      {knot.picture && (
-        <p className="mt-3 font-display text-[22px] italic leading-[1.3] text-ink-2">{knot.picture}</p>
-      )}
+      <p className="mt-3 font-display text-[22px] italic leading-[1.3] text-ink-2">{knot.picture}</p>
 
-      <p className={`${label} mt-7`}>{knots.labels.happening}</p>
-      <p className="mt-2 text-[16.5px] leading-[1.65] text-ink-2">{knot.happening}</p>
+      <p className={`${label} mt-7`}>{knots.labels.principle}</p>
+      <p className="body-text mt-2">{knot.principle}</p>
 
-      <p className={`${label} mt-7`}>{knots.labels.ask}</p>
+      <p className={`${label} mt-7`}>{knots.labels.useToday}</p>
+      <p className="body-text mt-2">{knot.useToday}</p>
+
+      <p className={`${label} mt-7`}>{knots.labels.notice}</p>
       <p className="mt-2 text-balance font-display text-[clamp(24px,2.6vw,30px)] italic leading-[1.2] text-ink">
-        {knot.ask}
+        {knot.notice}
       </p>
-
-      <p className={`${label} mt-7`}>{knots.labels.doNow}</p>
-      <p className="mt-2 text-[16.5px] leading-[1.65] text-ink-2">{knot.doNow}</p>
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-line pt-5">
         <p className="max-w-[26em] text-[14px] leading-[1.55] text-ink-3">{knots.footer}</p>
@@ -127,11 +125,10 @@ export default function Knots() {
   const card = "rounded-2xl border border-line bg-surface";
 
   return (
-    <section id="knots" aria-labelledby="knots-title" className="scroll-mt-24 pt-[72px] md:pt-[120px]">
+    <section id="knots" aria-labelledby="knots-title" className="section-space scroll-mt-24">
       <Container>
         <Reveal>
-          <SectionHeader id="knots-title" eyebrow={knots.eyebrow} heading={knots.heading} />
-          <p className="mt-6 max-w-[34em] text-[17px] leading-[1.6] text-ink-2">{knots.intro}</p>
+          <SectionHeader id="knots-title" eyebrow={knots.eyebrow} heading={knots.heading} intro={knots.intro} />
         </Reveal>
 
         <div className="mt-10 grid grid-cols-1 gap-10 md:mt-14 md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] md:gap-14">

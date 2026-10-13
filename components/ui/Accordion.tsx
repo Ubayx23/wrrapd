@@ -46,7 +46,7 @@ export default function Accordion({ items }: { items: Item[] }) {
               className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
             >
               <div className="overflow-hidden">
-                <p className="max-w-[38em] px-5 pb-6 text-[17px] leading-[1.65] text-ink-2">{item.answer}</p>
+                <p className="body-text max-w-[38em] px-5 pb-6">{item.answer}</p>
               </div>
             </div>
           </li>
