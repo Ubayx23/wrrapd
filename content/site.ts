@@ -15,7 +15,6 @@ const links: Link[] = [
   { label: "How it works", href: "#how" },
   { label: "The knots", href: "#knots" },
   { label: "FAQ", href: "#faq" },
-  { label: "Join", href: "#join" },
 ];
 
 export const nav = {
@@ -226,10 +225,7 @@ export const faq = {
   ],
 };
 
-export const join = {
-  heading: "Help build wrrapd.",
-  sub: "wrrapd is being built in the open, one lesson at a time. If you want to take part, message me on Instagram.",
-  cta: { label: "Message me on Instagram", href: "https://www.instagram.com/ubay.xx/" } satisfies Link,
+export const closing = {
   image: { src: "/images/landing/cta.png", alt: "" },
 };
 

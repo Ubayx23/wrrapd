@@ -41,7 +41,7 @@ In-app design (map, lessons) is not decided yet. See docs/design/app-later/.
 
 ## Product map
 Live:
-- / : landing page. Sections in order: Hero, How it works (the animated map), The knots, FAQ, Join the list (in the closing band), Footer.
+- / : landing page. Sections in order: Hero, How it works (the animated map), The knots, FAQ, the closing band (painting only), Footer. No join section: the FAQ side note sends people to Instagram.
 Planned:
 - /map : home. A neuron map of lessons with a feeling filter (overwhelmed, stuck in my head, wanting it too much, getting in my own way, scared to start) that highlights related neurons.
 - /lesson/[slug] : lesson reader, slide by slide
@@ -59,7 +59,7 @@ Next.js 15 App Router, TypeScript, Tailwind CSS 3, Framer Motion, Supabase (auth
 
 ## Structure
 - app/(site)/ : landing route
-- components/site/ : landing sections (Nav, Hero, HowItWorks, Knots, Faq, Join, Footer)
+- components/site/ : landing sections (Nav, Hero, HowItWorks, Knots, Faq, Closing, Footer)
 - components/ui/ : shared primitives (Button, SectionHeader, Accordion, ImageSlot, Container, Reveal, Parallax, Logo, KnotCursor)
 - content/site.ts : all landing copy
 - No email collection on the landing. People who want to take part message @ubay.xx on Instagram.

@@ -1,4 +1,4 @@
-# wrrapd landing copy (v7)
+# wrrapd landing copy (v8)
 
 Source of truth for every word on the landing page. Edit here, then have Claude Code sync content/site.ts.
 Voice: calm, direct, a little sharp, like a friend who has read the Stoics. Short sentences. No em dashes. No emojis.
@@ -8,7 +8,7 @@ Core idea: wrrapd is a program of micro lessons, about two minutes each, across 
 
 ## Nav
 - wrrapd.
-- Links: How it works (#how) / The knots (#knots) / FAQ (#faq) / Join (#join)
+- Links: How it works (#how) / The knots (#knots) / FAQ (#faq)
 
 ---
 
@@ -116,11 +116,8 @@ No. wrrapd teaches how the mind works, the way a good book would. If you're goin
 
 ---
 
-## Join (id="join")
-Sits in the closing band, over the painted landscape. No email form: people who want to take part message me on Instagram.
-- Headline: Help build wrrapd.
-- Sub: wrrapd is being built in the open, one lesson at a time. If you want to take part, message me on Instagram.
-- Button: Message me on Instagram (links to https://www.instagram.com/ubay.xx/, opens in a new tab)
+## Closing band
+The painted landscape, no words. There is no join section: the FAQ side note invites people to message me on Instagram.
 
 ---
 
@@ -132,7 +129,7 @@ Sits in the closing band, over the painted landscape. No email form: people who 
 
 ## Footer
 - Brand: wrrapd. / A free program of two-minute lessons for overthinkers. Learn a principle, then use it today.
-- Program: How it works / The knots / FAQ / Join
+- Program: How it works / The knots / FAQ
 - Follow: Instagram
 - Bottom: © year wrrapd™. All rights reserved.
 
