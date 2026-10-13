@@ -13,6 +13,8 @@ type Props = {
   fallback?: "fade" | "night" | "none";
   /** width: full width at natural height. cover: fill the parent box (the parent sets the size). */
   fit?: "width" | "cover";
+  /** cover: under 640px the mobileSrc fills the parent's height, cropped from the bottom center. */
+  mobileFit?: "width" | "cover";
   priority?: boolean;
   className?: string;
 };
@@ -30,6 +32,7 @@ export default function ImageSlot({
   mobileFocus = "34% 50%",
   fallback = "none",
   fit = "width",
+  mobileFit = "width",
   priority = false,
   className,
 }: Props) {
@@ -75,10 +78,16 @@ export default function ImageSlot({
       props: { srcSet: narrowSet },
     } = getImageProps({ ...common, src: mobileSrc, ...mobileSize });
     return (
-      <picture className={cn("block w-full", className)}>
+      <picture className={cn("block w-full", mobileFit === "cover" && "max-sm:h-full", className)}>
         <source media="(max-width: 639px)" srcSet={narrowSet} width={mobileSize.width} height={mobileSize.height} />
         {/* eslint-disable-next-line jsx-a11y/alt-text -- alt is passed through getImageProps */}
-        <img {...wide} className="block h-auto w-full" />
+        <img
+          {...wide}
+          className={cn(
+            "block h-auto w-full",
+            mobileFit === "cover" && "max-sm:h-full max-sm:object-cover max-sm:object-[50%_100%]",
+          )}
+        />
       </picture>
     );
   }
