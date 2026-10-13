@@ -6,7 +6,7 @@ import { faq } from "@/content/site";
 
 export default function Faq() {
   return (
-    <section id="faq" aria-labelledby="faq-title" className="section-space scroll-mt-24">
+    <section id="faq" aria-labelledby="faq-title" className="section-space relative z-10 scroll-mt-24">
       <Container>
         <Reveal className="grid grid-cols-1 items-start gap-10 md:grid-cols-[minmax(0,35fr)_minmax(0,65fr)] md:gap-14">
           {/* left: stays in view while the questions scroll */}
