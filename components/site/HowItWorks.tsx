@@ -16,7 +16,9 @@ import { useEffect, useRef, useState } from "react";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeader from "@/components/ui/SectionHeader";
+import SmallMap from "@/components/site/SmallMap";
 import { fields, how, type Field, type MapNode } from "@/content/site";
+import { clamp, curve, dendrites, type Point } from "@/lib/neurons";
 import { cn } from "@/lib/utils";
 
 // Three progress values drive the whole map, each from 0 to 1:
@@ -36,7 +38,6 @@ const STEP_MS = 2500;
 const PIN_TOP = 112;
 
 // Where each value runs along the scroll story (0 to 1 while the content is pinned).
-const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
 const fromScroll = (p: number) => ({
   learn: clamp(p / 0.15),
   use: clamp((p - 0.3) / 0.2),
@@ -75,7 +76,6 @@ const DIM = 0.3;
 const REST_FROM = 0.14;
 const REST_TO = 0.5;
 
-type Point = [number, number];
 type Edge = [string, string];
 type Side = "left" | "right";
 type Layout = {
@@ -147,82 +147,6 @@ const WIDE: Layout = {
     ["wired-together", "the-stress-response"],
   ],
 };
-
-// Under lg, the seven neurons marked mobile in content/site.ts, hand placed in a fixed 360 x 460 box.
-// The two knots sit on the left with their labels to the left; the five lessons fan out on the right
-// with their labels to the right, so every line runs through the open middle and never under a label.
-const SMALL: Layout = {
-  width: 360,
-  height: 460,
-  at: {
-    "the-predicting-brain": [196, 42],
-    "thoughts-arent-facts": [186, 128],
-    "the-future": [108, 226],
-    "imagined-suffering": [212, 214],
-    "the-second-arrow": [222, 300],
-    "tie-your-camel": [238, 388],
-    overthinking: [128, 410],
-  },
-  side: {
-    "the-predicting-brain": "right",
-    "thoughts-arent-facts": "right",
-    "the-future": "left",
-    "imagined-suffering": "right",
-    "the-second-arrow": "right",
-    "tie-your-camel": "right",
-    overthinking: "left",
-  },
-  base: [
-    ["overthinking", "the-future"],
-    ["overthinking", "tie-your-camel"],
-  ],
-};
-
-/** Small seeded random, so the hand-drawn strokes are the same on the server and the client. */
-function random(seed: number) {
-  let t = seed;
-  return () => {
-    t = (t + 0x6d2b79f5) | 0;
-    let r = Math.imul(t ^ (t >>> 15), 1 | t);
-    r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r;
-    return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-// The direction of the label from its node, in SVG degrees (0 is right, 90 is down).
-const LABEL_ANGLE = { below: 90, right: 0, left: 180 } as const;
-
-/** 4 to 6 short curved dendrites around a node, leaving a 60 degree sector free on the label's side. */
-function dendrites(seed: number, r: number, label: keyof typeof LABEL_ANGLE) {
-  const rand = random(seed * 7919 + 13);
-  const count = 4 + Math.floor(rand() * 3);
-  const start = LABEL_ANGLE[label] + 30;
-  const span = 300;
-  const paths: string[] = [];
-  for (let i = 0; i < count; i++) {
-    const a = ((start + (span / count) * (i + 0.2 + rand() * 0.6)) * Math.PI) / 180;
-    const len = r * (0.45 + rand() * 0.6);
-    const bend = (rand() - 0.5) * 0.7;
-    const sx = Math.cos(a) * r;
-    const sy = Math.sin(a) * r;
-    const ex = Math.cos(a) * (r + len);
-    const ey = Math.sin(a) * (r + len);
-    const cx = Math.cos(a + bend) * (r + len * 0.55);
-    const cy = Math.sin(a + bend) * (r + len * 0.55);
-    paths.push(`M${sx.toFixed(1)} ${sy.toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`);
-  }
-  return paths.join("");
-}
-
-/** A soft ink curve between two nodes, bowed to one side. */
-function curve([x1, y1]: Point, [x2, y2]: Point, i: number) {
-  const mx = (x1 + x2) / 2;
-  const my = (y1 + y2) / 2;
-  const dx = x2 - x1;
-  const dy = y2 - y1;
-  const bow = (i % 2 ? 1 : -1) * 0.12;
-  return `M${x1} ${y1}Q${(mx - dy * bow).toFixed(1)} ${(my + dx * bow).toFixed(1)} ${x2} ${y2}`;
-}
 
 type Progress = { learn: MotionValue<number>; use: MotionValue<number>; recall: MotionValue<number> };
 
@@ -581,14 +505,8 @@ export default function HowItWorks() {
               </div>
 
               <div ref={mapRef} className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center">
-                <Legend className="mb-6 lg:mb-4 lg:justify-end" />
-                <Network
-                  layout={SMALL}
-                  p={p}
-                  step={step}
-                  idPrefix="how-small"
-                  className="mx-auto max-w-[420px] lg:hidden"
-                />
+                <Legend className="mb-4 hidden justify-end lg:flex" />
+                <SmallMap p={p} step={step} idPrefix="how-small" className="mx-auto max-w-[420px] lg:hidden" />
                 <Network layout={WIDE} p={p} step={step} idPrefix="how-wide" className="hidden lg:block" />
               </div>
             </Reveal>
@@ -598,12 +516,12 @@ export default function HowItWorks() {
         <div aria-hidden="true" className="hidden h-[150vh] lg:block motion-reduce:lg:hidden" />
       </div>
 
-      {/* same idea, four fields */}
-      <Container className="mt-12 lg:mt-16">
+      {/* same idea, four fields: desktop only, mobile keeps just the footnote */}
+      <Container className="mt-8 lg:mt-16">
         <Reveal>
           <ul
             aria-label={how.strip.label}
-            className="grid grid-cols-1 gap-6 border-t border-line pt-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8"
+            className="hidden gap-8 border-t border-line pt-8 lg:grid lg:grid-cols-4"
           >
             {how.strip.items.map((item) => (
               <li key={item.field}>
@@ -615,8 +533,8 @@ export default function HowItWorks() {
               </li>
             ))}
           </ul>
-          <p className="mt-8 text-[14px] leading-[1.55] text-ink-3">{how.strip.note}</p>
-          <p className="mt-2 max-w-[40em] text-[14px] leading-[1.55] text-ink-3">
+          <p className="mt-8 hidden text-[14px] leading-[1.55] text-ink-3 lg:block">{how.strip.note}</p>
+          <p className="max-w-[40em] text-[14px] leading-[1.55] text-ink-3 lg:mt-2">
             {how.footnote.quote} {how.footnote.source}
           </p>
         </Reveal>

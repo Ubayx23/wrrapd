@@ -131,9 +131,10 @@ export const fields: { key: Field; label: string }[] = [
 
 /**
  * field: the lesson's field, or "knot" for the five hubs.
- * mobile: one of the seven neurons the small map shows. The rest render only from lg up.
  */
-export type MapNode = { slug: string; label: string; field: Field | "knot"; mobile?: boolean };
+export type SmallMapNode = { slug: string; label: string; core?: boolean };
+
+export type MapNode = { slug: string; label: string; field: Field | "knot" };
 
 export const how = {
   eyebrow: "how it works",
@@ -159,7 +160,24 @@ export const how = {
       alt: "Lines draw from the future to thoughts aren't facts in psychology, imagined suffering and the second arrow in philosophy, and tie your camel in religion. The rest of the map fades in behind. One knot, four fields.",
     },
   ],
-  /** The strip under the map: one idea, said once per field. */
+  /** The smaller lavender map under lg: seven neurons, no fields. alt is one per step. */
+  smallMap: {
+    nodes: [
+      { slug: "overthinking", label: "overthinking", core: true },
+      { slug: "the-future", label: "the future", core: true },
+      { slug: "presence", label: "presence" },
+      { slug: "the-observer", label: "the observer" },
+      { slug: "thoughts-arent-facts", label: "thoughts aren't facts" },
+      { slug: "attachment", label: "attachment", core: true },
+      { slug: "holding-back", label: "holding back", core: true },
+    ] satisfies SmallMapNode[],
+    alts: [
+      "A map of lessons drawn as neurons. Everything is faint except overthinking, the principle you just learned.",
+      "You did today's action, so overthinking lights up in lavender and connects to thoughts aren't facts, the observer and the future.",
+      "The connections from overthinking grow stronger, and new links reach further lessons, like presence and holding back. The same pattern shows up across the map.",
+    ],
+  },
+  /** The strip under the map: one idea, said once per field. Desktop only. */
   strip: {
     label: "Same idea, four fields",
     items: [
@@ -175,21 +193,21 @@ export const how = {
     source: "Hebb's rule, as summarized by Carla Shatz.",
   },
   nodes: [
-    { slug: "overthinking", label: "overthinking", field: "knot", mobile: true },
-    { slug: "the-future", label: "the future", field: "knot", mobile: true },
+    { slug: "overthinking", label: "overthinking", field: "knot" },
+    { slug: "the-future", label: "the future", field: "knot" },
     { slug: "holding-back", label: "holding back", field: "knot" },
     { slug: "attachment", label: "attachment", field: "knot" },
     { slug: "self-sabotage", label: "self-sabotage", field: "knot" },
-    { slug: "the-predicting-brain", label: "the predicting brain", field: "neuroscience", mobile: true },
+    { slug: "the-predicting-brain", label: "the predicting brain", field: "neuroscience" },
     { slug: "wired-together", label: "wired together", field: "neuroscience" },
     { slug: "the-stress-response", label: "the stress response", field: "neuroscience" },
-    { slug: "thoughts-arent-facts", label: "thoughts aren't facts", field: "psychology", mobile: true },
+    { slug: "thoughts-arent-facts", label: "thoughts aren't facts", field: "psychology" },
     { slug: "the-spotlight-effect", label: "the spotlight effect", field: "psychology" },
     { slug: "loss-aversion", label: "loss aversion", field: "psychology" },
-    { slug: "the-second-arrow", label: "the second arrow", field: "philosophy", mobile: true },
-    { slug: "imagined-suffering", label: "imagined suffering", field: "philosophy", mobile: true },
+    { slug: "the-second-arrow", label: "the second arrow", field: "philosophy" },
+    { slug: "imagined-suffering", label: "imagined suffering", field: "philosophy" },
     { slug: "whats-in-your-control", label: "what's in your control", field: "philosophy" },
-    { slug: "tie-your-camel", label: "tie your camel", field: "religion", mobile: true },
+    { slug: "tie-your-camel", label: "tie your camel", field: "religion" },
     { slug: "intention", label: "intention", field: "religion" },
   ] satisfies MapNode[],
 };

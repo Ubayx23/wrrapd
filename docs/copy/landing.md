@@ -1,4 +1,4 @@
-# wrrapd landing copy (v8)
+# wrrapd landing copy (v9)
 
 Source of truth for every word on the landing page. Edit here, then have Claude Code sync content/site.ts.
 Voice: calm, direct, a little sharp, like a friend who has read the Stoics. Short sentences. No em dashes. No emojis.
@@ -24,7 +24,7 @@ The map, told as a scroll story on desktop and as three tabs on mobile.
 - Eyebrow: how it works
 - Heading: One idea. Four fields. All connected.
 - Intro: Two-minute lessons from neuroscience, psychology, philosophy and religion. Each one teaches a principle you can use today.
-- Field legend (chips with a colored dot): Neuroscience / Psychology / Philosophy / Religion
+- Field legend (chips with a colored dot, desktop only): Neuroscience / Psychology / Philosophy / Religion
 1. Learn the principle: One short lesson, one idea. A new neuron appears.
 2. Put it to use: Every lesson ends with something to do today. Do it, and the neuron lights up.
 3. Notice the pattern: The same idea shows up in every field. As the lessons connect, you start seeing the pattern in your own life.
@@ -34,13 +34,19 @@ The map, told as a scroll story on desktop and as three tabs on mobile.
   - Psychology: thoughts aren't facts, the spotlight effect, loss aversion
   - Philosophy: the second arrow, imagined suffering, what's in your control
   - Religion: tie your camel, intention
-  - Mobile shows only: the future, overthinking, the predicting brain, thoughts aren't facts, imagined suffering, the second arrow, tie your camel.
-- Map description for screen readers, one per step:
+- Desktop map description for screen readers, one per step:
   - Learn the principle: A map of two-minute lessons drawn as neurons and colored by field. Everything is faint except the predicting brain, a neuroscience lesson, which has just appeared.
   - Put it to use: The predicting brain fills with blue and glows, and a line draws from it to the future, one of the five knots.
   - Notice the pattern: Lines draw from the future to thoughts aren't facts in psychology, imagined suffering and the second arrow in philosophy, and tie your camel in religion. The rest of the map fades in behind. One knot, four fields.
 
-### Same idea, four fields (strip under the map)
+### Mobile map
+Under 1024px a smaller lavender map with seven neurons and no fields: overthinking, the future, attachment, holding back (knots), thoughts aren't facts, the observer, presence.
+- Map description for screen readers, one per step:
+  - Learn the principle: A map of lessons drawn as neurons. Everything is faint except overthinking, the principle you just learned.
+  - Put it to use: You did today's action, so overthinking lights up in lavender and connects to thoughts aren't facts, the observer and the future.
+  - Notice the pattern: The connections from overthinking grow stronger, and new links reach further lessons, like presence and holding back. The same pattern shows up across the map.
+
+### Same idea, four fields (strip under the map, desktop only)
 Each line has its field dot and field name above it. Group label for screen readers: Same idea, four fields
 - Neuroscience: Your brain predicts what's coming before it sees it. You live partly in a forecast.
 - Psychology: That's why a thought can feel true without being true.
