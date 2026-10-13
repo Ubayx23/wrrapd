@@ -17,10 +17,12 @@ const config: Config = {
       keyframes: {
         "nav-in": { from: { transform: "translateY(-100%)" }, to: { transform: "translateY(0)" } },
         "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
+        "node-pulse": { "0%, 100%": { transform: "scale(1)" }, "50%": { transform: "scale(1.04)" } },
       },
       animation: {
         "nav-in": "nav-in 0.3s ease-out",
         "fade-in": "fade-in 0.5s ease-out",
+        "node-pulse": "node-pulse 3s ease-in-out infinite",
       },
       fontFamily: {
         display: ["var(--font-instrument-serif)", "Georgia", "serif"],

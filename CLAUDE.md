@@ -28,7 +28,7 @@ Tokens (also CSS variables in app/globals.css and colors in tailwind.config.ts):
 - night #2A2540 and lavender-light #C9C0F2, only for the night sky band (Today). Text on it is bg cream.
 Type: Instrument Serif for headings, Figtree for body.
 Buttons: ink pills (rounded-full), surface-colored text, a small up-right arrow, min height 44px.
-Cursor: ThreadCursor, a dot with a trailing thread that tangles when you move fast and straightens when you slow down. Desktop only.
+Cursor: KnotCursor, a small knot of thread around the pointer. It turns slowly at rest, pulls tight into a trefoil when you move fast, loosens when you slow down, and unties into a lavender ring over links. Desktop only.
 Nav: Trainza style. Logo pill on the left, centered link pill, CTA pill on the right.
 Section headers: a small lavender eyebrow on the left and a serif heading on the right, over a hairline.
 Illustrations: painted gouache in lavender, peach and sage, with torn paper edges. No border, radius or shadow on illustrations; they blend into the page. Rendered through components/ui/ImageSlot (next/image, with fallbacks when a file is missing).
@@ -39,7 +39,7 @@ In-app design (map, lessons) is not decided yet. See docs/design/app-later/.
 
 ## Product map
 Live:
-- / : landing page. Sections in order: Hero, The knots, How it works, The map, Why no AI, Today, A note from Ubay, FAQ, Closing band, Footer.
+- / : landing page. Sections in order: Hero, How it works (the animated map), The knots, FAQ, Join the list (in the closing band), Footer.
 Planned:
 - /map : home. A neuron map of lessons with a feeling filter (overwhelmed, stuck in my head, wanting it too much, getting in my own way, scared to start) that highlights related neurons.
 - /lesson/[slug] : lesson reader, slide by slide
@@ -57,9 +57,10 @@ Next.js 15 App Router, TypeScript, Tailwind CSS 3, Framer Motion, Supabase (auth
 
 ## Structure
 - app/(site)/ : landing route
-- components/site/ : landing sections (Nav, Hero, Knots, HowItWorks, MindMap, WhyNoAi, Today, Note, Faq, CtaBand, Footer)
-- components/ui/ : shared primitives (Button, SectionHeader, Accordion, ImageSlot, Container, Reveal, Parallax, Signature, Logo)
+- components/site/ : landing sections (Nav, Hero, HowItWorks, Knots, Faq, Join, JoinForm, Footer). Today is kept but not on the page.
+- components/ui/ : shared primitives (Button, SectionHeader, Accordion, ImageSlot, Container, Reveal, Parallax, Logo, KnotCursor)
 - content/site.ts : all landing copy
+- Email list: Supabase table email_list, written only by the server action in app/(site)/actions.ts.
 - content/lessons/ : lesson markdown
 - lib/ : helpers
 - public/images/landing/ : landing illustrations

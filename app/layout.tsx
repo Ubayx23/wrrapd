@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Figtree, Instrument_Serif } from "next/font/google";
-import ThreadCursor from "@/components/ui/ThreadCursor";
+import KnotCursor from "@/components/ui/KnotCursor";
 import { meta } from "@/content/site";
 import { pngSize } from "@/lib/image";
 import "./globals.css";
@@ -48,7 +48,7 @@ export default function RootLayout({
     <html lang="en" className={`${instrumentSerif.variable} ${figtree.variable}`}>
       <body className="bg-bg font-body text-ink antialiased" suppressHydrationWarning>
         {children}
-        <ThreadCursor />
+        <KnotCursor />
       </body>
     </html>
   );

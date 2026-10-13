@@ -31,19 +31,19 @@
     color: var(--ink);
     overflow-x: hidden;
   }
-  /* ThreadCursor draws the cursor, so hide the native one. Text fields keep the text cursor.
+  /* KnotCursor draws the cursor, so hide the native one. Text fields keep the text cursor.
      While a modal is open (the mobile menu sheet) the native cursor comes back and the canvas hides,
      since the sheet sits inside the header's z-40 layer, below the canvas. */
-  html.thread-cursor-on:not(:has([aria-modal="true"])),
-  html.thread-cursor-on:not(:has([aria-modal="true"])) * {
+  html.custom-cursor-on:not(:has([aria-modal="true"])),
+  html.custom-cursor-on:not(:has([aria-modal="true"])) * {
     cursor: none !important;
   }
-  html:has([aria-modal="true"]) .thread-cursor {
+  html:has([aria-modal="true"]) .custom-cursor {
     visibility: hidden;
   }
-  html.thread-cursor-on textarea,
-  html.thread-cursor-on [contenteditable="true"],
-  html.thread-cursor-on
+  html.custom-cursor-on:not(:has([aria-modal="true"])) textarea,
+  html.custom-cursor-on:not(:has([aria-modal="true"])) [contenteditable="true"],
+  html.custom-cursor-on:not(:has([aria-modal="true"]))
     input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]) {
     cursor: text !important;
   }
