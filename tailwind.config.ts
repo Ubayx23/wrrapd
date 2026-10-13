@@ -13,6 +13,13 @@ const config: Config = {
         night: "#2A2540",
         peach: "#E9A27F",
         sage: "#A9BFA0",
+        // One per field. Only for dots, map nodes, lines and small chips, never text.
+        field: {
+          neuroscience: "#6E9BD8",
+          psychology: "#7C6FD0",
+          philosophy: "#E9A27F",
+          religion: "#8FAF86",
+        },
       },
       keyframes: {
         "nav-in": { from: { transform: "translateY(-100%)" }, to: { transform: "translateY(0)" } },

@@ -16,12 +16,14 @@ import { useEffect, useRef, useState } from "react";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { how, type MapNode } from "@/content/site";
+import { fields, how, type Field, type MapNode } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 // Three progress values drive the whole map, each from 0 to 1:
-//   learn: the first neuron fades in   use: it fills lavender and its links draw in
-//   recall: the links thicken and a second ring grows (the "notice the pattern" step)
+//   learn: the predicting brain (neuroscience) fades in
+//   use: it fills blue and glows, and its line to the future draws in
+//   recall: lines draw from the future to one lesson in each other field, then the rest of the map
+//           fades in behind. One knot, four fields.
 // Desktop (lg, motion allowed) ties them to scroll: the content pins under the nav while a 150vh
 // spacer scrolls past. Below lg a smaller seven neuron map plays the three tab states once on view.
 // Under reduced motion the map sits at the final state with all three steps listed.
@@ -38,11 +40,40 @@ const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
 const fromScroll = (p: number) => ({
   learn: clamp(p / 0.15),
   use: clamp((p - 0.3) / 0.2),
-  recall: clamp((p - 0.62) / 0.2),
+  recall: clamp((p - 0.62) / 0.3),
   step: (p < 0.28 ? 0 : p < 0.6 ? 1 : 2) as Stage,
 });
 
-const FOCUS = "overthinking";
+// The story: one lesson, its knot, and one lesson in each of the other fields.
+const FOCUS = "the-predicting-brain";
+const HUB = "the-future";
+const SPOKES = ["thoughts-arent-facts", "imagined-suffering", "the-second-arrow", "tie-your-camel"];
+const IN_STORY = new Set([FOCUS, HUB, ...SPOKES]);
+
+const INK = "#1D1B26";
+const BG = "#F5EEE2";
+const COLOR: Record<Field, string> = {
+  neuroscience: "#6E9BD8",
+  psychology: "#7C6FD0",
+  philosophy: "#E9A27F",
+  religion: "#8FAF86",
+};
+const DOT: Record<Field, string> = {
+  neuroscience: "bg-field-neuroscience",
+  psychology: "bg-field-psychology",
+  philosophy: "bg-field-philosophy",
+  religion: "bg-field-religion",
+};
+const fieldOf = (slug: string) => how.nodes.find((n) => n.slug === slug)?.field ?? "knot";
+const colorOf = (slug: string) => {
+  const f = fieldOf(slug);
+  return f === "knot" ? INK : COLOR[f];
+};
+
+// Opacity of the story nodes before they light, and of the rest of the map before and after it fades in.
+const DIM = 0.3;
+const REST_FROM = 0.14;
+const REST_TO = 0.5;
 
 type Point = [number, number];
 type Edge = [string, string];
@@ -53,107 +84,99 @@ type Layout = {
   at: Record<string, Point>;
   /** Labels beside the node. Without it, labels sit under each node. */
   side?: Record<string, Side>;
-  /** The faint network. */
+  /** The rest of the map, drawn faint behind the story. */
   base: Edge[];
-  /** Lit when the lesson is used, linked from FOCUS and drawn on top of the faint network. */
-  near: string[];
-  /** The extra ring that fades in on the last step. Not in the faint network, so the map grows. */
-  ring: Edge[];
 };
 
-// Desktop, all fifteen neurons. Labels sit under each node; positions are staggered so no two labels share a line.
+// Desktop, every lesson. Positions came from a small layout search (measured label widths, every link
+// sampled along its curve) and were then fixed here: no label touches another label, a node or a line,
+// and nodes sit at least 82 apart. The future stays in the middle so its four spokes read as one fan.
 const WIDE: Layout = {
   width: 640,
   height: 480,
   at: {
-    overthinking: [235, 200],
-    "thoughts-arent-facts": [90, 110],
-    "the-observer": [265, 58],
-    "the-future": [420, 140],
-    presence: [570, 62],
-    "self-trust": [460, 222],
-    "purpose-in-the-moment": [565, 255],
-    "the-loop": [80, 265],
-    "self-sabotage": [180, 360],
-    urges: [55, 430],
-    "holding-back": [380, 320],
-    "fear-of-being-seen": [300, 440],
-    attachment: [520, 365],
-    "wanting-vs-needing": [465, 445],
-    enough: [600, 440],
+    "the-future": [320, 240],
+    "the-predicting-brain": [365, 65],
+    "thoughts-arent-facts": [191, 305],
+    "imagined-suffering": [414, 404],
+    "the-second-arrow": [292, 109],
+    "tie-your-camel": [165, 191],
+    overthinking: [494, 265],
+    "holding-back": [479, 118],
+    attachment: [480, 29],
+    "self-sabotage": [300, 399],
+    "wired-together": [589, 177],
+    "the-stress-response": [620, 303],
+    "the-spotlight-effect": [364, 339],
+    "loss-aversion": [119, 261],
+    "whats-in-your-control": [160, 398],
+    intention: [119, 97],
   },
+  side: {
+    "the-future": "right",
+    "the-predicting-brain": "left",
+    "thoughts-arent-facts": "left",
+    "imagined-suffering": "right",
+    "the-second-arrow": "left",
+    "tie-your-camel": "left",
+    overthinking: "right",
+    "holding-back": "right",
+    attachment: "left",
+    "self-sabotage": "left",
+    "wired-together": "left",
+    "the-stress-response": "left",
+    "the-spotlight-effect": "left",
+    "loss-aversion": "left",
+    "whats-in-your-control": "left",
+    intention: "left",
+  },
+  // Only short links that cross no label, no node and no other link, so the map never reads as a tangle.
   base: [
-    [FOCUS, "thoughts-arent-facts"],
-    [FOCUS, "the-observer"],
-    [FOCUS, "the-future"],
-    [FOCUS, "self-sabotage"],
-    ["presence", "purpose-in-the-moment"],
-    ["enough", "purpose-in-the-moment"],
-    ["self-sabotage", "the-loop"],
-    ["self-sabotage", "urges"],
-    ["the-loop", "urges"],
-    ["self-sabotage", "holding-back"],
-    ["self-sabotage", "fear-of-being-seen"],
-    ["holding-back", "fear-of-being-seen"],
+    ["the-spotlight-effect", "imagined-suffering"],
+    ["loss-aversion", "tie-your-camel"],
+    ["loss-aversion", "thoughts-arent-facts"],
+    ["self-sabotage", "the-spotlight-effect"],
     ["holding-back", "attachment"],
-    ["holding-back", "self-trust"],
-    ["attachment", "wanting-vs-needing"],
-    ["attachment", "enough"],
-    ["wanting-vs-needing", "enough"],
-  ],
-  near: ["thoughts-arent-facts", "the-observer", "the-future"],
-  ring: [
-    ["the-observer", "presence"],
-    ["the-future", "purpose-in-the-moment"],
-    ["thoughts-arent-facts", "the-loop"],
-    ["the-future", "holding-back"],
+    ["whats-in-your-control", "thoughts-arent-facts"],
+    ["intention", "tie-your-camel"],
+    ["self-sabotage", "imagined-suffering"],
+    ["thoughts-arent-facts", "tie-your-camel"],
+    ["holding-back", "the-predicting-brain"],
+    ["overthinking", "wired-together"],
+    ["overthinking", "imagined-suffering"],
+    ["wired-together", "the-stress-response"],
   ],
 };
 
-// Under lg, only the seven neurons marked mobile in content/site.ts. Hand placed in a fixed 360 x 460 box:
-// nodes in a loose zigzag at least 70 apart, each label on the outer side of its node, links in the middle.
+// Under lg, the seven neurons marked mobile in content/site.ts, hand placed in a fixed 360 x 460 box.
+// The two knots sit on the left with their labels to the left; the five lessons fan out on the right
+// with their labels to the right, so every line runs through the open middle and never under a label.
 const SMALL: Layout = {
   width: 360,
   height: 460,
   at: {
-    "thoughts-arent-facts": [168, 52],
-    presence: [306, 40],
-    "the-observer": [250, 112],
-    overthinking: [128, 190],
-    "the-future": [240, 252],
-    "holding-back": [132, 336],
-    attachment: [234, 414],
+    "the-predicting-brain": [196, 42],
+    "thoughts-arent-facts": [186, 128],
+    "the-future": [108, 226],
+    "imagined-suffering": [212, 214],
+    "the-second-arrow": [222, 300],
+    "tie-your-camel": [238, 388],
+    overthinking: [128, 410],
   },
   side: {
-    "thoughts-arent-facts": "left",
-    presence: "left",
-    "the-observer": "right",
+    "the-predicting-brain": "right",
+    "thoughts-arent-facts": "right",
+    "the-future": "left",
+    "imagined-suffering": "right",
+    "the-second-arrow": "right",
+    "tie-your-camel": "right",
     overthinking: "left",
-    "the-future": "right",
-    "holding-back": "left",
-    attachment: "right",
   },
   base: [
-    [FOCUS, "thoughts-arent-facts"],
-    [FOCUS, "the-observer"],
-    [FOCUS, "the-future"],
-    [FOCUS, "holding-back"],
-    ["holding-back", "attachment"],
-    ["the-future", "attachment"],
-  ],
-  near: ["thoughts-arent-facts", "the-observer", "the-future"],
-  ring: [
-    ["the-observer", "presence"],
-    ["the-future", "holding-back"],
+    ["overthinking", "the-future"],
+    ["overthinking", "tie-your-camel"],
   ],
 };
-
-const INK = "#1D1B26";
-const BG = "#F5EEE2";
-const LAVENDER = "#7C6FD0";
-const LAVENDER_FILL = "rgba(124,111,208,0.85)";
-const LAVENDER_LIGHT = "#C9C0F2";
-const DIM = 0.28;
 
 /** Small seeded random, so the hand-drawn strokes are the same on the server and the client. */
 function random(seed: number) {
@@ -201,9 +224,10 @@ function curve([x1, y1]: Point, [x2, y2]: Point, i: number) {
   return `M${x1} ${y1}Q${(mx - dy * bow).toFixed(1)} ${(my + dx * bow).toFixed(1)} ${x2} ${y2}`;
 }
 
-
-
 type Progress = { learn: MotionValue<number>; use: MotionValue<number>; recall: MotionValue<number> };
+
+/** The rest of the map comes in after the story lines have drawn. */
+const restIn = (recall: number) => clamp((recall - 0.55) / 0.45);
 
 function Node({
   node,
@@ -219,28 +243,31 @@ function Node({
   pulse: boolean;
 }) {
   const at = layout.at[node.slug];
-  const r = node.core ? 10 : 7;
+  const hub = node.field === "knot";
+  const r = hub ? 11 : 7;
+  const color = hub ? INK : COLOR[node.field as Field];
   const isFocus = node.slug === FOCUS;
-  const isNear = layout.near.includes(node.slug);
-  const isRing = layout.ring.some(([, to]) => to === node.slug);
+  const isHub = node.slug === HUB;
+  const spoke = SPOKES.indexOf(node.slug);
   const side = layout.side?.[node.slug];
 
   const opacity = useTransform<number, number>([p.learn, p.use, p.recall], ([learn, use, recall]) => {
     if (isFocus) return DIM + (1 - DIM) * learn;
-    if (isNear) return DIM + (0.7 - DIM) * use + 0.3 * recall;
-    if (isRing) return DIM + (1 - DIM) * recall;
-    return DIM;
+    if (isHub) return DIM + (1 - DIM) * use;
+    if (spoke >= 0) return DIM + (1 - DIM) * spokeIn(recall, spoke);
+    return REST_FROM + (REST_TO - REST_FROM) * restIn(recall);
   });
-  const driver = isFocus ? p.use : p.recall;
-  const lights = isFocus || isNear;
-  const fill = useTransform(driver, [0, 1], [BG, lights ? (isFocus ? LAVENDER_FILL : LAVENDER_LIGHT) : BG]);
-  const stroke = useTransform(driver, [0, 1], [INK, lights ? LAVENDER : INK]);
+  // Story nodes fill with their color as they light. The knot fills ink; lessons fill their field color.
+  const lit = useTransform<number, number>([p.use, p.recall], ([use, recall]) =>
+    isFocus || isHub ? use : spoke >= 0 ? spokeIn(recall, spoke) : 0
+  );
+  const fill = useTransform(lit, [0, 1], [BG, color]);
 
   // Beside the node, the label clears the longest dendrite (about 2r) plus a little air.
   const gap = Math.round(r * 2.1 + 6);
   const label: { x: number; y: number; anchor: "start" | "middle" | "end" } = side
     ? { x: side === "left" ? -gap : gap, y: 0, anchor: side === "left" ? "end" : "start" }
-    : { x: 0, y: r + (node.core ? 22 : 17), anchor: "middle" };
+    : { x: 0, y: r + (hub ? 23 : 18), anchor: "middle" };
 
   return (
     <motion.g transform={`translate(${at[0]} ${at[1]})`} style={{ opacity }}>
@@ -249,14 +276,14 @@ function Node({
         className={cn(pulse && "animate-node-pulse motion-reduce:animate-none")}
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
       >
-        <motion.path
+        <path
           d={dendrites(index + 1, r, side ?? "below")}
           fill="none"
-          strokeWidth="1"
+          stroke={color}
+          strokeWidth="1.1"
           strokeLinecap="round"
-          style={{ stroke }}
         />
-        <motion.circle r={r} strokeWidth="1.5" style={{ fill, stroke }} />
+        <motion.circle r={r} stroke={color} strokeWidth={hub ? 1.75 : 1.5} style={{ fill }} />
       </g>
       <text
         x={label.x}
@@ -268,11 +295,7 @@ function Node({
         strokeLinejoin="round"
         paintOrder="stroke"
         data-map-label=""
-        className={
-          node.core
-            ? "fill-ink font-display text-[19px]"
-            : cn("fill-ink-2 font-body", side ? "text-[14px]" : "text-[12.5px]")
-        }
+        className={hub ? "fill-ink font-display text-[19px]" : "fill-ink-2 font-body text-[14px]"}
       >
         {node.label}
       </text>
@@ -280,24 +303,27 @@ function Node({
   );
 }
 
-function LitEdge({ d, i, p }: { d: string; i: number; p: Progress }) {
-  // each link starts drawing a little after the one before it
-  const offset = useTransform(p.use, (v) => 1 - clamp((v - i * 0.12) / 0.76));
-  const opacity = useTransform(p.use, (v) => (v > 0.001 ? 1 : 0));
-  const width = useTransform(p.recall, [0, 1], [1.75, 3.5]);
+/** Each spoke from the knot starts drawing a little after the one before it, in the first part of recall. */
+const spokeIn = (recall: number, i: number) => clamp((recall - i * 0.1) / 0.3);
+
+function StoryEdge({ d, color, progress }: { d: string; color: string; progress: MotionValue<number> }) {
+  const offset = useTransform(progress, (v) => 1 - v);
+  const opacity = useTransform(progress, (v) => (v > 0.001 ? 1 : 0));
   return (
     <motion.path
       d={d}
       pathLength={1}
       strokeDasharray="1 1"
-      style={{ strokeDashoffset: offset, strokeWidth: width, opacity }}
+      stroke={color}
+      strokeWidth="2.25"
+      style={{ strokeDashoffset: offset, opacity }}
     />
   );
 }
 
-function RingEdge({ d, p }: { d: string; p: Progress }) {
-  const opacity = useTransform(p.recall, [0, 1], [0, 0.55]);
-  return <motion.path d={d} style={{ opacity }} />;
+function Spoke({ d, color, i, p }: { d: string; color: string; i: number; p: Progress }) {
+  const progress = useTransform(p.recall, (v) => spokeIn(v, i));
+  return <StoryEdge d={d} color={color} progress={progress} />;
 }
 
 function Network({
@@ -316,7 +342,10 @@ function Network({
   const { at } = layout;
   const glowId = `${idPrefix}-glow`;
   const glow = useTransform(p.use, [0, 1], [0, 1]);
+  const rest = useTransform(p.recall, (v) => REST_FROM + (REST_TO - REST_FROM) * restIn(v));
   const nodes = how.nodes.filter((node) => node.slug in at);
+  // the story nodes draw last, so they sit on top of the faint map
+  nodes.sort((a, b) => Number(IN_STORY.has(a.slug)) - Number(IN_STORY.has(b.slug)));
 
   return (
     <svg
@@ -327,39 +356,50 @@ function Network({
     >
       <defs>
         <radialGradient id={glowId}>
-          <stop offset="0%" stopColor={LAVENDER} stopOpacity="0.45" />
-          <stop offset="100%" stopColor={LAVENDER} stopOpacity="0" />
+          <stop offset="0%" stopColor={COLOR.neuroscience} stopOpacity="0.5" />
+          <stop offset="100%" stopColor={COLOR.neuroscience} stopOpacity="0" />
         </radialGradient>
       </defs>
 
-      {/* the faint network */}
-      <g fill="none" stroke={INK} strokeOpacity="0.22" strokeWidth="1.25" strokeLinecap="round">
+      {/* the rest of the map, faint, fading in behind on the last step */}
+      <motion.g fill="none" stroke={INK} strokeOpacity="0.45" strokeWidth="1.25" strokeLinecap="round" style={{ opacity: rest }}>
         {layout.base.map(([a, b], i) => (
           <path key={`${a}-${b}`} d={curve(at[a], at[b], i)} />
         ))}
-      </g>
+      </motion.g>
 
-      {/* the ring that grows on the last step */}
-      <g fill="none" stroke={LAVENDER} strokeWidth="1.5" strokeLinecap="round">
-        {layout.ring.map(([a, b], i) => (
-          <RingEdge key={`${a}-${b}`} d={curve(at[a], at[b], i + 1)} p={p} />
-        ))}
-      </g>
-
-      {/* the links that light up when the lesson is used */}
-      <g fill="none" stroke={LAVENDER} strokeLinecap="round">
-        {layout.near.map((to, i) => (
-          <LitEdge key={to} d={curve(at[FOCUS], at[to], i)} i={i} p={p} />
+      {/* the story: the lesson to its knot, then the knot to one lesson in each other field */}
+      <g fill="none" strokeLinecap="round">
+        <StoryEdge d={curve(at[FOCUS], at[HUB], 0)} color={COLOR.neuroscience} progress={p.use} />
+        {SPOKES.map((to, i) => (
+          <Spoke key={to} d={curve(at[HUB], at[to], i + 1)} color={colorOf(to)} i={i} p={p} />
         ))}
       </g>
 
       <motion.circle cx={at[FOCUS][0]} cy={at[FOCUS][1]} r="34" fill={`url(#${glowId})`} style={{ opacity: glow }} />
 
       {nodes.map((node, i) => {
-        const lit = node.slug === FOCUS ? step >= 1 : layout.near.includes(node.slug) && step >= 2;
+        const lit = node.slug === FOCUS ? step >= 1 : SPOKES.includes(node.slug) && step >= 2;
         return <Node key={node.slug} node={node} layout={layout} index={i} p={p} pulse={lit} />;
       })}
     </svg>
+  );
+}
+
+/** Four chips, one per field, each with its colored dot. */
+function Legend({ className }: { className?: string }) {
+  return (
+    <ul aria-label={how.legendLabel} className={cn("flex flex-wrap gap-2", className)}>
+      {fields.map((f) => (
+        <li
+          key={f.key}
+          className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5 text-[13px] text-ink-2"
+        >
+          <span aria-hidden="true" className={cn("h-2 w-2 rounded-full", DOT[f.key])} />
+          {f.label}
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -462,7 +502,7 @@ export default function HowItWorks() {
     const runs: AnimationPlaybackControls[] = [
       animate(learn, l, { duration: 0.6, ease }),
       animate(use, u, { duration: 1.1, ease }),
-      animate(recall, r, { duration: 0.8, ease }),
+      animate(recall, r, { duration: 1.6, ease }),
     ];
     return () => runs.forEach((run) => run.stop());
   }, [stage, mode, learn, use, recall]);
@@ -478,10 +518,7 @@ export default function HowItWorks() {
   return (
     <section id="how" aria-labelledby="how-title" className="section-space scroll-mt-24">
       <div ref={trackRef}>
-        <div
-          className="lg:sticky motion-reduce:lg:static"
-          style={{ top: PIN_TOP }}
-        >
+        <div className="lg:sticky motion-reduce:lg:static" style={{ top: PIN_TOP }}>
           <Container>
             <Reveal className="grid grid-cols-1 gap-y-8 lg:grid-cols-[minmax(0,38fr)_minmax(0,62fr)] lg:gap-x-14">
               <SectionHeader
@@ -489,6 +526,7 @@ export default function HowItWorks() {
                 layout="stacked"
                 eyebrow={how.eyebrow}
                 heading={how.heading}
+                intro={how.intro}
                 className="lg:col-start-1 lg:self-end"
               />
 
@@ -536,13 +574,14 @@ export default function HowItWorks() {
                     ))}
                   </div>
                   {/* fixed height for the longest step, so the map never jumps */}
-                  <p aria-live="polite" className="body-text mt-5 min-h-[6.4em] max-w-[30em]">
+                  <p aria-live="polite" className="body-text mt-5 min-h-[4.8em] max-w-[30em]">
                     {how.steps[step].body}
                   </p>
                 </div>
               </div>
 
-              <div ref={mapRef} className="lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:self-center">
+              <div ref={mapRef} className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center">
+                <Legend className="mb-6 lg:mb-4 lg:justify-end" />
                 <Network
                   layout={SMALL}
                   p={p}
@@ -552,16 +591,36 @@ export default function HowItWorks() {
                 />
                 <Network layout={WIDE} p={p} step={step} idPrefix="how-wide" className="hidden lg:block" />
               </div>
-
-              <p className="max-w-[26em] text-[14px] leading-[1.55] text-ink-3 lg:col-start-1 lg:self-start">
-                {how.footnote.quote} {how.footnote.source}
-              </p>
             </Reveal>
           </Container>
         </div>
         {/* desktop: room to scroll while the content stays pinned */}
         <div aria-hidden="true" className="hidden h-[150vh] lg:block motion-reduce:lg:hidden" />
       </div>
+
+      {/* same idea, four fields */}
+      <Container className="mt-12 lg:mt-16">
+        <Reveal>
+          <ul
+            aria-label={how.strip.label}
+            className="grid grid-cols-1 gap-6 border-t border-line pt-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8"
+          >
+            {how.strip.items.map((item) => (
+              <li key={item.field}>
+                <p className="flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.08em] text-ink-2">
+                  <span aria-hidden="true" className={cn("h-2 w-2 rounded-full", DOT[item.field])} />
+                  {fields.find((f) => f.key === item.field)?.label}
+                </p>
+                <p className="body-text mt-2">{item.text}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 text-[14px] leading-[1.55] text-ink-3">{how.strip.note}</p>
+          <p className="mt-2 max-w-[40em] text-[14px] leading-[1.55] text-ink-3">
+            {how.footnote.quote} {how.footnote.source}
+          </p>
+        </Reveal>
+      </Container>
     </section>
   );
 }

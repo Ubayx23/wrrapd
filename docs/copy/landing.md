@@ -1,8 +1,8 @@
-# wrrapd landing copy (v5)
+# wrrapd landing copy (v7)
 
 Source of truth for every word on the landing page. Edit here, then have Claude Code sync content/site.ts.
 Voice: calm, direct, a little sharp, like a friend who has read the Stoics. Short sentences. No em dashes. No emojis.
-Core idea: wrrapd is a program that teaches you principles, helps you put them to use, and lets you notice the patterns in your own life. Every section follows that order: learn the principle, put it to use, notice the pattern.
+Core idea: wrrapd is a program of micro lessons, about two minutes each, across four connected fields: neuroscience, psychology, philosophy (Stoicism and Buddhism) and religion. Each lesson teaches one principle, helps you put it to use, and connects to lessons in the other fields. The five knots are the entry points. The map shows how everything connects.
 
 ---
 
@@ -20,19 +20,34 @@ Core idea: wrrapd is a program that teaches you principles, helps you put them t
 ---
 
 ## How it works (id="how")
-The map, told as a scroll story on desktop and as three tabs on mobile. Mobile shows seven neurons: overthinking, the future, thoughts aren't facts, the observer, presence, holding back, attachment.
+The map, told as a scroll story on desktop and as three tabs on mobile.
 - Eyebrow: how it works
-- Heading: Learn it. Use it. Notice it.
-1. Learn the principle: One short lesson on one principle of how your mind works. A new neuron appears.
+- Heading: One idea. Four fields. All connected.
+- Intro: Two-minute lessons from neuroscience, psychology, philosophy and religion. Each one teaches a principle you can use today.
+- Field legend (chips with a colored dot): Neuroscience / Psychology / Philosophy / Religion
+1. Learn the principle: One short lesson, one idea. A new neuron appears.
 2. Put it to use: Every lesson ends with something to do today. Do it, and the neuron lights up.
-3. Notice the pattern: Over time the lessons connect, and you start seeing the same patterns in your own life. Seeing them is what loosens them.
-- Footnote: "Neurons that fire together wire together." Hebb's rule, as summarized by Carla Shatz.
+3. Notice the pattern: The same idea shows up in every field. As the lessons connect, you start seeing the pattern in your own life.
 - Tabs group label for screen readers: Steps
-- Neuron labels: overthinking, the future, presence, the observer, thoughts aren't facts, attachment, wanting vs needing, enough, holding back, fear of being seen, self-trust, self-sabotage, the loop, urges, purpose in the moment. The five core knots are overthinking, the future, attachment, holding back and self-sabotage.
+- Map nodes. The five knots are hubs (ink, larger, serif labels): overthinking, the future, holding back, attachment, self-sabotage.
+  - Neuroscience: the predicting brain, wired together, the stress response
+  - Psychology: thoughts aren't facts, the spotlight effect, loss aversion
+  - Philosophy: the second arrow, imagined suffering, what's in your control
+  - Religion: tie your camel, intention
+  - Mobile shows only: the future, overthinking, the predicting brain, thoughts aren't facts, imagined suffering, the second arrow, tie your camel.
 - Map description for screen readers, one per step:
-  - Learn the principle: A map of lessons drawn as neurons. Everything is faint except overthinking, the principle you just learned.
-  - Put it to use: You did today's action, so overthinking lights up in lavender and connects to thoughts aren't facts, the observer and the future.
-  - Notice the pattern: The connections from overthinking grow stronger, and new links reach further lessons, like presence and holding back. The same pattern shows up across the map.
+  - Learn the principle: A map of two-minute lessons drawn as neurons and colored by field. Everything is faint except the predicting brain, a neuroscience lesson, which has just appeared.
+  - Put it to use: The predicting brain fills with blue and glows, and a line draws from it to the future, one of the five knots.
+  - Notice the pattern: Lines draw from the future to thoughts aren't facts in psychology, imagined suffering and the second arrow in philosophy, and tie your camel in religion. The rest of the map fades in behind. One knot, four fields.
+
+### Same idea, four fields (strip under the map)
+Each line has its field dot and field name above it. Group label for screen readers: Same idea, four fields
+- Neuroscience: Your brain predicts what's coming before it sees it. You live partly in a forecast.
+- Psychology: That's why a thought can feel true without being true.
+- Philosophy: "We suffer more often in imagination than in reality." Seneca
+- Religion: Tie your camel. Do your part, then trust the outcome.
+- Under the strip: All of these untangle one knot: the future.
+- Footnote: "Neurons that fire together wire together." Hebb's rule, as summarized by Carla Shatz.
 
 ---
 
@@ -85,55 +100,38 @@ Card footer for every knot: "The full lesson is being written. For now, take thi
 ## FAQ (id="faq")
 - Eyebrow: before you begin
 - Heading: Fair questions.
+- Side note: Have a question, or want to help build wrrapd? Message me on Instagram. @ubay.xx (https://www.instagram.com/ubay.xx/)
 
 Why is wrrapd free?
-Because I don't have all the answers myself. I'm working through the same knots you are, and charging for that would feel wrong. Most of what's here isn't mine anyway. It comes from the Stoics, the Buddha and modern psychology, and some of it is over two thousand years old. I'm just putting it in one place and making it easier to use.
-
-What's the catch?
-There isn't one. No ads, no selling your data, no premium tier waiting at lesson six. If wrrapd ever needs money to keep running, there will be a donate button, and it will always be optional.
+Because I don't have all the answers myself. I'm working through the same knots you are, and charging for that would feel wrong. Most of what's here isn't mine anyway. It comes from neuroscience, psychology, the Stoics, the Buddha and religious tradition, and some of it is over two thousand years old. I'm just putting it in one place and making it easier to use.
 
 What can I expect?
-Short lessons, each on one principle of how your mind works, each ending with something to do that day. Some will feel obvious until you try them. Over time you'll start noticing the same patterns in your own life. That's the point, and it takes reps.
+Two-minute lessons, each on one principle of how your mind works, each ending with something to do that day. Over time they connect, and you start noticing the same patterns in your own life. That takes reps, not speed.
 
-Why paper and not an app?
-Writing by hand slows you down enough to actually think. It's also private in a way nothing online can be. wrrapd teaches you. Your notebook is where the work happens.
-
-Who is this for?
-People who live in their heads. Who replay conversations, rehearse the future, and know exactly what they should do but don't do it. If that's you, start with the knot that's loudest today.
+Where do the lessons come from?
+Neuroscience and psychology research, Stoic and Buddhist philosophy, and religious tradition. Every lesson names its source, so you can go deeper on anything that hits.
 
 Is this therapy?
-No. wrrapd teaches how the mind works, the way a good book would. If you're going through something heavy, please talk to a licensed professional. Learning about your mind and getting support aren't either-or.
-
-How do I help shape wrrapd?
-Join the list at the bottom of this page. You'll get each new lesson first, and you get a vote on which knot we take apart next.
+No. wrrapd teaches how the mind works, the way a good book would. If you're going through something heavy, please talk to a licensed professional.
 
 ---
 
-## Join the list (id="join")
-Sits in the closing band, over the painted landscape.
+## Join (id="join")
+Sits in the closing band, over the painted landscape. No email form: people who want to take part message me on Instagram.
 - Headline: Help build wrrapd.
-- Sub: Get each new lesson first, and vote on which knot we take apart next.
-- Question: What do you want to untangle first?
-- Chips (pick any): Overthinking / The future / Holding back / Attachment / Self-sabotage / Other
-- Other field label: What else? (60 characters max)
-- Email field label (screen readers): Your email
-- Email placeholder: you@example.com
-- Button: Join the list
-- Small line: Just email. No spam. Leave anytime.
-- Sending: Joining...
-- Success: You're in. The first lesson is on its way.
-- Error: That didn't work. Check your email and try again.
+- Sub: wrrapd is being built in the open, one lesson at a time. If you want to take part, message me on Instagram.
+- Button: Message me on Instagram (links to https://www.instagram.com/ubay.xx/, opens in a new tab)
 
 ---
 
 ## Meta
 - Title: wrrapd
-- Description: A program that teaches you principles of the mind, helps you put them to use, and lets you notice the patterns in your own life.
+- Description: Two-minute lessons from neuroscience, psychology, philosophy and religion. Learn a principle, put it to use, and notice the patterns in your own life.
 
 ---
 
 ## Footer
-- Brand: wrrapd. / A free program for overthinkers. Learn how your mind works, then take it to paper.
+- Brand: wrrapd. / A free program of two-minute lessons for overthinkers. Learn a principle, then use it today.
 - Program: How it works / The knots / FAQ / Join
 - Follow: Instagram
 - Bottom: © year wrrapd™. All rights reserved.

@@ -14,6 +14,11 @@
   --night: #2a2540;
   --peach: #e9a27f;
   --sage: #a9bfa0;
+  /* field colors: dots, map nodes, lines and small chips only */
+  --field-neuroscience: #6e9bd8;
+  --field-psychology: #7c6fd0;
+  --field-philosophy: #e9a27f;
+  --field-religion: #8faf86;
   color-scheme: light;
 }
 

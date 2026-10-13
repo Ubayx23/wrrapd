@@ -6,7 +6,7 @@ export type Link = { label: string; href: string };
 export const meta = {
   title: "wrrapd",
   description:
-    "A program that teaches you principles of the mind, helps you put them to use, and lets you notice the patterns in your own life.",
+    "Two-minute lessons from neuroscience, psychology, philosophy and religion. Learn a principle, put it to use, and notice the patterns in your own life.",
   url: "https://wrrapd.app",
   ogImage: "/images/landing/hero.png",
 };
@@ -120,51 +120,78 @@ export const knots = {
   ] satisfies Knot[],
 };
 
-/** mobile: one of the seven neurons the small map shows. The rest render only from lg up. */
-export type MapNode = { slug: string; label: string; core?: boolean; mobile?: boolean };
+/** The four fields every lesson comes from. Colors live in tailwind.config.ts and globals.css under the same keys. */
+export type Field = "neuroscience" | "psychology" | "philosophy" | "religion";
+
+export const fields: { key: Field; label: string }[] = [
+  { key: "neuroscience", label: "Neuroscience" },
+  { key: "psychology", label: "Psychology" },
+  { key: "philosophy", label: "Philosophy" },
+  { key: "religion", label: "Religion" },
+];
+
+/**
+ * field: the lesson's field, or "knot" for the five hubs.
+ * mobile: one of the seven neurons the small map shows. The rest render only from lg up.
+ */
+export type MapNode = { slug: string; label: string; field: Field | "knot"; mobile?: boolean };
 
 export const how = {
   eyebrow: "how it works",
-  heading: "Learn it. Use it. Notice it.",
+  heading: "One idea. Four fields. All connected.",
+  intro: "Two-minute lessons from neuroscience, psychology, philosophy and religion. Each one teaches a principle you can use today.",
+  legendLabel: "Fields",
   tabsLabel: "Steps",
   /** One per step, in order. alt describes the map at that step for screen readers. */
   steps: [
     {
       label: "Learn the principle",
-      body: "One short lesson on one principle of how your mind works. A new neuron appears.",
-      alt: "A map of lessons drawn as neurons. Everything is faint except overthinking, the principle you just learned.",
+      body: "One short lesson, one idea. A new neuron appears.",
+      alt: "A map of two-minute lessons drawn as neurons and colored by field. Everything is faint except the predicting brain, a neuroscience lesson, which has just appeared.",
     },
     {
       label: "Put it to use",
       body: "Every lesson ends with something to do today. Do it, and the neuron lights up.",
-      alt: "You did today's action, so overthinking lights up in lavender and connects to thoughts aren't facts, the observer and the future.",
+      alt: "The predicting brain fills with blue and glows, and a line draws from it to the future, one of the five knots.",
     },
     {
       label: "Notice the pattern",
-      body: "Over time the lessons connect, and you start seeing the same patterns in your own life. Seeing them is what loosens them.",
-      alt: "The connections from overthinking grow stronger, and new links reach further lessons, like presence and holding back. The same pattern shows up across the map.",
+      body: "The same idea shows up in every field. As the lessons connect, you start seeing the pattern in your own life.",
+      alt: "Lines draw from the future to thoughts aren't facts in psychology, imagined suffering and the second arrow in philosophy, and tie your camel in religion. The rest of the map fades in behind. One knot, four fields.",
     },
   ],
+  /** The strip under the map: one idea, said once per field. */
+  strip: {
+    label: "Same idea, four fields",
+    items: [
+      { field: "neuroscience", text: "Your brain predicts what's coming before it sees it. You live partly in a forecast." },
+      { field: "psychology", text: "That's why a thought can feel true without being true." },
+      { field: "philosophy", text: '"We suffer more often in imagination than in reality." Seneca' },
+      { field: "religion", text: "Tie your camel. Do your part, then trust the outcome." },
+    ] satisfies { field: Field; text: string }[],
+    note: "All of these untangle one knot: the future.",
+  },
   footnote: {
     quote: '"Neurons that fire together wire together."',
     source: "Hebb's rule, as summarized by Carla Shatz.",
   },
   nodes: [
-    { slug: "overthinking", label: "overthinking", core: true, mobile: true },
-    { slug: "the-future", label: "the future", core: true, mobile: true },
-    { slug: "presence", label: "presence", mobile: true },
-    { slug: "the-observer", label: "the observer", mobile: true },
-    { slug: "thoughts-arent-facts", label: "thoughts aren't facts", mobile: true },
-    { slug: "attachment", label: "attachment", core: true, mobile: true },
-    { slug: "wanting-vs-needing", label: "wanting vs needing" },
-    { slug: "enough", label: "enough" },
-    { slug: "holding-back", label: "holding back", core: true, mobile: true },
-    { slug: "fear-of-being-seen", label: "fear of being seen" },
-    { slug: "self-trust", label: "self-trust" },
-    { slug: "self-sabotage", label: "self-sabotage", core: true },
-    { slug: "the-loop", label: "the loop" },
-    { slug: "urges", label: "urges" },
-    { slug: "purpose-in-the-moment", label: "purpose in the moment" },
+    { slug: "overthinking", label: "overthinking", field: "knot", mobile: true },
+    { slug: "the-future", label: "the future", field: "knot", mobile: true },
+    { slug: "holding-back", label: "holding back", field: "knot" },
+    { slug: "attachment", label: "attachment", field: "knot" },
+    { slug: "self-sabotage", label: "self-sabotage", field: "knot" },
+    { slug: "the-predicting-brain", label: "the predicting brain", field: "neuroscience", mobile: true },
+    { slug: "wired-together", label: "wired together", field: "neuroscience" },
+    { slug: "the-stress-response", label: "the stress response", field: "neuroscience" },
+    { slug: "thoughts-arent-facts", label: "thoughts aren't facts", field: "psychology", mobile: true },
+    { slug: "the-spotlight-effect", label: "the spotlight effect", field: "psychology" },
+    { slug: "loss-aversion", label: "loss aversion", field: "psychology" },
+    { slug: "the-second-arrow", label: "the second arrow", field: "philosophy", mobile: true },
+    { slug: "imagined-suffering", label: "imagined suffering", field: "philosophy", mobile: true },
+    { slug: "whats-in-your-control", label: "what's in your control", field: "philosophy" },
+    { slug: "tie-your-camel", label: "tie your camel", field: "religion", mobile: true },
+    { slug: "intention", label: "intention", field: "religion" },
   ] satisfies MapNode[],
 };
 
@@ -172,79 +199,43 @@ export const faq = {
   eyebrow: "before you begin",
   heading: "Fair questions.",
   sideNote: {
-    text: "Still have a question? Message me on Instagram.",
+    text: "Have a question, or want to help build wrrapd? Message me on Instagram.",
     link: { label: "@ubay.xx", href: "https://www.instagram.com/ubay.xx/" } satisfies Link,
   },
   items: [
     {
       question: "Why is wrrapd free?",
       answer:
-        "Because I don't have all the answers myself. I'm working through the same knots you are, and charging for that would feel wrong. Most of what's here isn't mine anyway. It comes from the Stoics, the Buddha and modern psychology, and some of it is over two thousand years old. I'm just putting it in one place and making it easier to use.",
-    },
-    {
-      question: "What's the catch?",
-      answer:
-        "There isn't one. No ads, no selling your data, no premium tier waiting at lesson six. If wrrapd ever needs money to keep running, there will be a donate button, and it will always be optional.",
+        "Because I don't have all the answers myself. I'm working through the same knots you are, and charging for that would feel wrong. Most of what's here isn't mine anyway. It comes from neuroscience, psychology, the Stoics, the Buddha and religious tradition, and some of it is over two thousand years old. I'm just putting it in one place and making it easier to use.",
     },
     {
       question: "What can I expect?",
       answer:
-        "Short lessons, each on one principle of how your mind works, each ending with something to do that day. Some will feel obvious until you try them. Over time you'll start noticing the same patterns in your own life. That's the point, and it takes reps.",
+        "Two-minute lessons, each on one principle of how your mind works, each ending with something to do that day. Over time they connect, and you start noticing the same patterns in your own life. That takes reps, not speed.",
     },
     {
-      question: "Why paper and not an app?",
+      question: "Where do the lessons come from?",
       answer:
-        "Writing by hand slows you down enough to actually think. It's also private in a way nothing online can be. wrrapd teaches you. Your notebook is where the work happens.",
-    },
-    {
-      question: "Who is this for?",
-      answer:
-        "People who live in their heads. Who replay conversations, rehearse the future, and know exactly what they should do but don't do it. If that's you, start with the knot that's loudest today.",
+        "Neuroscience and psychology research, Stoic and Buddhist philosophy, and religious tradition. Every lesson names its source, so you can go deeper on anything that hits.",
     },
     {
       question: "Is this therapy?",
       answer:
-        "No. wrrapd teaches how the mind works, the way a good book would. If you're going through something heavy, please talk to a licensed professional. Learning about your mind and getting support aren't either-or.",
-    },
-    {
-      question: "How do I help shape wrrapd?",
-      answer:
-        "Join the list at the bottom of this page. You'll get each new lesson first, and you get a vote on which knot we take apart next.",
+        "No. wrrapd teaches how the mind works, the way a good book would. If you're going through something heavy, please talk to a licensed professional.",
     },
   ],
 };
 
-/** The six interests the join form accepts. The server action rejects anything else. */
-export const interests = [
-  { value: "overthinking", label: "Overthinking" },
-  { value: "the-future", label: "The future" },
-  { value: "holding-back", label: "Holding back" },
-  { value: "attachment", label: "Attachment" },
-  { value: "self-sabotage", label: "Self-sabotage" },
-  { value: "other", label: "Other" },
-] as const;
-
-export type Interest = (typeof interests)[number]["value"];
-
 export const join = {
   heading: "Help build wrrapd.",
-  sub: "Get each new lesson first, and vote on which knot we take apart next.",
-  question: "What do you want to untangle first?",
-  otherLabel: "What else?",
-  otherMax: 60,
-  emailLabel: "Your email",
-  emailPlaceholder: "you@example.com",
-  submit: "Join the list",
-  sending: "Joining...",
-  fine: "Just email. No spam. Leave anytime.",
-  success: "You're in. The first lesson is on its way.",
-  error: "That didn't work. Check your email and try again.",
+  sub: "wrrapd is being built in the open, one lesson at a time. If you want to take part, message me on Instagram.",
+  cta: { label: "Message me on Instagram", href: "https://www.instagram.com/ubay.xx/" } satisfies Link,
   image: { src: "/images/landing/cta.png", alt: "" },
 };
 
 export const footer = {
   logo: "wrrapd.",
-  blurb: "A free program for overthinkers. Learn how your mind works, then take it to paper.",
+  blurb: "A free program of two-minute lessons for overthinkers. Learn a principle, then use it today.",
   columns: [
     { heading: "Program", links },
     { heading: "Follow", links: [{ label: "Instagram", href: "https://www.instagram.com/ubay.xx/" }] satisfies Link[] },

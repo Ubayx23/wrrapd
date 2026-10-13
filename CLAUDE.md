@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 ## Core idea
-wrrapd is a program that teaches you principles, helps you put them to use, and lets you notice the patterns in your own life. Every section and every lesson follows that order: learn the principle, put it to use, notice the pattern. One lesson at a time, no feed, no AI explanations.
+wrrapd is a program of micro lessons, about two minutes each, across four connected fields: neuroscience, psychology, philosophy (Stoicism and Buddhism) and religion. Each lesson teaches one principle, helps you put it to use, and connects to lessons in the other fields, so you start noticing the same patterns in your own life. The five knots are the entry points. The map shows how everything connects.
 
 ## What wrrapd is
 wrrapd is a free reflection platform for overthinkers. It teaches you how your mind works through short, deep lessons, then sends you to your own notebook to reflect. Built by Ubay for himself first, shared on Instagram.
@@ -27,6 +27,7 @@ Tokens (also CSS variables in app/globals.css and colors in tailwind.config.ts):
 - ink #1D1B26, ink-2 #5B5867, ink-3 #8E8A98
 - lavender #7C6FD0 (eyebrow labels and small details only), peach #E9A27F, sage #A9BFA0
 - night #2A2540 (not used on the landing right now), lavender-light #C9C0F2 for lit neurons on the map.
+- Field colors (tailwind field-*, CSS --field-*): neuroscience #6E9BD8 (blue), psychology #7C6FD0 (lavender), philosophy #E9A27F (peach), religion #8FAF86 (sage, deeper than the sage token so it reads on cream). Only for dots, map nodes, lines and small chips. Text stays ink or ink-2.
 Type: Instrument Serif for headings, Figtree for body.
 Buttons: ink pills (rounded-full), surface-colored text, a small up-right arrow, min height 44px.
 Cursor: KnotCursor, a small knot of thread around the pointer. It turns slowly at rest, pulls tight into a trefoil when you move fast, loosens when you slow down, and unties into a lavender ring over links. Desktop only.
@@ -58,10 +59,10 @@ Next.js 15 App Router, TypeScript, Tailwind CSS 3, Framer Motion, Supabase (auth
 
 ## Structure
 - app/(site)/ : landing route
-- components/site/ : landing sections (Nav, Hero, HowItWorks, Knots, Faq, Join, JoinForm, Footer)
+- components/site/ : landing sections (Nav, Hero, HowItWorks, Knots, Faq, Join, Footer)
 - components/ui/ : shared primitives (Button, SectionHeader, Accordion, ImageSlot, Container, Reveal, Parallax, Logo, KnotCursor)
 - content/site.ts : all landing copy
-- Email list: Supabase table email_list, written only by the server action in app/(site)/actions.ts.
+- No email collection on the landing. People who want to take part message @ubay.xx on Instagram.
 - content/lessons/ : lesson markdown
 - lib/ : helpers
 - public/images/landing/ : landing illustrations
