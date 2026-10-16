@@ -1,22 +1,18 @@
 "use client";
 
 import {
-  animate,
   motion,
-  useInView,
   useMotionValue,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useTransform,
-  type AnimationPlaybackControls,
   type MotionValue,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeader from "@/components/ui/SectionHeader";
-import SmallMap from "@/components/site/SmallMap";
 import { fields, how, type Field, type MapNode } from "@/content/site";
 import { clamp, curve, dendrites, type Point } from "@/lib/neurons";
 import { cn } from "@/lib/utils";
@@ -26,16 +22,16 @@ import { cn } from "@/lib/utils";
 //   use: it fills blue and glows, and its line to the future draws in
 //   recall: lines draw from the future to one lesson in each other field, then the rest of the map
 //           fades in behind. One knot, four fields.
-// Desktop (lg, motion allowed) ties them to scroll: the content pins under the nav while a 150vh
-// spacer scrolls past. Below lg a smaller seven neuron map plays the three tab states once on view.
-// Under reduced motion the map sits at the final state with all three steps listed.
+// Scroll drives them at every width. Desktop (lg) pins the whole section under the nav while a 150vh
+// spacer scrolls past. Below lg the heading scrolls away and only the current step and a smaller seven
+// neuron map pin, with their own spacer. Under reduced motion the map sits at the final state with all
+// three steps listed.
 
-// Stages for the tabs: -1 is armed (everything dim, waiting to play), then steps 0, 1, 2.
-type Stage = -1 | 0 | 1 | 2;
-type Mode = "scroll" | "tabs" | "static";
-const STEP_MS = 2500;
-// Where the pinned content sits under the nav on desktop.
+type Stage = 0 | 1 | 2;
+type Mode = "scroll" | "static";
+// Where the pinned content sits under the nav: desktop, and the smaller nav below lg.
 const PIN_TOP = 112;
+const PIN_TOP_SMALL = 92;
 
 // Where each value runs along the scroll story (0 to 1 while the content is pinned).
 const fromScroll = (p: number) => ({
@@ -146,6 +142,32 @@ const WIDE: Layout = {
     ["overthinking", "imagined-suffering"],
     ["wired-together", "the-stress-response"],
   ],
+};
+
+// Below lg: the story's seven neurons, found with the same layout search in a 360 x 460 box and then
+// cropped to the space they use. Labels sit beside their nodes, nothing touches, nodes are at least 80 apart.
+const SMALL: Layout = {
+  width: 360,
+  height: 360,
+  at: {
+    "the-future": [150, 180],
+    "the-predicting-brain": [204, 30],
+    "thoughts-arent-facts": [230, 330],
+    "imagined-suffering": [26, 93],
+    "the-second-arrow": [206, 120],
+    "tie-your-camel": [48, 299],
+    overthinking: [217, 230],
+  },
+  side: {
+    "the-future": "right",
+    "the-predicting-brain": "left",
+    "thoughts-arent-facts": "left",
+    "imagined-suffering": "right",
+    "the-second-arrow": "right",
+    "tie-your-camel": "right",
+    overthinking: "right",
+  },
+  base: [["overthinking", "the-future"]],
 };
 
 type Progress = { learn: MotionValue<number>; use: MotionValue<number>; recall: MotionValue<number> };
@@ -327,16 +349,9 @@ function Legend({ className }: { className?: string }) {
   );
 }
 
-const TARGETS: Record<Stage, [number, number, number]> = {
-  [-1]: [0, 0, 0],
-  0: [1, 0, 0],
-  1: [1, 1, 0],
-  2: [1, 1, 1],
-};
-
 export default function HowItWorks() {
   const trackRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<HTMLDivElement>(null);
+  const smallTrackRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const [wide, setWide] = useState(false);
   // The server renders the final state, so the map reads fully without JS and under reduced motion.
@@ -346,7 +361,7 @@ export default function HowItWorks() {
   const recall = useMotionValue(1);
   const p = { learn, use, recall };
 
-  const mode: Mode = reduce ? "static" : wide ? "scroll" : "tabs";
+  const mode: Mode = reduce ? "static" : "scroll";
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
@@ -356,10 +371,17 @@ export default function HowItWorks() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // Desktop: scroll position is the progress, so scrolling back reverses it. It runs from the moment the
-  // content pins (track top at PIN_TOP) until the track's end reaches the bottom of the screen, which is
-  // before the pin lets go, so the last step holds for a moment.
-  const { scrollYProgress } = useScroll({ target: trackRef, offset: [`start ${PIN_TOP}px`, "end end"] });
+  // Scroll position is the progress, so scrolling back reverses it. Each runs from the moment its content
+  // pins until its track's end reaches the bottom of the screen, which is before the pin lets go, so the
+  // last step holds for a moment.
+  const { scrollYProgress: wideProgress } = useScroll({
+    target: trackRef,
+    offset: [`start ${PIN_TOP}px`, "end end"],
+  });
+  const { scrollYProgress: smallProgress } = useScroll({
+    target: smallTrackRef,
+    offset: [`start ${PIN_TOP_SMALL}px`, "end end"],
+  });
   const applyScroll = (v: number) => {
     const s = fromScroll(v);
     learn.set(s.learn);
@@ -367,77 +389,26 @@ export default function HowItWorks() {
     recall.set(s.recall);
     setStage(s.step);
   };
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    if (mode === "scroll") applyScroll(v);
+  useMotionValueEvent(wideProgress, "change", (v) => {
+    if (mode === "scroll" && wide) applyScroll(v);
   });
-
-  // Tabs: play once when the map comes in, unless someone has already picked a step.
-  const inView = useInView(mapRef, { once: true, margin: "0px 0px -30% 0px" });
-  const touched = useRef(false);
-  const played = useRef(false);
-  const timers = useRef<number[]>([]);
-  const clearTimers = () => {
-    timers.current.forEach((t) => window.clearTimeout(t));
-    timers.current = [];
-  };
+  useMotionValueEvent(smallProgress, "change", (v) => {
+    if (mode === "scroll" && !wide) applyScroll(v);
+  });
 
   useEffect(() => {
     if (mode === "scroll") {
-      clearTimers();
-      applyScroll(scrollYProgress.get());
+      applyScroll((wide ? wideProgress : smallProgress).get());
       return;
     }
-    if (mode === "static") {
-      clearTimers();
-      setStage(2);
-      return;
-    }
-    // tabs: below the fold, start dim so the first neuron can fade in when the map arrives
-    const el = mapRef.current;
-    if (!played.current && !touched.current && el && el.getBoundingClientRect().top > window.innerHeight * 0.7) {
-      setStage(-1);
-    }
+    learn.set(1);
+    use.set(1);
+    recall.set(1);
+    setStage(2);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- applyScroll only reads motion values
-  }, [mode]);
+  }, [mode, wide]);
 
-  useEffect(() => {
-    if (mode !== "tabs" || !inView || touched.current || played.current) return;
-    played.current = true;
-    setStage(0);
-    timers.current = [
-      window.setTimeout(() => setStage(1), STEP_MS),
-      window.setTimeout(() => setStage(2), STEP_MS * 2),
-    ];
-  }, [inView, mode]);
-
-  useEffect(() => clearTimers, []);
-
-  // Tabs and static: ease the progress values to the current stage.
-  useEffect(() => {
-    if (mode === "scroll") return;
-    const [l, u, r] = TARGETS[mode === "static" ? 2 : stage];
-    if (mode === "static") {
-      learn.set(l);
-      use.set(u);
-      recall.set(r);
-      return;
-    }
-    const ease = [0.2, 0.7, 0.2, 1] as const;
-    const runs: AnimationPlaybackControls[] = [
-      animate(learn, l, { duration: 0.6, ease }),
-      animate(use, u, { duration: 1.1, ease }),
-      animate(recall, r, { duration: 1.6, ease }),
-    ];
-    return () => runs.forEach((run) => run.stop());
-  }, [stage, mode, learn, use, recall]);
-
-  const pick = (i: Stage) => {
-    touched.current = true;
-    clearTimers();
-    setStage(i);
-  };
-
-  const step = Math.max(stage, 0);
+  const step = stage;
 
   return (
     <section id="how" aria-labelledby="how-title" className="section-space scroll-mt-24">
@@ -454,7 +425,7 @@ export default function HowItWorks() {
                 className="lg:col-start-1 lg:self-end"
               />
 
-              <div className="lg:col-start-1">
+              <div className="hidden lg:col-start-1 lg:block motion-reduce:block">
                 {/* desktop scroll story, and the full list under reduced motion */}
                 <ol className="hidden space-y-6 border-t border-line pt-6 lg:block motion-reduce:block">
                   {how.steps.map((s, i) => (
@@ -474,39 +445,33 @@ export default function HowItWorks() {
                     </li>
                   ))}
                 </ol>
-
-                {/* below lg: three tabs, full width, and the active step's text under them */}
-                <div className="lg:hidden motion-reduce:hidden">
-                  <div
-                    role="group"
-                    aria-label={how.tabsLabel}
-                    className="grid grid-cols-3 gap-1 rounded-[22px] border border-line bg-surface p-1"
-                  >
-                    {how.steps.map((s, i) => (
-                      <button
-                        key={s.label}
-                        type="button"
-                        aria-pressed={step === i}
-                        onClick={() => pick(i as Stage)}
-                        className={cn(
-                          "flex min-h-[52px] items-center justify-center rounded-[18px] px-2 text-center text-[14px] leading-[1.2] transition-colors duration-150 motion-reduce:transition-none",
-                          step === i ? "bg-ink text-surface" : "text-ink-2 hover:text-ink"
-                        )}
-                      >
-                        {s.label}
-                      </button>
-                    ))}
-                  </div>
-                  {/* fixed height for the longest step, so the map never jumps */}
-                  <p aria-live="polite" className="body-text mt-5 min-h-[4.8em] max-w-[30em]">
-                    {how.steps[step].body}
-                  </p>
-                </div>
               </div>
 
-              <div ref={mapRef} className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center">
-                <Legend className="mb-4 hidden justify-end lg:flex" />
-                <SmallMap p={p} step={step} idPrefix="how-small" className="mx-auto max-w-[420px] lg:hidden" />
+              <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center">
+                <Legend className="mb-6 lg:mb-4 lg:justify-end" />
+
+                {/* below lg: the current step and the map pin while a spacer scrolls past */}
+                <div ref={smallTrackRef} className="lg:hidden">
+                  <div className="sticky motion-reduce:static" style={{ top: PIN_TOP_SMALL }}>
+                    {/* fixed height for the longest step, so the map never jumps */}
+                    <div aria-live="polite" className="min-h-[7.4em] motion-reduce:hidden">
+                      <h3 className="font-display text-[24px] font-normal leading-[1.1] text-ink">
+                        <span className="mr-3 text-[17px]">{step + 1}</span>
+                        {how.steps[step].label}
+                      </h3>
+                      <p className="body-text mt-2">{how.steps[step].body}</p>
+                    </div>
+                    <Network
+                      layout={SMALL}
+                      p={p}
+                      step={step}
+                      idPrefix="how-small"
+                      className="mx-auto mt-2 max-h-[calc(100svh-300px)] max-w-[420px]"
+                    />
+                  </div>
+                  <div aria-hidden="true" className="h-[150vh] motion-reduce:hidden" />
+                </div>
+
                 <Network layout={WIDE} p={p} step={step} idPrefix="how-wide" className="hidden lg:block" />
               </div>
             </Reveal>

@@ -1,4 +1,4 @@
-# wrrapd landing copy (v9)
+# wrrapd landing copy (v10)
 
 Source of truth for every word on the landing page. Edit here, then have Claude Code sync content/site.ts.
 Voice: calm, direct, a little sharp, like a friend who has read the Stoics. Short sentences. No em dashes. No emojis.
@@ -20,31 +20,26 @@ Core idea: wrrapd is a program of micro lessons, about two minutes each, across 
 ---
 
 ## How it works (id="how")
-The map, told as a scroll story on desktop and as three tabs on mobile.
+The map, told as a scroll story at every width. On mobile the heading scrolls away, then the current step and a smaller map pin while you scroll.
 - Eyebrow: how it works
 - Heading: One idea. Four fields. All connected.
 - Intro: Two-minute lessons from neuroscience, psychology, philosophy and religion. Each one teaches a principle you can use today.
-- Field legend (chips with a colored dot, desktop only): Neuroscience / Psychology / Philosophy / Religion
+- Field legend (chips with a colored dot): Neuroscience / Psychology / Philosophy / Religion
 1. Learn the principle: One short lesson, one idea. A new neuron appears.
 2. Put it to use: Every lesson ends with something to do today. Do it, and the neuron lights up.
 3. Notice the pattern: The same idea shows up in every field. As the lessons connect, you start seeing the pattern in your own life.
-- Tabs group label for screen readers: Steps
 - Map nodes. The five knots are hubs (ink, larger, serif labels): overthinking, the future, holding back, attachment, self-sabotage.
   - Neuroscience: the predicting brain, wired together, the stress response
   - Psychology: thoughts aren't facts, the spotlight effect, loss aversion
   - Philosophy: the second arrow, imagined suffering, what's in your control
   - Religion: tie your camel, intention
-- Desktop map description for screen readers, one per step:
+- Map description for screen readers, one per step (both maps):
   - Learn the principle: A map of two-minute lessons drawn as neurons and colored by field. Everything is faint except the predicting brain, a neuroscience lesson, which has just appeared.
   - Put it to use: The predicting brain fills with blue and glows, and a line draws from it to the future, one of the five knots.
   - Notice the pattern: Lines draw from the future to thoughts aren't facts in psychology, imagined suffering and the second arrow in philosophy, and tie your camel in religion. The rest of the map fades in behind. One knot, four fields.
 
 ### Mobile map
-Under 1024px a smaller lavender map with seven neurons and no fields: overthinking, the future, attachment, holding back (knots), thoughts aren't facts, the observer, presence.
-- Map description for screen readers, one per step:
-  - Learn the principle: A map of lessons drawn as neurons. Everything is faint except overthinking, the principle you just learned.
-  - Put it to use: You did today's action, so overthinking lights up in lavender and connects to thoughts aren't facts, the observer and the future.
-  - Notice the pattern: The connections from overthinking grow stronger, and new links reach further lessons, like presence and holding back. The same pattern shows up across the map.
+Under 1024px a smaller map with the story's seven neurons, colored by field like desktop: the future and overthinking (knots), the predicting brain, thoughts aren't facts, imagined suffering, the second arrow, tie your camel.
 
 ### Same idea, four fields (strip under the map, desktop only)
 Each line has its field dot and field name above it. Group label for screen readers: Same idea, four fields

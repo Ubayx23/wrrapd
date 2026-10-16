@@ -1,4 +1,4 @@
-// Drawing helpers shared by the two neuron maps in How it works (components/site/HowItWorks.tsx and SmallMap.tsx).
+// Drawing helpers for the neuron maps in How it works (components/site/HowItWorks.tsx).
 
 export type Point = [number, number];
 

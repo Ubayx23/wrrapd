@@ -132,8 +132,6 @@ export const fields: { key: Field; label: string }[] = [
 /**
  * field: the lesson's field, or "knot" for the five hubs.
  */
-export type SmallMapNode = { slug: string; label: string; core?: boolean };
-
 export type MapNode = { slug: string; label: string; field: Field | "knot" };
 
 export const how = {
@@ -141,7 +139,6 @@ export const how = {
   heading: "One idea. Four fields. All connected.",
   intro: "Two-minute lessons from neuroscience, psychology, philosophy and religion. Each one teaches a principle you can use today.",
   legendLabel: "Fields",
-  tabsLabel: "Steps",
   /** One per step, in order. alt describes the map at that step for screen readers. */
   steps: [
     {
@@ -160,23 +157,6 @@ export const how = {
       alt: "Lines draw from the future to thoughts aren't facts in psychology, imagined suffering and the second arrow in philosophy, and tie your camel in religion. The rest of the map fades in behind. One knot, four fields.",
     },
   ],
-  /** The smaller lavender map under lg: seven neurons, no fields. alt is one per step. */
-  smallMap: {
-    nodes: [
-      { slug: "overthinking", label: "overthinking", core: true },
-      { slug: "the-future", label: "the future", core: true },
-      { slug: "presence", label: "presence" },
-      { slug: "the-observer", label: "the observer" },
-      { slug: "thoughts-arent-facts", label: "thoughts aren't facts" },
-      { slug: "attachment", label: "attachment", core: true },
-      { slug: "holding-back", label: "holding back", core: true },
-    ] satisfies SmallMapNode[],
-    alts: [
-      "A map of lessons drawn as neurons. Everything is faint except overthinking, the principle you just learned.",
-      "You did today's action, so overthinking lights up in lavender and connects to thoughts aren't facts, the observer and the future.",
-      "The connections from overthinking grow stronger, and new links reach further lessons, like presence and holding back. The same pattern shows up across the map.",
-    ],
-  },
   /** The strip under the map: one idea, said once per field. Desktop only. */
   strip: {
     label: "Same idea, four fields",
