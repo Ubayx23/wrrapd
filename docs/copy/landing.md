@@ -1,7 +1,7 @@
-# wrrapd landing copy (v10)
+# wrrapd landing copy (v11)
 
 Source of truth for every word on the landing page. Edit here, then have Claude Code sync content/site.ts.
-Voice: calm, direct, a little sharp, like a friend who has read the Stoics. Short sentences. No em dashes. No emojis.
+Voice: calm and warm, like a good teacher. wrrapd is a learning platform for anyone curious about how the mind works, not a fix for people with problems. No judgment: never frame the reader as broken or behind. Short sentences. No em dashes. No emojis.
 Core idea: wrrapd is a program of micro lessons, about two minutes each, across four connected fields: neuroscience, psychology, philosophy (Stoicism and Buddhism) and religion. Each lesson teaches one principle, helps you put it to use, and connects to lessons in the other fields. The five knots are the entry points. The map shows how everything connects.
 
 ---
@@ -15,7 +15,7 @@ Core idea: wrrapd is a program of micro lessons, about two minutes each, across 
 ## Hero
 - Headline: Untangle your mind, / one lesson at a time.
 - No subheading. The hero is the headline and the button only.
-- Button: Find your knot
+- Button: Explore the knots
 
 ---
 
@@ -54,43 +54,44 @@ Each line has its field dot and field name above it. Group label for screen read
 
 ## The knots (id="knots")
 - Eyebrow: the five knots
-- Heading: What's loud in your head right now?
-- Intro: Every knot is a pattern. Pick the one that sounds like you today.
+- Heading: What's on your mind lately?
+- Intro: Every knot is a pattern most minds share. Pick the one you're curious about today.
+- Prompt (shown until a knot is picked): Tap one to see what it's about.
 
 Each card, in order: the knot name, the "Picture it" line (italic serif, no label), then The principle, Use it today, Notice it.
 
 ### 1. Overthinking
 - Sounds like: "Let me think about it one more time."
 - Picture it: Thinking is walking somewhere. Overthinking is pacing the same room, hoping a door will appear.
-- The principle: You're not solving the problem. You're replaying it. A thought that keeps repeating isn't giving you new information. It's asking for your attention, and you keep giving it.
+- The principle: Thinking moves toward an answer. Overthinking circles the same question. A thought that keeps repeating isn't bringing new information. It's asking for attention.
 - Use it today: Write the thought in one sentence. Under it, write "7pm." Close the notebook and go back to what you were doing. At 7pm, give it 10 minutes. If it still matters, write one next step. If it doesn't, cross it out.
 - Notice it: If I already knew the answer, what would I do next?
 
 ### 2. The future
 - Sounds like: "What if it all goes wrong?"
 - Picture it: Worry is carrying tomorrow's bag today. It's heavy, and it isn't even yours yet.
-- The principle: Your mind is living in a day that doesn't exist yet. It rehearses the worst version so you feel prepared, but all it really does is make you live it twice.
+- The principle: The mind likes to visit days that haven't happened yet. It rehearses the hard version so you feel prepared, and often that just means living it twice.
 - Use it today: Split a page in two. Left: what I can act on this week. Right: what I can't control. Do one thing from the left side. Leave the right side on the page.
 - Notice it: What is the one step in front of me today?
 
 ### 3. Holding back
 - Sounds like: "I'll start when I'm ready."
 - Picture it: You can't steer a parked car. Move first, then adjust.
-- The principle: Not starting feels safe, because you can't fail at something you never tried. But waiting to feel ready is just fear with good manners.
+- The principle: Not starting can feel safe, because nothing has been tested yet. But readiness usually shows up after you begin, not before.
 - Use it today: Do the smallest version of it in the next ten minutes. One paragraph. One message. One rep.
 - Notice it: What would I start this week if no one would ever see it fail?
 
 ### 4. Attachment
 - Sounds like: "I'll be okay once I have it."
 - Picture it: Desire is an open hand. Attachment is a closed fist. You can hold the same thing either way, but only one of them lets you feel it.
-- The principle: Wanting turned into needing. Now the thing you want is holding your peace hostage, and every delay feels like a threat.
-- Use it today: Think of what you want and clench your fist. Feel how tight that is. Now open your hand and keep thinking about it. You still want it. You just stopped strangling it. Now do one thing today that moves you toward it.
+- The principle: Sometimes wanting quietly turns into needing. Then your peace starts to depend on the outcome, and every delay feels heavier than it is.
+- Use it today: Think of what you want and close your hand into a fist. Notice how tight that feels. Now open your hand and keep thinking about it. You still want it. You're just holding it more gently. Then do one small thing today that moves you toward it.
 - Notice it: If I never got this, who would I still be?
 
 ### 5. Self-sabotage
 - Sounds like: "Why do I keep doing this?"
 - Picture it: It's a smoke alarm that goes off every time you cook. It isn't broken. It's just trying too hard to keep you safe.
-- The principle: It isn't laziness. Some part of you is protecting you from something: being seen, being judged, or losing the version of you that you already know.
+- The principle: It isn't laziness. Often a part of you is trying to protect you from something: being seen, being judged, or losing the version of you that you already know.
 - Use it today: Finish this sentence on paper: "The part of me that stops me is trying to protect me from..."
 - Notice it: What am I afraid would happen if I actually followed through?
 
@@ -104,13 +105,13 @@ Card footer for every knot: "The full lesson is being written. For now, take thi
 - Side note: Have a question, or want to help build wrrapd? Message me on Instagram. @ubay.xx (https://www.instagram.com/ubay.xx/)
 
 Why is wrrapd free?
-Because I don't have all the answers myself. I'm working through the same knots you are, and charging for that would feel wrong. Most of what's here isn't mine anyway. It comes from neuroscience, psychology, the Stoics, the Buddha and religious tradition, and some of it is over two thousand years old. I'm just putting it in one place and making it easier to use.
+Because I don't have all the answers myself. I'm learning this alongside you, and charging for that would feel wrong. Most of what's here isn't mine anyway. It comes from neuroscience, psychology, the Stoics, the Buddha and religious tradition, and some of it is over two thousand years old. I'm just putting it in one place and making it easier to use.
 
 What can I expect?
-Two-minute lessons, each on one principle of how your mind works, each ending with something to do that day. Over time they connect, and you start noticing the same patterns in your own life. That takes reps, not speed.
+Two-minute lessons, each on one principle of how your mind works, each ending with something to do that day. Over time they connect, and you start noticing the same patterns in your own life. It's a practice, so there's no rush.
 
 Where do the lessons come from?
-Neuroscience and psychology research, Stoic and Buddhist philosophy, and religious tradition. Every lesson names its source, so you can go deeper on anything that hits.
+Neuroscience and psychology research, Stoic and Buddhist philosophy, and religious tradition. Every lesson names its source, so you can go deeper on anything that interests you.
 
 Is this therapy?
 No. wrrapd teaches how the mind works, the way a good book would. If you're going through something heavy, please talk to a licensed professional.
@@ -129,7 +130,7 @@ The painted landscape, no words. There is no join section: the FAQ side note inv
 ---
 
 ## Footer
-- Brand: wrrapd. / A free program of two-minute lessons for overthinkers. Learn a principle, then use it today.
+- Brand: wrrapd. / A free program of two-minute lessons on how the mind works. Learn a principle, then use it today.
 - Program: How it works / The knots / FAQ
 - Follow: Instagram
 - Bottom: © year wrrapd™. All rights reserved.

@@ -27,7 +27,7 @@ export const nav = {
 
 export const hero = {
   title: ["Untangle your mind,", "one lesson at a time."],
-  cta: { label: "Find your knot", href: "#knots" } satisfies Link,
+  cta: { label: "Explore the knots", href: "#knots" } satisfies Link,
   image: {
     src: "/images/landing/hero.png",
     mobileSrc: "/images/landing/hero-mobile.png",
@@ -48,9 +48,9 @@ export type Knot = {
 
 export const knots = {
   eyebrow: "the five knots",
-  heading: "What's loud in your head right now?",
-  intro: "Every knot is a pattern. Pick the one that sounds like you today.",
-  prompt: "Tap the one that sounds like you.",
+  heading: "What's on your mind lately?",
+  intro: "Every knot is a pattern most minds share. Pick the one you're curious about today.",
+  prompt: "Tap one to see what it's about.",
   labels: { principle: "The principle", useToday: "Use it today", notice: "Notice it" },
   footer: "The full lesson is being written. For now, take this to paper.",
   copy: "Copy the question",
@@ -63,7 +63,7 @@ export const knots = {
       picture:
         "Thinking is walking somewhere. Overthinking is pacing the same room, hoping a door will appear.",
       principle:
-        "You're not solving the problem. You're replaying it. A thought that keeps repeating isn't giving you new information. It's asking for your attention, and you keep giving it.",
+        "Thinking moves toward an answer. Overthinking circles the same question. A thought that keeps repeating isn't bringing new information. It's asking for attention.",
       useToday:
         'Write the thought in one sentence. Under it, write "7pm." Close the notebook and go back to what you were doing. At 7pm, give it 10 minutes. If it still matters, write one next step. If it doesn\'t, cross it out.',
       notice: "If I already knew the answer, what would I do next?",
@@ -75,7 +75,7 @@ export const knots = {
       picture:
         "Worry is carrying tomorrow's bag today. It's heavy, and it isn't even yours yet.",
       principle:
-        "Your mind is living in a day that doesn't exist yet. It rehearses the worst version so you feel prepared, but all it really does is make you live it twice.",
+        "The mind likes to visit days that haven't happened yet. It rehearses the hard version so you feel prepared, and often that just means living it twice.",
       useToday:
         "Split a page in two. Left: what I can act on this week. Right: what I can't control. Do one thing from the left side. Leave the right side on the page.",
       notice: "What is the one step in front of me today?",
@@ -87,7 +87,7 @@ export const knots = {
       picture:
         "You can't steer a parked car. Move first, then adjust.",
       principle:
-        "Not starting feels safe, because you can't fail at something you never tried. But waiting to feel ready is just fear with good manners.",
+        "Not starting can feel safe, because nothing has been tested yet. But readiness usually shows up after you begin, not before.",
       useToday:
         "Do the smallest version of it in the next ten minutes. One paragraph. One message. One rep.",
       notice: "What would I start this week if no one would ever see it fail?",
@@ -99,9 +99,9 @@ export const knots = {
       picture:
         "Desire is an open hand. Attachment is a closed fist. You can hold the same thing either way, but only one of them lets you feel it.",
       principle:
-        "Wanting turned into needing. Now the thing you want is holding your peace hostage, and every delay feels like a threat.",
+        "Sometimes wanting quietly turns into needing. Then your peace starts to depend on the outcome, and every delay feels heavier than it is.",
       useToday:
-        "Think of what you want and clench your fist. Feel how tight that is. Now open your hand and keep thinking about it. You still want it. You just stopped strangling it. Now do one thing today that moves you toward it.",
+        "Think of what you want and close your hand into a fist. Notice how tight that feels. Now open your hand and keep thinking about it. You still want it. You're just holding it more gently. Then do one small thing today that moves you toward it.",
       notice: "If I never got this, who would I still be?",
     },
     {
@@ -111,7 +111,7 @@ export const knots = {
       picture:
         "It's a smoke alarm that goes off every time you cook. It isn't broken. It's just trying too hard to keep you safe.",
       principle:
-        "It isn't laziness. Some part of you is protecting you from something: being seen, being judged, or losing the version of you that you already know.",
+        "It isn't laziness. Often a part of you is trying to protect you from something: being seen, being judged, or losing the version of you that you already know.",
       useToday:
         'Finish this sentence on paper: "The part of me that stops me is trying to protect me from..."',
       notice: "What am I afraid would happen if I actually followed through?",
@@ -203,17 +203,17 @@ export const faq = {
     {
       question: "Why is wrrapd free?",
       answer:
-        "Because I don't have all the answers myself. I'm working through the same knots you are, and charging for that would feel wrong. Most of what's here isn't mine anyway. It comes from neuroscience, psychology, the Stoics, the Buddha and religious tradition, and some of it is over two thousand years old. I'm just putting it in one place and making it easier to use.",
+        "Because I don't have all the answers myself. I'm learning this alongside you, and charging for that would feel wrong. Most of what's here isn't mine anyway. It comes from neuroscience, psychology, the Stoics, the Buddha and religious tradition, and some of it is over two thousand years old. I'm just putting it in one place and making it easier to use.",
     },
     {
       question: "What can I expect?",
       answer:
-        "Two-minute lessons, each on one principle of how your mind works, each ending with something to do that day. Over time they connect, and you start noticing the same patterns in your own life. That takes reps, not speed.",
+        "Two-minute lessons, each on one principle of how your mind works, each ending with something to do that day. Over time they connect, and you start noticing the same patterns in your own life. It's a practice, so there's no rush.",
     },
     {
       question: "Where do the lessons come from?",
       answer:
-        "Neuroscience and psychology research, Stoic and Buddhist philosophy, and religious tradition. Every lesson names its source, so you can go deeper on anything that hits.",
+        "Neuroscience and psychology research, Stoic and Buddhist philosophy, and religious tradition. Every lesson names its source, so you can go deeper on anything that interests you.",
     },
     {
       question: "Is this therapy?",
@@ -229,7 +229,7 @@ export const closing = {
 
 export const footer = {
   logo: "wrrapd.",
-  blurb: "A free program of two-minute lessons for overthinkers. Learn a principle, then use it today.",
+  blurb: "A free program of two-minute lessons on how the mind works. Learn a principle, then use it today.",
   columns: [
     { heading: "Program", links },
     { heading: "Follow", links: [{ label: "Instagram", href: "https://www.instagram.com/ubay.xx/" }] satisfies Link[] },

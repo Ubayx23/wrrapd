@@ -4,7 +4,7 @@
 wrrapd is a program of micro lessons, about two minutes each, across four connected fields: neuroscience, psychology, philosophy (Stoicism and Buddhism) and religion. Each lesson teaches one principle, helps you put it to use, and connects to lessons in the other fields, so you start noticing the same patterns in your own life. The five knots are the entry points. The map shows how everything connects.
 
 ## What wrrapd is
-wrrapd is a free reflection platform for overthinkers. It teaches you how your mind works through short, deep lessons, then sends you to your own notebook to reflect. Built by Ubay for himself first, shared on Instagram.
+wrrapd is a free learning platform for anyone curious about how the mind works. It teaches through short, deep lessons, then sends you to your own notebook to reflect. Built by Ubay for himself first, shared on Instagram.
 Tagline: untangle your mind.
 
 ## Principles (never break these)
@@ -18,6 +18,7 @@ Tagline: untangle your mind.
 
 ## Voice
 Calm, honest, like a good tutor. Direct and action first. Never hype, never harsh, never motivational fluff. Short sentences. No em dashes. No emojis.
+No judgment. wrrapd is a learning platform, not a fix for people with problems. Never frame the reader as broken, behind or an "overthinker". Write with curiosity and warmth, especially on the landing page.
 Never market 'free' above the FAQ. It only appears in the FAQ and the footer.
 The hero has no subheading.
 
